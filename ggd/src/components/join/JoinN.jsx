@@ -1,23 +1,23 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 
-const join_n = () => {
+const JoinN = () => {
     return (
-        <div className='Join_N'>
+        <div className='join'>
             <form className="Content" onSubmit={handleSubmit(onSubmit)}>
-               <input className='Input'
+               <input className='input'
                placeholder='ID' /> 
                <Button type="button">
                 ID 중복 확인
                </Button>
-               <input className="Input"
+               <input className="input"
                placeholder='닉네임' />
                <Button type="button">
                 닉네임 중복 확인
                </Button>
+               
             </form>
         </div>
     );
 };
 
-export default join_n;
+export default JoinN;

@@ -9,6 +9,7 @@ import Hot from "./components/shop/Hot";
 import Used from "./components/shop/Used";
 import Game from "./components/idlecup/Game";
 import IdlecupLayout from "./components/idlecup/IdlecupLayout";
+import JoinChoice from "./components/join/JoinChoice";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/shoppingmall" element={<ShoppingMall />} />
           <Route path="/hot" element={<Hot />} />
           <Route path="/used" element={<Used />} />
+          <Route path="/joinchoice" element={<JoinChoice />} />
         </Route>
         <Route element={<IdlecupLayout />}>
           <Route path="/idlecup" element={<IdlecupMain />} />

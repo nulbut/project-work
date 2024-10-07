@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const join_choice = () => {
+const JoinChoice = () => {
     return (
         <div>
             <ul>
@@ -16,4 +16,4 @@ const join_choice = () => {
     );
 };
 
-export default join_choice;
+export default JoinChoice;
