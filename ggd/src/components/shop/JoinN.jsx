@@ -33,7 +33,12 @@ const JoinN = () => {
                </div>
                <div className='gender'>
                 <div>성별</div>
-                <input type='radio' />
+                <input type='radio' />남성
+                <input type='radio' />여성
+               </div>
+               <div className='birthday'>
+                <div>생년월일</div>
+                <input placeholder='YYYY-MM-DD' />
                </div>
             </form>
         </div>
