@@ -1,7 +1,5 @@
 import React from "react";
 
-import Footer from "./Footer";
-import Header from "./Header";
 import { Link, Outlet } from "react-router-dom";
 
 const ShoppingMall = () => {
