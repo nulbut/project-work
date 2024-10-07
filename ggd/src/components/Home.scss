@@ -1,0 +1,83 @@
+.container {
+  font-size: 4em;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+
+  .left-container {
+    position: fixed;
+    width: 50%;
+    height: 100%;
+    left: 0;
+    background-color: aqua;
+    transition-property: all;
+    transition-duration: 1.5s;
+    transition-timing-function: ease;
+  }
+
+  .left-content {
+    text-decoration: none;
+    color: wheat;
+    position: fixed;
+    width: 50%;
+    height: 100%;
+    left: 0;
+    z-index: 99;
+    &:hover ~ .left-container {
+      width: 80%;
+      background-color: coral;
+      background-image: url("./images/game.svg");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 70% 70%;
+    }
+    &:hover ~ .right-container {
+      width: 20%;
+    }
+
+    &:hover ~ .logo {
+      opacity: 0;
+    }
+  }
+  .logo {
+    width: 30%;
+    z-index: 3;
+    transition-property: all;
+    transition-duration: 1.5s;
+    transition-timing-function: ease;
+  }
+  .right-container {
+    position: fixed;
+    width: 50%;
+    height: 100%;
+    right: 0;
+    background-color: brown;
+    transition-property: all;
+    transition-duration: 1.5s;
+    transition-timing-function: ease;
+  }
+
+  .right-content {
+    text-decoration: none;
+    color: wheat;
+    position: fixed;
+    width: 50%;
+    height: 100%;
+    right: 0;
+    z-index: 99;
+    &:hover ~ .right-container {
+      width: 80%;
+      background-color: coral;
+      background-image: url("./images/shop.svg");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 70% 70%;
+    }
+    &:hover ~ .logo {
+      opacity: 0;
+    }
+  }
+}
