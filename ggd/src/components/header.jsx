@@ -1,7 +1,11 @@
 import React from "react";
+import {Link} from "react-router-dom";
 
 const Header = () => {
-  return <div>헤더</div>;
+  return <div>
+    <Link to="/main"></Link> 
+
+  </div>;
 };
 
 export default Header;
