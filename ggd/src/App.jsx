@@ -6,6 +6,7 @@ import ShoppingMall from "./components/ShoppingMall";
 import ShopLayout from "./components/ShopLayout";
 import Hot from "./components/Hot";
 import Used from "./components/Used";
+import New from "./components/New";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route element={<ShopLayout />}>
           <Route path="/shoppingmall" element={<ShoppingMall />} />
+          <Route path="/new" element={<New />} />
           <Route path="/hot" element={<Hot />} />
           <Route path="/used" element={<Used />} />
         </Route>
