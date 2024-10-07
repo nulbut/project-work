@@ -1,8 +1,8 @@
 import React from "react";
-import { useCallback, useEffect, useState } from "react";
-import { Routes, Route, useNavigate } from "react-router-dom";
+
 import Footer from "./Footer";
 import Header from "./Header";
+import { Link, Outlet } from "react-router-dom";
 
 const ShoppingMall = () => {
   function Slider() {
@@ -24,8 +24,14 @@ const ShoppingMall = () => {
   }
   return (
     <div>
-      <Header />
-      <Footer />
+      <ul>
+        <li>
+          <Link to="/used">중고</Link>
+        </li>
+        <li>
+          <Link to="/hot">인기</Link>
+        </li>
+      </ul>
     </div>
   );
 };
