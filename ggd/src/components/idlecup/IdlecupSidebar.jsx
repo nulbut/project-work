@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faTrophy,
   faFilePen,
-  faHouseUser,
+  faHouseUser,faFlagCheckered,faChartSimple
 } from "@fortawesome/free-solid-svg-icons";
 import styles from "./scss/IdlecupSidebar.scss";
 import { icon } from "@fortawesome/fontawesome-svg-core";
