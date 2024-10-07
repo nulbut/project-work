@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
-import data from "./data";
+// import "./scss/Slide.scss";
+import data from "./data"
 
 function Slide() {
   const [slideIndex, setSlideIndex] = useState(1);
@@ -57,5 +58,67 @@ function Slide() {
     </Container>
   );
 }
+// 10-07 15:30 
+const Container = styled.div`
+  width: 400px;
+  height: 400px;
+  margin: 200px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+`;
+
+const Arrow = styled.button`
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto 0;
+  left: ${({ direction }) => direction === "prev" && "0px"};
+  right: ${({ direction }) => direction === "next" && "0px"};
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: pink;
+  z-index: 1;
+`;
+
+const Slide = styled.div`
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 20px;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  &.active {
+    opacity: 1;
+  }
+`;
+
+const Photo = styled.img``;
+
+const Name = styled.div``;
+
+const Nickname = styled.div``;
+
+const DotContainer = styled.div`
+  position: absolute;
+  bottom: 0;
+  width: 150px;
+  display: flex;
+  justify-content: space-between;
+`;
+
+const Dot = styled.div`
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: pink;
+  cursor: pointer;
+  &.active {
+    background-color: skyblue;
+  }
+`;
 
 export default Slide;
