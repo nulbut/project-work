@@ -1,22 +1,14 @@
 import { useCallback, useEffect, useState } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import Home from "./components/Home";
-<<<<<<< HEAD
-import Idlecup from "./components/Idlecup";
-import ShoppingMall from "./components/ShoppingMall";
-import ShopLayout from "./components/ShopLayout";
-import Hot from "./components/Hot";
-import Used from "./components/Used";
-import New from "./components/New";
-=======
 import IdlecupMain from "./components/idlecup/IdlecupMain";
 import ShoppingMall from "./components/shop/ShoppingMall";
 import ShopLayout from "./components/shop/ShopLayout";
+import New from "./components/shop/New";
 import Hot from "./components/shop/Hot";
 import Used from "./components/shop/Used";
 import Game from "./components/idlecup/Game";
 import IdlecupLayout from "./components/idlecup/IdlecupLayout";
->>>>>>> 9cdb2359a5924122103c9f80174a89ee5a19d50c
 
 function App() {
   return (
