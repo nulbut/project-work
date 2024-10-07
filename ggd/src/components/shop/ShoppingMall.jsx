@@ -1,6 +1,10 @@
 import React from "react";
+<<<<<<< HEAD:ggd/src/components/ShoppingMall.jsx
 import Footer from "./Footer";
 import Header from "./Header";
+=======
+
+>>>>>>> 9cdb2359a5924122103c9f80174a89ee5a19d50c:ggd/src/components/shop/ShoppingMall.jsx
 import { Link, Outlet } from "react-router-dom";
 
 const ShoppingMall = () => {
