@@ -1,13 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import logo from "./images/logo.svg";
+import game from "./images/game.svg";
 import "./Home.scss";
 
 const Home = () => {
   return (
     <div className="container">
       <Link className="left-content" to="/idlecup">
-        {/* 이상형월드컵 */}
+        {/* <div className="select-logo">
+          <img src={game} />
+          <div>이상형월드컵</div>
+        </div> */}
       </Link>
       <div className="left-container"></div>
 
