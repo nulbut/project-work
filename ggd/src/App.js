@@ -1,23 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header lstate={loginState} onLogout={onLogout} />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/join" element={<Join />} />
+        <Route path="/login" element={<Login sucLogin={sucLogin} />} />
+        <Route path="/main" element={<Main />} />
+        <Route path="/write" element={<Write />} />
+        <Route path="/board" element={<Board />} />
+        <Route path="/update" element={<Update />} />
+        <Route path="/mypage" element={<Mypage />} />
+        <Route path="/changepass" element={<ChangePass />} />
+      </Routes>
+      <Footer />
     </div>
   );
 }
