@@ -1,21 +1,18 @@
-import "./App.css";
+import { useCallback, useEffect, useState } from "react";
+import { Routes, Route, useNavigate } from "react-router-dom";
+import Home from "./components/Home";
+import Idlecup from "./components/Idlecup";
+import ShoppingMall from "./components/ShoppingMall";
 
 function App() {
   return (
     <div className="App">
-      <Header lstate={loginState} onLogout={onLogout} />
+
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/join" element={<Join />} />
-        <Route path="/login" element={<Login sucLogin={sucLogin} />} />
-        <Route path="/main" element={<Main />} />
-        <Route path="/write" element={<Write />} />
-        <Route path="/board" element={<Board />} />
-        <Route path="/update" element={<Update />} />
-        <Route path="/mypage" element={<Mypage />} />
-        <Route path="/changepass" element={<ChangePass />} />
+        <Route path="/idlecup" element={<Idlecup />} />
+        <Route path="/shoppingmall" element={<ShoppingMall />} />
       </Routes>
-      <Footer />
     </div>
   );
 }
