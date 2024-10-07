@@ -17,10 +17,10 @@ import Mypage from "./components/shop/Mypage";
 import Cart from "./components/shop/Cart";
 import Dibs from "./components/shop/Dibs";
 import Login from "./components/shop/Login";
-import Join from "./components/shop/Join";
 import OrderDelivery from "./components/shop/OrderDelivery";
 import Inquiry from "./components/shop/Inquiry";
-import JoinChoice from "./components/join/JoinChoice";
+import JoinChoice from "./components/shop/JoinChoice";
+import JoinN from "./components/shop/JoinN";
 
 function App() {
   return (
@@ -39,11 +39,10 @@ function App() {
           <Route path="/cart" element={<Cart/>} />
           <Route path="/dibs" element={<Dibs />} />
           <Route path="/login" element={<Login/>} />
-          <Route path="/join" element={<Join/>} />
+          <Route path="/joinchoice" element={<JoinChoice/>} />
+          <Route path="/join_n" element={<JoinN />} />
           <Route path="/orderDelivery" element={<OrderDelivery/>} />
           <Route path="/inquiry" element={<Inquiry/>} />
-
-          <Route path="/joinchoice" element={<JoinChoice />} />
         </Route>
         <Route element={<IdlecupLayout />}>
           <Route path="/idlecup" element={<IdlecupMain />} />

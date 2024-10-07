@@ -21,7 +21,7 @@ const Header = () => {
     <Link to= "/Cart"><FontAwesomeIcon icon={faBagShopping} style={{color: "#000000",}} /></Link>&nbsp;
     <Link to= "/Dibs"><FontAwesomeIcon icon={faHeart} style={{color: "#000000",}} /></Link>&nbsp;
     <Link to= "/Login">로그인</Link>&nbsp; 
-    <Link to= "/Join">회원가입</Link>&nbsp; 
+    <Link to= "/JoinChoice">회원가입</Link>&nbsp; 
     <Link to= "/OrderDelivery">주문/배송</Link>&nbsp; 
     <Link to= "/Inquiry">Q&A</Link>&nbsp; 
     
