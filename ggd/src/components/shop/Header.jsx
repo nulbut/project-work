@@ -11,10 +11,10 @@ const Header = () => {
     <Link to="/ShoppingMall">GGD'S</Link>
     <Link to ="/Idlecup"> <img src={logo}></img> </Link>
     <FontAwesomeIcon icon={faList} />
-    <Link to= "/Hot_Product">인기상품</Link>&nbsp;
+    <Link to= "/HotProduct">인기상품</Link>&nbsp;
     <Link to= "/Latest_Product">최신상품</Link>&nbsp; 
-    <Link to= "/New_Product">신상품</Link>&nbsp;
-    <Link to= "/Used_Product">중고상품</Link>&nbsp; 
+    <Link to= "/NewProduct">신상품</Link>&nbsp;
+    <Link to= "/UsedProduct">중고상품</Link>&nbsp; 
     <Link to= "/Notification">공지사항</Link>&nbsp; 
     <input type="text" placeholder="검색"/><FontAwesomeIcon icon={faMagnifyingGlass} />&nbsp;
     <Link to= "/Mypage"><FontAwesomeIcon icon={faUser} style={{color: "#000000",}} /></Link>&nbsp;
