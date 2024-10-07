@@ -13,6 +13,7 @@ import IdlecupLayout from "./components/idlecup/IdlecupLayout";
 function App() {
   return (
     <div className="App">
+
       <Routes>
         <Route path="/" element={<Home />} />
         <Route element={<ShopLayout />}>
@@ -25,6 +26,7 @@ function App() {
           <Route path="/game" element={<Game />} />
         </Route>
       </Routes>
+      
     </div>
   );
 }
