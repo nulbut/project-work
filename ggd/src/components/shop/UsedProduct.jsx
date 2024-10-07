@@ -1,7 +1,7 @@
 import React from "react";
 
-const Used_Product = () => {
+const UsedProduct = () => {
   return <div>중고</div>;
 };
 
-export default Used_Product;
+export default UsedProduct;

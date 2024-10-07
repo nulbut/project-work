@@ -3,24 +3,27 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faTrophy,
   faFilePen,
-  faHouseUser,faFlagCheckered,faChartSimple
+  faHouseUser,
+  faFlagCheckered,
+  faChartSimple,
+  faCommentDots,
 } from "@fortawesome/free-solid-svg-icons";
-import styles from "./scss/IdlecupSidebar.scss";
+import "./scss/IdlecupSidebar.scss";
 import { icon } from "@fortawesome/fontawesome-svg-core";
 const IdlecupSidebar = () => {
   const menus = [
     {
-      name: "이상형 월드컵",
+      name: "이상형\n월드컵",
       path: "/",
       icon: <FontAwesomeIcon icon={faTrophy} />,
     },
     {
-      name: "월드컵 만들기",
+      name: "월드컵\n만들기",
       path: "/",
       icon: <FontAwesomeIcon icon={faFilePen} />,
     },
     {
-      name: "내가 만든 월드컵",
+      name: "나의\n월드컵",
       path: "/",
       icon: <FontAwesomeIcon icon={faHouseUser} />,
     },
@@ -34,27 +37,27 @@ const IdlecupSidebar = () => {
       path: "/",
       icon: <FontAwesomeIcon icon={faChartSimple} />,
     },
-    { name: "문의", path: "/" },
+    {
+      name: "문의",
+      path: "/ㅇ",
+      icon: <FontAwesomeIcon icon={faCommentDots} />,
+    },
   ];
   return (
     <div className="sidebar">
-      <div>
-        {menus.map((menu, index) => {
-          return (
-            <div
-              exact
-              style={{ color: "gray", textDecoration: "none" }}
-              to={menu.path}
-              key={index}
-              activeStyle={{ color: "black" }}
-            >
-              {menu.icon}
-              {menu.name}
-              <div menu={menu} />
-            </div>
-          );
-        })}
-      </div>
+      {menus.map((menu, index) => {
+        return (
+          <div
+            className="sidebar-menu"
+            to={menu.path}
+            key={index}
+            activeStyle={{ color: "black" }}
+          >
+            <div className="side-icon">{menu.icon}</div>
+            {menu.name}
+          </div>
+        );
+      })}
     </div>
   );
 };

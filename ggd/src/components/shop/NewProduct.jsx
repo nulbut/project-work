@@ -1,6 +1,6 @@
 import React from 'react';
 
-const New_Product = () => {
+const NewProduct = () => {
     return (
         <div>
             신상품
@@ -8,4 +8,4 @@ const New_Product = () => {
     );
 };
 
-export default New_Product;
+export default NewProduct;
