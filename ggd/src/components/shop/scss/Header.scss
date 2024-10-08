@@ -1,0 +1,53 @@
+.Header {
+    height: 40px;
+    width: 100%;
+    background-color: aqua;
+    padding-left: 50px;
+    position: relative;
+    padding-top: 5px;
+    padding-bottom: 10px;
+    font-size: 1.6em;
+    align-items: center;
+    
+    
+    img {
+      height: 40px;
+    }
+        .Content{
+            // font-size: 2em;
+            display: flex;
+            position: absolute;
+            padding-left: 50px;
+
+            .Category{
+                padding-left: 50px;
+                font-size: 1.2em;
+                border-right: 2px solid black ;
+                padding-right: 20px;
+            }
+            .Title{
+                padding-left: 10px;
+                border-right: 2px solid black;
+                
+            }
+            .Menu{
+                display: none;
+                background: #eee;
+                box-shadow: 0px 10px 8px 0px rgba(0, 0, 0, 0.3);
+                padding: 5px;
+            }
+            .Title:hover .Menu{
+                display: flex;
+            }
+            .Search{
+                padding-left: 15px;
+                
+
+            }
+            .Item{
+                
+            }
+
+            
+        }
+  }
