@@ -1,9 +1,76 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const JoinN = () => {
+    // const nav = useNavigate();
+
+    // let ck = false; //아이디 중복 체크 
+
+    // //입력값 유효성 체크를 위한 useForm사용 
+    // const {
+    //     handleSubmit,
+    //     register,
+    //     watch,
+    //     formState: { errors }, 
+    // } = useForm();
+
+    // const idCheck = () => {
+    //     let mid = watch("nid"); //watch로 form의 입력값을 가져옴. 
+
+    //     if (nid === "") {
+    //         alert("아이디를 입력해주세요.");
+    //         ck = false;
+    //         return;
+    //     }
+    //     //서버로 id를 전송하여 중복여부 확인
+    //     const sendId = { nid : nid }; //보낼 데이터를 객체 형태로 작성.
+
+    //     axios
+    //         .post("/idCheck", sendId)
+    //         .then((res) => {
+    //             if(res.data.res === "ok") {
+    //                 alert(res.data.msg); //"사용 가능한 아이디 입니다."출력
+    //                 ck = true;
+    //             }else {
+    //                 alert(res.data.msg); //"중복된 아이디 입니다." 출력
+    //                 ck = false;
+    //             }
+    //         })
+    //         .catch((err) => {
+    //             //error 표시 
+    //             console.log(err);
+    //             ck = false;
+    //         });
+    // };
+
+    // const onSubmit = (form) => {
+    //     if (ck == false){
+    //         alert("ID 중복 확인을 해주세요.");
+    //         return;
+    //     }
+
+    //     axios
+    //         .post("/joinproc", form)
+    //         .then((res) => {
+    //             if(res.data="ok"){
+    //                 alert("가입 성공했습니다. 환영합니다!");
+    //                 nav("/login"); //가입 성공 시 로그인 페이지로 이동.
+    //             }
+    //             else{
+    //                 alert("가입 실패. 관리자에게 문의해주세요.");
+    //             }
+    //         })
+    //         .catch((err) => {
+    //             alert("가입 실패. 관리자에게 문의해주세요.");
+    //             console.log(err);
+    //         });
+    // };
+
     return (
         <div className='join'>
-            <form className="Content">
+            <form className="Content" 
+            // onSubmit={handleSubmit(onSubmit)}
+            >
                <div className='id'>
                 <p>ID
                     <button>
