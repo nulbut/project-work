@@ -1,12 +1,10 @@
 import { useCallback, useEffect, useState } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import Home from "./components/Home";
-
 import ShoppingMall from "./components/shop/ShoppingMall";
 import ShopLayout from "./components/shop/ShopLayout";
 import UsedProduct from "./components/shop/UsedProduct";
 import LatestProducts from "./components/shop/LatestProducts";
-import New from "./components/shop/New";
 import HotProduct from "./components/shop/HotProduct";
 import NewProduct from "./components/shop/NewProduct";
 import Notification from "./components/shop/Notification";
