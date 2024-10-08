@@ -68,6 +68,7 @@ const JoinN = () => {
 
     return (
         <div className='join'>
+            <h1>LOGIN</h1>
             <form className="Content" 
             // onSubmit={handleSubmit(onSubmit)}
             >

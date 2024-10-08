@@ -10,6 +10,7 @@ const Login = () => {
     }; {/*아이디,비밀번호 찾기로 이동.*/}
     return (
         <div className='login'>
+            <h1>LOGIN</h1>
             <div className='id'>
                 <p>ID</p>
                 <input placeholder='ID 입력' />

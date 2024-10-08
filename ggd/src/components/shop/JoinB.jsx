@@ -3,6 +3,7 @@ import React from 'react';
 const JoinB = () => {
     return (
         <div className='join'>
+            <h1>LOGIN</h1>
             <div className='essential'>
                 <p>* 표시 필수 입력</p>
             </div>

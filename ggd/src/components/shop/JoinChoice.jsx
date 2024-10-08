@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 
 const JoinChoice = () => {
     return (
-        <div>
+        <div className='joinchoice'>
+            <h1>LOGIN</h1>
             <ul>
                 <li>
                     <Link to="/join_n">개인 회원</Link>
