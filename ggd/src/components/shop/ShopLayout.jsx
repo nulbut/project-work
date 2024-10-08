@@ -4,6 +4,7 @@ import Header from './Header';
 import Footer from './Footer';
 
 
+
 const ShopLayout = () => {
     return (
         <div>

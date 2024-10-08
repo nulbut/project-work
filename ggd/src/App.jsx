@@ -22,6 +22,7 @@ import OrderDelivery from "./components/shop/OrderDelivery";
 import Inquiry from "./components/shop/Inquiry";
 import JoinChoice from "./components/join/JoinChoice";
 
+
 function App() {
   return (
     <div className="App">
@@ -42,7 +43,7 @@ function App() {
           <Route path="/join" element={<Join/>} />
           <Route path="/orderDelivery" element={<OrderDelivery/>} />
           <Route path="/inquiry" element={<Inquiry/>} />
-
+      
           <Route path="/joinchoice" element={<JoinChoice />} />
         </Route>
         <Route element={<IdlecupLayout />}>
