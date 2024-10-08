@@ -54,6 +54,23 @@ const JoinN = () => {
                 -<input />
                 </p>
                </div>
+               <div className='email'>
+                <p>Email</p>
+                <p><input placeholder='you@example.com' />
+                <button>E-mail인증</button>
+                </p>
+               </div>
+               <div className='address'>
+                <p>
+                    <input placeholder='우편번호' />
+                    <button>아이콘들어갈수있나?</button>
+                </p>
+                <div><input placeholder='주소 입력' /></div>
+                <div><input placeholder='상세 주소 입력' /></div>
+               </div>
+               <div className='joinbutton'>
+                <button>가입하기</button>
+               </div>
             </form>
         </div>
     );
