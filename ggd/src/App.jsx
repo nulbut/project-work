@@ -37,10 +37,10 @@ function App() {
           <Route path="/mypage" element={<Mypage />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/dibs" element={<Dibs />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/join" element={<Join />} />
-          <Route path="/orderDelivery" element={<OrderDelivery />} />
-          <Route path="/inquiry" element={<Inquiry />} />
+          <Route path="/login" element={<Login/>} />
+          <Route path="/join" element={<Join/>} />
+          <Route path="/orderDelivery" element={<OrderDelivery/>} />
+          <Route path="/inquiry" element={<Inquiry/>} />
 
           <Route path="/joinchoice" element={<JoinChoice />} />
         </Route>
