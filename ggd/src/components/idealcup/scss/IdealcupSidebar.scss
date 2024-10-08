@@ -1,9 +1,12 @@
 .sidebar {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  font-size: 1em;
-  background-color: #e3ecf1;
   position: fixed;
+
+  font-size: 0.8em;
+  background-color: #fef7ff;
   top: 0;
   bottom: 0;
   left: 0;
@@ -23,9 +26,12 @@
   text-decoration: none;
   color: black;
 }
+.active {
+  color: blue;
+}
 
 .side-icon {
-  font-size: 1.8em;
+  font-size: 3em;
 }
 
 .openBtn {
