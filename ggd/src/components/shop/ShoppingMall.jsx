@@ -1,11 +1,12 @@
 import React from "react";
-import Slider from "./Slider";
+import Slideshow from "./Slideshow";
+
 import { Link, Outlet } from "react-router-dom";
 
 const ShoppingMall = () => {
   return (
     <div>
-      <Slider />
+      <Slideshow />
     </div>
   );
 };
