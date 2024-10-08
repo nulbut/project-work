@@ -22,6 +22,7 @@ import Inquiry from "./components/shop/Inquiry";
 import JoinChoice from "./components/shop/JoinChoice";
 import JoinN from "./components/shop/JoinN";
 import JoinB from "./components/shop/JoinB";
+import IdPasswordFind from "./components/shop/IdPasswordFind";
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
           <Route path="/cart" element={<Cart/>} />
           <Route path="/dibs" element={<Dibs />} />
           <Route path="/login" element={<Login/>} />
+          <Route path="/idpwdfind" element={<IdPasswordFind/>}/>
           <Route path="/joinchoice" element={<JoinChoice/>} />
           <Route path="/join_n" element={<JoinN />} />
           <Route path="/join_b" element={<JoinB />} />
