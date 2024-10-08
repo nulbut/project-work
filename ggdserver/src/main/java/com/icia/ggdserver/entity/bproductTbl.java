@@ -2,7 +2,6 @@ package com.icia.ggdserver.entity;
 
 
 import jakarta.persistence.*;
-import lombok.Cleanup;
 import lombok.Data;
 
 @Entity
