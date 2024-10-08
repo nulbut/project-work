@@ -7,6 +7,9 @@ const ShoppingMall = () => {
     <div>
       <ul>
         <li>
+          <Link to="/new">최신</Link>
+        </li>
+        <li>
           <Link to="/used">중고</Link>
         </li>
         <li>
