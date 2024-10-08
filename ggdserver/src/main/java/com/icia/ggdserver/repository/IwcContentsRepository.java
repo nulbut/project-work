@@ -1,4 +1,7 @@
 package com.icia.ggdserver.repository;
 
-public interface IwcContentsRepository {
+import com.icia.ggdserver.entity.IwcContentsTbl;
+import org.springframework.data.repository.CrudRepository;
+
+public interface IwcContentsRepository extends CrudRepository<IwcContentsTbl, Long> {
 }

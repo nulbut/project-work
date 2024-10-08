@@ -1,6 +1,6 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-
+import "./scss/IdealcupLayout.scss";
 import IdealcupHeader from "./IdealcupHeader";
 import IdealcupFooter from "./IdealcupFooter";
 import IdealcupSidebar from "./IdealcupSidebar";
@@ -10,7 +10,9 @@ const IdealcupLayout = () => {
     <div>
       <IdealcupHeader />
       <IdealcupSidebar />
-      <Outlet />
+      <div className="body">
+        <Outlet />
+      </div>
       <IdealcupFooter />
     </div>
   );
