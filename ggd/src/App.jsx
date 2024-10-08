@@ -21,6 +21,7 @@ import OrderDelivery from "./components/shop/OrderDelivery";
 import Inquiry from "./components/shop/Inquiry";
 import JoinChoice from "./components/shop/JoinChoice";
 import JoinN from "./components/shop/JoinN";
+import JoinB from "./components/shop/JoinB";
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
           <Route path="/login" element={<Login/>} />
           <Route path="/joinchoice" element={<JoinChoice/>} />
           <Route path="/join_n" element={<JoinN />} />
+          <Route path="/join_b" element={<JoinB />} />
           <Route path="/orderDelivery" element={<OrderDelivery/>} />
           <Route path="/inquiry" element={<Inquiry/>} />
         </Route>

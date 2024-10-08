@@ -1,5 +1,4 @@
 import React from 'react';
-import Button from './Button';
 
 const JoinN = () => {
     return (
@@ -23,10 +22,10 @@ const JoinN = () => {
                </div>
                <div className='password'>
                <p>Password</p>
-               <input placeholder=
+               <input type='password' placeholder=
                '영문,숫자,특수문자 중 2종류 이상을 조합하여 최소 8자리' />
                <p>비밀번호 확인</p>
-               <input placeholder=
+               <input type='password' placeholder=
                '영문,숫자,특수문자 중 2종류 이상을 조합하여 최소 8자리' />
                </div>
                <div className='name'>
