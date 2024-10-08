@@ -20,8 +20,6 @@ import Login from "./components/shop/Login";
 import Join from "./components/shop/Join";
 import OrderDelivery from "./components/shop/OrderDelivery";
 import Inquiry from "./components/shop/Inquiry";
-import JoinChoice from "./components/join/JoinChoice";
-
 
 function App() {
   return (
@@ -43,8 +41,7 @@ function App() {
           <Route path="/join" element={<Join/>} />
           <Route path="/orderDelivery" element={<OrderDelivery/>} />
           <Route path="/inquiry" element={<Inquiry/>} />
-      
-          <Route path="/joinchoice" element={<JoinChoice />} />
+
         </Route>
         <Route element={<IdlecupLayout />}>
           <Route path="/idlecup" element={<IdlecupMain />} />
