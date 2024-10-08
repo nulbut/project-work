@@ -44,7 +44,7 @@ const Header = () => {
           <p className='Menu'>낮은 가격순</p>
           <p className='Menu'>인기순</p>
         </div>
-        <div className="">
+        <div className="Title">
           <Link to= "/Notification"  style={{ textDecoration: "none"}}>공지사항</Link>&nbsp; 
         </div>
       

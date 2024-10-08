@@ -22,12 +22,12 @@
             .Category{
                 padding-left: 50px;
                 font-size: 1.2em;
-                border-right: 2px solid black ;
+                // border-right: 2px solid black ;
                 padding-right: 20px;
             }
             .Title{
                 padding-left: 10px;
-                border-right: 2px solid black;
+                // border-right: 2px solid black;
                 
             }
             .Menu{
@@ -39,6 +39,7 @@
             .Title:hover .Menu{
                 display: flex;
             }
+        
             .Search{
                 padding-left: 15px;
                 
