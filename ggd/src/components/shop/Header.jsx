@@ -45,7 +45,7 @@ const Header = () => {
         <Link to= "/Cart"><FontAwesomeIcon icon={faBagShopping} style={{color: "#000000",  textDecoration: "none"}} /></Link>&nbsp;
         <Link to= "/Dibs"><FontAwesomeIcon icon={faHeart} style={{color: "#000000",  textDecoration: "none"}} /></Link>&nbsp;
         <Link to= "/Login" style={{ textDecoration: "none"}}>로그인</Link>&nbsp; 
-        <Link to= "/Join" style={{ textDecoration: "none"}}>회원가입</Link>&nbsp; 
+        <Link to= "/JoinChoice" style={{ textDecoration: "none"}}>회원가입</Link>&nbsp; 
         <Link to= "/OrderDelivery" style={{ textDecoration: "none"}}>주문/배송</Link>&nbsp; 
         <Link to= "/Inquiry" style={{ textDecoration: "none"}}>Q&A</Link>&nbsp; 
       </div>

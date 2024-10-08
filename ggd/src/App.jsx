@@ -12,14 +12,17 @@ import Mypage from "./components/shop/Mypage";
 import Cart from "./components/shop/Cart";
 import Dibs from "./components/shop/Dibs";
 import Login from "./components/shop/Login";
-import Join from "./components/shop/Join";
 import OrderDelivery from "./components/shop/OrderDelivery";
 import Inquiry from "./components/shop/Inquiry";
-import JoinChoice from "./components/join/JoinChoice";
+import JoinChoice from "./components/shop/JoinChoice";
 import IdealcupMain from "./components/idealcup/IdealcupMain";
 import Game from "./components/idealcup/Game";
 import IdealcupLayout from "./components/idealcup/IdealcupLayout";
 import IdealCupMaker from "./components/idealcup/IdealcupMaker";
+import JoinN from "./components/shop/JoinN";
+import JoinB from "./components/shop/JoinB";
+import IdPasswordFind from "./components/shop/IdPasswordFind";
+
 function App() {
   return (
     <div className="App">
@@ -37,11 +40,12 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/dibs" element={<Dibs />} />
           <Route path="/login" element={<Login/>} />
-          <Route path="/join" element={<Join/>} />
+          <Route path="/idpwdfind" element={<IdPasswordFind/>}/>
+          <Route path="/joinchoice" element={<JoinChoice/>} />
+          <Route path="/join_n" element={<JoinN />} />
+          <Route path="/join_b" element={<JoinB />} />
           <Route path="/orderDelivery" element={<OrderDelivery/>} />
           <Route path="/inquiry" element={<Inquiry/>} />
-
-          <Route path="/joinchoice" element={<JoinChoice />} />
         </Route>
         <Route element={<IdealcupLayout />}>
           <Route path="/idlecup" element={<IdealcupMain />} />

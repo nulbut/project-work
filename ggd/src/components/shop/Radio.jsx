@@ -1,11 +1,11 @@
 import React from 'react';
 
-const Join = () => {
+const Radio = () => {
     return (
         <div>
-            회원가입
+            라디오
         </div>
     );
 };
 
-export default Join;
+export default Radio;
