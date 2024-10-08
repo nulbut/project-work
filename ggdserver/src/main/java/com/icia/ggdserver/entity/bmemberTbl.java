@@ -11,7 +11,7 @@ import lombok.Data;
 @Data
 public class bmemberTbl { //사업자 회원 테이블
     @Id
-    private String b_id; //아이디
+    private String b_id; //아이디 (PK)
 
     @Column(nullable = false, unique = true, length = 50)
     private String b_cname; //상호
