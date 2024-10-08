@@ -7,17 +7,17 @@ const JoinN = () => {
             <form className="Content">
                <div className='id'>
                 <div>ID</div>
-                <Button>
+                <button>
                     ID 중복 확인
-                </Button>
+                </button>
                 <input placeholder='영어/대소문자 4~12자' />
                </div>
                <div className='nickname'>
                <div>닉네임</div>
-               <input placeholder='영어/대소문자 4~12자' />
-               <Button>
+               <button>
                 닉네임 중복 확인
-               </Button>
+               </button>
+               <input placeholder='영어/대소문자 4~12자' />
                </div>
                <div className='password'>
                <div>Password</div>
@@ -39,6 +39,15 @@ const JoinN = () => {
                <div className='birthday'>
                 <div>생년월일</div>
                 <input placeholder='YYYY-MM-DD' />
+               </div>
+               <div className='phonenum'>
+                <div>핸드폰 번호</div>
+                <select>
+                    <option value="1">010</option>
+                    <option value="2">02</option>
+                    <option value="3">032</option>
+                    <option value="4">070</option>
+                </select>
                </div>
             </form>
         </div>
