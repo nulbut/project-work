@@ -1,7 +1,7 @@
 import React from "react";
 
-const Hot = () => {
+const HotProduct = () => {
   return <div>인기상품</div>;
 };
 
-export default Hot;
+export default HotProduct;

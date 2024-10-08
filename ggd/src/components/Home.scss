@@ -12,7 +12,7 @@
     width: 50%;
     height: 100%;
     left: 0;
-    background-color: aqua;
+    background-color: rgb(237, 253, 144);
     transition-property: all;
     transition-duration: 1.5s;
     transition-timing-function: ease;
@@ -28,11 +28,11 @@
     z-index: 99;
     &:hover ~ .left-container {
       width: 80%;
-      background-color: coral;
+      background-color: rgb(252, 182, 240);
       background-image: url("./images/game.svg");
       background-repeat: no-repeat;
       background-position: center;
-      background-size: 70% 70%;
+      background-size: 50% 50%;
     }
     &:hover ~ .right-container {
       width: 20%;
@@ -54,7 +54,7 @@
     width: 50%;
     height: 100%;
     right: 0;
-    background-color: brown;
+    background-color: rgb(253, 232, 232);
     transition-property: all;
     transition-duration: 1.5s;
     transition-timing-function: ease;
@@ -70,7 +70,7 @@
     z-index: 99;
     &:hover ~ .right-container {
       width: 80%;
-      background-color: coral;
+      background-color: rgb(252, 182, 240);
       background-image: url("./images/shop.svg");
       background-repeat: no-repeat;
       background-position: center;
