@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faTrophy,
@@ -15,7 +15,7 @@ const IdealcupSidebar = () => {
   const menus = [
     {
       name: "이상형\n월드컵",
-      path: "/",
+      path: "/idlecup",
       icon: <FontAwesomeIcon icon={faTrophy} />,
     },
     {
@@ -48,10 +48,15 @@ const IdealcupSidebar = () => {
     <div className="sidebar">
       {menus.map((menu, index) => {
         return (
-          <Link className="sidebar-menu" to={menu.path} key={index}>
+          <NavLink
+            className="sidebar-menu"
+            to={menu.path}
+            key={index}
+            activeclassname="active"
+          >
             <div className="side-icon">{menu.icon}</div>
             {menu.name}
-          </Link>
+          </NavLink>
         );
       })}
     </div>

@@ -2,6 +2,10 @@ import React, { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Button from "./Button";
+import "./scss/Input.scss";
+import "./scss/Textarea.scss";
+import "./scss/FileInput.scss";
+import "./scss/Write.scss";
 
 const IdealCupMaker = () => {
   const nav = useNavigate();
@@ -100,13 +104,13 @@ const IdealCupMaker = () => {
           placeholder="게시글을 작성하세요."
           value={iwcExplanation}
         ></textarea>
-        {/* <div className="FileInput">
+        <div className="FileInput">
           <input id="upload" type="file" multiple onChange={onFileChange} />
           <label className="FileLabel" htmlFor="upload">
             파일선택
           </label>
           <span className="FileSpan">{fileName}</span>
-        </div> */}
+        </div>
         <div className="Buttons">
           <Button
             type="button"

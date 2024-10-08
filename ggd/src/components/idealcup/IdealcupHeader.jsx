@@ -6,7 +6,7 @@ const IdealcupHeader = () => {
   return (
     <header>
       <div>
-        이상형 월드컵
+        GGD's 이상형 월드컵
         <img src={logo} />
       </div>
     </header>
