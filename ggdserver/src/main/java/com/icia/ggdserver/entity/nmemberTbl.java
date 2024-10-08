@@ -24,7 +24,7 @@ public class nmemberTbl { //일반 회원 테이블
     private String n_bday; //생년월일
 
     @Column(nullable = false, length = 1)
-    private String n_gender; //성별
+    private int n_gender; //성별
 
     @Column(nullable = false, length = 20)
     private String n_phonenum; //전화번호
@@ -32,7 +32,7 @@ public class nmemberTbl { //일반 회원 테이블
     @Column(nullable = false, length = 100)
     private String n_email; //이메일
 
-    @Column(nullable = false, length = 70)
+    @Column(nullable = false, length = 100)
     private String n_address; //주소
 
 
