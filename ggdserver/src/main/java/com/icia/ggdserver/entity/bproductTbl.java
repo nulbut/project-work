@@ -8,7 +8,7 @@ import lombok.Data;
 @Entity
 @Table(name = "bproduct_tbl")
 @Data
-public class bproductTbl {
+public class bproductTbl { // 사업자 상품 테이블
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long bp_num; //상품번호
