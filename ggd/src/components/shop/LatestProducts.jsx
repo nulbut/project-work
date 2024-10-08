@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Latest_Products = () => {
+const LatestProducts = () => {
     return (
         <div>
             최신 상품
@@ -8,4 +8,4 @@ const Latest_Products = () => {
     );
 };
 
-export default Latest_Products;
+export default LatestProducts;

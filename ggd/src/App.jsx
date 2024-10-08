@@ -6,12 +6,12 @@ import IdlecupMain from "./components/idlecup/IdlecupMain";
 import ShoppingMall from "./components/shop/ShoppingMall";
 import ShopLayout from "./components/shop/ShopLayout";
 
-import Used_Product from "./components/shop/Used_Product";
+import UsedProduct from "./components/shop/UsedProduct";
 import Game from "./components/idlecup/Game";
 import IdlecupLayout from "./components/idlecup/IdlecupLayout";
-import Latest_Products from "./components/shop/Latest_Products";
-import Hot_Product from "./components/shop/Hot_Product";
-import New_Product from "./components/shop/New_Product";
+import LatestProducts from "./components/shop/LatestProducts";
+import HotProduct from "./components/shop/HotProduct";
+import NewProduct from "./components/shop/NewProduct";
 import Notification from "./components/shop/Notification";
 import Mypage from "./components/shop/Mypage";
 import Cart from "./components/shop/Cart";
@@ -30,10 +30,10 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route element={<ShopLayout />}>
           <Route path="/shoppingmall" element={<ShoppingMall />} />
-          <Route path="/hot_Product" element={<Hot_Product />} />
-          <Route path="/latest_Product" element={<Latest_Products/>} />
-          <Route path="/new_Product" element={<New_Product />} />
-          <Route path="/used_Product" element={<Used_Product />} />
+          <Route path="/hotProduct" element={<HotProduct />} />
+          <Route path="/latestProduct" element={<LatestProducts/>} />
+          <Route path="/newProduct" element={<NewProduct />} />
+          <Route path="/usedProduct" element={<UsedProduct />} />
           <Route path="/notification" element={<Notification/>} />
           <Route path="/mypage" element={<Mypage/>} />
           <Route path="/cart" element={<Cart/>} />
