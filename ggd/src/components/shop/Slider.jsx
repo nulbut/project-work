@@ -1,9 +1,8 @@
 import { useState } from "react";
 import styled from "styled-components";
-// import "./scss/Slide.scss";
-import data from "./data"
+import data from "../data"
 
-function Slide() {
+function Slider() {
   const [slideIndex, setSlideIndex] = useState(1);
 
   const moveToPrevSlide = () => {
@@ -29,40 +28,40 @@ function Slide() {
   return (
     <Container>
       <Arrow direction="prev" onClick={moveToPrevSlide}>
-        이전
+        ＜
       </Arrow>
-      {data.map((character) => (
+      {data.map((data) => (
         <Slide
-          key={character.id}
-          className={character.id === slideIndex ? "active" : null}
+          key={data.id}
+          className={data.id === slideIndex ? "active" : null}
         >
           <Photo
-            src={process.env.PUBLIC_URL + `/img/slider/${character.img}`}
+            src={process.env.PUBLIC_URL + `/img/slider/${data.img}`}
           />
-          <Name>{character.name}</Name>
-          <Nickname>{character.nickname}</Nickname>
+          <Name>{data.name}</Name>
+          <Nickname>{data.nickname}</Nickname>
         </Slide>
       ))}
       <Arrow direction="next" onClick={moveToNextSlide}>
-        다음
+        ＞
       </Arrow>
       <DotContainer>
-        {data.map((character) => (
+        {data.map((data) => (
           <Dot
-            key={character.id}
-            className={character.id === slideIndex ? "active" : null}
-            onClick={() => moveDot(character.id)}
+            key={data.id}
+            className={data.id === slideIndex ? "active" : null}
+            onClick={() => moveDot(data.id)}
           />
         ))}
       </DotContainer>
     </Container>
   );
 }
-// 10-07 15:30 
+// 10-08 09:10
 const Container = styled.div`
-  width: 400px;
-  height: 400px;
-  margin: 200px auto;
+  width: 600px;
+  height: 350px;
+  margin: 110px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -78,8 +77,7 @@ const Arrow = styled.button`
   right: ${({ direction }) => direction === "next" && "0px"};
   width: 50px;
   height: 50px;
-  border-radius: 50%;
-  background-color: pink;
+  background-color: aquamarine;
   z-index: 1;
 `;
 
@@ -90,7 +88,7 @@ const Slide = styled.div`
   align-items: center;
   row-gap: 20px;
   opacity: 0;
-  transition: opacity 0.3s ease-in-out;
+  transition: opacity 0.3 ease-in-out;
   &.active {
     opacity: 1;
   }
@@ -111,14 +109,13 @@ const DotContainer = styled.div`
 `;
 
 const Dot = styled.div`
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background-color: pink;
-  cursor: pointer;
-  &.active {
-    background-color: skyblue;
-  }
+width: 12px;
+height: 12px;
+border-radius: 50%;
+background-color: aqua;
+cursor: pointer;
+&.active {
+  background-color: skyblue;
+}
 `;
-
-export default Slide;
+export default Slider;

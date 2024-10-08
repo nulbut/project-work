@@ -9,7 +9,6 @@ import Hot from "./components/shop/Hot";
 import Used from "./components/shop/Used";
 import Game from "./components/idlecup/Game";
 import IdlecupLayout from "./components/idlecup/IdlecupLayout";
-import Slide from "./components/Slide";
 
 function App() {
   return (
@@ -22,7 +21,6 @@ function App() {
           <Route path="/new" element={<New />} />
           <Route path="/hot" element={<Hot />} />
           <Route path="/used" element={<Used />} />
-          <Route path="/slide" element={<Slide />} />
         </Route>
         <Route element={<IdlecupLayout />}>
           <Route path="/idlecup" element={<IdlecupMain />} />
