@@ -7,7 +7,7 @@ import lombok.Data;
 @Entity
 @Table(name = "nmember_tbl")
 @Data
-public class nmemberTbl {
+public class nmemberTbl { //일반 회원 테이블
     @Id
     private String n_id; //아이디 (PK)
 
