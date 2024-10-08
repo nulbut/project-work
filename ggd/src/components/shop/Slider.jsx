@@ -46,11 +46,11 @@ function Slider() {
         ＞
       </Arrow>
       <DotContainer>
-        {data.map((data) => (
+        {data.map((character) => (
           <Dot
-            key={data.id}
-            className={data.id === slideIndex ? "active" : null}
-            onClick={() => moveDot(data.id)}
+            key={character.id}
+            className={character.id === slideIndex ? "active" : null}
+            onClick={() => moveDot(character.id)}
           />
         ))}
       </DotContainer>
@@ -59,8 +59,8 @@ function Slider() {
 }
 // 10-08 09:10
 const Container = styled.div`
-  width: 600px;
-  height: 350px;
+  width: 1200px;
+  height: 440px;
   margin: 110px;
   display: flex;
   justify-content: center;
