@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faTrophy,
@@ -8,9 +9,9 @@ import {
   faChartSimple,
   faCommentDots,
 } from "@fortawesome/free-solid-svg-icons";
-import "./scss/IdlecupSidebar.scss";
+import "./scss/IdealcupSidebar.scss";
 import { icon } from "@fortawesome/fontawesome-svg-core";
-const IdlecupSidebar = () => {
+const IdealcupSidebar = () => {
   const menus = [
     {
       name: "이상형\n월드컵",
@@ -19,7 +20,7 @@ const IdlecupSidebar = () => {
     },
     {
       name: "월드컵\n만들기",
-      path: "/",
+      path: "/make",
       icon: <FontAwesomeIcon icon={faFilePen} />,
     },
     {
@@ -39,7 +40,7 @@ const IdlecupSidebar = () => {
     },
     {
       name: "문의",
-      path: "/ㅇ",
+      path: "/",
       icon: <FontAwesomeIcon icon={faCommentDots} />,
     },
   ];
@@ -47,19 +48,14 @@ const IdlecupSidebar = () => {
     <div className="sidebar">
       {menus.map((menu, index) => {
         return (
-          <div
-            className="sidebar-menu"
-            to={menu.path}
-            key={index}
-            activeStyle={{ color: "black" }}
-          >
+          <Link className="sidebar-menu" to={menu.path} key={index}>
             <div className="side-icon">{menu.icon}</div>
             {menu.name}
-          </div>
+          </Link>
         );
       })}
     </div>
   );
 };
 
-export default IdlecupSidebar;
+export default IdealcupSidebar;

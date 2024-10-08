@@ -1,8 +1,8 @@
 import React from "react";
 import logo from "../images/logo.svg";
-import "./scss/IdlecupHeader.scss";
+import "./scss/IdealcupHeader.scss";
 
-const IdlecupHeader = () => {
+const IdealcupHeader = () => {
   return (
     <header>
       <div>
@@ -13,4 +13,4 @@ const IdlecupHeader = () => {
   );
 };
 
-export default IdlecupHeader;
+export default IdealcupHeader;

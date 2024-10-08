@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Idlecup = () => {
+const IdealcupMain = () => {
   return (
     <div>
       이상형월드컵
@@ -10,4 +10,4 @@ const Idlecup = () => {
   );
 };
 
-export default Idlecup;
+export default IdealcupMain;
