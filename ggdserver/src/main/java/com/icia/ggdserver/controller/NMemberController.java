@@ -24,4 +24,6 @@ public class NMemberController {
 
         return rsMap;
     }
+
+    //회원가입
 }
