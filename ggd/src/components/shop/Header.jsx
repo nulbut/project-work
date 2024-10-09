@@ -8,69 +8,68 @@ import "./scss/Header.scss";
 
 
 const Header = () => {
-  const menus = [
-    {
-      name: "GGD'S",
-      path: "ShoppingMall",
-    },
-    {
-      path: "/Idlecup",
-      img: "../images/logo.svg"
-    },
-    {
-      path: "/",
-      icon:<FontAwesomeIcon icon={faList} />
-    },
-    {
-      name: "인기상품",
-      path: "/HotProduct",
-    },
-    {
-      name: "최신상품",
-      path: "/LatestProduct",
-    },
-    {
-      name: "신상품",
-      path: "/NewProduct",
-    },
-    {
-      name: "중고상품",
-      path: "/UsedProduct",
-    },
-    {
-      name: "공지사항",
-      path: "/Notification",
-    },
-    {
-      path: "/Mypage",
-      icon: <FontAwesomeIcon icon={faUser} style={{color: "#000000"}} />,
-    },
-    {
-      path: "/Cart",
-      icon:<FontAwesomeIcon icon={faBagShopping} style={{color: "#000000"}} />,
-    },
-    {
-      path: "/Dibs",
-      icon: <FontAwesomeIcon icon={faHeart} style={{color: "#000000"}} />,
-    },
-    {
-      name: "주문/배송",
-      path: "/OrderDelivery",
-    },
-    {
-      name: "Q&A",
-      path: "/Inquiry",
-    }
-  ]
+  // const menus = [
+  //   {
+  //     name: "GGD'S",
+  //     path: "ShoppingMall",
+  //   },
+  //   {
+  //     path: "/Idlecup",
+  //     img: "../images/logo.svg"
+  //   },
+  //   {
+  //     path: "/",
+  //     icon:<FontAwesomeIcon icon={faList} />
+  //   },
+  //   {
+  //     name: "인기상품",
+  //     path: "/HotProduct",
+  //   },
+  //   {
+  //     name: "최신상품",
+  //     path: "/LatestProduct",
+  //   },
+  //   {
+  //     name: "신상품",
+  //     path: "/NewProduct",
+  //   },
+  //   {
+  //     name: "중고상품",
+  //     path: "/UsedProduct",
+  //   },
+  //   {
+  //     name: "공지사항",
+  //     path: "/Notification",
+  //   },
+  //   {
+  //     path: "/Mypage",
+  //     icon: <FontAwesomeIcon icon={faUser} style={{color: "#000000"}} />,
+  //   },
+  //   {
+  //     path: "/Cart",
+  //     icon:<FontAwesomeIcon icon={faBagShopping} style={{color: "#000000"}} />,
+  //   },
+  //   {
+  //     path: "/Dibs",
+  //     icon: <FontAwesomeIcon icon={faHeart} style={{color: "#000000"}} />,
+  //   },
+  //   {
+  //     name: "주문/배송",
+  //     path: "/OrderDelivery",
+  //   },
+  //   {
+  //     name: "Q&A",
+  //     path: "/Inquiry",
+  //   }
+  // ]
   return <div className="Header">
     <div className="Content">
       <Link to="/ShoppingMall"  style={{ textDecoration: "none"}}>GGD'S</Link>
       <Link to ="/Idlecup"> <img src={logo}></img> </Link>
-      <div className="Category">
+      <div className="Title">
       <FontAwesomeIcon icon={faList} />
-      
+      <div className="Menu"></div>
       </div>
-      
         <div className="Title">
           <Link to= "/HotProduct"  style={{ textDecoration: "none"}}>인기상품</Link>&nbsp;
           <p className='Menu'>높은 가격순</p>
