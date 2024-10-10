@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FlexBox } from "./style";
-
+import "./scss/game.scss";
 const items = [
   {
     name: "산리오",
@@ -18,6 +17,22 @@ const items = [
   {
     name: "도라에몽",
     src: require("../images/4.JPG"),
+  },
+  {
+    name: "산리오",
+    src: require("../images/5.JPG"),
+  },
+  {
+    name: "도라에몽",
+    src: require("../images/6.JPG"),
+  },
+  {
+    name: "산리오",
+    src: require("../images/7.JPG"),
+  },
+  {
+    name: "도라에몽",
+    src: require("../images/8.JPG"),
   },
 ];
 
@@ -37,6 +52,7 @@ const Game = () => {
         setDisplays([food]);
       } else {
         let updatedFood = [...winners, food];
+        updatedFood.sort(() => Math.random() - 0.5);
         setFoods(updatedFood);
         setDisplays([updatedFood[0], updatedFood[1]]);
         setWinners([]);
@@ -48,17 +64,17 @@ const Game = () => {
     }
   };
   return (
-    <FlexBox>
+    <div className="frame">
       <h1 className="title">이상형 월드컵</h1>
       {displays.map((d) => {
         return (
-          <div className="flex-1" key={d.name} onClick={clickHandler(d)}>
+          <div className="flex-1" key={d.src} onClick={clickHandler(d)}>
             <img className="food-img" src={d.src} />
             <div className="name">{d.name}</div>
           </div>
         );
       })}
-    </FlexBox>
+    </div>
   );
 };
 
