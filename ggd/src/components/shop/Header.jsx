@@ -112,7 +112,7 @@ const Header = () => {
               {menu.name}
             </Link>
           ) : (
-            <div
+            <Link
                 className="Content-sub"
                 to={menu.path}
                 key={index}
@@ -131,7 +131,7 @@ const Header = () => {
                     })}
                   </div> 
                 </div>
-              </div>
+              </Link>
             
           )
         )
