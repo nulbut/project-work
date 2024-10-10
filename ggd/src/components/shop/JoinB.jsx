@@ -18,7 +18,7 @@ const JoinB = () => {
                     </p>
                     <input placeholder='"-" 제외한 13자리 숫자 입력'/>
             </div>
-            <div className='taxation type'>
+            <div className='taxationtype'>
                 <p>과세유형 *</p>
                 <select>
                     <option value="1">일반 과세자</option>
