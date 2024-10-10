@@ -15,10 +15,11 @@ import java.util.Map;
 public class NMemberController {
     @Autowired
     private NMemberService nmServ;
-
+    
+    //아이디 체크
     @PostMapping("nidCheck")
     public Map<String,String> nidCheck(@RequestBody nmemberTbl nmemberTbl){
-        log.info("nidCheck() mid : {}", nmemberTbl.getN_id());
+        log.info("nidCheck() nid : {}", nmemberTbl.getN_id());
 
         Map<String, String> rsMap = nmServ.nidCheck(nmemberTbl.getN_id());
 
@@ -26,4 +27,10 @@ public class NMemberController {
     }
 
     //회원가입
+    @PostMapping("joinproc")
+    public String joinproc(@RequestBody nmemberTbl nmemberTbl){
+        log.info("joinproc()");
+        String res = nmServ.joinMember(nmemberTbl);
+        return res;
+    }
 }

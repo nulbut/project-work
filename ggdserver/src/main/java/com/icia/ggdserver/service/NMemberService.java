@@ -1,5 +1,6 @@
 package com.icia.ggdserver.service;
 
+import com.icia.ggdserver.entity.nmemberTbl;
 import com.icia.ggdserver.repository.NMemberRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,5 +38,25 @@ public class NMemberService {
             rsMap.put("msg","사용할 수 없는 아이디입니다.");
         }
         return rsMap;
-    }
+    }//nidCheck end
+
+    //회원가입
+    public String joinMember(nmemberTbl nmemberTbl) {
+        log.info("joinMember()");
+        String res = null;
+
+        //비밀번호 암호화
+        String epwd = encoder.encode(nmemberTbl.getN_pw());
+        log.info("epwd : {}", epwd);
+        nmemberTbl.setN_pw(epwd); //원래 비밀번호를 암호화된 비밀번호로 변경
+
+        try{
+            nmRepo.save(nmemberTbl);
+            res = "ok";
+        } catch (Exception e){
+            e.printStackTrace();
+            res = "fail";
+        }
+        return res;
+    }//joinMember end
 }
