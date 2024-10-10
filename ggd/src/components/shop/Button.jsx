@@ -1,9 +1,18 @@
 import React from 'react';
+import classnames from "classnames";
 
-const Button = () => {
+const Button = (props) => {
+
+    const {
+        children,
+        ...rest
+    } = props;
     return (
-        <button>
-            중복확인
+        <button
+        classname={classnames("Button")}
+        {...rest}
+        >
+            {children}
         </button>
     );
 };

@@ -1,6 +1,6 @@
 package com.icia.ggdserver.controller;
 
-import com.icia.ggdserver.entity.nmemberTbl;
+import com.icia.ggdserver.entity.NmemberTbl;
 import com.icia.ggdserver.service.NMemberService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,17 +18,27 @@ public class NMemberController {
     
     //아이디 체크
     @PostMapping("nidCheck")
-    public Map<String,String> nidCheck(@RequestBody nmemberTbl nmemberTbl){
-        log.info("nidCheck() nid : {}", nmemberTbl.getN_id());
+    public Map<String,String> nidCheck(@RequestBody NmemberTbl nmemberTbl){
+        log.info("nidCheck() n_id : {}", nmemberTbl.getNid());
 
-        Map<String, String> rsMap = nmServ.nidCheck(nmemberTbl.getN_id());
+        Map<String, String> rsMap = nmServ.nidCheck(nmemberTbl.getNid());
 
         return rsMap;
     }
 
+    //닉네임 체크
+    @PostMapping("nnickCheck")
+    public Map<String,String> nnickCheck(@RequestBody NmemberTbl nmemberTbl){
+        log.info("nnickCheck() n_nickname : {}", nmemberTbl.getNnickname());
+
+        Map<String, String> nrsMap = nmServ.nnickCheck(nmemberTbl.getNnickname());
+
+        return nrsMap;
+    }
+
     //회원가입
     @PostMapping("joinproc")
-    public String joinproc(@RequestBody nmemberTbl nmemberTbl){
+    public String joinproc(@RequestBody NmemberTbl nmemberTbl){
         log.info("joinproc()");
         String res = nmServ.joinMember(nmemberTbl);
         return res;
