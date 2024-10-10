@@ -58,7 +58,7 @@ const ShopSideber = () => {
                     key={index}
                 >
                     <div className='ShopSideber-Icon'>{menu.icon}</div>
-                    {menu.name}
+                    {/* {menu.name} */}
                 </NavLink>
                 );
             })}
