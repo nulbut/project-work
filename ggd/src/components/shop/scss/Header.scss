@@ -1,9 +1,9 @@
 .Header {
+    padding-top: 10px;
     height: 40px;
     width: 100%;
     background-color: burlywood;
     border: 1px solid black;
-    position: absolute;
     grid-template-columns: 1fr 1fr;
     grid-gap: 10px;
     display: flex;
@@ -14,48 +14,54 @@
         
       }
 
-        .Content{
-            padding-top: 10px;
-            padding-bottom: 10px;
-            position: relative;
-            float: left;
-            width: 60px;
-            margin-left: 20px;
-            background-color: rgb(255, 255, 255);
-            border: 1px solid black;
+    .Content{
+        padding-bottom: 10px;
+        float: left;
+        width: 80px;
+        margin-left: 20px;
+        background-color: rgb(255, 255, 255);
+        border: 1px solid black;
+    }
+    .Content-sub{
+        
+        padding-bottom: 10px;
+        float: left;
+        width: 80px;
+        margin-left: 20px;
+        background-color: rgb(255, 255, 255);
+        border: 1px solid black;
+
+        .Sub {
+            display: none;
+        }
+
+        &:hover .Sub{
+            margin-top: 30px;
+            border: 1px solid ;
+            display: block;
+            z-index: 9;
         }
     }
 
-//             .Category{
-//                 padding-left: 50px;
-//                 font-size: 1.2em;
-//                 // border-right: 2px solid black ;
-//                 padding-right: 20px;
-//             }
-//             .Title{
-//                 padding-left: 10px;
-//                 // border-right: 2px solid black;
-                
-//             }
-//             .Menu{
-//                 display: none;
-//                 background: #eee;
-//                 box-shadow: 0px 10px 8px 0px rgba(0, 0, 0, 0.3);
-//                 padding: 5px;
-//             }
-//             .Title:hover .Menu{
-//                 display: flex;
-//             }
-        
-//             .Search{
-//                 padding-left: 15px;
-                
+    .input{
+        border: 2px solid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 10px;
+        margin-left: 20px;
+        padding: 10px;
+    }
+    .Icon{
+        font-size: 2em;
+    }
+    .Content2{
+        float: left;
+        width: 80px;
+        margin-left: 20px;
+        border: 1px solid black;
+    }
+    .Icon2{
+        font-size: 2em;
+    }
 
-//             }
-//             .Item{
-                
-//             }
+}
 
-            
-//         }
-//   }
