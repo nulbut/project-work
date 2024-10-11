@@ -80,5 +80,32 @@ public class NMemberService {
         return res;
     }//joinMember end
 
+    //로그인 처리 메소드
+    public Map<String, String> loginproc(NmemberTbl nmemberTbl) {
+        log.info("loginproc()");
+        NmemberTbl ndbMember = null;
+        Map<String, String> rsMap = new HashMap<>();
 
-}
+        try {
+            ndbMember = nmRepo.findById(nmemberTbl.getNid()).get();
+            //db에서 꺼내온 사용자의 비밀번호와 입력한 비밀번호를 비교
+
+            if (encoder.matches(nmemberTbl.getNpw(), ndbMember.getNpw())){
+                //로그인 성공
+                rsMap.put("res", "ok");
+                rsMap.put("nid", nmemberTbl.getNid());
+            }
+            else {
+                //비밀번호가 틀림
+                rsMap.put("res","fail");
+                rsMap.put("msg","비밀번호가 일치하지 않습니다.");
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+            //회원이 아닌 경우
+            rsMap.put("res","fail");
+            rsMap.put("msg","회원정보가 존재하지 않습니다.");
+        }
+        return rsMap;
+    }//loginproc end
+}//class end

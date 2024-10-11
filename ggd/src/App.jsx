@@ -23,14 +23,63 @@ import IdealCupMaker from "./components/idealcup/IdealcupMaker";
 import JoinN from "./components/shop/JoinN";
 import JoinB from "./components/shop/JoinB";
 import IdPasswordFind from "./components/shop/IdPasswordFind";
+import Header from "./components/shop/Header";
 
 function App() {
+  const nav = useNavigate();
+
+  //로그인 상태 저장
+  const [loginState, setLoginState] = useState({
+    loginid : "",
+    mlink : "/login",
+  }); //로그인 전 상태 
+
+  //로그아웃 함수 
+  const onLogout = () => {
+    alert("로그아웃 되었습니다.");
+    const newState = {
+      loginid : "",
+      mlink: "/login",
+    };
+    setLoginState(newState);
+
+    //로그아웃 후 로그인 상태정보 삭제 
+    sessionStorage.removeItem("nid");
+
+    //첫페이지로 이동
+    nav("/");
+  };
+
+  //세션에 저장된 로그인 정보를 가져옴 (로그인 상태 유지)
+  useEffect(() => {
+    const nid = sessionStorage.getItem("nid");
+
+    if(nid !== null) {
+      //로그인 상태 
+      const newState = {
+        loginid : nid,
+        mlink : "/mypage",
+      };
+      setLoginState(newState);
+    }
+  }, []);
+
+  //로그인 성공 시 로그인 상태 변경 함수 
+  const sucLogin = useCallback((nid) => {
+    const newState = {
+      loginid : nid,
+      mlink : "/mypage",
+    };
+    setLoginState(newState);
+  }, []);
+
+
   return (
     <div className="App">
-      <Routes>
+      <Routes> 
         <Route path="/" element={<Home />} />
-        <Route element={<ShopLayout />}>
-          <Route path="/shoppingmall" element={<ShoppingMall />} />
+        <Route element={<ShopLayout lstate={loginState} onLogout={onLogout}/>}>
+          <Route path="/shoppingmall" element={<ShoppingMall/>} />
           <Route path="/hotProduct" element={<HotProduct />} />
           <Route path="/latestProduct" element={<LatestProducts />} />
           <Route path="/newProduct" element={<NewProduct />} />
@@ -39,7 +88,8 @@ function App() {
           <Route path="/mypage" element={<Mypage />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/dibs" element={<Dibs />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={<Login sucLogin={sucLogin} />} />
+
           <Route path="/idpwdfind" element={<IdPasswordFind />} />
           <Route path="/joinchoice" element={<JoinChoice />} />
           <Route path="/join_n" element={<JoinN />} />
