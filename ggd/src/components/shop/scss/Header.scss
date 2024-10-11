@@ -28,7 +28,7 @@
         float: left;
         width: 80px;
         margin-left: 20px;
-        background-color: rgb(255, 255, 255);
+        // background-color: rgb(255, 255, 255);
         border: 1px solid black;
 
         .Sub {
@@ -36,7 +36,7 @@
         }
 
         &:hover .Sub{
-            margin-top: 30px;
+            margin-top: 20px;
             border: 1px solid ;
             display: block;
             z-index: 9;
