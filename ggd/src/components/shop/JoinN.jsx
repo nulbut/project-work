@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { Children } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import Button from './Button';
 
-const JoinN = () => {
+const JoinN = (props) => {
     const nav = useNavigate();
 
     let ck = false; //아이디 중복 체크 
@@ -46,12 +46,42 @@ const JoinN = () => {
             });
     };
 
-    const onSubmit = (form) => {
-        // if (ck == false){
-        //     alert("ID 중복 확인을 해주세요.");
-        //     return;
-        // }
 
+    //닉네임 중복 체크 
+    const nickCheck = () => {
+        let nnickname = watch("nnickname"); 
+
+        if (nnickname === "") {
+            alert("닉네임을 입력해주세요.");
+            ck = false;
+            return;
+        }
+
+        const sendNick = {nnickname : nnickname}; 
+
+        axios
+            .post("/nnickCheck", sendNick)
+            .then((res) => {
+                if(res.data.res === "ok"){
+                    alert(res.data.msg); //사용 가능한 닉네임입니다. 출력 
+                    ck = true;
+                }else {
+                    alert(res.data.msg); // 이미 사용중인 닉네임 입니다. 출력 
+                    ck = false;
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+                ck = false; 
+            });
+    };
+    const onSubmit = (form) => {
+        if (ck == false){
+            alert("ID 중복 확인을 해주세요.");
+            return;
+        }
+
+        //form 전송 
         axios
             .post("/joinproc", form)
             .then((res) => {
@@ -66,10 +96,9 @@ const JoinN = () => {
             .catch((err) => {
                 alert("가입 실패. 관리자에게 문의해주세요.");
                 console.log(err);
-            });
-    };
-
-    
+            }); 
+        
+    }
 
     return (
         <div className='join'>
@@ -80,7 +109,7 @@ const JoinN = () => {
                <div className='id'>
                 <p>ID
                     <span className='error'>{errors?.nid?.message}</span>
-                    <Button type="button">
+                    <Button type="button" onClick={nidCheck} outline>
                     ID 중복 확인
                 </Button>
                 </p>
@@ -93,10 +122,7 @@ const JoinN = () => {
                </div>
                <div className='nickname'>
                <p>닉네임 
-                {/* <button onClick={nnickCheck} outline>
-                닉네임 중복 확인
-               </button> */}
-               <Button type="button">닉네임 중복 확인</Button>
+               <Button type="button" onClick={nickCheck} outline>닉네임 중복 확인</Button>
                </p>
                <input 
                 placeholder='영어/대소문자 4~12자' 
@@ -162,27 +188,19 @@ const JoinN = () => {
                 <span className='error'>{errors?.nbday?.message}</span>
                </div>
                <div className='phonenum'>
-                <p>핸드폰 번호</p>
-                <p><select {...register("nphonenum")}>
-                    <option value={"010"}>010</option>
-                    <option value={"02"}>02</option>
-                    <option value={"032"}>032</option>
-                    <option value={"070"}>070</option>
-                </select>
-                -<input 
+                <p>전화 번호</p>
+                {/* <Phone ></Phone> */}
+                <input 
                 className='input'
+                placeholder=' - 를 제외한 번호 입력'
+                // value={num}
+                // ref={phoneRef}
+                // onChange={handlePhone}
                 {...register("nphonenum", {
-                    required: {value: true, message: "핸드폰 번호는 필수 입력값입니다."}
-                })}
-                />
-                -<input 
-                className='input'
-                {...register("nphonenum", {
-                    required: {value: true, message: "핸드폰 번호는 필수 입력값입니다."}
+                    required: {value: true, message: "전화번호는 필수 입력값입니다."}
                 })}
                 />
                 <span className='error'>{errors?.nphonenum?.message}</span>
-                </p>
                </div>
                <div className='email'>
                 <p>Email</p>
