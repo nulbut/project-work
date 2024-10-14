@@ -23,6 +23,7 @@ import IdealCupMaker from "./components/idealcup/IdealcupMaker";
 import JoinN from "./components/shop/JoinN";
 import JoinB from "./components/shop/JoinB";
 import IdPasswordFind from "./components/shop/IdPasswordFind";
+import MypageLayout from "./components/shop/MypageLayout";
 
 function App() {
   const nav = useNavigate();
@@ -78,6 +79,7 @@ function App() {
       <Routes> 
         <Route path="/" element={<Home />} />
         <Route element={<ShopLayout lstate={loginState} onLogout={onLogout}/>}>
+        <Route element={<MypageLayout />} ></Route>
           <Route path="/shoppingmall" element={<ShoppingMall/>} />
           <Route path="/hotProduct" element={<HotProduct />} />
           <Route path="/latestProduct" element={<LatestProducts />} />

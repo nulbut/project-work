@@ -36,7 +36,7 @@ const Mypage = () => {
                 <p>마이페이지<img src={logo}/></p>
             </div>
             <div className='border-ber'>
-                
+                <div>..님</div>
                 {buttons.map((butn, idx) =>{
                     return (
                         <Link

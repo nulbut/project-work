@@ -16,7 +16,7 @@ const Header = ({lstate, onLogout }) => {
   const {loginid} = lstate;
   const {mlink} = lstate;
   
-  const [categoryitem, setCategoryitem] = useState([]);//빈 객체로 초기화
+  // const [categoryitem, setCategoryitem] = useState([]);//빈 객체로 초기화
   const menus = [//메뉴
     {
       name: "GGD'S" ,
@@ -77,7 +77,7 @@ const Header = ({lstate, onLogout }) => {
 
   const menus2 =[ // 아이콘/메뉴2
     {
-      path: "/Mypage",
+      path: "/MypageLayout",
       icon: <FontAwesomeIcon icon={faUser} style={{color: "#000000"}} />,
     },
     {
@@ -197,21 +197,20 @@ const Header = ({lstate, onLogout }) => {
               >
                 <div>
                   {menu.name}
-                  <div>
                     {submenus.map((sub, idx) => {
-                      return (<Link
+                      return (
+                      <Link
                         className="Sub"
                         to={sub.path}
                         key={idx}
                       >
                         {sub.name}
                       </Link>
-                      )
+                      );
                     })}
-                  </div>
                 </div>
               </Link>
-            
+            )
           )
         )
       })}
@@ -248,8 +247,8 @@ const Header = ({lstate, onLogout }) => {
           <Link to={"/joinchoice"}>회원가입</Link>
         )}
         
-        </div>
-    </div>
+      </div>
+  </div>
   );
 };
 export default Header;
