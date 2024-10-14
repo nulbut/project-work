@@ -1,0 +1,50 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+
+  font-size: 0.8em;
+  background-color: #fef7ff;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  padding-top: 3%;
+  color: #202020;
+  height: 100%;
+  z-index: 99;
+  width: 5%;
+  white-space: pre-wrap;
+}
+
+
+.sidebar-menu {
+  width: 80%;
+  height: 12%;
+  margin: auto;
+  align-items: center;
+  text-decoration: none;
+  color: black;
+}
+.active {
+  color: blue;
+}
+
+.side-icon {
+  font-size: 3em;
+}
+
+.openBtn {
+  width: 100%;
+  height: 100%;
+}
+.content {
+  padding: 40px 40px 0 20px;
+  position: relative;
+  width: 100%;
+}
+.icon {
+  margin: 0;
+  color: #202020;
+}
