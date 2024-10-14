@@ -23,6 +23,7 @@ import IdealCupMaker from "./components/idealcup/IdealcupMaker";
 import JoinN from "./components/shop/JoinN";
 import JoinB from "./components/shop/JoinB";
 import IdPasswordFind from "./components/shop/IdPasswordFind";
+import IdealcupMy from "./components/idealcup/IdealcupMy";
 import MypageLayout from "./components/shop/MypageLayout";
 
 function App() {
@@ -30,20 +31,20 @@ function App() {
 
   //로그인 상태 저장
   const [loginState, setLoginState] = useState({
-    loginid : "",
-    mlink : "/login",
-  }); //로그인 전 상태 
+    loginid: "",
+    mlink: "/login",
+  }); //로그인 전 상태
 
-  //로그아웃 함수 
+  //로그아웃 함수
   const onLogout = () => {
     alert("로그아웃 되었습니다.");
     const newState = {
-      loginid : "",
+      loginid: "",
       mlink: "/login",
     };
     setLoginState(newState);
 
-    //로그아웃 후 로그인 상태정보 삭제 
+    //로그아웃 후 로그인 상태정보 삭제
     sessionStorage.removeItem("nid");
 
     //첫페이지로 이동
@@ -54,33 +55,32 @@ function App() {
   useEffect(() => {
     const nid = sessionStorage.getItem("nid");
 
-    if(nid !== null) {
-      //로그인 상태 
+    if (nid !== null) {
+      //로그인 상태
       const newState = {
-        loginid : nid,
-        mlink : "/mypage",
+        loginid: nid,
+        mlink: "/mypage",
       };
       setLoginState(newState);
     }
   }, []);
 
-  //로그인 성공 시 로그인 상태 변경 함수 
+  //로그인 성공 시 로그인 상태 변경 함수
   const sucLogin = useCallback((nid) => {
     const newState = {
-      loginid : nid,
-      mlink : "/mypage",
+      loginid: nid,
+      mlink: "/mypage",
     };
     setLoginState(newState);
   }, []);
 
-
   return (
     <div className="App">
-      <Routes> 
+      <Routes>
         <Route path="/" element={<Home />} />
-        <Route element={<ShopLayout lstate={loginState} onLogout={onLogout}/>}>
+        <Route element={<ShopLayout lstate={loginState} onLogout={onLogout} />}>
         <Route element={<MypageLayout />} ></Route>
-          <Route path="/shoppingmall" element={<ShoppingMall/>} />
+          <Route path="/shoppingmall" element={<ShoppingMall />} />
           <Route path="/hotProduct" element={<HotProduct />} />
           <Route path="/latestProduct" element={<LatestProducts />} />
           <Route path="/newProduct" element={<NewProduct />} />
@@ -102,6 +102,7 @@ function App() {
           <Route path="/idlecup" element={<IdealcupMain />} />
           <Route path="/game" element={<Game />} />
           <Route path="/make" element={<IdealCupMaker />} />
+          <Route path="/mycup" element={<IdealcupMy />} />
         </Route>
       </Routes>
     </div>

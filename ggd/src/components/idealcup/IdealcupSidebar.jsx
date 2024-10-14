@@ -25,7 +25,7 @@ const IdealcupSidebar = () => {
     },
     {
       name: "나의\n월드컵",
-      path: "/",
+      path: "/mycup",
       icon: <FontAwesomeIcon icon={faHouseUser} />,
     },
     {
