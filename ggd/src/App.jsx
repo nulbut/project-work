@@ -24,7 +24,7 @@ import JoinN from "./components/shop/JoinN";
 import JoinB from "./components/shop/JoinB";
 import IdPasswordFind from "./components/shop/IdPasswordFind";
 import IdealcupMy from "./components/idealcup/IdealcupMy";
-import MypageLayout from "./components/shop/MypageLayout";
+
 
 function App() {
   const nav = useNavigate();
@@ -79,25 +79,25 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route element={<ShopLayout lstate={loginState} onLogout={onLogout} />}>
-        <Route element={<MypageLayout />} ></Route>
           <Route path="/shoppingmall" element={<ShoppingMall />} />
           <Route path="/hotProduct" element={<HotProduct />} />
           <Route path="/latestProduct" element={<LatestProducts />} />
           <Route path="/newProduct" element={<NewProduct />} />
           <Route path="/usedProduct" element={<UsedProduct />} />
           <Route path="/notification" element={<Notification />} />
-          <Route path="/mypage" element={<Mypage />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/dibs" element={<Dibs />} />
           <Route path="/login" element={<Login sucLogin={sucLogin} />} />
-
           <Route path="/idpwdfind" element={<IdPasswordFind />} />
           <Route path="/joinchoice" element={<JoinChoice />} />
           <Route path="/join_n" element={<JoinN />} />
           <Route path="/join_b" element={<JoinB />} />
-          <Route path="/orderDelivery" element={<OrderDelivery />} />
           <Route path="/inquiry" element={<Inquiry />} />
+          <Route path="/mypage" element={<Mypage />} />
+          <Route path="/orderDelivery" element={<OrderDelivery />} />
         </Route>
+       
+
         <Route element={<IdealcupLayout />}>
           <Route path="/idlecup" element={<IdealcupMain />} />
           <Route path="/game" element={<Game />} />

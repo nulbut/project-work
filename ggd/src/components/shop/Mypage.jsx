@@ -18,15 +18,15 @@ const Mypage = () => {
             path: "/OrderDelivery",
         },
         {
-            name: "제고관리",
+            name: "회원정보 수정",
             path: "",
         },
         {
-            name: "문의사항 관리",
+            name: "찜목록",
             path: "",
         },
         {
-            name: "사업자 정보변경",
+            name: "내 문의 내역",
             path: "",
         },
     ]
@@ -36,14 +36,19 @@ const Mypage = () => {
                 <p>마이페이지<img src={logo}/></p>
             </div>
             <div className='border-ber'>
-                <div>..님</div>
+                ..님 환영합니다.
                 {buttons.map((butn, idx) =>{
                     return (
                         <Link
                         className='sideber-menu'
                         to={butn.path}
                         key={idx}
-                        >{butn.name}
+                        > 
+                        <Button
+                        type="submit"
+                        size="large"
+                        color="black"
+                        >{butn.name}</Button>
           
                         </Link>
                     )

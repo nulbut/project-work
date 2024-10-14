@@ -77,7 +77,7 @@ const Header = ({lstate, onLogout }) => {
 
   const menus2 =[ // 아이콘/메뉴2
     {
-      path: "/MypageLayout",
+      path: "/Mypage",
       icon: <FontAwesomeIcon icon={faUser} style={{color: "#000000"}} />,
     },
     {
@@ -233,11 +233,9 @@ const Header = ({lstate, onLogout }) => {
           </Link>
           )
         })}
-      </div>
-      <div>
+        <div>
         <div className="Content2">
-          <Link to={mlink}>{loginid  !== "" ?  `${loginid}님` : "로그인"}</Link>
-          
+          <Link to={mlink}>{loginid  !== "" ?  `${loginid}님` : "로그인"}</Link> 
         </div>
       </div>
       <div className="Content2">
@@ -246,8 +244,9 @@ const Header = ({lstate, onLogout }) => {
         ) : (
           <Link to={"/joinchoice"}>회원가입</Link>
         )}
-        
+ 
       </div>
+    </div>  
   </div>
   );
 };

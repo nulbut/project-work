@@ -6,7 +6,7 @@
     position: 1;
     color: #202020;
     height: 100%;
-    width: 25%;
+    width: 20%;
     white-space: pre-wrap;
     bottom: 0;
     margin-top:1%;
@@ -15,7 +15,7 @@
     
 }     
 .mypage{
-    padding-bottom: 5%;
+    
     font-size: 3em;
     float: left;
     background: #000;
@@ -26,6 +26,7 @@
     }
 }
 .border-ber{
+    position: relative;
     background-color: aqua;
     border: 1px solid gray;
     display: flex;
@@ -35,7 +36,8 @@
     width: 100%;
     height: 30%;
     padding-top: 10%;
-    padding-bottom: 16.5%;
+    padding-bottom: 8%;
+    margin-top: 30%;
     
     .sideber-menu{
     background-color: orange;
@@ -49,4 +51,7 @@
         margin-top: 30px;
         background-color: hotpink;
     }
+}
+.content {
+    align-items: center;
 }
