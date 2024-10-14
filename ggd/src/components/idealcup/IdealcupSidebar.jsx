@@ -10,7 +10,6 @@ import {
   faCommentDots,
 } from "@fortawesome/free-solid-svg-icons";
 import "./scss/IdealcupSidebar.scss";
-import { icon } from "@fortawesome/fontawesome-svg-core";
 const IdealcupSidebar = () => {
   const menus = [
     {
