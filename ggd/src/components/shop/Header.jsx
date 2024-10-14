@@ -1,5 +1,5 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import logo from "../images/logo.svg";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faList, faMagnifyingGlass, faUser,faBagShopping,faHeart} from "@fortawesome/free-solid-svg-icons";
@@ -9,7 +9,10 @@ import "./scss/Header.scss";
 
 
 
+
 const Header = ({lstate, onLogout }) => {
+
+
   const {loginid} = lstate;
   const {mlink} = lstate;
   

@@ -22,8 +22,11 @@ const Login = ({sucLogin}) => {
                 if(res.data.res === "ok"){
                     sucLogin(res.data.nid);
                     //sessionStorage에 id 값 저장
+                    
                     sessionStorage.setItem("nid",res.data.nid);
-                    alert("로그인 성공!")
+                    // sessionStorage.setItem("nnickname",res.data.nnickname);
+                    // 로그인 반응 확인용 
+                    // alert("로그인 성공!")
                     // id 전송 확인용 
                     // console.log(sessionStorage);
                     navigate("/shoppingmall"); //쇼핑몰 화면으로 이동 

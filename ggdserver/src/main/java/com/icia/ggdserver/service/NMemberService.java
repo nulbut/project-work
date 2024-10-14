@@ -94,6 +94,7 @@ public class NMemberService {
                 //로그인 성공
                 rsMap.put("res", "ok");
                 rsMap.put("nid", nmemberTbl.getNid());
+                rsMap.put("nnickname", nmemberTbl.getNnickname());
             }
             else {
                 //비밀번호가 틀림
@@ -108,4 +109,14 @@ public class NMemberService {
         }
         return rsMap;
     }//loginproc end
+
+
+    public NmemberTbl getNickname(long nnickname) {
+        log.info("getNickname()");
+
+        //닉네임 가져와서 담기
+        NmemberTbl nmemberTbl = nmRepo.findById(String.valueOf(nnickname)).get();
+
+        return nmemberTbl;
+    }
 }//class end
