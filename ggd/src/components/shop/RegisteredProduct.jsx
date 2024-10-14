@@ -16,8 +16,8 @@ const RegisteredProduct = () => {
   const mid = "asd";
 
   const options = [
-    { value: "pdName", label: "제품명"},
-    { value: "pdDetail", label: "내용"},
+    { value: "upName", label: "제품명"},
+    { value: "upDetail", label: "내용"},
   ];
 
   const [bitem, setBitem] = useState({});
@@ -60,7 +60,7 @@ const RegisteredProduct = () => {
       <TableRow key={item.pdCode}>
         <TableColumn wd="w-10">{item.pdCode}</TableColumn>
         <TableColumn wd="w-40">
-            <div onClick={() => getBoard(item.pdCode)}>{item.pdCode}</div>
+            {/* <div onClick={() => getBoard(item.pdCode)}>{item.pdCode}</div> */}
         </TableColumn>
         <TableColumn wd="w-20">{item.pdAuthor}</TableColumn>
         <TableColumn wd="w-30">{df(item.rdate)}</TableColumn>

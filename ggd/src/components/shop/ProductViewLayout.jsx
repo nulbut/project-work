@@ -1,19 +1,20 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
 import "./scss/ProductViewLayout.scss";
-import Header from "./Header";
-import Footer from "./Footer";
-import ShopSideber from "./ShopSideber";
 
-const ProductViewLayout = () => {
+const ProductViewLayout = ({ hName, children }) => {
     return (
         <div>
-            <Header />
-            <ShopSideber />
-            <div className="body">
-                <Outlet />
-            </div>
-            <Footer />
+          <table className="Table">
+            <thead>
+            <tr>
+                <th className="TableHeader w-10">{hName[0]}</th>
+                <th className="TableHeader w-40">{hName[1]}</th>
+                <th className="TableHeader w-20">{hName[2]}</th>
+                <th className="TableHeader w-30">{hName[3]}</th>
+            </tr>
+            </thead>
+            <tbody>{children}</tbody>
+          </table>
         </div>
     );
 };
