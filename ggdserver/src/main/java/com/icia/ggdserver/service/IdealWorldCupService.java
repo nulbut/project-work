@@ -94,7 +94,7 @@ public class IdealWorldCupService {
         }
 
         //페이지 당 보여질 게시글 개수
-        int listCnt = 10;
+        int listCnt = 15;
 
         //페이징 조건 처리 객체 생성(Pageable)
         Pageable pb = PageRequest.of((pNum - 1), listCnt,
