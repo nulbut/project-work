@@ -31,7 +31,8 @@ const IdealcupMain = () => {
   // const mid = sessionStorage.getItem("mid");
   const mid = "asd"; //로그인 구현 전 임시
   const nav = useNavigate();
-
+  console.log("페이지",page);
+  console.log("게임",games);
   const fetchGoods = async (inpage) => {
     //중복호출 제거
     if (pageParams.includes(inpage.pageNum)) return;

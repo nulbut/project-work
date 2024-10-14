@@ -1,11 +1,11 @@
 import React from 'react';
-import UsedproductRegistration from "./UsedproductRegistration";
+// import UsedproductRegistration from "./UsedproductRegistration";
 
 const Mypage = () => {
     return (
         <div>
             마이페이지
-            <UsedproductRegistration />
+            {/* <UsedproductRegistration /> */}
         </div>
     );
 };
