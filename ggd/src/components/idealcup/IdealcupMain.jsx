@@ -9,11 +9,19 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import moment from "moment";
 import { Link } from "react-router-dom";
-import GameViewLayout from "./GameViewLayout";
+import Button from "./Button";
 
 import TableRow from "./TableRow";
 import TableColumn from "./TableColumn";
 import Paging from "./Paging";
+
+import noimage from "../images/no-image.jpg";
+
+import {
+  faHeart,
+  faCircleExclamation,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const df = (date) => moment(date).format("YYYY-MM-DD HH:mm:ss");
 
@@ -147,7 +155,7 @@ const IdealcupMain = () => {
           <div onClick={() => getBoard(item.iwcCode)}>{item.iwcName}</div>
         </TableColumn>
         <TableColumn wd="w-20">{item.iwcAuthor}</TableColumn>
-        <TableColumn wd="w-30">{df(item.rdate)}</TableColumn>
+        <TableColumn wd="w-30">{df(item.iwcDate)}</TableColumn>
       </TableRow>
     ));
   }
@@ -157,10 +165,53 @@ const IdealcupMain = () => {
   }; //상세보기 화면으로 전환될 때 게시글 번호를 보낸다.
 
   return (
-    <div>
-      <GameViewLayout hName={["NO", "Title", "Writer", "Date"]}>
+    <div className="body">
+      {/* <GameViewLayout hName={["NO", "Title", "Writer", "Date"]}>
         {list}
-      </GameViewLayout>
+      </GameViewLayout> */}
+      <div className="product-grid">
+        {games.map((item, index) => (
+          <div key={index} className="product-card">
+            <div className="vs-imgset">
+              <img
+                src={noimage}
+                alt={`상품 이미지 ${item.iwcCode}`}
+                className="product-image"
+              />
+              <img
+                src={noimage}
+                alt={`상품 이미지 ${item.iwcCode}`}
+                className="product-image"
+              />
+            </div>
+
+            <div className="product-title">
+              <div>{item.iwcName}</div>
+              <div className="title-btn">
+                <div>
+                  <FontAwesomeIcon icon={faHeart} />
+                </div>
+                <div>
+                  <FontAwesomeIcon icon={faCircleExclamation} />
+                </div>
+              </div>
+            </div>
+
+            <p className="product-body">{item.iwcExplanation}</p>
+            <p className="product-sub">{item.iwcAuthor}</p>
+            <p className="product-body">{df(item.rdate)}</p>
+            <div className="btn-set">
+              {/* <button>시작</button>
+              <button>랭킹</button>
+              <button>공유</button> */}
+
+              <Button size="s-25">시작</Button>
+              <Button size="s-25">랭킹</Button>
+              <Button size="s-25">공유</Button>
+            </div>
+          </div>
+        ))}
+      </div>
       {hasNextPage && (
         <h1 ref={observerRef} className="loading-indicator">
           Loading more product...
