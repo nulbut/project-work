@@ -34,8 +34,38 @@ const Mypage = () => {
         },
     ]
     return (
-        <div>
-            마이페이지
+        <div className='sideber'>
+            <div className='mypage'>
+                <p>마이페이지<img src={logo}/></p>
+            </div>
+            <div className='border-ber'>
+                ..님 환영합니다.
+                {buttons.map((butn, idx) =>{
+                    return (
+                        <Link
+                        className='sideber-menu'
+                        to={butn.path}
+                        key={idx}
+                        > 
+                        <Button
+                        type="submit"
+                        size="large"
+                        color="black"
+                        >{butn.name}</Button>
+          
+                        </Link>
+                    )
+                })}
+                <div className='btn'>
+                <Button
+                type="submit"
+                size="large"
+                color="black"
+
+                >로그아웃
+                </Button>
+                </div>
+            </div>
         </div>
     );
 };
