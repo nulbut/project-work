@@ -15,9 +15,10 @@ const IdealCupMaker = () => {
     iwcExplanation: "",
     iwcAuthor: "asd",
     iwcGenre: "",
+    iwcPublic: "1",
   });
 
-  const { iwcName, iwcExplanation, iwcGenre } = data;
+  const { iwcName, iwcExplanation, iwcGenre, iwcPublic } = data;
   const [fileName, setFileName] = useState("선택된 파일이 없습니다.");
 
   //전송 데이터와 파일을 담을 멀티파트 폼 생성
@@ -104,6 +105,18 @@ const IdealCupMaker = () => {
           placeholder="게시글을 작성하세요."
           value={iwcExplanation}
         ></textarea>
+        <fieldset>
+          <input
+            type="radio"
+            value="1"
+            name="iwcPublic"
+            onChange={onch}
+            defaultChecked
+          />
+          공개
+          <input type="radio" value="0" name="iwcPublic" onChange={onch} />
+          비공개
+        </fieldset>
         <div className="FileInput">
           <input id="upload" type="file" multiple onChange={onFileChange} />
           <label className="FileLabel" htmlFor="upload">

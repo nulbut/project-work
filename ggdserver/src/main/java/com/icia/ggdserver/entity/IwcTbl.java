@@ -2,6 +2,7 @@ package com.icia.ggdserver.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
 
@@ -34,11 +35,12 @@ public class IwcTbl {
     @Column
     private long iwcComplete;
 
+    @CreationTimestamp
     @Column
     private Timestamp iwcDate;
 
     @Column(length = 1)
-    private int iwcIspublic;
+    private Integer iwcPublic;
 
 
 }

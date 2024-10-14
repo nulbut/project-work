@@ -1,11 +1,10 @@
 import React from 'react';
 
-const Radio = () => {
+const Radio = (props) => {
     return (
-        <div>
-            라디오
-        </div>
-    );
+        <div></div>
+
+    )
 };
 
 export default Radio;
