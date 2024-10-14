@@ -1,5 +1,6 @@
 import React from 'react';
 import classnames from "classnames";
+import "./scss/Button.scss";
 
 const Button = (props) => {
 
@@ -9,7 +10,7 @@ const Button = (props) => {
     } = props;
     return (
         <button
-        classname={classnames("Button")}
+        classname={classnames("button")}
         {...rest}
         >
             {children}

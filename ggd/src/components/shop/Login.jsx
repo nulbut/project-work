@@ -3,6 +3,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import Button from './Button';
+import "./scss/Login.scss";
 
 const Login = ({sucLogin}) => {
     const navigate = useNavigate();
@@ -46,7 +47,7 @@ const Login = ({sucLogin}) => {
 
     return (
         <div className='login'>
-            <form className='Content' onSubmit={handleSubmit(sendLogin)}>
+            <form className='content' onSubmit={handleSubmit(sendLogin)}>
             <h1>LOGIN</h1>
             <div className='id'>
                 <p>ID</p>
