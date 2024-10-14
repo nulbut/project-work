@@ -199,7 +199,7 @@ const IdealcupMain = () => {
 
             <p className="product-body">{item.iwcExplanation}</p>
             <p className="product-sub">{item.iwcAuthor}</p>
-            <p className="product-body">{df(item.rdate)}</p>
+            <p className="product-body">{df(item.iwcDate)}</p>
             <div className="btn-set">
               {/* <button>시작</button>
               <button>랭킹</button>
@@ -214,7 +214,7 @@ const IdealcupMain = () => {
       </div>
       {hasNextPage && (
         <h1 ref={observerRef} className="loading-indicator">
-          Loading more product...
+          이상형 월드컵 불러오는 중...
         </h1>
       )}
       이상형월드컵
