@@ -24,6 +24,7 @@ import JoinN from "./components/shop/JoinN";
 import JoinB from "./components/shop/JoinB";
 import IdPasswordFind from "./components/shop/IdPasswordFind";
 import IdealcupMy from "./components/idealcup/IdealcupMy";
+import RegisteredProduct from "./components/shop/RegisteredProduct";
 
 
 function App() {
@@ -95,6 +96,7 @@ function App() {
           <Route path="/inquiry" element={<Inquiry />} />
           <Route path="/mypage" element={<Mypage />} />
           <Route path="/orderDelivery" element={<OrderDelivery />} />
+          <Route path="/RegisterdProduct" element={<RegisteredProduct/>} />
         </Route>
        
 

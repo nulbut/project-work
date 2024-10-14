@@ -4,9 +4,9 @@ import axios from "axios";
 import moment from "moment";
 import { Link } from "react-router-dom";
 import ProductViewLayout from "./ProductViewLayout";
-
 import TableRow from "./TableRow";
 import TableColumn from "./TableColumn";
+import Mypage from "./Mypage";
 
 const df = (date) => moment(date).format("YYYY-MM-DD HH:mm:ss");
 
@@ -71,6 +71,7 @@ const RegisteredProduct = () => {
 
   return (
     <div>
+        <Mypage/> 
         <ProductViewLayout hName={["NO", "Title", "Writer", "Date"]}>
             {list}
         </ProductViewLayout>

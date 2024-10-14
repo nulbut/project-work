@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import "./scss/Mypage.scss";
 import  Button from "../idealcup/Button";
 import logo from "../images/logo.svg";
-import RegisteredProduct from './RegisteredProduct';
+
 // import UsedproductRegistration from "./UsedproductRegistration"; //마이페이지 등록한 상품 페이지에 들어갈거
 
 const Mypage = () => {
@@ -14,7 +14,7 @@ const Mypage = () => {
         },
         {
             name: "등록한 상품",
-            path: "/",
+            path: "/RegisteredProduct",
         },
         {
             name: "주문내역/배송조회",
