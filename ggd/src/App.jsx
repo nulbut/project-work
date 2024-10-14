@@ -23,7 +23,6 @@ import IdealCupMaker from "./components/idealcup/IdealcupMaker";
 import JoinN from "./components/shop/JoinN";
 import JoinB from "./components/shop/JoinB";
 import IdPasswordFind from "./components/shop/IdPasswordFind";
-import Header from "./components/shop/Header";
 
 function App() {
   const nav = useNavigate();
