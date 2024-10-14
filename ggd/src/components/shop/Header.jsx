@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import logo from "../images/logo.svg";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -11,7 +11,11 @@ import ShopCategory from "./ShopCategory";
 
 
 
-const Header = () => {
+
+const Header = ({lstate, onLogout }) => {
+  const {loginid} = lstate;
+  const {mlink} = lstate;
+  
   const [categoryitem, setCategoryitem] = useState([]);//빈 객체로 초기화
   const menus = [//메뉴
     {
@@ -84,14 +88,14 @@ const Header = () => {
       path: "/Dibs",
       icon: <FontAwesomeIcon icon={faHeart} style={{color: "#000000"}} />,
     },
-    {
-      name: "로그인",
-      path: "/Login"
-    },
-    {
-      name: "회원가입",
-      path: "/JoinChoice",
-    },
+    // {
+    //   name: "로그인",
+    //   path: "/Login",
+    // },
+    // {
+    //   name: "회원가입",
+    //   path: "/JoinChoice",
+    // },
     {
       name: "주문/배송",
       path: "/OrderDelivery",
@@ -206,8 +210,8 @@ const Header = () => {
                     })}
                   </div>
                 </div>
-              </Link> 
-            ) 
+              </Link>
+            
           )
         )
       })}
@@ -231,6 +235,20 @@ const Header = () => {
           )
         })}
       </div>
+      <div>
+        <div className="Content2">
+          <Link to={mlink}>{loginid  !== "" ?  `${loginid}님` : "로그인"}</Link>
+          
+        </div>
+      </div>
+      <div className="Content2">
+        {loginid !== "" ? (
+          <span onClick={onLogout}>로그아웃</span>
+        ) : (
+          <Link to={"/joinchoice"}>회원가입</Link>
+        )}
+        
+        </div>
     </div>
   );
 };

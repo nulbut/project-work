@@ -43,4 +43,11 @@ public class NMemberController {
         String res = nmServ.joinMember(nmemberTbl);
         return res;
     }
+
+    //로그인
+    @PostMapping("loginproc")
+    public Map<String, String> loginproc(@RequestBody NmemberTbl nmemberTbl){
+        log.info("loginproc()");
+        return nmServ.loginproc(nmemberTbl);
+    }
 }
