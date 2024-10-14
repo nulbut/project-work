@@ -4,6 +4,9 @@ import logo from "../images/logo.svg";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faList, faMagnifyingGlass, faUser,faBagShopping,faHeart} from "@fortawesome/free-solid-svg-icons";
 import "./scss/Header.scss";
+import ShopCategoryRow from "./ShopCategoryRow";
+import ShopCategoryColum from "./ShopCategoryColum";
+import ShopCategory from "./ShopCategory";
 
 
 
@@ -13,6 +16,7 @@ const Header = ({lstate, onLogout }) => {
   const {loginid} = lstate;
   const {mlink} = lstate;
   
+  // const [categoryitem, setCategoryitem] = useState([]);//빈 객체로 초기화
   const menus = [//메뉴
     {
       name: "GGD'S" ,
@@ -27,7 +31,7 @@ const Header = ({lstate, onLogout }) => {
     {
       path: "",
       icon:<FontAwesomeIcon icon={faList} />,
-      sub: 0,
+      sub: 2,
     },
     {
       name: "인기상품",
@@ -42,12 +46,12 @@ const Header = ({lstate, onLogout }) => {
     {
       name: "신상품",
       path: "/NewProduct",
-      sub: 2,
+      sub: 1,
     },
     {
       name: "중고상품",
       path: "/UsedProduct",
-      sub: 2,
+      sub: 1,
     },
     {
       name: "공지사항",
@@ -101,6 +105,53 @@ const Header = ({lstate, onLogout }) => {
       path: "/Inquiry",
     }
   ]
+  const Categotry =[
+    {
+      name: "영화/드라마",
+      path: "",
+    },
+    {
+      name: "게임",
+      path: "",
+    },
+    {
+      name: "연예인",
+      path: "",
+    },
+    {
+      name: "애니메이션",
+      path: "",
+    },
+    {
+      name: "스포츠",
+      path: "",
+    },
+    {
+      name: "기타",
+      path: "",
+    },
+  ]
+  
+  // let Category = null;
+  
+  // if (categoryitem.length === 0) {
+  //   Category = (
+  //     <ShopCategoryRow key={0}>
+  //       <ShopCategoryColum span={6}></ShopCategoryColum>
+  //     </ShopCategoryRow>
+  //   );
+  // } else {
+  //   Category = Object.values(categoryitem).map((item) =>(
+  //     <ShopCategoryRow key={item.CategoryCode}>
+  //       <ShopCategoryColum wd="w-10">{item.CategoryCode}</ShopCategoryColum>
+  //       <ShopCategoryColum wd="w-10">{item.CategoryCode}</ShopCategoryColum>
+  //       <ShopCategoryColum wd="w-10">{item.CategoryCode}</ShopCategoryColum>
+  //       <ShopCategoryColum wd="w-10">{item.CategoryCode}</ShopCategoryColum>
+  //       <ShopCategoryColum wd="w-10">{item.CategoryCode}</ShopCategoryColum>
+  //       <ShopCategoryColum wd="w-10">{item.CategoryCode}</ShopCategoryColum>
+  //     </ShopCategoryRow>
+  //   ))
+  // }
 
   return( 
     <div className="Header">
@@ -115,31 +166,55 @@ const Header = ({lstate, onLogout }) => {
               <div className="Icon">{menu.icon}</div>
               {menu.name}
             </Link>
-          ) : (
-            <Link
+          ) : (            
+            menu.sub == 2 ? (
+              <Link
+              className="Content-sub"
+              to={menu.path}
+              key={index}
+              >
+                <div className="Icon">{menu.icon}</div>
+                <div>
+                    {Categotry.map((sub2,idx2)=>{
+                      return(
+                        <Link
+                        className="Sub"
+                        to={sub2.path}
+                        key={idx2}
+                        >
+                          {sub2.name}
+                        </Link>
+                      )
+                    })}
+                  </div> 
+              </Link>
+
+            ) : (
+              <Link
                 className="Content-sub"
                 to={menu.path}
                 key={index}
               >
                 <div>
                   {menu.name}
-                  <div>
                     {submenus.map((sub, idx) => {
-                      return (<Link
+                      return (
+                      <Link
                         className="Sub"
                         to={sub.path}
                         key={idx}
                       >
                         {sub.name}
-                      </Link>);
+                      </Link>
+                      );
                     })}
-                  </div> 
                 </div>
               </Link>
-            
-          ) 
+            )
+          )
         )
       })}
+ 
       <div className="input">
         <input type="text" placeholder="검색"/>
         <FontAwesomeIcon icon={faMagnifyingGlass} />
@@ -158,11 +233,9 @@ const Header = ({lstate, onLogout }) => {
           </Link>
           )
         })}
-      </div>
-      <div>
+        <div>
         <div className="Content2">
-          <Link to={mlink}>{loginid  !== "" ?  `${loginid}님` : "로그인"}</Link>
-          
+          <Link to={mlink}>{loginid  !== "" ?  `${loginid}님` : "로그인"}</Link> 
         </div>
       </div>
       <div className="Content2">
@@ -171,10 +244,10 @@ const Header = ({lstate, onLogout }) => {
         ) : (
           <Link to={"/joinchoice"}>회원가입</Link>
         )}
-        
-        </div>
-    </div>
-
+ 
+      </div>
+    </div>  
+  </div>
   );
 };
 export default Header;
