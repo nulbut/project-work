@@ -3,7 +3,7 @@
     height: 40px;
     width: 100%;
     background-color: burlywood;
-    border: 1px solid black;
+    
     grid-template-columns: 1fr 1fr;
     grid-gap: 10px;
     display: flex;
@@ -19,7 +19,7 @@
         float: left;
         width: 80px;
         margin-left: 20px;
-        background-color: rgb(255, 255, 255);
+        // background-color: rgb(255, 255, 255);
         border: 1px solid black;
     }
     .Content-sub{
@@ -28,7 +28,7 @@
         float: left;
         width: 80px;
         margin-left: 20px;
-        background-color: rgb(255, 255, 255);
+        // background-color: rgb(255, 255, 255);
         border: 1px solid black;
 
         .Sub {
@@ -36,7 +36,7 @@
         }
 
         &:hover .Sub{
-            margin-top: 30px;
+            margin-top: 20px;
             border: 1px solid ;
             display: block;
             z-index: 9;
@@ -58,10 +58,12 @@
         width: 80px;
         margin-left: 20px;
         border: 1px solid black;
+        
     }
     .Icon2{
         font-size: 2em;
     }
+    
 
 }
 

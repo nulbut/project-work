@@ -25,6 +25,7 @@ import JoinB from "./components/shop/JoinB";
 import IdPasswordFind from "./components/shop/IdPasswordFind";
 import IdealcupMy from "./components/idealcup/IdealcupMy";
 
+
 function App() {
   const nav = useNavigate();
 
@@ -84,18 +85,19 @@ function App() {
           <Route path="/newProduct" element={<NewProduct />} />
           <Route path="/usedProduct" element={<UsedProduct />} />
           <Route path="/notification" element={<Notification />} />
-          <Route path="/mypage" element={<Mypage />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/dibs" element={<Dibs />} />
           <Route path="/login" element={<Login sucLogin={sucLogin} />} />
-
           <Route path="/idpwdfind" element={<IdPasswordFind />} />
           <Route path="/joinchoice" element={<JoinChoice />} />
           <Route path="/join_n" element={<JoinN />} />
           <Route path="/join_b" element={<JoinB />} />
-          <Route path="/orderDelivery" element={<OrderDelivery />} />
           <Route path="/inquiry" element={<Inquiry />} />
+          <Route path="/mypage" element={<Mypage />} />
+          <Route path="/orderDelivery" element={<OrderDelivery />} />
         </Route>
+       
+
         <Route element={<IdealcupLayout />}>
           <Route path="/idlecup" element={<IdealcupMain />} />
           <Route path="/game" element={<Game />} />
