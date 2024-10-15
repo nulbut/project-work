@@ -97,8 +97,8 @@ function App() {
           <Route path="/inquiry" element={<Inquiry />} />
           <Route path="/mypage" element={<Mypage />} />
           <Route path="/orderDelivery" element={<OrderDelivery />} />
-          <Route path="/123" element={<UsedproductRegistration/>}/>
-          <Route path="/456" element={<RegisteredProduct/>} />
+          <Route path="/123" element={<UsedproductRegistration />} />
+          <Route path="/456" element={<RegisteredProduct />} />
         </Route>
        
 

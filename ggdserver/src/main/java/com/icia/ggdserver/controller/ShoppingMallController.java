@@ -28,7 +28,7 @@ public class ShoppingMallController {
 
     @GetMapping("pdlist")
     public Map<String, Object> getpdList(Integer pageNum){
-        log.info("getUpList() - {}", pageNum);
+        log.info("getpdList() - {}", pageNum);
 
         Map<String, Object> res= spmServ.BoardList(pageNum);
 

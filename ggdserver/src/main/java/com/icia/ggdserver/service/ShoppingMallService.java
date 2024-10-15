@@ -92,18 +92,18 @@ public Map<String, Object> BoardList(Integer pNum){
     int listCnt = 10;
 
     Pageable pb = PageRequest.of((pNum - 1), listCnt,
-            Sort.Direction.DESC, "roductCode");
+            Sort.Direction.DESC, "productCode");
 
     Page<ProductTbl> result = null;
     result = pdtRepo.findByProductCodeGreaterThan(0L,pb);
 
     List<ProductTbl> bList = result.getContent();
 
-    int totalPage = result.getTotalPages();
+    int totalPages = result.getTotalPages();
 
     Map<String, Object> res = new HashMap<>();
     res.put("bList", bList);
-    res.put("totalPage", totalPage);
+    res.put("totalPages", totalPages);
     res.put("pageNum", pNum);
 
     return res;
