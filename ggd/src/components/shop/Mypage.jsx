@@ -1,74 +1,79 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import { Link, Outlet } from "react-router-dom";
 import "./scss/Mypage.scss";
-import  Button from "../idealcup/Button";
+import Button from "../idealcup/Button";
 import logo from "../images/logo.svg";
+import RegisteredProduct from "./RegisteredProduct";
 
 // import UsedproductRegistration from "./UsedproductRegistration"; //마이페이지 등록한 상품 페이지에 들어갈거
 
 const Mypage = () => {
-    const buttons =[
-        {
-            name: "마이페이지",
-            path: "/mypage",
-        },
-        {
-            name: "등록한 상품",
-            path: "/RegisteredProduct",
-        },
-        {
-            name: "주문내역/배송조회",
-            path: "/OrderDelivery",
-        },
-        {
-            name: "회원정보 수정",
-            path: "",
-        },
-        {
-            name: "찜목록",
-            path: "",
-        },
-        {
-            name: "내 문의 내역",
-            path: "",
-        },
-    ]
-    return (
-        <div className='sideber'>
-            <div className='mypage'>
-                <p>마이페이지<img src={logo}/></p>
-            </div>
-            <div className='border-ber'>
-                ..님
-                <div>등급:</div>
-                {buttons.map((butn, idx) =>{
-                    return (
-                        <Link
-                        className='sideber-menu'
-                        to={butn.path}
-                        key={idx}
-                        > 
-                        <Button
-                        type="submit"
-                        size="large"
-                        color="black"
-                        >{butn.name}</Button>
-          
-                        </Link>
-                    )
-                })}
-                <div className='btn'>
-                <Button
-                type="submit"
-                size="large"
-                color="black"
+  //   const [currentTab, clickTab] = useState(0);
+  const menuArr = [
+    {
+      name: "포인트",
+      path: "/mypage",
+    },
+    {
+      name: "등록한 상품",
+      path: "registerdProduct",
+    },
+    {
+      name: "주문내역/배송조회",
+      path: "orderDelivery",
+    },
+    {
+      name: "회원정보 수정",
+      path: "/",
+    },
+    {
+      name: "찜목록",
+      path: "dibs",
+    },
+    {
+      name: "내 문의 내역",
+      path: "inquiry",
+    },
+  ];
 
-                >로그아웃
-                </Button>
-                </div>
-            </div>
+  //   const selectMenuHandler = (index) => {
+  //     // parameter로 현재 선택한 인덱스 값을 전달해야 하며, 이벤트 객체(event)는 쓰지 않는다
+  //     // 해당 함수가 실행되면 현재 선택된 Tab Menu 가 갱신.
+  //     clickTab(index);
+  //   };
+  return (
+    <div className="mypage-ex">
+      <div className="sideber">
+        <div className="mypage">
+          <p>
+            마이페이지
+            <img src={logo} />
+          </p>
         </div>
-    );
+        <div className="border-ber">
+          ..님
+          <div>등급:</div>
+          {menuArr.map((butn, idx) => {
+            return (
+              <Link className="sideber-menu" to={butn.path} key={idx}>
+                <Button type="submit" size="large" color="black">
+                  {butn.name}
+                </Button>
+              </Link>
+            );
+          })}
+          <div className="btn">
+            <Button type="submit" size="large" color="black">
+              로그아웃
+            </Button>
+          </div>
+        </div>
+      </div>
+      <div className="desc">
+        <Outlet />
+      </div>
+    </div>
+  );
 };
 
 export default Mypage;

@@ -12,12 +12,12 @@ const df = (date) => moment(date).format("YYYY-MM-DD HH:mm:ss");
 
 const RegisteredProduct = () => {
   const nav = useNavigate();
-  
+
   const mid = "asd";
 
   const options = [
-    { value: "upName", label: "제품명"},
-    { value: "upDetail", label: "내용"},
+    { value: "upName", label: "제품명" },
+    { value: "upDetail", label: "내용" },
   ];
 
   const [bitem, setBitem] = useState({});
@@ -30,19 +30,19 @@ const RegisteredProduct = () => {
     console.log("test");
 
     axios
-    .get("/pdlist", { params: { pageNum: page }})
-    .then((res) => {
+      .get("/pdlist", { params: { pageNum: page } })
+      .then((res) => {
         const { blist, totalPage, pageNum } = res.data;
-        setPage({ totalPage: totalPage, pageNum: pageNum});
+        setPage({ totalPage: totalPage, pageNum: pageNum });
         setBitem(blist);
-    })
-    .catch((err) => console.log(err));
+      })
+      .catch((err) => console.log(err));
   };
 
   useEffect(() => {
     if (mid === null) {
-        nav("/", { replace: true });
-        return;
+      nav("/", { replace: true });
+      return;
     }
 
     getList(1);
@@ -51,32 +51,30 @@ const RegisteredProduct = () => {
   let list = null;
   if (bitem.length === 0) {
     list = (
-        <TableRow key={0}>
-            <TableColumn span={4}>게시글이 없습니다.</TableColumn>
-        </TableRow>
+      <TableRow key={0}>
+        <TableColumn span={4}>게시글이 없습니다.</TableColumn>
+      </TableRow>
     );
   } else {
     list = Object.values(bitem).map((item) => (
       <TableRow key={item.pdCode}>
         <TableColumn wd="w-10">{item.pdCode}</TableColumn>
         <TableColumn wd="w-40">
-            {/* <div onClick={() => getBoard(item.pdCode)}>{item.pdCode}</div> */}
+          {/* <div onClick={() => getBoard(item.pdCode)}>{item.pdCode}</div> */}
         </TableColumn>
         <TableColumn wd="w-20">{item.pdAuthor}</TableColumn>
         <TableColumn wd="w-30">{df(item.rdate)}</TableColumn>
       </TableRow>
     ));
   }
-  
 
   return (
-    <div>
-        <Mypage/> 
-        <ProductViewLayout hName={["NO", "Title", "Writer", "Date"]}>
-            {list}
-        </ProductViewLayout>
+    <div className="table-ex">
+      <ProductViewLayout hName={["NO", "Title", "Writer", "Date"]}>
+        {list}
+      </ProductViewLayout>
     </div>
-  )
+  );
 };
 
 export default RegisteredProduct;
