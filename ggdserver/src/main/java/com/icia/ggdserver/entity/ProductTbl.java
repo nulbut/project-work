@@ -10,33 +10,33 @@ import java.util.List;
 @Entity
 @Table (name = "Product_tbl")
 @Data
-public class ProductTbl {
+public class ProductTbl { //상품 테이블
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
-    private long productCode;
+    private long productCode; //상품 고유번호
 
     @Column(name = "CategoryCode")
-    private long CategoryCode;
+    private long CategoryCode; //카테고리 고유번호
 
     @Column(nullable = false, length = 40)
-    private String ProductName;
+    private String ProductName; //상품 이름
 
     @Column(nullable = false)
-    private String sellerId;
+    private String sellerId; //판매자
 
     @Column(nullable = false)
-    private int sellerPayment;
+    private int sellerPayment; //판매가
 
     @Column(nullable = false)
-    private int ProductStock;
+    private int ProductStock; //상품 수량
 
     @CreationTimestamp
     @Column
-    private Timestamp ProductDate;
+    private Timestamp ProductDate; //상품 등록일
 
     @Column
-    private int ProductHit;
+    private int ProductHit; //상품 조회수
 
     @Transient
-    private List<ProductFileTbl> ProductFileList;
+    private List<ProductFileTbl> ProductFileList; //첨부파일
 }

@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Slideshow from "./Slideshow";
-
-import { Link, Outlet } from "react-router-dom";
+import InfiniteScroll from "./InfiniteScroll";
+import "./scss/ShoppingMall.scss"
 
 const ShoppingMall = () => {
+  
   return (
     <div>
       <Slideshow />
+      <div className="body">
+      <InfiniteScroll />
+      </div>
     </div>
   );
 };
