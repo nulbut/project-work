@@ -57,13 +57,13 @@ const RegisteredProduct = () => {
     );
   } else {
     list = Object.values(bitem).map((item) => (
-      <TableRow key={item.pdCode}>
-        <TableColumn wd="w-10">{item.pdCode}</TableColumn>
+      <TableRow key={item.productdCode}>
+        <TableColumn wd="w-10">{item.productCode}</TableColumn>
         <TableColumn wd="w-40">
-            {/* <div onClick={() => getBoard(item.pdCode)}>{item.pdCode}</div> */}
+            <div onClick={() => BoardList(item.productCode)}>{item.pdCode}</div>
         </TableColumn>
-        <TableColumn wd="w-20">{item.pdAuthor}</TableColumn>
-        <TableColumn wd="w-30">{df(item.rdate)}</TableColumn>
+        <TableColumn wd="w-20">{item.sellerId}</TableColumn>
+        <TableColumn wd="w-30">{df(item.ProductDate)}</TableColumn>
       </TableRow>
     ));
   }

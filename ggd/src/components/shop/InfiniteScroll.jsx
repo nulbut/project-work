@@ -10,7 +10,6 @@ function InfiniteScroll() {
   var count = 1;
 
   const fetchProducts = async () => {
-    // Dummy API를 통해 데이터 불러오기
     const response = await fetch(
       `https://dummyjson.com/products?limit=5&skip=${page * 5}`
     );

@@ -7,23 +7,22 @@ import "./scss/Textarea.scss";
 import "./scss/FileInput.scss";
 import "./scss/Write.scss";
 
-// 24-10-11 09:22 시작
 
-// 24-10-14 09:05 수정 시작
 const UsedproductRegistration = () => {
     const nav = useNavigate();
     const id = sessionStorage.getItem("mid");
     const [data, setData] = useState({
-        upName: "",
-        upPrice: "",
-        upPurchaserestrictions: "",
-        upDeliveryfee: "",
-        upQuantity: "",
-        upDetail: "",
-        upDate: "",
+        pdName: "",
+        pdCategory: "",
+        pdPrice: "",
+        pdlimit: "",
+        pdDeliveryfee: "",
+        pdQuantity: "",
+        pdDetail: "",
+        pdDate: "",
     });
 
-    const { upName, upPrice, upPurchaserestrictions, upDeliveryfee, upQuantity, upDetail, upDate } = data;
+    const { pdName, pdCategory, pdPrice, pdlimit, pdDeliveryfee, pdQuantity, pdDetail, pdDate } = data;
     const [fileName, setFileName] = useState("선택된 파일이 없습니다.");
 
     //전송 데이터와 파일을 담을 멀티파트 폼 생성
@@ -76,7 +75,7 @@ const UsedproductRegistration = () => {
             .then((res) => {
                 if (res.data === "ok"){
                     alert("등록 성공");
-                    nav("")
+                    nav("/456")
                 } else {
                     alert("등록 실패");
                 }
@@ -95,8 +94,8 @@ const UsedproductRegistration = () => {
                 <h1>중고 상품 등록</h1>
                 <input
                 className="Input"
-                name="upName"
-                value={upName}
+                name="pdName"
+                value={pdName}
                 placeholder="제품명"
                 onChange={onch}
                 autoFocus
@@ -104,8 +103,17 @@ const UsedproductRegistration = () => {
                 />
                 <input
                 className="Input"
-                name="upPrice"
-                value={upPrice}
+                name="pdCategory"
+                value={pdCategory}
+                placeholder="카테고리"
+                onChange={onch}
+                autoFocus
+                required
+                />
+                <input
+                className="Input"
+                name="pdPrice"
+                value={pdPrice}
                 placeholder="판매가"
                 onChange={onch}
                 autoFocus
@@ -113,8 +121,8 @@ const UsedproductRegistration = () => {
                 />
                 <input
                 className="Input"
-                name="upPurcharserestictions"
-                value={upPurchaserestrictions}
+                name="pdlimit"
+                value={pdlimit}
                 placeholder="구매제한"
                 onChange={onch}
                 autoFocus
@@ -122,8 +130,8 @@ const UsedproductRegistration = () => {
                 />
                 <input
                 className="Input"
-                name="upDeliveryfee"
-                value={upDeliveryfee}
+                name="pdDeliveryfee"
+                value={pdDeliveryfee}
                 placeholder="배송비"
                 onChange={onch}
                 autoFocus
@@ -131,8 +139,8 @@ const UsedproductRegistration = () => {
                 />
                 <input
                 className="Input"
-                name="upQuantity"
-                value={upQuantity}
+                name="pdQuantity"
+                value={pdQuantity}
                 placeholder="수량"
                 onChange={onch}
                 autoFocus
@@ -140,8 +148,8 @@ const UsedproductRegistration = () => {
                 />
                 <input
                 className="Input"
-                name="upDate"
-                value={upDate}
+                name="pdDate"
+                value={pdDate}
                 placeholder="등록일"
                 onChange={onch}
                 autoFocus
@@ -149,10 +157,10 @@ const UsedproductRegistration = () => {
                 />
                 <textarea
                 className="Textarea"
-                name="upDetail"
+                name="pdDetail"
                 onChange={onch}
                 placeholder="상품 정보를 입력하세요."
-                value={upDetail}
+                value={pdDetail}
                 ></textarea>
                 <div className="FileInput">
                     <input id="upload" type="file" multiple onChange={onFileChange} />
@@ -168,11 +176,18 @@ const UsedproductRegistration = () => {
                       color="gray"
                       wsize="s-10"
                       outline
-                      onClick={() => nav("/main")}
+                      onClick={() => nav("/123")}
                     >
                       삭제
                     </Button>
-                    <Button type="submit" size="large" wsize="s-30">
+                    <Button 
+                    type="submit" 
+                    size="large"
+                    color="blue" 
+                    wsize="s-30"
+                    outline
+                    onClick={() => nav("/456")}
+                    >
                       수정
                     </Button>
                 </div>
