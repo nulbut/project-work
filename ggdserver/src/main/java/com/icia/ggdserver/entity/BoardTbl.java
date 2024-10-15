@@ -16,7 +16,7 @@ public class BoardTbl {
     private long boardCode;//문의 게시글 번호
 
     @Column(nullable = false)
-    private long custCode;//회원고유번호
+    private String bnid; // 회원 ID
 
     @Column
     private long ProductCode;//상품고유번호
