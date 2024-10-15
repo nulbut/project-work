@@ -31,7 +31,7 @@ const Mypage = () => {
       path: "dibs",
     },
     {
-      name: "내 문의 내역",
+      name: "내 문의내역",
       path: "inquiry",
     },
   ];

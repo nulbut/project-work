@@ -1,12 +1,10 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import moment from "moment";
-import { Link } from "react-router-dom";
 import ProductViewLayout from "./ProductViewLayout";
 import TableRow from "./TableRow";
 import TableColumn from "./TableColumn";
-import Mypage from "./Mypage";
 
 const df = (date) => moment(date).format("YYYY-MM-DD HH:mm:ss");
 
