@@ -6,6 +6,7 @@ import TableRow from "./TableRow";
 import TableColumn from "./TableColumn";
 import InquiryBoard from "./InquiryBoard";
 import Button from "./Button";
+import Paging from "./Paging";
 
 const df = (data) => moment(data).format("YYYY-MM-DD HH:mm:ss");
 
@@ -50,30 +51,32 @@ const Inquiry = () => {
       </TableRow>
     );
   } else {
-    boardList = Object.values(iitem).map((colum) => (
-      <TableRow key={colum.boardCode}>
-        <TableColumn wd="w-10">{colum.boardCode}</TableColumn>
+    boardList = Object.values(iitem).map((column) => (
+      <TableRow key={column.boardCode}>
+        <TableColumn wd="w-10">{column.boardCode}</TableColumn>
         <TableColumn wd="w-40">
-          <div onClick={() => getBoard(colum.boardCode)}>
-            {colum.boardTitle}
+          <div onClick={() => getBoard(column.boardCode)}>
+            {column.boardTitle}
           </div>
         </TableColumn>
-        <TableColumn wd="w-20">{colum.bnid}</TableColumn>
-        <TableColumn wd="w-30">{df(colum.boardDate)}</TableColumn>
+        <TableColumn wd="w-20">{column.bnid}</TableColumn>
+        <TableColumn wd="w-30">{df(column.boardDate)}</TableColumn>
       </TableRow>
     ));
   }
 
   const getBoard = useCallback((boardCode) => {
-    nav("InquiryBoard", { state: { bc: boardCode } });
+    nav("", { state: { bc: boardCode } });
   }); //상세보기 화면으로 전환될 때 문의게시글 번호로 보낸다.
+
   return (
-    <div>
+    <div className="table-ex">
       <h1>1:1 문의 게시판</h1>
       <InquiryBoard bName={["번호", "제목", "이름", "날짜"]}>
         {boardList}
       </InquiryBoard>
-      {/* <Button
+      <Paging page={page} getList={getBoardList} />
+      <Button
         size="large"
         wsize="s-50"
         onClick={() => {
@@ -81,7 +84,7 @@ const Inquiry = () => {
         }}
       >
         글작성
-      </Button> */}
+      </Button>
     </div>
   );
 };

@@ -79,7 +79,7 @@ const Header = ({ lstate, onLogout }) => {
   const menus2 = [
     // 아이콘/메뉴2
     {
-      path: "/Mypage",
+      path: "/mypage",
       icon: <FontAwesomeIcon icon={faUser} style={{ color: "#000000" }} />,
     },
     {
