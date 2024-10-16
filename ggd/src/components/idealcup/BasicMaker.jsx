@@ -81,7 +81,7 @@ const BasicMaker = () => {
   );
   return (
     <div>
-      <form className="Content" onSubmit={onWrite}>
+      <form className="Content-iw" onSubmit={onWrite}>
         <table>
           <tr>
             <td>제목</td>
