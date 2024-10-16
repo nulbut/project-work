@@ -18,6 +18,9 @@ public class NmemberTbl { //일반 회원 테이블
     @Column(name = "n_pw", nullable = false, length = 100)
     private String npw; //비밀번호
 
+    @Column(name ="n_pwcheck", nullable = false,length = 100)
+    private String npwcheck; //비밀번호 확인
+
     @Column(name = "n_name", nullable = false, length = 10)
     private String nname; //이름
 

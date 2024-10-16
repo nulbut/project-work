@@ -21,7 +21,6 @@ public class NMemberController {
         log.info("nidCheck() n_id : {}", nmemberTbl.getNid());
 
         Map<String, String> rsMap = nmServ.nidCheck(nmemberTbl.getNid());
-
         return rsMap;
     }
 

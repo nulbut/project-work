@@ -13,7 +13,6 @@ import java.util.Map;
 @Service
 @Slf4j
 public class NMemberService {
-    public Map<String, String> nidCheck;
     // 일반 회원 Service
     @Autowired
     NMemberRepository nmRepo;
@@ -37,6 +36,7 @@ public class NMemberService {
             rsMap.put("res","err");
             rsMap.put("msg","사용할 수 없는 아이디입니다.");
         }
+
         return rsMap;
     }//nidCheck end
 
@@ -69,6 +69,7 @@ public class NMemberService {
         String epwd = encoder.encode(nmemberTbl.getNpw());
         log.info("epwd : {}", epwd);
         nmemberTbl.setNpw(epwd); //원래 비밀번호를 암호화된 비밀번호로 변경
+        nmemberTbl.setNpwcheck(epwd);
 
         try{
             nmRepo.save(nmemberTbl);
@@ -78,6 +79,12 @@ public class NMemberService {
             res = "fail";
         }
         return res;
+
+
+
+
+
+
     }//joinMember end
 
     //로그인 처리 메소드
