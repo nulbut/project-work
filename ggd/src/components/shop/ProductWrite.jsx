@@ -7,15 +7,15 @@ import "./scss/Textarea.scss";
 import "./scss/FileInput.scss";
 import "./scss/Write.scss";
 
-const UsedproductRegistration = () => {
+const ProductregistrationWrite = () => {
   const nav = useNavigate();
   const id = sessionStorage.getItem("sellerId");
   const [data, setData] = useState({
     productName: "",
+    sellerId: id,
     CategoryCode: "",
     sellerPayment: "",
     productlimit: "",
-    // productDeliveryfee: "",
     ProductStock: "",
     productDetail: "",
     productDate: "",
@@ -23,10 +23,10 @@ const UsedproductRegistration = () => {
 
   const {
     productName,
+    sellerId,
     CategoryCode,
     sellerPayment,
     productlimit,
-    // productDeliveryfee,
     ProductStock,
     productDetail,
     productDate,
@@ -99,12 +99,21 @@ const UsedproductRegistration = () => {
   return (
     <div className="Write">
       <form className="Content" onSubmit={onWrite}>
-        <h1>중고 상품 등록</h1>
+        <h1>상품 등록</h1>
         <input
           className="Input"
           name="productName"
           value={productName}
           placeholder="제품명"
+          onChange={onch}
+          autoFocus
+          required
+        />
+        <input
+          className="Input"
+          name="sellerId"
+          value={sellerId}
+          placeholder="판매자"
           onChange={onch}
           autoFocus
           required
@@ -136,15 +145,6 @@ const UsedproductRegistration = () => {
           autoFocus
           required
         />
-        {/* <input
-          className="Input"
-          name="productDeliveryfee"
-          value={productDeliveryfee}
-          placeholder="배송비"
-          onChange={onch}
-          autoFocus
-          required
-        /> */}
         <input
           className="Input"
           name="ProductStock"
@@ -204,4 +204,4 @@ const UsedproductRegistration = () => {
   );
 };
 
-export default UsedproductRegistration;
+export default ProductregistrationWrite;
