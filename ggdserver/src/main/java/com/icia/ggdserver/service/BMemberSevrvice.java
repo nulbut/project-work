@@ -1,5 +1,6 @@
 package com.icia.ggdserver.service;
 
+import com.icia.ggdserver.entity.BmemberTbl;
 import com.icia.ggdserver.repository.BMemberRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,29 @@ public class BMemberSevrvice {
             brsMap.put("msg","사용할 수 없는 아이디입니다.");
         }
 
+
+
         return brsMap;
     } //bidCheck end
+
+    //회원가입
+    public String joinBMember(BmemberTbl bmemberTbl) {
+        log.info("joinBMember()");
+        String res = null;
+
+        //비밀번호 암호화
+        String bepwd = encoder.encode(bmemberTbl.getBpw());
+        log.info("bepwd : {}", bepwd);
+        bmemberTbl.setBpw(bepwd);
+        bmemberTbl.setBpwcheck(bepwd);
+
+        try {
+            bmRepo.save(bmemberTbl);
+            res = "ok";
+        } catch (Exception e){
+            e.printStackTrace();
+            res = "fail";
+        }
+        return res;
+    } //joinBMember end
 }

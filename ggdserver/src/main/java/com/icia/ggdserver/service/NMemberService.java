@@ -1,6 +1,7 @@
 package com.icia.ggdserver.service;
 
 import com.icia.ggdserver.entity.NmemberTbl;
+import com.icia.ggdserver.repository.BMemberRepository;
 import com.icia.ggdserver.repository.NMemberRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,9 @@ public class NMemberService {
     @Autowired
     NMemberRepository nmRepo;
 
+    @Autowired
+    BMemberRepository bmRepo;
+
     //비밀번호를 암호화하는 객체 (평문 암호화, 비교 기능)
     BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
@@ -27,8 +31,10 @@ public class NMemberService {
 
         long nmcnt = nmRepo.countByNid(n_id); //0또는 1의 값 넘어옴.
         log.info("nmcnt : {}", nmcnt);
+        long bmcnt = bmRepo.countByBid(n_id); //0 또는 1의 값 넘어옴
+        log.info("bmcnt: {}", bmcnt);
 
-        if (nmcnt == 0){
+        if (nmcnt == 0 && bmcnt == 0){
             rsMap.put("res", "ok");
             rsMap.put("msg","사용 가능한 아이디입니다.");
         }
@@ -36,6 +42,7 @@ public class NMemberService {
             rsMap.put("res","err");
             rsMap.put("msg","사용할 수 없는 아이디입니다.");
         }
+
 
         return rsMap;
     }//nidCheck end

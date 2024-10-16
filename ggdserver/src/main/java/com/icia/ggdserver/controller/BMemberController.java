@@ -27,28 +27,16 @@ public class BMemberController {
         return rsMap;
     }
 
-//    //닉네임 체크
-//    @PostMapping("nnickCheck")
-//    public Map<String,String> nnickCheck(@RequestBody NmemberTbl nmemberTbl){
-//        log.info("nnickCheck() n_nickname : {}", nmemberTbl.getNnickname());
-//
-//        Map<String, String> nrsMap = nmServ.nnickCheck(nmemberTbl.getNnickname());
-//
-//        return nrsMap;
-//    }
-//
+
 //    //회원가입
-//    @PostMapping("joinproc")
-//    public String joinproc(@RequestBody NmemberTbl nmemberTbl){
-//        log.info("joinproc()");
-//        String res = nmServ.joinMember(nmemberTbl);
-//        return res;
-//    }
-//
-//    //로그인
+    @PostMapping("bjoinproc")
+    public String bjoinproc(@RequestBody BmemberTbl bmemberTbl){
+        log.info("bjoinproc()");
+        String res = bmServ.joinBMember(bmemberTbl);
+        return res;
+
+    }
+
+    //로그인
 //    @PostMapping("loginproc")
-//    public Map<String, String> loginproc(@RequestBody NmemberTbl nmemberTbl){
-//        log.info("loginproc()");
-//        return nmServ.loginproc(nmemberTbl);
-//    }
-}
+}//class end

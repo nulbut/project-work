@@ -48,7 +48,7 @@ const JoinN = () => {
           ck = false;
           //setCkid(false);
         }
-        console.log(ck);
+        // console.log(ck);
       })
       .catch((err) => {
         //error 표시
@@ -106,7 +106,7 @@ const JoinN = () => {
       .post("/joinproc", form)
       .then((res) => {
         if ((res.data = "ok")) {
-          alert("가입 성공했습니다. 환영합니다!");
+          alert("가입 완료되었습니다.");
           nav("/login"); //가입 성공 시 로그인 페이지로 이동.
         } else {
           alert("가입 실패. 관리자에게 문의해주세요.");

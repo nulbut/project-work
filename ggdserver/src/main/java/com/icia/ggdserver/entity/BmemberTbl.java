@@ -9,13 +9,16 @@ import lombok.Data;
 public class BmemberTbl { //사업자 회원 테이블
     @Id
     @Column(name = "b_id")
-    private String bid; //아이디 (PK)
+    private String bid;//아이디 (PK)
+
+    @Column(name = "b_num")
+    private int bnum; //회원 구분 번호 (사업자 = "2")
 
     @Column(name = "b_cname",nullable = false, unique = true, length = 50)
     private String bcname; //상호
 
     @Column(name = "b_cnum",nullable = false, length = 13)
-    private int bcnum; //사업자등록번호
+    private String bcnum; //사업자등록번호
 
     @Column(name = "b_ttype", nullable = false, length = 1)
     private int bttype; //과세유형
@@ -26,8 +29,8 @@ public class BmemberTbl { //사업자 회원 테이블
     @Column(name = "b_btype", nullable = false, length = 20)
     private String bbtype; //업종
 
-    @Column(name = "b_address", nullable = false, length = 100)
-    private String baddress; //주소
+    @Column(name = "b_address", length = 100)
+    private String baddress; //주소 (not null 나중에 넣기)
 
     @Column(name = "b_name", nullable = false, length = 10)
     private String bname; //대표자 이름
@@ -61,5 +64,7 @@ public class BmemberTbl { //사업자 회원 테이블
 
     @Column(name = "b_memail", length = 100)
     private String bmemail; //담당자 이메일
+
+
 
 }

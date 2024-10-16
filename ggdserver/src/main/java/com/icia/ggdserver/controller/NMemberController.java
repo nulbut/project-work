@@ -1,5 +1,6 @@
 package com.icia.ggdserver.controller;
 
+import com.icia.ggdserver.entity.BmemberTbl;
 import com.icia.ggdserver.entity.NmemberTbl;
 import com.icia.ggdserver.service.NMemberService;
 import jakarta.servlet.http.HttpSession;
@@ -7,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @RestController
@@ -14,7 +16,7 @@ import java.util.Map;
 public class NMemberController {
     @Autowired
     private NMemberService nmServ;
-    
+
     //아이디 체크
     @PostMapping("nidCheck")
     public Map<String,String> nidCheck(@RequestBody NmemberTbl nmemberTbl){
@@ -23,6 +25,8 @@ public class NMemberController {
         Map<String, String> rsMap = nmServ.nidCheck(nmemberTbl.getNid());
         return rsMap;
     }
+
+
 
     //닉네임 체크
     @PostMapping("nnickCheck")
