@@ -6,7 +6,7 @@ import "./scss/Input.scss";
 import "./scss/Textarea.scss";
 import "./scss/FileInput.scss";
 import "./scss/Write.scss";
-
+ 
 const ProductregistrationWrite = () => {
   const nav = useNavigate();
   const id = sessionStorage.getItem("sellerId");
