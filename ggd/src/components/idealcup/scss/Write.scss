@@ -161,17 +161,30 @@ tr {
         margin-top: 1rem;
       }
     }
-    .radio {
-      width: auto;
+
+    .FileInput {
+      text-align: center;
+      input {
+        width: 0;
+      }
+      .FileLabel {
+        width: 300px;
+        display: flex;
+      }
     }
-    .radio-ex {
-      color: rgb(85, 84, 84);
-    }
+  }
+  .radio-box {
+    text-align: left;
+  }
+  .radio {
+    width: auto;
+  }
+  .radio-ex {
+    color: rgb(85, 84, 84);
   }
   :first-child {
     width: auto;
   }
-
   .cols {
     width: 100%;
   }

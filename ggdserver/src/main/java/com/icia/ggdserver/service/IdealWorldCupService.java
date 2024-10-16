@@ -123,4 +123,13 @@ public class IdealWorldCupService {
         return res;
     }
 
+    public List<IwcContentsTbl> getGameContent(Long code) {
+        log.info("getGameContent()");
+
+        List<IwcContentsTbl> result = conRepo.findAllByIwcContentsIwcCode(code);
+
+        return result;
+
+
+    }
 }
