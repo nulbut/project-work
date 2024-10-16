@@ -111,7 +111,7 @@ const BasicMaker = () => {
           </tr>
           <tr>
             <td>공개여부</td>
-            <td>
+            <td className="radio-box">
               <label>
                 <input
                   type="radio"

@@ -185,7 +185,12 @@ const IdealcupMain = () => {
             </div>
 
             <div className="product-title">
-              <div>{item.iwcName}</div>
+              <Link
+                to="/game"
+                state={{ code: item.iwcCode, name: item.iwcName }}
+              >
+                <div>{item.iwcName}</div>
+              </Link>
               <div className="title-btn">
                 <div>
                   <FontAwesomeIcon icon={faHeart} />
@@ -216,8 +221,6 @@ const IdealcupMain = () => {
           이상형 월드컵 불러오는 중...
         </h1>
       )}
-      이상형월드컵
-      <Link to="/game">게임하러가기</Link>
     </div>
   );
 };
