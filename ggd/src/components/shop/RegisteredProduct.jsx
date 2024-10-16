@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import moment from "moment";
+import Button from "./Button";
 import ProductViewLayout from "./ProductViewLayout";
-import Paging from "./Paging";
+
 import TableRow from "./TableRow";
 import TableColumn from "./TableColumn";
 
@@ -13,6 +14,7 @@ const RegisteredProduct = () => {
   const nav = useNavigate();
 
   const mid = "asd";
+//const ps = useContext(PageContextStore);
 
   const options = [
     { value: "productName", label: "제품명" },
@@ -64,7 +66,7 @@ const RegisteredProduct = () => {
       <TableRow key={item.productCode}>
         <TableColumn wd="w-10">{item.productCode}</TableColumn>
         <TableColumn wd="w-40">
-        <div onClick={() => ProductList(item.productCode)}>
+        <div onClick={() => BoardList(item.productCode)}>
             {item.productName}
           </div>
         </TableColumn>
@@ -73,13 +75,25 @@ const RegisteredProduct = () => {
       </TableRow>
     ));
   }
-  
 
+  const BoardList = useCallback((productCode) => {
+    nav("/456", { state: { pc:productCode } });
+  });
+  
   return (
     <div>
       <ProductViewLayout hName={["번호", "상품", "판매자", "등록날짜"]}>
         {list}
       </ProductViewLayout>
+      <Button
+        size="large"
+        wsize="s-50"
+        onClick={() => {
+          nav("/123");
+        }}
+      >
+        상품등록
+      </Button>
     </div>
   );
 };

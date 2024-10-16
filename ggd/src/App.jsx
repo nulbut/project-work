@@ -96,7 +96,7 @@ function App() {
           <Route path="/join_b" element={<JoinB />} />
           <Route path="/mypage" element={<Mypage />}>
             <Route path="orderDelivery" element={<OrderDelivery />} />
-            <Route path="registerdProduct" element={<RegisteredProduct />} />
+            <Route path="RㅎegisterdProduct" element={<RegisteredProduct />} />
             <Route path="dibs" element={<Dibs />} />
             <Route path="inquiry" element={<Inquiry />} />
           </Route>

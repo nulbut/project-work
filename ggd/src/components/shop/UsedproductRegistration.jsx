@@ -9,13 +9,13 @@ import "./scss/Write.scss";
 
 const UsedproductRegistration = () => {
   const nav = useNavigate();
-  const id = sessionStorage.getItem("mid");
+  const id = sessionStorage.getItem("sellerId");
   const [data, setData] = useState({
     productName: "",
     CategoryCode: "",
     sellerPayment: "",
     productlimit: "",
-    productDeliveryfee: "",
+    // productDeliveryfee: "",
     ProductStock: "",
     productDetail: "",
     productDate: "",
@@ -26,7 +26,7 @@ const UsedproductRegistration = () => {
     CategoryCode,
     sellerPayment,
     productlimit,
-    productDeliveryfee,
+    // productDeliveryfee,
     ProductStock,
     productDetail,
     productDate,
