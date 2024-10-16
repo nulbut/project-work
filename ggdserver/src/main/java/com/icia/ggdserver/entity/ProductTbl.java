@@ -37,6 +37,9 @@ public class ProductTbl { //상품 테이블
     @Column
     private Timestamp ProductDate; //상품 등록일
 
+    @Column(nullable = false, length = 100)
+    private String productDetail; //상품 설명
+
     @Column
     private int ProductHit; //상품 조회수
 

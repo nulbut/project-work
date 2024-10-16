@@ -12,7 +12,7 @@ const UsedproductRegistration = () => {
   const id = sessionStorage.getItem("mid");
   const [data, setData] = useState({
     productName: "",
-    productCategory: "",
+    CategoryCode: "",
     sellerPayment: "",
     productlimit: "",
     productDeliveryfee: "",
@@ -23,7 +23,7 @@ const UsedproductRegistration = () => {
 
   const {
     productName,
-    productCategory,
+    CategoryCode,
     sellerPayment,
     productlimit,
     productDeliveryfee,
@@ -111,8 +111,8 @@ const UsedproductRegistration = () => {
         />
         <input
           className="Input"
-          name="productCategory"
-          value={productCategory}
+          name="CategoryCode"
+          value={CategoryCode}
           placeholder="카테고리"
           onChange={onch}
           autoFocus
@@ -136,7 +136,7 @@ const UsedproductRegistration = () => {
           autoFocus
           required
         />
-        <input
+        {/* <input
           className="Input"
           name="productDeliveryfee"
           value={productDeliveryfee}
@@ -144,7 +144,7 @@ const UsedproductRegistration = () => {
           onChange={onch}
           autoFocus
           required
-        />
+        /> */}
         <input
           className="Input"
           name="ProductStock"
@@ -192,9 +192,9 @@ const UsedproductRegistration = () => {
             type="submit"
             size="large"
             color="blue"
-            // wsize="s-30"
-            // outline
-            // onClick={() => nav("/456")}
+            wsize="s-30"
+            outline
+            onClick={() => nav("/456")}
           >
             수정
           </Button>
