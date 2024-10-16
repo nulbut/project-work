@@ -26,12 +26,12 @@ const ShopSideber = () => {
     },
     {
       name: "찜목록",
-      path: "/Dibs",
+      path: "/mypage/Dibs",
       icon: <FontAwesomeIcon icon={faHeart} />,
     },
     {
       name: "마이페이지",
-      path: "/Mypage",
+      path: "/mypage",
       icon: <FontAwesomeIcon icon={faUser} />,
     },
     {
@@ -46,7 +46,7 @@ const ShopSideber = () => {
     },
     {
       name: "1:1 문의",
-      path: "/mypage/Inquiry",
+      path: "/mypage/55",
       icon: <FontAwesomeIcon icon={faHeadphones} />,
     },
   ];

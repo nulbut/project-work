@@ -12,8 +12,8 @@ const df = (data) => moment(data).format("YYYY-MM-DD HH:mm:ss");
 
 const Inquiry = () => {
   const nav = useNavigate();
-  const nid = sessionStorage.getItem("nid");
-  const pnum = sessionStorage.getItem("pageNum");
+  const nid = "nid";
+  const pnum = "pageNum";
   const [iitem, setIitem] = useState([]);
   const [page, setPage] = useState({
     //페이징 관련 정보 저장 state
@@ -29,7 +29,7 @@ const Inquiry = () => {
         const { Blist, totalPage, pageNum } = res.data;
         setPage({ totalPage: totalPage, pageNum: pageNum });
         setIitem(Blist);
-        sessionStorage.getItem("pageNum", pageNum);
+        // sessionStorage.getItem("pageNum", pageNum);
       })
       .catch((err) => console.log(err));
   };
@@ -66,7 +66,7 @@ const Inquiry = () => {
   }
 
   const getBoard = useCallback((boardCode) => {
-    nav("", { state: { bc: boardCode } });
+    nav("/", { state: { bc: boardCode } });
   }); //상세보기 화면으로 전환될 때 문의게시글 번호로 보낸다.
 
   return (

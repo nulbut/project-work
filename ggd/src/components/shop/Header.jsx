@@ -106,7 +106,7 @@ const Header = ({ lstate, onLogout }) => {
     },
     {
       name: "Q&A",
-      path: "/Inquiry",
+      path: "/mypage/55",
     },
   ];
   const Categotry = [

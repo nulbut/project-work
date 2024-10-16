@@ -27,7 +27,6 @@ import IdealcupMy from "./components/idealcup/IdealcupMy";
 import UsedproductRegistration from "./components/shop/UsedproductRegistration";
 import RegisteredProduct from "./components/shop/RegisteredProduct";
 
-
 function App() {
   const nav = useNavigate();
 
@@ -76,7 +75,6 @@ function App() {
     setLoginState(newState);
   }, []);
 
-
   return (
     <div className="App">
       <Routes>
@@ -100,8 +98,8 @@ function App() {
             <Route path="dibs" element={<Dibs />} />
             <Route path="inquiry" element={<Inquiry />} />
           </Route>
-          <Route path="/123" element={<UsedproductRegistration />} />
           <Route path="/456" element={<RegisteredProduct />} />
+          <Route path="/123" element={<UsedproductRegistration />} />
         </Route>
 
         <Route element={<IdealcupLayout />}>

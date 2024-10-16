@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import moment from "moment";
+import Button from "./Button";
 import ProductViewLayout from "./ProductViewLayout";
 import Paging from "./Paging";
 import TableRow from "./TableRow";
@@ -44,13 +45,10 @@ const RegisteredProduct = () => {
     if (mid === null) {
       nav("/", { replace: true });
       return;
-
     }
 
     getList(1);
   }, []);
-
-  
 
   let list = null;
   if (bitem.length === 0) {
@@ -64,22 +62,30 @@ const RegisteredProduct = () => {
       <TableRow key={item.productCode}>
         <TableColumn wd="w-10">{item.productCode}</TableColumn>
         <TableColumn wd="w-40">
-        <div onClick={() => ProductList(item.productCode)}>
-            {item.productName}
-          </div>
+          {/* <div onClick={() => ProductList(item.productCode)}> */}
+          {item.productName}
+          {/* </div> */}
         </TableColumn>
         <TableColumn wd="w-20">{item.sellerId}</TableColumn>
         <TableColumn wd="w-30">{df(item.ProductDate)}</TableColumn>
       </TableRow>
     ));
   }
-  
 
   return (
     <div>
       <ProductViewLayout hName={["번호", "상품", "판매자", "등록날짜"]}>
         {list}
       </ProductViewLayout>
+      <Button
+        size="large"
+        wsize="s-50"
+        onClick={() => {
+          nav("/123");
+        }}
+      >
+        글작성
+      </Button>
     </div>
   );
 };

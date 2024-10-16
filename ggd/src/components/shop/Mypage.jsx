@@ -3,13 +3,12 @@ import { Link, Outlet } from "react-router-dom";
 import "./scss/Mypage.scss";
 import Button from "../idealcup/Button";
 import logo from "../images/logo.svg";
-import RegisteredProduct from "./RegisteredProduct";
 
 const Mypage = () => {
   const menuArr = [
     {
       name: "포인트",
-      path: "/mypage",
+      path: "mypage",
     },
     {
       name: "등록한 상품",
