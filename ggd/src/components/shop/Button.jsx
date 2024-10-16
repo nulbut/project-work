@@ -1,7 +1,6 @@
 import React from 'react';
 import classnames from "classnames";
-import "./scss/Button.scss";
-
+import "../idealcup/scss/Button.scss";
 
 const Button = (props) => {
 

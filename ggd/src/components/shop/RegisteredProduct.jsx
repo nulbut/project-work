@@ -1,10 +1,9 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import moment from "moment";
 import ProductViewLayout from "./ProductViewLayout";
 import Paging from "./Paging";
-
 import TableRow from "./TableRow";
 import TableColumn from "./TableColumn";
 
@@ -45,6 +44,7 @@ const RegisteredProduct = () => {
     if (mid === null) {
       nav("/", { replace: true });
       return;
+
     }
 
     getList(1);
@@ -64,7 +64,7 @@ const RegisteredProduct = () => {
       <TableRow key={item.productCode}>
         <TableColumn wd="w-10">{item.productCode}</TableColumn>
         <TableColumn wd="w-40">
-          <div onClick={() => ProductList(item.productCode)}>
+        <div onClick={() => ProductList(item.productCode)}>
             {item.productName}
           </div>
         </TableColumn>
@@ -73,10 +73,7 @@ const RegisteredProduct = () => {
       </TableRow>
     ));
   }
-
-  const ProductList = (code) => {
-    nav("/456", { state: { productCode: code }});
-  };
+  
 
   return (
     <div>

@@ -3,6 +3,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import Button from './Button';
+import "./scss/Login.scss";
 
 const Login = ({sucLogin}) => {
     const navigate = useNavigate();
@@ -22,8 +23,11 @@ const Login = ({sucLogin}) => {
                 if(res.data.res === "ok"){
                     sucLogin(res.data.nid);
                     //sessionStorage에 id 값 저장
+                    
                     sessionStorage.setItem("nid",res.data.nid);
-                    alert("로그인 성공!")
+                    // sessionStorage.setItem("nnickname",res.data.nnickname);
+                    // 로그인 반응 확인용 
+                    // alert("로그인 성공!")
                     // id 전송 확인용 
                     // console.log(sessionStorage);
                     navigate("/shoppingmall"); //쇼핑몰 화면으로 이동 
@@ -43,7 +47,7 @@ const Login = ({sucLogin}) => {
 
     return (
         <div className='login'>
-            <form className='Content' onSubmit={handleSubmit(sendLogin)}>
+            <form className='content' onSubmit={handleSubmit(sendLogin)}>
             <h1>LOGIN</h1>
             <div className='id'>
                 <p>ID</p>

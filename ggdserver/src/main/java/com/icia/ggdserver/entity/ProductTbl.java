@@ -15,7 +15,7 @@ public class ProductTbl { //상품 테이블
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private long productCode; //상품 고유번호
 
-    @Column(name = "CategoryCode")
+    @Column(name = "CategoryCode", nullable = false)
     private long CategoryCode; //카테고리 고유번호
 
     @Column(nullable = false, length = 40)
@@ -42,6 +42,9 @@ public class ProductTbl { //상품 테이블
 
     @Column
     private int ProductHit; //상품 조회수
+
+    @Column(nullable = false, length = 1)
+    private int ProductPurchaseLimit; //상품구매제한
 
     @Transient
     private List<ProductFileTbl> ProductFileList; //첨부파일
