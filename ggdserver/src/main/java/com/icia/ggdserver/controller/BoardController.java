@@ -16,13 +16,13 @@ public class BoardController {
     @Autowired
     private BoardService bServ;
 
-    @GetMapping("boardlist")
-    public Map<String, Object> boardlist(@RequestParam Integer pageNum) {
-        log.info("getboardlist");
-
-        Map<String, Object> res = bServ.getBoardList(pageNum);
-
-        return res;
-    }
+//    @GetMapping("boardlist")
+//    public Map<String, Object> boardlist(@RequestParam Integer pageNum) {
+//        log.info("getboardlist");
+//
+//        Map<String, Object> res = bServ.getBoardList(pageNum);
+//
+//        return res;
+//    }
 
 }
