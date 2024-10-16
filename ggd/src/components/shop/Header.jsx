@@ -10,9 +10,6 @@ import {
   faHeart,
 } from "@fortawesome/free-solid-svg-icons";
 import "./scss/Header.scss";
-import ShopCategoryRow from "./ShopCategoryRow";
-import ShopCategoryColum from "./ShopCategoryColum";
-import ShopCategory from "./ShopCategory";
 
 const Header = ({ lstate, onLogout }) => {
   const { loginid } = lstate;
