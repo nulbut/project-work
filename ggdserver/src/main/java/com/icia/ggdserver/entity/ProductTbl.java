@@ -28,11 +28,17 @@ public class ProductTbl { //상품 테이블
     private int sellerPayment; //판매가
 
     @Column(nullable = false)
+    private int ProductLimit; // 구매제한
+
+    @Column(nullable = false)
     private int ProductStock; //상품 수량
 
     @CreationTimestamp
     @Column
     private Timestamp ProductDate; //상품 등록일
+
+    @Column(nullable = false, length = 100)
+    private String productDetail; //상품 설명
 
     @Column
     private int ProductHit; //상품 조회수

@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import moment from "moment";
 import ProductViewLayout from "./ProductViewLayout";
+import Paging from "./Paging";
 import TableRow from "./TableRow";
 import TableColumn from "./TableColumn";
 
@@ -14,8 +15,8 @@ const RegisteredProduct = () => {
   const mid = "asd";
 
   const options = [
-    { value: "upName", label: "제품명" },
-    { value: "upDetail", label: "내용" },
+    { value: "productName", label: "제품명" },
+    { value: "productDetail", label: "내용" },
   ];
 
   const [bitem, setBitem] = useState({});
@@ -30,9 +31,11 @@ const RegisteredProduct = () => {
     axios
       .get("/pdlist", { params: { pageNum: page } })
       .then((res) => {
-        const { blist, totalPage, pageNum } = res.data;
+        console.log(res.data);
+        const { bList, totalPage, pageNum } = res.data;
         setPage({ totalPage: totalPage, pageNum: pageNum });
-        setBitem(blist);
+        setBitem(bList);
+        console.log(bitem);
       })
       .catch((err) => console.log(err));
   };
@@ -41,34 +44,40 @@ const RegisteredProduct = () => {
     if (mid === null) {
       nav("/", { replace: true });
       return;
+
     }
 
     getList(1);
   }, []);
 
+  
+
   let list = null;
   if (bitem.length === 0) {
     list = (
       <TableRow key={0}>
-        <TableColumn span={4}>게시글이 없습니다.</TableColumn>
+        <TableColumn span={4}>등록된 상품이 없습니다.</TableColumn>
       </TableRow>
     );
   } else {
     list = Object.values(bitem).map((item) => (
-      <TableRow key={item.pdCode}>
-        <TableColumn wd="w-10">{item.pdCode}</TableColumn>
+      <TableRow key={item.productCode}>
+        <TableColumn wd="w-10">{item.productCode}</TableColumn>
         <TableColumn wd="w-40">
-          {/* <div onClick={() => getBoard(item.pdCode)}>{item.pdCode}</div> */}
+        <div onClick={() => ProductList(item.productCode)}>
+            {item.productName}
+          </div>
         </TableColumn>
-        <TableColumn wd="w-20">{item.pdAuthor}</TableColumn>
-        <TableColumn wd="w-30">{df(item.rdate)}</TableColumn>
+        <TableColumn wd="w-20">{item.sellerId}</TableColumn>
+        <TableColumn wd="w-30">{df(item.ProductDate)}</TableColumn>
       </TableRow>
     ));
   }
+  
 
   return (
-    <div className="table-ex">
-      <ProductViewLayout hName={["NO", "Title", "Writer", "Date"]}>
+    <div>
+      <ProductViewLayout hName={["번호", "상품", "판매자", "등록날짜"]}>
         {list}
       </ProductViewLayout>
     </div>

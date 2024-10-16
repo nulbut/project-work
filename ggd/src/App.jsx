@@ -24,7 +24,9 @@ import JoinN from "./components/shop/JoinN";
 import JoinB from "./components/shop/JoinB";
 import IdPasswordFind from "./components/shop/IdPasswordFind";
 import IdealcupMy from "./components/idealcup/IdealcupMy";
+import UsedproductRegistration from "./components/shop/UsedproductRegistration";
 import RegisteredProduct from "./components/shop/RegisteredProduct";
+
 
 function App() {
   const nav = useNavigate();
@@ -98,6 +100,8 @@ function App() {
             <Route path="dibs" element={<Dibs />} />
             <Route path="inquiry" element={<Inquiry />} />
           </Route>
+          <Route path="/123" element={<UsedproductRegistration />} />
+          <Route path="/456" element={<RegisteredProduct />} />
         </Route>
 
         <Route element={<IdealcupLayout />}>
