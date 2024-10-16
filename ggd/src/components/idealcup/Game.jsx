@@ -8,7 +8,8 @@ const Game = () => {
   const [displays, setDisplays] = useState([]);
   const [winners, setWinners] = useState([]);
   const [goods, setGoods] = useState([]);
-  const [gang, setGang] = useState(10);
+  const [gang, setGang] = useState(-99);
+  let i = 1;
   console.log(location);
   console.log(location.state.code);
   console.log("굿즈", goods);
@@ -77,7 +78,7 @@ const Game = () => {
           return (
             <div className="flex-1" key={d.src} onClick={clickHandler(d)}>
               <img className="food-img" src={d.src} />
-              <div className="name">{d.name}</div>
+              <div className="name">{d.iwcContentsOriname}</div>
             </div>
           );
         })
@@ -85,7 +86,16 @@ const Game = () => {
         //   <div>loading</div>
         // )
       }
-      123123123<button onClick={() => selectGang(8)}>8강</button>
+      {gang < 0 && (
+        <div className="bg_layer">
+          <div className="articleView_layer">123</div>
+          <div className="contents_layer">
+            <div className="lightbox">
+              <button onClick={() => selectGang(8)}>8강</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

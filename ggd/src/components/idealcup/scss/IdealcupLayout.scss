@@ -1,14 +1,13 @@
-* {
-  padding: 0;
-  margin: 0;
-}
-
-.body {
-  width: 94%;
+.idealbody {
+  width: 95%;
+  margin-left: 5%;
   flex-grow: 1;
 }
+.idealmain {
+  margin-left: 2%;
+  margin-top: 2%;
+}
 .product-grid {
-  padding-left: 3%;
   display: flex;
   flex-wrap: wrap;
   width: 100%;
@@ -17,7 +16,7 @@
 }
 
 .product-card {
-  width: 280px;
+  width: 290px;
   height: 300px;
   border: 1px solid #e0e0e0;
   border-radius: 8px;

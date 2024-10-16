@@ -10,7 +10,7 @@ const IdealcupLayout = () => {
     <div>
       <IdealcupHeader />
       <IdealcupSidebar />
-      <div className="body">
+      <div className="idealbody">
         <Outlet />
       </div>
       <IdealcupFooter />

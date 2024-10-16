@@ -39,8 +39,8 @@ const IdealcupMain = () => {
   // const mid = sessionStorage.getItem("mid");
   const mid = "asd"; //로그인 구현 전 임시
   const nav = useNavigate();
-  console.log("페이지",page);
-  console.log("게임",games);
+  console.log("페이지", page);
+  console.log("게임", games);
   const fetchGoods = async (inpage) => {
     //중복호출 제거
     if (pageParams.includes(inpage.pageNum)) return;
@@ -165,7 +165,7 @@ const IdealcupMain = () => {
   }; //상세보기 화면으로 전환될 때 게시글 번호를 보낸다.
 
   return (
-    <div className="body">
+    <div className="idealmain">
       {/* <GameViewLayout hName={["NO", "Title", "Writer", "Date"]}>
         {list}
       </GameViewLayout> */}
