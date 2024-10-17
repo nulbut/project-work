@@ -3,7 +3,7 @@ import React, { useCallback, useState } from "react";
 // import axios from "axios";
 // import Button from "./Button";
 import "./scss/FileInput.scss";
-import "./scss/Write.scss";
+import "./scss/IdealcupWrite.scss";
 import "./scss/IdealcupMaker.scss";
 import BasicMaker from "./BasicMaker";
 
@@ -24,7 +24,7 @@ const IdealCupMaker = () => {
   };
 
   return (
-    <div className="Write">
+    <div className="gameWrite">
       <div className="tabMenu">
         {menuArr.map((el, index) => (
           <li

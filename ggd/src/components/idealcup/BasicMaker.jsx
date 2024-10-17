@@ -81,7 +81,7 @@ const BasicMaker = () => {
   );
   return (
     <div>
-      <form className="Content" onSubmit={onWrite}>
+      <form className="Content-iw" onSubmit={onWrite}>
         <table>
           <tr>
             <td>제목</td>
@@ -111,7 +111,7 @@ const BasicMaker = () => {
           </tr>
           <tr>
             <td>공개여부</td>
-            <td>
+            <td className="radio-box">
               <label>
                 <input
                   type="radio"

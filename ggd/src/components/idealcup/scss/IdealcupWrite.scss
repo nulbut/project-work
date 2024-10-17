@@ -1,10 +1,62 @@
-.Write {
+.gameWrite {
   flex: 1;
   min-height: 250px;
-  width: 94%;
-  margin: 10px auto;
 
-  .Content {
+  width: 100%;
+  tr {
+    td {
+      border: 1px solid red;
+      width: auto;
+
+      .Input {
+        width: 100%;
+        height: 2.5rem;
+        font-size: 1.25rem;
+        line-height: 2.5rem;
+        border: none;
+        border-radius: 1.25rem;
+        background: rgb(230, 230, 230);
+        text-align: center;
+
+        &::placeholder {
+          color: rgb(85, 84, 84);
+        }
+
+        & + &,
+        & + .Button,
+        .Button + & {
+          margin-top: 1rem;
+        }
+      }
+
+      .FileInput {
+        text-align: center;
+        input {
+          width: 0;
+        }
+        .FileLabel {
+          width: 300px;
+          display: flex;
+        }
+      }
+    }
+    .radio-box {
+      text-align: left;
+    }
+    .radio {
+      width: auto;
+    }
+    .radio-ex {
+      color: rgb(85, 84, 84);
+    }
+    :first-child {
+      width: auto;
+    }
+    .cols {
+      width: 100%;
+    }
+  }
+  .Content-iw {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -133,46 +185,5 @@
     input + & {
       margin-top: 2rem;
     }
-  }
-}
-
-tr {
-  td {
-    border: 1px solid red;
-    width: auto;
-
-    .Input {
-      width: 100%;
-      height: 2.5rem;
-      font-size: 1.25rem;
-      line-height: 2.5rem;
-      border: none;
-      border-radius: 1.25rem;
-      background: rgb(230, 230, 230);
-      text-align: center;
-
-      &::placeholder {
-        color: rgb(85, 84, 84);
-      }
-
-      & + &,
-      & + .Button,
-      .Button + & {
-        margin-top: 1rem;
-      }
-    }
-    .radio {
-      width: auto;
-    }
-    .radio-ex {
-      color: rgb(85, 84, 84);
-    }
-  }
-  :first-child {
-    width: auto;
-  }
-
-  .cols {
-    width: 100%;
   }
 }

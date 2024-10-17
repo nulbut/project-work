@@ -4,14 +4,14 @@ import Header from "./Header";
 import Footer from "./Footer";
 import ShopSideber from "./ShopSideber";
 
-
 const ShopLayout = (props) => {
-
   return (
     <div>
       <Header lstate={props.lstate} onLogout={props.onLogout} />
       <ShopSideber />
-      <Outlet />
+      <div className="">
+        <Outlet />
+      </div>
       <Footer />
     </div>
   );

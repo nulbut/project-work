@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./scss/InfiniteScroll.scss";
 
-// 24-10-10 09:10 시작
+// 24-10-16 09:20 더미이미지 -> 이미지 넣고 다시해보기
 function InfiniteScroll() {
   const [products, setProducts] = useState([]);
   const [hasMore, setHasMore] = useState(true);
@@ -10,7 +10,6 @@ function InfiniteScroll() {
   var count = 1;
 
   const fetchProducts = async () => {
-    // Dummy API를 통해 데이터 불러오기
     const response = await fetch(
       `https://dummyjson.com/products?limit=5&skip=${page * 5}`
     );
@@ -52,7 +51,7 @@ function InfiniteScroll() {
         {products.map((product, index) => (
           <div key={index} className="product-card">
             <img
-              src="./images/27.JPG"
+              // src="./images/27.JPG"
               alt={`상품 이미지 ${index + 1}`}
               className="product-image"
             />
@@ -75,7 +74,7 @@ function InfiniteScroll() {
         {products.map((product, index) => (
           <div key={`latest-${index}`} className="product-card">
             <img
-              src="./images/28.JPG"
+              // src="./images/28.JPG"
               alt={`상품 이미지 ${index + 1}`}
               className="product-image"
             />

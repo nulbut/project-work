@@ -1,79 +1,101 @@
 import React, { useState, useEffect } from "react";
 import "./scss/game.scss";
-const items = [
-  {
-    name: "산리오",
-
-    src: require("../images/1.JPG"),
-  },
-  {
-    name: "산리오",
-    src: require("../images/2.JPG"),
-  },
-  {
-    name: "산리오",
-    src: require("../images/3.JPG"),
-  },
-  {
-    name: "도라에몽",
-    src: require("../images/4.JPG"),
-  },
-  {
-    name: "산리오",
-    src: require("../images/5.JPG"),
-  },
-  {
-    name: "도라에몽",
-    src: require("../images/6.JPG"),
-  },
-  {
-    name: "산리오",
-    src: require("../images/7.JPG"),
-  },
-  {
-    name: "도라에몽",
-    src: require("../images/8.JPG"),
-  },
-];
+import { useLocation } from "react-router-dom";
+import axios from "axios";
 
 const Game = () => {
-  const [foods, setFoods] = useState([]);
+  const location = useLocation();
   const [displays, setDisplays] = useState([]);
   const [winners, setWinners] = useState([]);
+  const [goods, setGoods] = useState([]);
+  const [gang, setGang] = useState(-99);
+  let i = 1;
+  console.log(location);
+  console.log(location.state.code);
+  console.log("굿즈", goods);
+
   useEffect(() => {
-    items.sort(() => Math.random() - 0.5);
-    setFoods(items);
-    setDisplays([items[0], items[1]]);
+    console.log("디스플레이", displays.length);
+    const axiosGet = async () => {
+      await axios
+        .get("/getGameData", { params: { code: location.state.code } })
+        .then((res) => {
+          {
+            if (res.data.length > 0) {
+              let newGoodsList = [];
+              for (let i = 0; i < res.data.length; i++) {
+                const newGoods = {
+                  ...res.data[i],
+                  src: "upload/" + res.data[i].iwcContentsSysname,
+                };
+                newGoodsList.push(newGoods); //배열에 추가
+                console.log(newGoodsList);
+              }
+              setGoods(newGoodsList);
+              // goods.sort(() => Math.random() - 0.5);
+              // setDisplays([goods[0], goods[1]]);
+            }
+          }
+        })
+        .catch((err) => console.log(err));
+    };
+    axiosGet();
   }, []);
 
-  const clickHandler = (food) => () => {
-    if (foods.length <= 2) {
+  const clickHandler = (good) => () => {
+    if (goods.length <= 2) {
       if (winners.length === 0) {
-        setDisplays([food]);
+        setDisplays([good]);
       } else {
-        let updatedFood = [...winners, food];
-        updatedFood.sort(() => Math.random() - 0.5);
-        setFoods(updatedFood);
-        setDisplays([updatedFood[0], updatedFood[1]]);
+        let updatedGood = [...winners, good];
+        updatedGood.sort(() => Math.random() - 0.5);
+        setGoods(updatedGood);
+        setDisplays([updatedGood[0], updatedGood[1]]);
         setWinners([]);
+        setGang(gang / 2);
       }
-    } else if (foods.length > 2) {
-      setWinners([...winners, food]);
-      setDisplays([foods[2], foods[3]]);
-      setFoods(foods.slice(2));
+    } else if (goods.length > 2) {
+      setWinners([...winners, good]);
+      setDisplays([goods[2], goods[3]]);
+      setGoods(goods.slice(2));
     }
   };
+
+  const selectGang = (gang) => {
+    setGang(gang);
+    console.log("버튼", displays);
+    goods.sort(() => Math.random() - 0.5);
+    setDisplays([goods[0], goods[1]]);
+  };
+
+  console.log("나와라", displays);
   return (
     <div className="frame">
       <h1 className="title">이상형 월드컵</h1>
-      {displays.map((d) => {
-        return (
-          <div className="flex-1" key={d.src} onClick={clickHandler(d)}>
-            <img className="food-img" src={d.src} />
-            <div className="name">{d.name}</div>
+      {
+        // displays.src ? (
+        displays.map((d) => {
+          return (
+            <div className="flex-1" key={d.src} onClick={clickHandler(d)}>
+              <img className="food-img" src={d.src} />
+              <div className="name">{d.iwcContentsOriname}</div>
+            </div>
+          );
+        })
+        // ) : (
+        //   <div>loading</div>
+        // )
+      }
+      {gang < 0 && (
+        <div className="bg_layer">
+          <div className="articleView_layer">123</div>
+          <div className="contents_layer">
+            <div className="lightbox">
+              <button onClick={() => selectGang(8)}>8강</button>
+            </div>
           </div>
-        );
-      })}
+        </div>
+      )}
     </div>
   );
 };
