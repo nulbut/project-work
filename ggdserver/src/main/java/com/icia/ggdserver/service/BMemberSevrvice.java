@@ -2,6 +2,7 @@ package com.icia.ggdserver.service;
 
 import com.icia.ggdserver.entity.BmemberTbl;
 import com.icia.ggdserver.repository.BMemberRepository;
+import com.icia.ggdserver.repository.NMemberRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -17,6 +18,9 @@ public class BMemberSevrvice {
     @Autowired
     BMemberRepository bmRepo;
 
+    @Autowired
+    NMemberRepository nmRepo;
+
     //비밀번호를 암호화 하는 객체 (평문 암호화, 비교가능)
     BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
@@ -27,8 +31,10 @@ public class BMemberSevrvice {
 
         long bmcnt = bmRepo.countByBid(b_id); //0 또는 1의 값 넘어옴
         log.info("bmcnt: {}", bmcnt);
+        long nmcnt = nmRepo.countByNid(b_id);
+        log.info("nmcnt: {}", nmcnt);
 
-        if (bmcnt == 0){
+        if (bmcnt == 0 && nmcnt == 0){
             brsMap.put("res","ok");
             brsMap.put("msg","사용 가능한 아이디입니다.");
         }

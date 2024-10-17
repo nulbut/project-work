@@ -4,6 +4,7 @@ package com.icia.ggdserver.controller;
 import com.icia.ggdserver.entity.BmemberTbl;
 import com.icia.ggdserver.entity.NmemberTbl;
 import com.icia.ggdserver.service.BMemberSevrvice;
+import com.icia.ggdserver.service.NMemberService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
