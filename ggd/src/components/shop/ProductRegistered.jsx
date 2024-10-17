@@ -9,7 +9,7 @@ import TableRow from "./TableRow";
 import TableColumn from "./TableColumn";
 
 //2024-10-16 16:57 까지 한것
-//너무 긴 파일이름 변경 db는 여전히 안들어오고 페이지는 들어가지다가 메인페이지로 넘어감.
+//너무 긴 파일이름 변경 db는 여전히 안들어오고 다른 에러 발생 페이지는 들어가지다가 메인페이지로 넘어감. 18
 //무한 스크롤 더미이미지기능 버리고 일반이미지 넣음(noimage) 내일 아침에와서 db만져야함
 //최대한 빨리 db 두개 해결하고 검색기능 하겠음 
 const df = (date) => moment(date).format("YYYY-MM-DD HH:mm:ss");
