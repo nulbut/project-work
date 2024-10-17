@@ -4,17 +4,17 @@ import axios from "axios";
 import Button from "./Button";
 
 const BasicMaker = () => {
+  const id = sessionStorage.getItem("nid");
   const [data, setData] = useState({
     iwcName: "",
     iwcExplanation: "",
-    iwcAuthor: "asd",
+    iwcAuthor: id,
     iwcGenre: "",
     iwcPublic: "1",
   });
   const { iwcName, iwcExplanation, iwcGenre, iwcPublic } = data;
   const [fileName, setFileName] = useState("선택된 파일이 없습니다.");
   const nav = useNavigate();
-  const id = sessionStorage.getItem("mid");
 
   //전송 데이터와 파일을 담을 멀티파트 폼 생성
   let formData = new FormData();
@@ -67,7 +67,7 @@ const BasicMaker = () => {
         .then((res) => {
           if (res.data === "ok") {
             alert("작성 성공");
-            nav("/main");
+            nav("/idlecup");
           } else {
             alert("작성 실패");
           }

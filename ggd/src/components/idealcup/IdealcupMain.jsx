@@ -174,12 +174,12 @@ const IdealcupMain = () => {
           <div key={index} className="product-card">
             <div className="vs-imgset">
               <img
-                src={noimage}
+                src={`upload/${item.iwcFirstImage}`}
                 alt={`상품 이미지 ${item.iwcCode}`}
                 className="product-image"
               />
               <img
-                src={noimage}
+                src={`upload/${item.iwcSecondImage}`}
                 alt={`상품 이미지 ${item.iwcCode}`}
                 className="product-image"
               />
@@ -188,7 +188,11 @@ const IdealcupMain = () => {
             <div className="product-title">
               <Link
                 to="/game"
-                state={{ code: item.iwcCode, name: item.iwcName }}
+                state={{
+                  code: item.iwcCode,
+                  name: item.iwcName,
+                  expl: item.iwcExplanation,
+                }}
               >
                 <div>{item.iwcName}</div>
               </Link>
@@ -209,8 +213,17 @@ const IdealcupMain = () => {
               {/* <button>시작</button>
               <button>랭킹</button>
               <button>공유</button> */}
+              <Link
+                to="/game"
+                state={{
+                  code: item.iwcCode,
+                  name: item.iwcName,
+                  expl: item.iwcExplanation,
+                }}
+              >
+                <Button size="s-25">시작</Button>
+              </Link>
 
-              <Button size="s-25">시작</Button>
               <Button size="s-25">랭킹</Button>
               <Button size="s-25">공유</Button>
             </div>

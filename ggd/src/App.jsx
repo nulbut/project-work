@@ -27,7 +27,6 @@ import IdealcupMy from "./components/idealcup/IdealcupMy";
 import ProductregistrationWrite from "./components/shop/ProductWrite";
 import ProductRegistered from "./components/shop/ProductRegistered";
 
-
 function App() {
   const nav = useNavigate();
 
@@ -76,7 +75,6 @@ function App() {
     setLoginState(newState);
   }, []);
 
-
   return (
     <div className="App">
       <Routes>
@@ -97,7 +95,10 @@ function App() {
           <Route path="/mypage" element={<Mypage />}>
             <Route path="orderDelivery" element={<OrderDelivery />} />
             <Route path="productRegisterd" element={<ProductRegistered />} />
-            <Route path="productregistrationWrite" element={<ProductregistrationWrite />} />
+            <Route
+              path="productregistrationWrite"
+              element={<ProductregistrationWrite />}
+            />
             <Route path="dibs" element={<Dibs />} />
             <Route path="inquiry" element={<Inquiry />} />
           </Route>
@@ -105,7 +106,9 @@ function App() {
           <Route path="/456" element={<ProductRegistered />} />
         </Route>
 
-        <Route element={<IdealcupLayout />}>
+        <Route
+          element={<IdealcupLayout lstate={loginState} onLogout={onLogout} />}
+        >
           <Route path="/idlecup" element={<IdealcupMain />} />
           <Route path="/game" element={<Game />} />
           <Route path="/make" element={<IdealCupMaker />} />

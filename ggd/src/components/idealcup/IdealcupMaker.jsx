@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 // import { useNavigate } from "react-router-dom";
 // import axios from "axios";
 // import Button from "./Button";
@@ -6,9 +6,12 @@ import "./scss/FileInput.scss";
 import "./scss/IdealcupWrite.scss";
 import "./scss/IdealcupMaker.scss";
 import BasicMaker from "./BasicMaker";
+import { useNavigate } from "react-router-dom";
 
 const IdealCupMaker = () => {
   //탭 관련
+  const nav = useNavigate();
+  const id = sessionStorage.getItem("nid");
   const [currentTab, clickTab] = useState(0);
 
   const menuArr = [
@@ -22,6 +25,12 @@ const IdealCupMaker = () => {
     // 해당 함수가 실행되면 현재 선택된 Tab Menu 가 갱신.
     clickTab(index);
   };
+  useEffect(() => {
+    if (id === null) {
+      nav("/login", { replace: true });
+      return; //로그인 안한 경우 첫 화면으로 이동.
+    }
+  }, []);
 
   return (
     <div className="gameWrite">
