@@ -1,6 +1,7 @@
 package com.icia.ggdserver.controller;
 
 
+import com.icia.ggdserver.entity.IwcContentsTbl;
 import com.icia.ggdserver.entity.IwcTbl;
 import com.icia.ggdserver.service.IdealWorldCupService;
 import jakarta.servlet.http.HttpSession;
@@ -34,5 +35,12 @@ public class IdealWorldCupController {
         Map<String, Object> res = iwcServ.getBoardList(pageNum);
 
         return res;
+    }
+
+    @GetMapping("getGameData")
+    public List<IwcContentsTbl> getGameData(Long code){
+        log.info("getGameData()",code);
+
+        return iwcServ.getGameContent(code);
     }
 }

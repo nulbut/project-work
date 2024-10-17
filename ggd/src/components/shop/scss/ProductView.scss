@@ -1,16 +1,23 @@
-.Table {
+.table-ex {
   width: 100%;
+  padding-top: 10%;
+}
+
+.Table {
+  width: 60%;
   margin: 0 auto;
   text-align: center;
   border-spacing: 0;
   font-size: 1.2rem;
   box-sizing: border-box;
+  margin-bottom: 20%;
 
   .TableHeader {
     border-bottom: 1px solid #e8e8e8;
     padding: 0;
     padding: 10px 5px;
     font-weight: bold;
+    // border: 1px solid;
 
     &.w-10 {
       width: 10%;

@@ -1,0 +1,17 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+.body {
+  width: 100%;
+  flex-grow: 1;
+}
+.product-grid {
+  // padding-left: 3%;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  gap: 20px;
+  // margin-bottom: 40px;
+}

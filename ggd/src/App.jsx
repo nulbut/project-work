@@ -24,7 +24,8 @@ import JoinN from "./components/shop/JoinN";
 import JoinB from "./components/shop/JoinB";
 import IdPasswordFind from "./components/shop/IdPasswordFind";
 import IdealcupMy from "./components/idealcup/IdealcupMy";
-
+import ProductregistrationWrite from "./components/shop/ProductWrite";
+import ProductRegistered from "./components/shop/ProductRegistered";
 
 function App() {
   const nav = useNavigate();
@@ -74,7 +75,6 @@ function App() {
     setLoginState(newState);
   }, []);
 
-
   return (
     <div className="App">
       <Routes>
@@ -87,19 +87,28 @@ function App() {
           <Route path="/usedProduct" element={<UsedProduct />} />
           <Route path="/notification" element={<Notification />} />
           <Route path="/cart" element={<Cart />} />
-          <Route path="/dibs" element={<Dibs />} />
           <Route path="/login" element={<Login sucLogin={sucLogin} />} />
           <Route path="/idpwdfind" element={<IdPasswordFind />} />
           <Route path="/joinchoice" element={<JoinChoice />} />
           <Route path="/join_n" element={<JoinN />} />
           <Route path="/join_b" element={<JoinB />} />
-          <Route path="/inquiry" element={<Inquiry />} />
-          <Route path="/mypage" element={<Mypage />} />
-          <Route path="/orderDelivery" element={<OrderDelivery />} />
+          <Route path="/mypage" element={<Mypage />}>
+            <Route path="orderDelivery" element={<OrderDelivery />} />
+            <Route path="productRegisterd" element={<ProductRegistered />} />
+            <Route
+              path="productregistrationWrite"
+              element={<ProductregistrationWrite />}
+            />
+            <Route path="dibs" element={<Dibs />} />
+            <Route path="inquiry" element={<Inquiry />} />
+          </Route>
+          <Route path="/123" element={<ProductregistrationWrite />} />
+          <Route path="/456" element={<ProductRegistered />} />
         </Route>
-       
 
-        <Route element={<IdealcupLayout />}>
+        <Route
+          element={<IdealcupLayout lstate={loginState} onLogout={onLogout} />}
+        >
           <Route path="/idlecup" element={<IdealcupMain />} />
           <Route path="/game" element={<Game />} />
           <Route path="/make" element={<IdealCupMaker />} />

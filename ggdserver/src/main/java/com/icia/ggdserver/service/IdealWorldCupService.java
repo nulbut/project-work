@@ -1,5 +1,6 @@
 package com.icia.ggdserver.service;
 
+import com.icia.ggdserver.dto.TurnImgDto;
 import com.icia.ggdserver.entity.IwcContentsTbl;
 import com.icia.ggdserver.entity.IwcTbl;
 import com.icia.ggdserver.repository.IwcContentsRepository;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +34,7 @@ public class IdealWorldCupService {
                               List<MultipartFile> files,
                               HttpSession session){
         log.info("insertIwc()");
+        log.info("iwc: {}", iwc);
         String result = null;//react 쪽으로 보내는 처리 결과 메시지.
 
         try {
@@ -40,7 +43,24 @@ public class IdealWorldCupService {
 
             if(files != null && !files.isEmpty()){
                 fileUpload(files, session, iwc.getIwcCode());
+                List<IwcContentsTbl> firstsecond = conRepo.findimg(iwc.getIwcCode());
+                log.info("first second: {}", firstsecond);
+                int i = 1;
+                for(IwcContentsTbl it : firstsecond){
+                    if (i == 1){
+                        log.info("it: {}", it);
+                        iwcRepo.setFirstImg(it);
+                        i++;
+                    }else{
+                        iwcRepo.setSecondImg(it);
+                    }
+                }
+//                iwcRepo.updateIwcTblByIwcFirstImageAndIwcFirstNameAndIwcSecondImageAndIwcSecondName(conRepo.findTop2ByIwcContentsIwcCode(iwc.getIwcCode()));
+
+
             }
+
+
             result = "ok";
         } catch (Exception e){
             e.printStackTrace();
@@ -65,12 +85,17 @@ public class IdealWorldCupService {
             folder.mkdir();//upload폴더가 없을 때 생성.
         }
 
+
+
+
         //파일 목록에서 파일을 하나씩 꺼내서 저장
         for(MultipartFile mf : files){
+
             String oriname = mf.getOriginalFilename();
 
             IwcContentsTbl bf = new IwcContentsTbl();
             bf.setIwcContentsOriname(oriname);//원래 파일명
+            bf.setIwcContentsName(oriname);//일단 이름
             bf.setIwcContentsIwcCode(iwccode);//게시글 번호
 
             String sysname = System.currentTimeMillis()
@@ -123,4 +148,13 @@ public class IdealWorldCupService {
         return res;
     }
 
+    public List<IwcContentsTbl> getGameContent(Long code) {
+        log.info("getGameContent()");
+
+        List<IwcContentsTbl> result = conRepo.findAllByIwcContentsIwcCode(code);
+
+        return result;
+
+
+    }
 }

@@ -42,5 +42,15 @@ public class IwcTbl {
     @Column(length = 1)
     private Integer iwcPublic;
 
+    @Column(length = 50)
+    private String iwcFirstImage;
 
+    @Column(length = 50)
+    private String iwcSecondImage;
+
+    @Column(length = 50)
+    private String iwcFirstName;
+
+    @Column(length = 50)
+    private String iwcSecondName;
 }

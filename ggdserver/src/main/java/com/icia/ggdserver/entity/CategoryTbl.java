@@ -11,7 +11,7 @@ public class CategoryTbl { //카테고리 테이블
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long CategoryCode; //카테고리 고유번호
 
-    @Column(nullable = false)
+    @Column
     private long CategoryCode2; //카테고리 고유번호2
 
     @Column(nullable = false, length = 30)

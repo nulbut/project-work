@@ -1,7 +1,7 @@
 import React from "react";
-import "./scss/ProductViewLayout.scss";
+import "./scss/ProductView.scss";
 
-const ProductViewLayout = ({ hName, children }) => {
+const ProductView = ({ hName, children }) => {
     return (
         <div>
           <table className="Table">
@@ -19,4 +19,4 @@ const ProductViewLayout = ({ hName, children }) => {
     );
 };
 
-export default ProductViewLayout;
+export default ProductView;
