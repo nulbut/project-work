@@ -3,7 +3,6 @@ import { Link, Outlet } from "react-router-dom";
 import "./scss/Mypage.scss";
 import Button from "../idealcup/Button";
 import logo from "../images/logo.svg";
-import RegisteredProduct from "./RegisteredProduct";
 
 const Mypage = () => {
   const menuArr = [
@@ -13,7 +12,7 @@ const Mypage = () => {
     },
     {
       name: "등록한 상품",
-      path: "registerdProduct",
+      path: "productRegisterd",
     },
     {
       name: "주문내역/배송조회",

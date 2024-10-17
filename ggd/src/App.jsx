@@ -24,8 +24,8 @@ import JoinN from "./components/shop/JoinN";
 import JoinB from "./components/shop/JoinB";
 import IdPasswordFind from "./components/shop/IdPasswordFind";
 import IdealcupMy from "./components/idealcup/IdealcupMy";
-import UsedproductRegistration from "./components/shop/UsedproductRegistration";
-import RegisteredProduct from "./components/shop/RegisteredProduct";
+import ProductregistrationWrite from "./components/shop/ProductWrite";
+import ProductRegistered from "./components/shop/ProductRegistered";
 
 
 function App() {
@@ -96,12 +96,13 @@ function App() {
           <Route path="/join_b" element={<JoinB />} />
           <Route path="/mypage" element={<Mypage />}>
             <Route path="orderDelivery" element={<OrderDelivery />} />
-            <Route path="registerdProduct" element={<RegisteredProduct />} />
+            <Route path="productRegisterd" element={<ProductRegistered />} />
+            <Route path="productregistrationWrite" element={<ProductregistrationWrite />} />
             <Route path="dibs" element={<Dibs />} />
             <Route path="inquiry" element={<Inquiry />} />
           </Route>
-          <Route path="/123" element={<UsedproductRegistration />} />
-          <Route path="/456" element={<RegisteredProduct />} />
+          <Route path="/123" element={<ProductregistrationWrite />} />
+          <Route path="/456" element={<ProductRegistered />} />
         </Route>
 
         <Route element={<IdealcupLayout />}>
