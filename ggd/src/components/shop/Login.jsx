@@ -4,6 +4,8 @@ import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import Button from './Button';
 import "./scss/Login.scss";
+import KakaoLogin from "./KakaoLogin";
+
 
 const Login = ({sucLogin}) => {
     const navigate = useNavigate();
@@ -86,7 +88,14 @@ const Login = ({sucLogin}) => {
                 {/*위치 표시용*/}
                 <button>네이버 아이디로 로그인</button>
                 <br />
-                <button>카카오계정으로 로그인</button>
+                {/* <button>카카오계정으로 로그인</button> */}
+                {/* <h2>카카오 로그인 구현</h2>
+                <button onClick={KakaoLogin}>
+                    <img src="https://developers.kakao.com/tool/resource/static/img/button/login/full/ko/kakao_login_medium_narrow.png"
+                    width="222"
+                    alt="카카오 로그인 버튼" />                 */}
+                {/* <KakaoLogin/> */}
+                {/* </button> */}
                 <br />
                 <button>Google로 로그인</button>
             </div> 
