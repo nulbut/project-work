@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "./scss/game.scss";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const Game = () => {
   const location = useLocation();
+  const nav = useNavigate();
   const [displays, setDisplays] = useState([]);
   const [winners, setWinners] = useState([]);
   const [goods, setGoods] = useState([]);
@@ -184,7 +185,7 @@ const Game = () => {
                 후보가 대결합니다.
               </h4>
               <button onClick={() => selectGang()}>시작하기</button>
-              <button>돌아가기</button>
+              <button onClick={() => nav("/idlecup")}>돌아가기</button>
             </div>
           </div>
         </div>

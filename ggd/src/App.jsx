@@ -39,6 +39,7 @@ function App() {
   //로그아웃 함수
   const onLogout = () => {
     alert("로그아웃 되었습니다.");
+    console.log("뭐냐이건?");
     const newState = {
       loginid: "",
       mlink: "/login",
@@ -49,7 +50,7 @@ function App() {
     sessionStorage.removeItem("nid");
 
     //첫페이지로 이동
-    nav("/");
+    nav("/", { replace: true });
   };
 
   //세션에 저장된 로그인 정보를 가져옴 (로그인 상태 유지)
@@ -110,7 +111,7 @@ function App() {
           element={<IdealcupLayout lstate={loginState} onLogout={onLogout} />}
         >
           <Route path="/idlecup" element={<IdealcupMain />} />
-          <Route path="/game" element={<Game />} />
+          <Route path="/game?" element={<Game />} />
           <Route path="/make" element={<IdealCupMaker />} />
           <Route path="/mycup" element={<IdealcupMy />} />
         </Route>

@@ -14,7 +14,14 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 public interface IwcTblRepository extends CrudRepository<IwcTbl, Long> {
-    Page<IwcTbl> findByIwcCodeGreaterThan(long pNum, Pageable pageable);
+    Page<IwcTbl> findByIwcCodeGreaterThanAndIwcPublicEquals(long pNum, long ispub, Pageable pageable);
+//    Page<IwcTbl> findByIwcCodeGreaterThan(long pNum, Pageable pageable);
+
+    @Query(value = "update iwc_tbl set iwc_views = iwc_views +1 " +
+            "where iwc_code = :iwcCode",nativeQuery = true)
+    @Modifying
+    @Transactional
+    void updateViews(@Param(value = "iwcCode") long pNum);
 
 //    @Query
 //    void updateIwcTblByIwcFirstImageAndIwcFirstNameAndIwcSecondImageAndIwcSecondName(List<IwcContentsTbl> firstsecond);

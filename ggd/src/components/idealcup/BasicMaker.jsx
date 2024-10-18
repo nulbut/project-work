@@ -3,16 +3,10 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Button from "./Button";
 
-const BasicMaker = () => {
+const BasicMaker = ({ selectMenuHandler, data, setData }) => {
   const id = sessionStorage.getItem("nid");
-  const [data, setData] = useState({
-    iwcName: "",
-    iwcExplanation: "",
-    iwcAuthor: id,
-    iwcGenre: "",
-    iwcPublic: "1",
-  });
-  const { iwcName, iwcExplanation, iwcGenre, iwcPublic } = data;
+
+  const { iwcCode, iwcName, iwcExplanation, iwcGenre, iwcPublic } = data;
   const [fileName, setFileName] = useState("선택된 파일이 없습니다.");
   const nav = useNavigate();
 
@@ -26,6 +20,7 @@ const BasicMaker = () => {
         [e.target.name]: e.target.value,
       };
       setData(dataObj);
+      console.log(data);
     },
     [data]
   );
@@ -67,7 +62,7 @@ const BasicMaker = () => {
         .then((res) => {
           if (res.data === "ok") {
             alert("작성 성공");
-            nav("/idlecup");
+            selectMenuHandler(1);
           } else {
             alert("작성 실패");
           }

@@ -203,6 +203,7 @@ const IdealcupMain = () => {
                 <div>
                   <FontAwesomeIcon icon={faCircleExclamation} />
                 </div>
+                <div>{item.iwcViews}</div>
               </div>
             </div>
 
@@ -214,7 +215,7 @@ const IdealcupMain = () => {
               <button>랭킹</button>
               <button>공유</button> */}
               <Link
-                to="/game"
+                to={`/game?${item.iwcCode}`}
                 state={{
                   code: item.iwcCode,
                   name: item.iwcName,
