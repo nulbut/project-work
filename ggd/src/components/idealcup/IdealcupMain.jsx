@@ -205,7 +205,7 @@ const IdealcupMain = () => {
                 </div>
               </div>
             </div>
-
+                
             <p className="product-body">{item.iwcExplanation}</p>
             <p className="product-sub">{item.iwcAuthor}</p>
             <p className="product-body">{df(item.iwcDate)}</p>
