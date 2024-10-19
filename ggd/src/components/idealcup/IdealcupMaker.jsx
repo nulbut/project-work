@@ -7,10 +7,13 @@ import "./scss/IdealcupWrite.scss";
 import "./scss/IdealcupMaker.scss";
 import BasicMaker from "./BasicMaker";
 import { useNavigate } from "react-router-dom";
+import DetailMaker from "./DetailMaker";
 
 const IdealCupMaker = () => {
   const id = sessionStorage.getItem("nid");
+  let formData = new FormData();
   //탭 관련
+  const [fileImage, setFileImage] = useState([]);
   const [data, setData] = useState({
     iwcCode: "",
     iwcName: "",
@@ -34,14 +37,27 @@ const IdealCupMaker = () => {
       name: "1. 기본정보 입력 / 이미지 업로드",
       content: (
         <BasicMaker
-          tab={currentTab}
           selectMenuHandler={selectMenuHandler}
           data={data}
           setData={setData}
+          fileImage={fileImage}
+          setFileImage={setFileImage}
+          formData={formData}
         />
       ),
     },
-    { name: "2. 이미지 이름 입력/수정/삭제", content: "Tab menu TWO" },
+    {
+      name: "2. 이미지 이름 입력/수정/삭제",
+      content: (
+        <DetailMaker
+          selectMenuHandler={selectMenuHandler}
+          data={data}
+          setData={setData}
+          fileImage={fileImage}
+          setFileImage={setFileImage}
+        />
+      ),
+    },
     // { name: "Tab3", content: "Tab menu THREE" },
   ];
 

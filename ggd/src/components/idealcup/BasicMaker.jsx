@@ -3,15 +3,18 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Button from "./Button";
 
-const BasicMaker = ({ selectMenuHandler, data, setData }) => {
-  const id = sessionStorage.getItem("nid");
-
+const BasicMaker = ({
+  selectMenuHandler,
+  data,
+  setData,
+  fileImage,
+  setFileImage,
+  formData,
+}) => {
   const { iwcCode, iwcName, iwcExplanation, iwcGenre, iwcPublic } = data;
-  const [fileName, setFileName] = useState("선택된 파일이 없습니다.");
-  const nav = useNavigate();
+  const [fileName, setFileName] = useState([]);
 
-  //전송 데이터와 파일을 담을 멀티파트 폼 생성
-  let formData = new FormData();
+  const nav = useNavigate();
 
   const onch = useCallback(
     (e) => {
@@ -33,13 +36,19 @@ const BasicMaker = ({ selectMenuHandler, data, setData }) => {
 
       for (let i = 0; i < files.length; i++) {
         formData.append("files", files[i]);
+        setFileName((prev) => [...prev, files[i]]);
+        setFileImage((prev) => [...prev, URL.createObjectURL(files[i])]);
         fnames += files[i].name + " ";
       }
-
       if (fnames === "") {
         fnames = "선택한 파일이 없습니다.";
       }
-      setFileName(fnames);
+
+      console.log("파일", e.target.files);
+      console.log("파일이름", fileName);
+      for (const x of formData) {
+        console.log("폼데이터", x);
+      }
     },
     [formData]
   );
@@ -74,6 +83,9 @@ const BasicMaker = ({ selectMenuHandler, data, setData }) => {
     },
     [data]
   );
+  console.log(fileName);
+  console.log(fileImage);
+
   return (
     <div>
       <form className="Content-iw" onSubmit={onWrite}>
@@ -150,7 +162,15 @@ const BasicMaker = ({ selectMenuHandler, data, setData }) => {
                   파일선택
                 </label>
 
-                <span className="FileSpan">{fileName}</span>
+                <span className="FileSpan">
+                  {/* {fileName} */}
+                  {fileName.map((e) => (
+                    <div>{e.name}</div>
+                  ))}
+                  {fileImage.map((e) => (
+                    <img style={{ width: "55px" }} src={e} />
+                  ))}
+                </span>
               </div>
             </td>
           </tr>
