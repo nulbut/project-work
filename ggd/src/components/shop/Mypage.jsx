@@ -12,7 +12,7 @@ const Mypage = () => {
     },
     {
       name: "등록한 상품",
-      path: "registerdProduct",
+      path: "productRegisterd",
     },
     {
       name: "주문내역/배송조회",

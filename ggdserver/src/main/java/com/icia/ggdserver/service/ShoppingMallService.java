@@ -83,8 +83,8 @@ private void uploadFile(List<MultipartFile> files,
     }
 }
 
-public Map<String, Object> BoardList(Integer pNum){
-    log.info("BoardList()");
+public Map<String, Object> getBoardList(Integer pNum){
+    log.info("getBoardList()");
 
     if (pNum == null){
         pNum = 1;

@@ -26,11 +26,11 @@ public class ShoppingMallController {
         return result;
     }
 
-    @GetMapping("pdlist")
-    public Map<String, Object> getpdList(Integer pageNum){
-        log.info("getpdList() - {}", pageNum);
+    @GetMapping("BoardList")
+    public Map<String, Object> BoardList(@RequestParam Integer pageNum){
+        log.info("getBoardList() - {}", pageNum);
 
-        Map<String, Object> res= spmServ.BoardList(pageNum);
+        Map<String, Object> res= spmServ.getBoardList(pageNum);
 
 
         return res;

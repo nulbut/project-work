@@ -1,91 +1,107 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./scss/InfiniteScroll.scss";
+import noimage from "../images/no-image.jpg";
 
-// 24-10-16 09:20 더미이미지 -> 이미지 넣고 다시해보기
+
 function InfiniteScroll() {
-  const [products, setProducts] = useState([]);
+  const [items, setItems] = useState([]);
   const [hasMore, setHasMore] = useState(true);
-  const [page, setPage] = useState(0);
+  const [offset, setOffset] = useState(0);
+  const limit = 0;
   const elementRef = useRef(null);
-  var count = 1;
 
-  const fetchProducts = async () => {
-    const response = await fetch(
-      `https://dummyjson.com/products?limit=5&skip=${page * 5}`
-    );
-    const data = await response.json();
+  const fetchMoreItems = async() => {
+    try {
+      const response = await fetch(`/api/Products?offset=${offset}&limit=${limit}`);
+      if(!response.ok){
+        throw new Error ("데이터를 불러오는데 실패했습니다.");
+      }
+      const newItems = await response.json();
+      if (newItems.length < limit){
+        setHasMore(false);// 더 이상 불러올 데이터가 없으면
+        //hasMore를 false로 설정 
+      }
 
-    if (data.products.length === 0 || -page >= 1) {
-      setHasMore(false);
-    } else {
-      setProducts((prevProducts) => [...prevProducts, ...data.products]);
-      setPage((prevPage) => prevPage + 1);
-      count += 1;
+      setItems((prevItems) => //
+    [...prevItems, ...newItems]);
+      setOffset((prevOffset) => prevOffset + limit);
+    } catch(error){
+      console.error(error);
     }
-  };
+  } ;
 
   const onIntersection = (entries) => {
     const firstEntry = entries[0];
-    if (firstEntry.isIntersecting && hasMore) {
-      fetchProducts();
+    if (firstEntry.isIntersecting && hasMore) 
+      {
+      fetchMoreItems();
     }
   };
 
   useEffect(() => {
+    fetchMoreItems();// 처음 로드 시 데이터 가져오기
+
     const observer = new IntersectionObserver(onIntersection);
-    if (elementRef.current) {
+    if (elementRef.current){
       observer.observe(elementRef.current);
     }
     return () => {
-      if (elementRef.current) {
+      if (elementRef.current){
+
         observer.unobserve(elementRef.current);
       }
     };
   }, [hasMore]);
-  return (
+  
+
+
+  return (  
     <div className="product-list">
       <h2 className="section-title">
         [굿즈]<span>추천</span>상품
       </h2>
       <div className="product-grid">
-        {products.map((product, index) => (
-          <div key={index} className="product-card">
-            <img
-              // src="./images/27.JPG"
-              alt={`상품 이미지 ${index + 1}`}
-              className="product-image"
-            />
-            {/* <h3 className="product-title">{product-title}</h3> */}
-            <p className="product-price">${product.price}</p>
-            <p className="product-body">{product.description}</p>
+        {items.map((item, index) => (
+          <div key={item.id} className="product-card">
+            <div className="product-image-placeholder">
+              <img
+                src={item.image || noimage}
+                alt={`상품 이미지 ${item.name}`}
+                className="product-image"
+              />
+            </div>
+            <p className="product-price">₩{item.price}</p>
+            <p className="product-body">{item.description}</p>
           </div>
         ))}
       </div>
-      {hasMore && (
-        <div ref={elementRef} className="loading-indicator">
-          Loading more product...
-        </div>
-      )}
-
+      
       <h2 className="section-title">
         [굿즈]<span>최신</span>상품
       </h2>
       <div className="product-grid">
-        {products.map((product, index) => (
-          <div key={`latest-${index}`} className="product-card">
-            <img
-              // src="./images/28.JPG"
-              alt={`상품 이미지 ${index + 1}`}
-              className="product-image"
-            />
-            <h3 className="product-title">{product.title}</h3>
-            <p className="product-price">${product.price}</p>
-            <p className="product-body">{product.description}</p>
-          </div>
+        {items.map((item, index) => (
+          <div key={`latest-${item}`} className="product-card">
+            <div className="product-image-placeholder">
+              <img
+                src={item.image || noimage}
+                alt={`상품 이미지 ${items.name}`}
+                className="product-image"
+              />
+            </div>
+            <h3 className="product-title">상품명 {item + 1} </h3>
+            <p className="product-price">₩{item.price}</p>
+            <p className="product-body">{item.description}</p>
+        </div>
         ))}
       </div>
+      {hasMore && (
+        <div ref={elementRef} className="loading-indicator">
+          더 많은 상품 불러오는 중...
+        </div>
+      )}
     </div>
-  );
+  )
 }
 
 export default InfiniteScroll;

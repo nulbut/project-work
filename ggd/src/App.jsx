@@ -24,8 +24,8 @@ import JoinN from "./components/shop/JoinN";
 import JoinB from "./components/shop/JoinB";
 import IdPasswordFind from "./components/shop/IdPasswordFind";
 import IdealcupMy from "./components/idealcup/IdealcupMy";
-import UsedproductRegistration from "./components/shop/UsedproductRegistration";
-import RegisteredProduct from "./components/shop/RegisteredProduct";
+import ProductregistrationWrite from "./components/shop/ProductWrite";
+import ProductRegistered from "./components/shop/ProductRegistered";
 
 function App() {
   const nav = useNavigate();
@@ -39,6 +39,7 @@ function App() {
   //로그아웃 함수
   const onLogout = () => {
     alert("로그아웃 되었습니다.");
+    console.log("뭐냐이건?");
     const newState = {
       loginid: "",
       mlink: "/login",
@@ -49,7 +50,7 @@ function App() {
     sessionStorage.removeItem("nid");
 
     //첫페이지로 이동
-    nav("/");
+    nav("/", { replace: true });
   };
 
   //세션에 저장된 로그인 정보를 가져옴 (로그인 상태 유지)
@@ -94,17 +95,23 @@ function App() {
           <Route path="/join_b" element={<JoinB />} />
           <Route path="/mypage" element={<Mypage />}>
             <Route path="orderDelivery" element={<OrderDelivery />} />
-            <Route path="registerdProduct" element={<RegisteredProduct />} />
+            <Route path="productRegisterd" element={<ProductRegistered />} />
+            <Route
+              path="productregistrationWrite"
+              element={<ProductregistrationWrite />}
+            />
             <Route path="dibs" element={<Dibs />} />
             <Route path="inquiry" element={<Inquiry />} />
           </Route>
-          <Route path="/456" element={<RegisteredProduct />} />
-          <Route path="/123" element={<UsedproductRegistration />} />
+          <Route path="/123" element={<ProductregistrationWrite />} />
+          <Route path="/456" element={<ProductRegistered />} />
         </Route>
 
-        <Route element={<IdealcupLayout />}>
+        <Route
+          element={<IdealcupLayout lstate={loginState} onLogout={onLogout} />}
+        >
           <Route path="/idlecup" element={<IdealcupMain />} />
-          <Route path="/game" element={<Game />} />
+          <Route path="/game?" element={<Game />} />
           <Route path="/make" element={<IdealCupMaker />} />
           <Route path="/mycup" element={<IdealcupMy />} />
         </Route>

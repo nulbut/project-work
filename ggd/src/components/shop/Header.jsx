@@ -19,20 +19,18 @@ const Header = ({ lstate, onLogout }) => {
   const menus = [
     //메뉴
     {
-      name: "GGD'S",
+      name: (
+        <div>
+          <h2>
+            GooseGoodsDuck's {"  "}
+            <img src={logo} />
+          </h2>
+        </div>
+      ),
       path: "ShoppingMall",
       sub: 0,
     },
-    {
-      path: "/Idlecup",
-      icon: <img src={logo} />,
-      sub: 0,
-    },
-    {
-      path: "/",
-      icon: <FontAwesomeIcon icon={faList} />,
-      sub: 2,
-    },
+
     {
       name: "인기상품",
       path: "/HotProduct",
@@ -53,11 +51,6 @@ const Header = ({ lstate, onLogout }) => {
       path: "/UsedProduct",
       sub: 1,
     },
-    {
-      name: "공지사항",
-      path: "/Notification",
-      sub: 0,
-    },
   ];
 
   const submenus = [
@@ -75,12 +68,63 @@ const Header = ({ lstate, onLogout }) => {
       name: "인기순",
     },
   ];
-
+  const submenus2 = [
+    {
+      name: "주문/배송",
+      path: "/mypage/orderDelivery",
+    },
+    {
+      name: "공지사항",
+      path: "/Notification",
+      sub: 0,
+    },
+    {
+      name: "Q&A",
+      path: "/Inquiry",
+    },
+  ];
   const menus2 = [
     // 아이콘/메뉴2
     {
+      name: (
+        <div className="logintab">
+          <Link to={mlink}>{loginid !== "" ? `${loginid}님` : "로그인"}</Link>
+          {loginid !== "" ? (
+            <span className="Sub" onClick={onLogout}>
+              로그아웃
+            </span>
+          ) : (
+            <Link className="Sub" to={"/joinchoice"}>
+              회원가입
+            </Link>
+          )}
+        </div>
+      ),
+    },
+
+    {
+      name: (
+        <div className="myPage">
+          <i>
+            <FontAwesomeIcon icon={faUser} style={{ color: "#000000" }} />
+          </i>
+          <div className="abc">
+            {submenus2.map((menu2, index2) => {
+              return (
+                <Link to={menu2.path} key={index2}>
+                  <div className="Sub">{menu2.name}</div>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+      ),
       path: "/mypage",
-      icon: <FontAwesomeIcon icon={faUser} style={{ color: "#000000" }} />,
+    },
+    {
+      path: "/",
+      icon: <FontAwesomeIcon icon={faList} />,
+      sub: 2,
     },
     {
       path: "/Cart",
@@ -92,13 +136,19 @@ const Header = ({ lstate, onLogout }) => {
       path: "/mypage/dibs",
       icon: <FontAwesomeIcon icon={faHeart} style={{ color: "#000000" }} />,
     },
+
     // {
-    //   name: "로그인",
-    //   path: "/Login",
+    //   name: "주문/배송",
+    //   path: "/mypage/orderDelivery",
     // },
     // {
-    //   name: "회원가입",
-    //   path: "/JoinChoice",
+    //   name: "공지사항",
+    //   path: "/Notification",
+    //   sub: 0,
+    // },
+    // {
+    //   name: "Q&A",
+    //   path: "/Inquiry",
     // },
     {
       name: "주문/배송",
@@ -106,9 +156,10 @@ const Header = ({ lstate, onLogout }) => {
     },
     {
       name: "Q&A",
-      path: "/mypage/55",
+      path: "/Inquiry",
     },
   ];
+
   const Categotry = [
     {
       name: "영화/드라마",
@@ -196,10 +247,14 @@ const Header = ({ lstate, onLogout }) => {
 
       <div className="input">
         <input type="text" placeholder="검색" />
-        <FontAwesomeIcon icon={faMagnifyingGlass} />
+        <button>
+          <i>
+            <FontAwesomeIcon icon={faMagnifyingGlass} />
+          </i>
+        </button>
       </div>
 
-      <div className="">
+      <div className="rightContent">
         {menus2.map((menu2, index2) => {
           return (
             <Link className="Content2" to={menu2.path} key={index2}>
@@ -208,18 +263,6 @@ const Header = ({ lstate, onLogout }) => {
             </Link>
           );
         })}
-        <div>
-          <div className="Content2">
-            <Link to={mlink}>{loginid !== "" ? `${loginid}님` : "로그인"}</Link>
-          </div>
-        </div>
-        <div className="Content2">
-          {loginid !== "" ? (
-            <span onClick={onLogout}>로그아웃</span>
-          ) : (
-            <Link to={"/joinchoice"}>회원가입</Link>
-          )}
-        </div>
       </div>
     </div>
   );
