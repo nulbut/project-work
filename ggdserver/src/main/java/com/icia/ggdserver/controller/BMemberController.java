@@ -39,5 +39,9 @@ public class BMemberController {
     }
 
     //로그인
-//    @PostMapping("loginproc")
+    @PostMapping("bloginproc")
+    public Map<String, String> bloginproc(@RequestBody BmemberTbl bmemberTbl){
+        log.info("bloginproc()");
+        return bmServ.bloginproc(bmemberTbl);
+    }
 }//class end

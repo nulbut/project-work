@@ -68,4 +68,32 @@ public class BMemberSevrvice {
         }
         return res;
     } //joinBMember end
+
+    public Map<String, String> bloginproc(BmemberTbl bmemberTbl) {
+        log.info("loginproc()");
+        BmemberTbl bdbMember = null;
+        Map<String, String> rsMap = new HashMap<>();
+
+        try {
+            bdbMember = bmRepo.findById(bmemberTbl.getBid()).get();
+            //db에서 꺼내온 사용자의 비밀번호와 입력한 비밀번호를 비교
+
+            if (encoder.matches(bmemberTbl.getBpw(), bdbMember.getBpw())){
+                //로그인 성공
+                rsMap.put("res2","ok");
+                rsMap.put("bid",bmemberTbl.getBid());
+            }
+            else {
+                //비밀번호 틀림
+                rsMap.put("res2","fail1");
+                rsMap.put("msg","비밀번호가 일치하지 않습니다.");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            //회원이 아닌 경우
+            rsMap.put("res2","fail2");
+            rsMap.put("msg","회원정보가 존재하지 않습니다.");
+        }
+        return rsMap;
+    }//loginproc end
 }

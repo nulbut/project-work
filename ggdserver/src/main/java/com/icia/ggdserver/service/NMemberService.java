@@ -1,5 +1,6 @@
 package com.icia.ggdserver.service;
 
+import com.icia.ggdserver.entity.BmemberTbl;
 import com.icia.ggdserver.entity.NmemberTbl;
 import com.icia.ggdserver.repository.BMemberRepository;
 import com.icia.ggdserver.repository.NMemberRepository;
@@ -100,25 +101,27 @@ public class NMemberService {
         NmemberTbl ndbMember = null;
         Map<String, String> rsMap = new HashMap<>();
 
+
+
         try {
             ndbMember = nmRepo.findById(nmemberTbl.getNid()).get();
             //db에서 꺼내온 사용자의 비밀번호와 입력한 비밀번호를 비교
 
             if (encoder.matches(nmemberTbl.getNpw(), ndbMember.getNpw())){
                 //로그인 성공
-                rsMap.put("res", "ok");
+                rsMap.put("res1", "ok");
                 rsMap.put("nid", nmemberTbl.getNid());
                 rsMap.put("nnickname", nmemberTbl.getNnickname());
             }
             else {
                 //비밀번호가 틀림
-                rsMap.put("res","fail");
+                rsMap.put("res1","fail1");
                 rsMap.put("msg","비밀번호가 일치하지 않습니다.");
             }
         } catch (Exception e){
             e.printStackTrace();
             //회원이 아닌 경우
-            rsMap.put("res","fail");
+            rsMap.put("res1","fail2");
             rsMap.put("msg","회원정보가 존재하지 않습니다.");
         }
         return rsMap;

@@ -7,7 +7,7 @@ import lombok.Data;
 @Entity
 @Table(name = "nmember_tbl")
 @Data
-public class    NmemberTbl { //일반 회원 테이블
+public class NmemberTbl { //일반 회원 테이블
     @Id
     @Column(name = "n_id")
     private String nid; //아이디 (PK)
@@ -38,6 +38,5 @@ public class    NmemberTbl { //일반 회원 테이블
 
     @Column(name = "n_address", length = 100)
     private String naddress; //주소
-
 
 }
