@@ -35,5 +35,5 @@ public class BoardTbl {
     private Timestamp boardDate;//문의 게시글 등록일
 
     @Transient
-    private List<ProductFileTbl> ProductFileList;// 첨부파일
+    private List<BoardFileTbl> boardFileTblList;// 첨부파일
 }
