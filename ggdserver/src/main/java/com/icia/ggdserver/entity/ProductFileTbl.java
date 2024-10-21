@@ -12,7 +12,7 @@ public class ProductFileTbl { //첨부파일 테이블
     private long productFileCode; //첨부파일 고유번호
 
     @Column(nullable = false)
-    private String productFileNum; //첨부파일 번호
+    private long productFileNum; //첨부파일 번호
 
     @Column(nullable = false, length = 50)
     private String productFileSysname; //첨부파일 이미지

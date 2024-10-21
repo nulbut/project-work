@@ -12,6 +12,7 @@ import  org.springframework.data.domain.PageRequest;
 import  org.springframework.data.domain.Pageable;
 import  org.springframework.data.domain.Sort;
 import  org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import  org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -52,7 +53,7 @@ public String insertSpm(ProductTbl pdt,
 }
 private void uploadFile(List<MultipartFile> files,
                         HttpSession session,
-                        long productCode) throws Exception{
+                        long productFileNum) throws Exception{
     log.info("UploadFile");
 
     String realPath = session.getServletContext().getRealPath("/");
@@ -70,7 +71,7 @@ private void uploadFile(List<MultipartFile> files,
 
         ProductFileTbl bf = new ProductFileTbl();
         bf.setProductFileOriname(oriname);
-        bf.setProductFileCode(productCode);
+        bf.setProductFileNum(productFileNum);
 
         String sysname = System.currentTimeMillis()
                 + oriname.substring(oriname.lastIndexOf("."));
@@ -108,6 +109,59 @@ public Map<String, Object> getBoardList(Integer pNum){
 
     return res;
 }
+
+public ProductTbl getBoard(long productFileNum){
+    log.info("getBoard()");
+    //상품 가져오기
+    ProductTbl productTbl = pdtRepo.findById(productFileNum).get();
+    //첨부파일 목록 가져와서 담기
+    List<ProductFileTbl> pfList = pdrRepo.findByproductFileNum(productFileNum);
+
+    productTbl.setProductFileList(pfList);
+
+    return productTbl;
+}
+
+@Transactional
+public Map<String, String> boardDelete(long productFileNum,
+                                       HttpSession session) {
+    log.info("boardDelete()");
+    Map<String, String> rsMap = new HashMap<>();
+    try {
+        //파일 삭제
+        List<ProductFileTbl> fileTblList = pdrRepo.findByproductFileNum(productFileNum);
+        if(!fileTblList.isEmpty()){
+            filesDelete(fileTblList, session);
+        }
+        //게시글(DB)삭제
+        pdtRepo.deleteById(productFileNum);
+        //파일 목록(DB) 삭제
+        pdrRepo.deleteByproductFileNum(productFileNum);
+
+        rsMap.put("res", "ok");
+    }catch (Exception e){
+        e.printStackTrace();
+        rsMap.put("res", "fail");
+    }
+    return rsMap;
+}
+
+private void filesDelete(List<ProductFileTbl> fileTblList,
+                         HttpSession session)
+    throws Exception{
+    log.info("filesDelete()");
+    String realPath = session.getServletContext()
+            .getRealPath("/");
+    realPath += "upload/";
+
+    for (ProductFileTbl pf : fileTblList){
+        File file = new File(realPath + pf.getProductFileSysname());
+        if(file.exists()){
+            file.delete();
+        }
+    }
+}
+
 
 }
 

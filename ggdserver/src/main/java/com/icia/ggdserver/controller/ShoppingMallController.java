@@ -26,6 +26,19 @@ public class ShoppingMallController {
         return result;
     }
 
+    @GetMapping("getBoard")
+    public ProductTbl getBoard(@RequestParam long productFileNum){
+        log.info("getBoard()");
+        return spmServ.getBoard(productFileNum);
+    }
+
+    @PostMapping("boardDelete")
+    public Map<String, String> boardDelete(@RequestParam long productFileNum,
+                                           HttpSession session) throws Exception {
+        log.info("boardDelete()");
+        return spmServ.boardDelete(productFileNum, session);
+    }
+
     @GetMapping("BoardList")
     public Map<String, Object> BoardList(@RequestParam Integer pageNum){
         log.info("getBoardList() - {}", pageNum);
@@ -35,4 +48,6 @@ public class ShoppingMallController {
 
         return res;
     }
+
+
 }
