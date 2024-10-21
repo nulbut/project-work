@@ -7,7 +7,7 @@ import "./scss/Textarea.scss";
 import "./scss/FileInput.scss";
 import "./scss/Write.scss";
 
-const ProductregistrationWrite = () => {
+const ProductWrite = () => {
   const id = sessionStorage.getItem("sellerId");
   const [data, setData] = useState({
     productName: "",
@@ -60,9 +60,7 @@ const ProductregistrationWrite = () => {
       fnames = "선택한 파일이 없습니다.";
     }
     setFileName(fnames);
-  }, 
-  [formData]
-);
+  },[formData]);
 
   //작성한 내용(제목, 글, 파일들) 전송 함수
   const onWrite = useCallback(
@@ -206,4 +204,4 @@ const ProductregistrationWrite = () => {
   );
 };
 
-export default ProductregistrationWrite;
+export default ProductWrite;
