@@ -7,31 +7,67 @@ import "./scss/IdealcupWrite.scss";
 import "./scss/IdealcupMaker.scss";
 import BasicMaker from "./BasicMaker";
 import { useNavigate } from "react-router-dom";
+import DetailMaker from "./DetailMaker";
 
 const IdealCupMaker = () => {
-  //탭 관련
-  const nav = useNavigate();
   const id = sessionStorage.getItem("nid");
+  let formData = new FormData();
+  //탭 관련
+  const [fileImage, setFileImage] = useState([]);
+  const [data, setData] = useState({
+    iwcCode: "",
+    iwcName: "",
+    iwcExplanation: "",
+    iwcAuthor: id,
+    iwcGenre: "",
+    iwcPublic: "1",
+  });
+
+  const nav = useNavigate();
+
   const [currentTab, clickTab] = useState(0);
-
-  const menuArr = [
-    { name: "1. 기본정보 입력 / 이미지 업로드", content: <BasicMaker /> },
-    { name: "2. 이미지 이름 입력/수정/삭제", content: "Tab menu TWO" },
-    // { name: "Tab3", content: "Tab menu THREE" },
-  ];
-
   const selectMenuHandler = (index) => {
     // parameter로 현재 선택한 인덱스 값을 전달해야 하며, 이벤트 객체(event)는 쓰지 않는다
     // 해당 함수가 실행되면 현재 선택된 Tab Menu 가 갱신.
+    console.log(index);
     clickTab(index);
   };
+  const menuArr = [
+    {
+      name: "1. 기본정보 입력 / 이미지 업로드",
+      content: (
+        <BasicMaker
+          selectMenuHandler={selectMenuHandler}
+          data={data}
+          setData={setData}
+          fileImage={fileImage}
+          setFileImage={setFileImage}
+          formData={formData}
+        />
+      ),
+    },
+    {
+      name: "2. 이미지 이름 입력/수정/삭제",
+      content: (
+        <DetailMaker
+          selectMenuHandler={selectMenuHandler}
+          data={data}
+          setData={setData}
+          fileImage={fileImage}
+          setFileImage={setFileImage}
+        />
+      ),
+    },
+    // { name: "Tab3", content: "Tab menu THREE" },
+  ];
+
   useEffect(() => {
     if (id === null) {
       nav("/login", { replace: true });
       return; //로그인 안한 경우 첫 화면으로 이동.
     }
   }, []);
-
+  console.log(data);
   return (
     <div className="gameWrite">
       <div className="tabMenu">

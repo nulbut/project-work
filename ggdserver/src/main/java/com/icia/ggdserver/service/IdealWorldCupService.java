@@ -127,7 +127,7 @@ public class IdealWorldCupService {
         //PageRequest.of(페이지번호, 페이지당 게시글 개수, 정렬방식, 컬럼명)
 
         Page<IwcTbl> result = null;
-        result = iwcRepo.findByIwcCodeGreaterThan(0L, pb);
+        result = iwcRepo.findByIwcCodeGreaterThanAndIwcPublicEquals(0L,1L, pb);
 //        if(pNum.getKeyword() == ""){
 //            result = bRepo.findByBnumGreaterThan(0L, pb);
 //        }
@@ -152,6 +152,7 @@ public class IdealWorldCupService {
         log.info("getGameContent()");
 
         List<IwcContentsTbl> result = conRepo.findAllByIwcContentsIwcCode(code);
+        iwcRepo.updateViews(code);
 
         return result;
 
