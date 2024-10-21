@@ -8,7 +8,6 @@ import Paging from "./Paging";
 import TableRow from "./TableRow";
 import TableColumn from "./TableColumn";
 
-
 const df = (date) => moment(date).format("YYYY-MM-DD HH:mm:ss");
 
 const ProductRegistered = () => {

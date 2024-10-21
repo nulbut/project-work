@@ -12,9 +12,9 @@ const df = (data) => moment(data).format("YYYY-MM-DD HH:mm:ss");
 
 const Inquiry = () => {
   const nav = useNavigate();
-  const nid = "nid";
-  const pnum = "pageNum";
-  const [iitem, setIitem] = useState([]);
+  const bnid = sessionStorage.getItem("nid");
+  const pnum = sessionStorage.getItem("pageNum");
+  const [iitem, setIitem] = useState({});
   const [page, setPage] = useState({
     //페이징 관련 정보 저장 state
     totalPage: 0,
@@ -29,14 +29,15 @@ const Inquiry = () => {
         const { Blist, totalPage, pageNum } = res.data;
         setPage({ totalPage: totalPage, pageNum: pageNum });
         setIitem(Blist);
-        // sessionStorage.getItem("pageNum", pageNum);
+        sessionStorage.setItem("pageNum", pageNum);
       })
       .catch((err) => console.log(err));
   };
 
   //Inquiry 컴포넌트가 화면에 보일 떄 서버로부터 문의게시글 목록을 가져온다.
   useEffect(() => {
-    if (nid === null) {
+    console.log(bnid);
+    if (bnid === null) {
       nav("/", { replace: true });
       return;
     }
@@ -66,7 +67,7 @@ const Inquiry = () => {
   }
 
   const getBoard = useCallback((boardCode) => {
-    nav("/", { state: { bc: boardCode } });
+    nav("", { state: { bc: boardCode } });
   }); //상세보기 화면으로 전환될 때 문의게시글 번호로 보낸다.
 
   return (
@@ -80,7 +81,7 @@ const Inquiry = () => {
         size="large"
         wsize="s-50"
         onClick={() => {
-          nav("/");
+          nav("/inqiryWrite");
         }}
       >
         글작성

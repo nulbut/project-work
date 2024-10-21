@@ -26,6 +26,7 @@ import IdPasswordFind from "./components/shop/IdPasswordFind";
 import IdealcupMy from "./components/idealcup/IdealcupMy";
 import ProductregistrationWrite from "./components/shop/ProductWrite";
 import ProductRegistered from "./components/shop/ProductRegistered";
+import InquiryWrite from "./components/shop/InquiryWrite";
 
 function App() {
   const nav = useNavigate();
@@ -102,6 +103,7 @@ function App() {
             />
             <Route path="dibs" element={<Dibs />} />
             <Route path="inquiry" element={<Inquiry />} />
+            <Route path="inquiryWrite" element={<InquiryWrite />} />
           </Route>
           <Route path="/123" element={<ProductregistrationWrite />} />
           <Route path="/456" element={<ProductRegistered />} />

@@ -16,7 +16,7 @@ const ShopSideber = () => {
   const menus = [
     {
       name: "이상형 월드컵",
-      path: "/Idlecup",
+      path: "/idlecup",
       icon: <img src={logo} />,
     },
     {
@@ -46,7 +46,7 @@ const ShopSideber = () => {
     },
     {
       name: "1:1 문의",
-      path: "/mypage/55",
+      path: "/mypage/inquiryWrite",
       icon: <FontAwesomeIcon icon={faHeadphones} />,
     },
   ];
