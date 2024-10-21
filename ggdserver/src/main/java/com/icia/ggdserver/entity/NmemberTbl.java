@@ -3,6 +3,9 @@ package com.icia.ggdserver.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "nmember_tbl")
@@ -38,6 +41,14 @@ public class    NmemberTbl { //일반 회원 테이블
 
     @Column(name = "n_address", length = 100)
     private String naddress; //주소
+
+    @CreationTimestamp
+    @Column
+    private Timestamp n_signdt; //가입날짜
+
+    @Column
+    private String n_status; // 회원 상태
+
 
 
 }

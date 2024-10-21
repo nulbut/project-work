@@ -26,6 +26,8 @@ import IdPasswordFind from "./components/shop/IdPasswordFind";
 import IdealcupMy from "./components/idealcup/IdealcupMy";
 import ProductregistrationWrite from "./components/shop/ProductWrite";
 import ProductRegistered from "./components/shop/ProductRegistered";
+import Admin from "./components/admin/Admin";
+import UserList from "./components/admin/UserList";
 
 function App() {
   const nav = useNavigate();
@@ -79,7 +81,8 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Admin />} />
+        <Route path="/UserListPage" element={<UserList />} />
         <Route element={<ShopLayout lstate={loginState} onLogout={onLogout} />}>
           <Route path="/shoppingmall" element={<ShoppingMall />} />
           <Route path="/hotProduct" element={<HotProduct />} />
