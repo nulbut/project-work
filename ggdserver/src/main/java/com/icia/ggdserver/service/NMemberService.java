@@ -4,13 +4,18 @@ import com.icia.ggdserver.entity.BmemberTbl;
 import com.icia.ggdserver.entity.NmemberTbl;
 import com.icia.ggdserver.repository.BMemberRepository;
 import com.icia.ggdserver.repository.NMemberRepository;
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 @Service
 @Slf4j
@@ -21,6 +26,12 @@ public class NMemberService {
 
     @Autowired
     BMemberRepository bmRepo;
+
+    @Autowired
+    private JavaMailSender emailSender;
+
+    //랜덤 인증 코드
+    private String authNum;
 
     //비밀번호를 암호화하는 객체 (평문 암호화, 비교 기능)
     BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
@@ -136,4 +147,58 @@ public class NMemberService {
 
         return nmemberTbl;
     }
+
+    //메일 인증
+    public String sendEmail(String nid)
+        throws MessagingException,UnsupportedEncodingException {
+            //메일 전송에 필요한 정보 설정
+        String email = nmRepo.selectMail(nid);
+        MimeMessage emailForm = createEmailForm(email);
+        //실제 메일 전송
+        emailSender.send(emailForm);
+
+        return authNum; //인증 코드 반환
+    }
+
+
+    private MimeMessage createEmailForm(String email)
+        throws MessagingException, UnsupportedEncodingException {
+
+            createCode(); //인증 코드 생성
+        String setFrom = "rnjstnwjd32@gamil.com"; //email-config에 설정한 이메일 보내는사람 (수정이꺼)
+        String title = "인증 번호"; //메일 제목
+
+        MimeMessage message = emailSender.createMimeMessage();
+        message.addRecipients(MimeMessage.RecipientType.TO, email); //보낼 이메일 설정
+        message.setSubject(title); //제목 설정
+        message.setFrom(setFrom); //보내는 이메일
+        message.setText("인증 번호 :" + authNum);
+
+        return message;
+
+    }
+
+    //랜덤 인증 코드 생성
+    public void createCode() {
+        Random random = new Random();
+        StringBuffer key = new StringBuffer();
+
+        for (int i=0; i<8; i++) {
+            int index = random.nextInt(3);
+
+            switch (index) {
+                case 0 :
+                    key.append((char) ((int)random.nextInt(26) + 97));
+                    break;
+                case 1 :
+                    key.append((char) ((int)random.nextInt(26) + 65));
+                    break;
+                case 2:
+                    key.append(random.nextInt(9));
+                    break;
+            }
+        }
+        authNum = key.toString();
+    }
+
 }//class end

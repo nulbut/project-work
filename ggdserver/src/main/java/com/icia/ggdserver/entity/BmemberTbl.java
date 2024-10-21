@@ -11,10 +11,13 @@ public class BmemberTbl { //사업자 회원 테이블
     @Column(name = "b_id")
     private String bid; //아이디 (PK)
 
+    @Column(name = "m_num", nullable = false, length = 1)
+    private int bmnum; // 회원 구분 번호 (사업자 = 2)
+
     @Column(name = "b_cname",nullable = false, unique = true, length = 50)
     private String bcname; //상호
 
-    @Column(name = "b_cnum",nullable = false, length = 30)
+    @Column(name = "b_cnum",nullable = false, length = 50)
     private String bcnum; //사업자등록번호
 
     @Column(name = "b_ttype", nullable = false, length = 1)

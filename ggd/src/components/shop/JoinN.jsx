@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { replace, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import Button from "./Button";
@@ -10,6 +10,9 @@ let nck = false;
 const JoinN = () => {
   const nav = useNavigate();
 
+  const id = sessionStorage.getItem("nid");
+  const [code, setCode] = useState("");
+  const [userCode, setUserCode] = useState("");
   //   const [ckid, setCkid] = useState(false);
 
   //   console.log("체크", ck);
@@ -118,9 +121,38 @@ const JoinN = () => {
       });
   };
 
+  //e-mail 인증
+  const mailCh = () => {
+    let conf = window.confirm("이메일 인증 받으시겠습니까?");
+    if (!conf) {
+      return;
+    }
+    axios
+      .get("/mailconfirm", { params: { nid: id } })
+      .then((res) => {
+        console.log(res.data);
+        setCode(res.data);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const onch = useCallback((e) => {
+    const newCode = e.target.value;
+    setUserCode(newCode);
+  });
+
+  const onPassChange = () => {
+    if (code === userCode) {
+      alert("인증번호 일치 합니다.", { replace: true });
+    } else {
+      alert("인증번호 다시 확인해주세요.");
+    }
+  };
+
   return (
     <div className="join">
       <form className="content" onSubmit={handleSubmit(onSubmit)}>
+        <input type="hidden" value={1} {...register("nmnum")} />
         <h1>JOIN</h1>
         <div className="id">
           <p>
@@ -206,9 +238,27 @@ const JoinN = () => {
         </div>
         <div className="gender">
           <p>성별</p>
-          <input type="radio" value={1} {...register("ngender")} />
+          <input
+            type="radio"
+            value={1}
+            {...register("ngender", {
+              required: {
+                value: true,
+                message: "성별 필수 입력 값입니다.",
+              },
+            })}
+          />
           남성
-          <input type="radio" value={2} {...register("ngender")} />
+          <input
+            type="radio"
+            value={2}
+            {...register("ngender", {
+              required: {
+                value: true,
+                message: "성별 필수 입력 값입니다.",
+              },
+            })}
+          />
           여성
         </div>
         <div className="birthday">
@@ -237,6 +287,10 @@ const JoinN = () => {
                 value: true,
                 message: "전화번호는 필수 입력값입니다.",
               },
+              pattern: {
+                value: /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/,
+                message: "'010-1234-5678' 형식으로 입력 해주세요.",
+              },
             })}
           />
           <span className="error">{errors?.nphonenum?.message}</span>
@@ -252,10 +306,24 @@ const JoinN = () => {
                   value: true,
                   message: "이메일 주소는 필수 입력값입니다.",
                 },
+                pattern: {
+                  value:
+                    /^[A-Za-z0-9]([-_.]?[A-Za-z0-9])*@[A-Za-z0-9]([-_.]?[A-Za-z0-9])*\.[A-Za-z]{2,3}$/i,
+                  message: "'you@example.com' 형식으로 입력 해주세요.",
+                },
               })}
             />
             <span className="error">{errors?.nemail?.message}</span>
-            <Button>E-mail인증</Button>
+            <input
+              className="input"
+              placeholder="인증번호를 입력해주세요"
+              onChange={onch}
+              value={userCode}
+            />
+            <span className="text">{onPassChange}</span>
+            <Button outline onClick={mailCh}>
+              E-mail인증
+            </Button>
           </p>
         </div>
         <div className="address">

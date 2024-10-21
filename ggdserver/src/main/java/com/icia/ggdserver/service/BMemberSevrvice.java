@@ -69,6 +69,7 @@ public class BMemberSevrvice {
         return res;
     } //joinBMember end
 
+    //로그인
     public Map<String, String> bloginproc(BmemberTbl bmemberTbl) {
         log.info("loginproc()");
         BmemberTbl bdbMember = null;

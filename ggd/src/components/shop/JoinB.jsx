@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "./Button";
 
 let ck = false; //아이디 중복 체크
+let cnumclick = false; //사업자등록번호 확인
 
 const JoinB = () => {
   const nav = useNavigate();
@@ -47,6 +48,18 @@ const JoinB = () => {
       });
   };
 
+  //사업자등록번호 확인 기능
+  const bnumcSubmit = () => {
+    let b_cnum = watch("bcnum");
+    if (b_cnum === "") {
+      alert("사업자등록번호 입력해주세요.");
+      cnumclick = "fail";
+    } else {
+      alert("사업자등록번호 확인 되었습니다.");
+      cnumclick = "ok";
+    }
+  };
+
   const bpw = useRef();
   bpw.current = watch("bpw"); //비밀번호 필드 값 가져오기
 
@@ -76,6 +89,7 @@ const JoinB = () => {
   return (
     <div className="join">
       <form className="content" onSubmit={handleSubmit(onBSubmit)}>
+        <input type="hidden" value={2} {...register("bmnum")} />
         <h1>JOIN</h1>
         <div className="essential">
           <p>* 표시 필수 입력</p>
@@ -96,15 +110,24 @@ const JoinB = () => {
         </div>
         <div className="entrepreneurnum">
           <p>
-            사업자등록번호 *<button>사업자등록번호 확인</button>
+            사업자등록번호 *
+            <Button type="button" onClick={bnumcSubmit}>
+              사업자등록번호 확인
+            </Button>
           </p>
           <input
-            placeholder='"-" 제외한 13자리 숫자 입력'
+            placeholder="- 제외한 13자리 입력"
             className="input"
             {...register("bcnum", {
               required: {
                 value: true,
                 message: "사업자등록번호는 필수 입력 값입니다.",
+              },
+              pattern: {
+                value: /^(\d{3,3})+[-]+(\d{2,2})+[-]+(\d{5,5})/,
+                minLength: 12,
+                maxlength: 12,
+                message: "'000-00-00000'형식의 사업자등록번호를 입력해주세요.",
               },
             })}
           />
@@ -200,9 +223,28 @@ const JoinB = () => {
         </div>
         <div className="representativegender">
           <p>대표자 성별 *</p>
-          <input type="radio" value={1} {...register("bgender")} />
+          <input
+            type="radio"
+            value={1}
+            {...register("bgender", {
+              required: {
+                value: true,
+                message: "성별 필수입력 값입니다.",
+              },
+            })}
+          />
+          <span className="error">{errors?.bgender?.message}</span>
           남성
-          <input type="radio" value={2} {...register("bgender")} />
+          <input
+            type="radio"
+            value={2}
+            {...register("bgender", {
+              required: {
+                value: true,
+                message: "성별 필수입력 값입니다.",
+              },
+            })}
+          />
           여성
         </div>
         <div className="representativebirthday">
@@ -229,6 +271,10 @@ const JoinB = () => {
               required: {
                 value: true,
                 message: "대표자 전화번호는 필수 입력값입니다.",
+              },
+              pattern: {
+                value: /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/,
+                message: "'010-1234-5678' 형식으로 입력 해주세요.",
               },
             })}
           />
@@ -271,6 +317,10 @@ const JoinB = () => {
                   value: true,
                   message: "계좌번호는 필수 입력값입니다.",
                 },
+                pattern: {
+                  value: /([0-9,\-]{3,6}\-[0-9,\-]{2,6}\-[0-9,\-])/,
+                  message: "올바른 형식의 계좌번호를 입력해주세요.",
+                },
               })}
             />
             <span className="error">{errors?.bbaccunt?.message}</span>
@@ -285,12 +335,37 @@ const JoinB = () => {
           <input
             className="input"
             placeholder=" - 를 제외한 번호 입력"
-            {...register("bmphonenum")}
+            {...register("bmphonenum", {
+              pattern: {
+                value: /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/,
+                message: "'010-1234-5678' 형식으로 입력 해주세요.",
+              },
+            })}
           />
+          {errors?.bmphonenum?.type === "pattern" && (
+            <span className="error">
+              '010-1234-5678' 형식으로 입력 해주세요.
+            </span>
+          )}
         </div>
         <div className="manageremail">
           <p>담당자 Email</p>
-          <input placeholder="you@example.com" {...register("bmemail")} />
+          <input
+            placeholder="you@example.com"
+            // type="email"
+            {...register("bmemail", {
+              pattern: {
+                value:
+                  /^[A-Za-z0-9]([-_.]?[A-Za-z0-9])*@[A-Za-z0-9]([-_.]?[A-Za-z0-9])*\.[A-Za-z]{2,3}$/i,
+                message: "'you@example.com' 형식으로 입력 해주세요.",
+              },
+            })}
+          />
+          {errors?.bmemail?.type === "pattern" && (
+            <span className="error">
+              'you@example.com' 형식으로 입력 해주세요.
+            </span>
+          )}
         </div>
         <div className="password">
           <p>Password *</p>

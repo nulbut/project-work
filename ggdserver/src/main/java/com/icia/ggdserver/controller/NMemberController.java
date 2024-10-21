@@ -3,11 +3,13 @@ package com.icia.ggdserver.controller;
 import com.icia.ggdserver.entity.BmemberTbl;
 import com.icia.ggdserver.entity.NmemberTbl;
 import com.icia.ggdserver.service.NMemberService;
+import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -59,5 +61,13 @@ public class NMemberController {
         log.info("getNickname()");
         return nmServ.getNickname(nnickname);
 
+    }
+
+    //이메일 인증
+    @GetMapping("mailconfirm")
+    public String mailconfirm (@RequestParam String nid)
+        throws MessagingException, UnsupportedEncodingException {
+        String authCode = nmServ.sendEmail(nid);
+        return authCode;
     }
 }
