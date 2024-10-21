@@ -20,31 +20,30 @@ const Login = ({ sucLogin }) => {
     const bform = { bid: watch("nid"), bpw: watch("npw") };
     console.log(bform);
     axios
-      //.post("/loginproc", form || "/bloginproc", form)
       .all([axios.post("/loginproc", form), axios.post("/bloginproc", bform)])
       .then(
         axios.spread((res1, res2) => {
           console.log(res1, res2);
           if (res1.data.res1 == "ok") {
+            //일반회원 아이디, 패스워드 일치
             sucLogin(res1.data.nid);
             sessionStorage.setItem("nid", res1.data.nid);
             navigate("/shoppingmall");
           } else if (res1.data.res1 == "fail2") {
+            //일반회원 회원정보 없음
             if (res2.data.res2 == "ok") {
+              //사업자 회원 아이디, 패스워드 일치
               sucLogin(res2.data.bid);
               sessionStorage.setItem("bid", res2.data.bid);
               navigate("/shoppingmall");
             } else {
+              // 사업자 회원 패스워드 불일치
               alert(res2.data.msg);
             }
           } else if (res1.data.res1 == "fail1") {
+            // 일반회원 패스워드 불일치
             alert(res1.data.msg);
-          }
-
-          // else if (res1.data.res1 == "fail" && res2.data.res2 == "fail") {
-          //   alert(res1.data.msg);
-          // }
-          else if (res2.data.res2 == "ok") {
+          } else if (res2.data.res2 == "ok") {
             sucLogin(res2.data.bid);
             sessionStorage.setItem("bid", res2.data.bid);
             navigate("/shoppingmall");
@@ -53,20 +52,6 @@ const Login = ({ sucLogin }) => {
           } else if (res1.data.res1 == "fail") {
             alert(res2.data.msg);
           }
-
-          // if (res1.data.res1 || res2.data.res2 === "ok") {
-          //   sucLogin(res1.data.nid);
-          //   sucLogin(res2.data.bid);
-          //   sessionStorage.setItem(
-          //     "nid",
-          //     res1.data.nid && "bid",
-          //     res2.data.bid
-          //   );
-          //   sessionStorage.setItem("bid", res2.data.bid);
-          //   navigate("/shoppingmall");
-          // } else {
-          //   alert(res1.data.msg);
-          // }
         })
       )
       .catch((err) => {
