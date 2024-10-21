@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "./scss/game.scss";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const Game = () => {
   const location = useLocation();
+  const nav = useNavigate();
   const [displays, setDisplays] = useState([]);
   const [winners, setWinners] = useState([]);
   const [goods, setGoods] = useState([]);
@@ -13,7 +14,9 @@ const Game = () => {
     total: -99,
     play: -99,
     now: -99,
+    ganglist: [],
   });
+
   console.log("굿즈", goods);
   // console.log("로케이션", location);
   // console.log(location.state.code);
@@ -40,12 +43,34 @@ const Game = () => {
             // goods.sort(() => Math.random() - 0.5);
             // setDisplays([goods[0], goods[1]]);
           }
+          let sgang = res.data.length;
+          let newtotal = 1;
+          let newganglist = [];
+          while (sgang > 2) {
+            newtotal = newtotal * 2;
+
+            if (newtotal >= 4) {
+              const newGang = {
+                name: newtotal + " 강",
+                val: newtotal,
+              };
+              newganglist.push(newGang);
+            }
+            sgang = sgang / 2;
+          }
+
           setGang((prev) => {
-            return { ...prev, howlong: res.data.length };
+            return {
+              ...prev,
+              total: newtotal,
+              howlong: res.data.length,
+              ganglist: newganglist.reverse(),
+            };
           });
         })
         .catch((err) => console.log(err));
     };
+
     axiosGet();
   }, []);
 
@@ -54,7 +79,7 @@ const Game = () => {
       if (winners.length === 0) {
         setDisplays([good]);
         setGang((prev) => {
-          return { ...prev, play: 0, now: -99 };
+          return { ...prev, play: 0, now: -98 };
         });
         console.log("어케바뀜?", gang);
       } else {
@@ -79,39 +104,24 @@ const Game = () => {
     }
   };
 
+  console.log(gang.ganglist);
+
   const selectGang = () => {
-    let sgang = gang.howlong;
-    let newtotal = 1;
-    while (sgang > 2) {
-      newtotal = newtotal * 2;
-      console.log(sgang);
-      sgang = sgang / 2;
-    }
     setGang((prev) => {
-      return { ...prev, total: newtotal, play: newtotal / 2, now: 1 };
+      return { ...prev, play: gang.total / 2, now: 1 };
     });
-    // setGang((prev) => {
-    //   return { ...prev, total: sgang, play: sgang / 2, now: 1 };
-    // });
-    console.log("총 데이터 개수", sgang);
+
     console.log("총강수", gang);
     goods.sort(() => Math.random() - 0.5);
-    setGoods(goods.slice(0, newtotal));
+    setGoods(goods.slice(0, gang.total));
     setDisplays([goods[0], goods[1]]);
   }; // 강수 입력시 관련 스테이트 초기화
 
-  const makeGangList = () => {
-    let sgang = gang.howlong;
-    let newtotal = 1;
-    while (sgang / 2 > 1) {
-      newtotal = newtotal * 2;
-    }
-    setGang((prev) => {
-      return { ...prev, total: newtotal };
-    });
-  }; // 2로 나누어 떨어지는 함수
-
-  // console.log("나와라", displays);
+  const handleSelect = (e) => {
+    console.log("셀렉트핸들", e.target.value);
+    setGang({ ...gang, total: e.target.value });
+    console.log(gang);
+  };
   return (
     <div className="frame">
       <div className="gametitle">
@@ -143,29 +153,39 @@ const Game = () => {
         </h1>
       </div>
 
-      {
-        // displays.src ? (
-        displays.map((d) => {
-          return (
-            <div className="flex-1" key={d.src} onClick={clickHandler(d)}>
-              <img className="food-img" src={d.src} />
-              <div className="name">{d.iwcContentsName}</div>
-            </div>
-          );
-        })
-        // ) : (
-        //   <div>loading</div>
-        // )
-      }
+      {displays.map((d) => {
+        return (
+          <div className="flex-1" key={d.src} onClick={clickHandler(d)}>
+            <img className="food-img" src={d.src} />
+            <div className="name">{d.iwcContentsName}</div>
+          </div>
+        );
+      })}
 
-      {gang.total == -99 && (
+      {gang.now == -99 && (
         <div className="bg_layer">
           <div className="articleView_layer"></div>
           <div className="contents_layer">
             <div className="lightbox">
-              총 들어온 데이터 리스트의 길이 : {gang.howlong}
-              {/* <button onClick={() => selectGang(gang.howlong)}>16강</button> */}
-              <button onClick={() => selectGang()}>2의 배수로 맞추기</button>
+              <h2>제목 : {location.state.name}</h2>
+              <h3>설명 : {location.state.expl}</h3>
+
+              <h3>총 라운드를 선택하세요</h3>
+              <select name="gangmany" onChange={handleSelect}>
+                {gang.ganglist.map((i) => {
+                  return (
+                    <option key={i.val} value={i.val}>
+                      {i.name}
+                    </option>
+                  );
+                })}
+              </select>
+              <h4>
+                총 {gang.howlong}명(개)의 후보 중 무작위 {gang.total}명(개)의
+                후보가 대결합니다.
+              </h4>
+              <button onClick={() => selectGang()}>시작하기</button>
+              <button onClick={() => nav("/idlecup")}>돌아가기</button>
             </div>
           </div>
         </div>
