@@ -81,7 +81,7 @@ const ProductRegistered = () => {
         size="large"
         wsize="s-50"
         onClick={() => {
-          nav("/123");
+          nav("/productWrite");
         }}
       >
         상품등록

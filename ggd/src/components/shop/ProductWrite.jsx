@@ -191,9 +191,9 @@ const ProductWrite = () => {
             color="gray"
             wsize="s-10"
             outline
-            onClick={() => nav("/mypage")}
+            onClick={() => nav("/ProductRegistered")}
           >
-            취소
+            목록으로
           </Button>
           <Button type="submit" size="large" color="blue" wsize="s-30">
             등록
