@@ -70,6 +70,7 @@ function InfiniteScroll() {
                 className="product-image"
               />
             </div>
+            <h3 className="product-title">상품명 {item + 1} </h3>
             <p className="product-price">₩{item.price}</p>
             <p className="product-body">{item.description}</p>
           </div>
