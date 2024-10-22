@@ -5,10 +5,7 @@ import com.icia.ggdserver.service.BoardService;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 
@@ -31,8 +28,8 @@ public class BoardController {
     }
 
     @PostMapping("boardWriteProc")
-    public String boardWriteProc(@RequestParam(value = "data", required = true)BoardTbl board,
-                                 @RequestParam(value = "files", required = false)List<MultipartFile> files,
+    public String boardWriteProc(@RequestPart(value = "data", required = true)BoardTbl board,
+                                 @RequestPart(value = "files", required = false)List<MultipartFile> files,
                                  HttpSession session) {
         log.info("boardWriteProc()");
         String result = bServ.insertinqiry(board, files, session);

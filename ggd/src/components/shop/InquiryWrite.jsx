@@ -6,7 +6,7 @@ import Button from "./Button";
 const InquiryWrite = () => {
   const nav = useNavigate();
   const nid = sessionStorage.getItem("nid");
-  const product = sessionStorage.getItem("ProductName");
+  const product = sessionStorage.getItem("productName");
   const phonenum = sessionStorage.getItem("nphonenum");
   const [data, setData] = useState({
     boardType: "",
@@ -88,7 +88,7 @@ const InquiryWrite = () => {
         <h1>1:1 문의 작성</h1>
         <input
           className="Input"
-          name="boardTyep"
+          name="boardType"
           value={boardType}
           placeholder="머리말"
           onChange={onch}
@@ -111,7 +111,6 @@ const InquiryWrite = () => {
           placeholder="주문내역"
           onChange={onch}
           autoFocus
-          required
         />
         <input
           className="Input"
@@ -152,7 +151,7 @@ const InquiryWrite = () => {
             color="gray"
             wsize="s-10"
             outline
-            onClick={() => nav("/inquiry")}
+            onClick={() => nav("/mypage")}
           >
             목록으로
           </Button>
