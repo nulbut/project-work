@@ -236,4 +236,11 @@ public class NMemberService {
 
         return res;
     }
+
+    public NmemberTbl getNName(String nname) {
+        log.info("getNName()");
+        NmemberTbl nmemberTbl = nmRepo.findById(nname).get();
+        nmemberTbl.setNemail("");
+        return nmemberTbl;
+    }
 }//class end

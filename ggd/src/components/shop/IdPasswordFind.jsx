@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 
-const IdPasswordFind = () => {
+const IdPasswordFind = ({ sucFind }) => {
   const nav = useNavigate();
 
   const nemail = sessionStorage.getItem("nemail");
@@ -12,6 +12,7 @@ const IdPasswordFind = () => {
   const [userCode, setUserCode] = useState("");
 
   const {
+    handleSubmit,
     register,
     watch,
     formState: { errors },
@@ -58,7 +59,7 @@ const IdPasswordFind = () => {
           <p>이름</p>
           <input
             placeholder="이름,대표자 이름"
-            {...register("nname", {
+            {...register("name", {
               required: {
                 value: true,
                 message: "이름 or 대표자 이름 입력해주세요.",
@@ -87,6 +88,9 @@ const IdPasswordFind = () => {
         <div className="button">
           <Button onClick={mailCh}>인증 메일 보내기</Button>
           <Button onClick={emailmatch}>인증번호 확인</Button>
+        </div>
+        <div>
+          <Button>아이디 찾기</Button>
         </div>
       </div>
     </div>

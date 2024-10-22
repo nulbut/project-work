@@ -64,6 +64,13 @@ public class NMemberController {
 
     }
 
+    //이름 불러오기
+    @GetMapping("getNName")
+    public NmemberTbl getNName (@RequestParam String nname){
+        log.info("getNName()");
+        return nmServ.getNName(nname);
+    }
+
     //아이디 불러오기
     @GetMapping("getNMember")
     public NmemberTbl getNMember(@RequestParam String nid){
