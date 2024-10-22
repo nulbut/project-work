@@ -6,11 +6,12 @@ import Button from "./Button";
 
 let ck = false; //아이디 중복 체크
 let nck = false;
+let eck = false;
 
 const JoinN = () => {
   const nav = useNavigate();
 
-  const id = sessionStorage.getItem("nid");
+  const nemail = sessionStorage.getItem("nemail");
   const [code, setCode] = useState("");
   const [userCode, setUserCode] = useState("");
   //   const [ckid, setCkid] = useState(false);
@@ -104,6 +105,10 @@ const JoinN = () => {
       alert("닉네임 중복 확인을 해주세요.");
       return;
     }
+    if (eck == false) {
+      alert("이메일 인증을 해주세요.");
+      return;
+    }
     //form 전송
     axios
       .post("/joinproc", form)
@@ -127,11 +132,13 @@ const JoinN = () => {
     if (!conf) {
       return;
     }
+    const nmail = watch("nemail");
     axios
-      .get("/mailconfirm", { params: { nid: id } })
+      .get("/mailconfirm", { params: { nmail: nmail } })
       .then((res) => {
         console.log(res.data);
         setCode(res.data);
+        alert("인증번호가 발송 되었습니다.");
       })
       .catch((err) => console.log(err));
   };
@@ -141,10 +148,12 @@ const JoinN = () => {
     setUserCode(newCode);
   });
 
-  const onPassChange = () => {
+  const emailmatch = () => {
     if (code === userCode) {
-      alert("인증번호 일치 합니다.", { replace: true });
+      alert("인증번호 일치 합니다.");
+      eck = true;
     } else {
+      eck = false;
       alert("인증번호 다시 확인해주세요.");
     }
   };
@@ -261,6 +270,7 @@ const JoinN = () => {
           />
           여성
         </div>
+        <span className="error">{errors?.ngender?.message}</span>
         <div className="birthday">
           <p>생년월일</p>
           <input
@@ -314,14 +324,16 @@ const JoinN = () => {
               })}
             />
             <span className="error">{errors?.nemail?.message}</span>
+            <Button outline onClick={mailCh}>
+              E-mail전송
+            </Button>
             <input
               className="input"
               placeholder="인증번호를 입력해주세요"
               onChange={onch}
               value={userCode}
             />
-            <span className="text">{onPassChange}</span>
-            <Button outline onClick={mailCh}>
+            <Button outline onClick={emailmatch}>
               E-mail인증
             </Button>
           </p>

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Member;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -63,11 +64,26 @@ public class NMemberController {
 
     }
 
-    //이메일 인증
+    //아이디 불러오기
+    @GetMapping("getNMember")
+    public NmemberTbl getNMember(@RequestParam String nid){
+        log.info("getNMember()");
+        return nmServ.getNMember(nid);
+    }
+
+    //회원가입 이메일 인증
     @GetMapping("mailconfirm")
-    public String mailconfirm (@RequestParam String nid)
+    public String mailconfirm (@RequestParam String nmail)
         throws MessagingException, UnsupportedEncodingException {
-        String authCode = nmServ.sendEmail(nid);
+        log.info("mailconfirm() : {}", nmail);
+        String authCode = nmServ.sendEmail(nmail);
         return authCode;
+    }
+
+    //비밀번호 인증
+    @PostMapping("changepass")
+    public String changepass(@RequestBody NmemberTbl nmemberTbl) {
+        log.info("changepass() : {}", nmemberTbl.getNid());
+        return nmServ.changepass(nmemberTbl);
     }
 }

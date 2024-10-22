@@ -11,8 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Member;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -138,6 +141,13 @@ public class NMemberService {
         return rsMap;
     }//loginproc end
 
+    public NmemberTbl getNMember(String nid) {
+        log.info("getNMember()");
+        NmemberTbl nmemberTbl = nmRepo.findById(nid).get();
+        nmemberTbl.setNpw("");
+        return nmemberTbl;
+    }
+
 
     public NmemberTbl getNickname(long nnickname) {
         log.info("getNickname()");
@@ -148,11 +158,14 @@ public class NMemberService {
         return nmemberTbl;
     }
 
+
+
+
     //메일 인증
-    public String sendEmail(String nid)
+    public String sendEmail(String email)
         throws MessagingException,UnsupportedEncodingException {
             //메일 전송에 필요한 정보 설정
-        String email = nmRepo.selectMail(nid);
+        //String email = nmRepo.selectMail(nid);
         MimeMessage emailForm = createEmailForm(email);
         //실제 메일 전송
         emailSender.send(emailForm);
@@ -164,7 +177,7 @@ public class NMemberService {
     private MimeMessage createEmailForm(String email)
         throws MessagingException, UnsupportedEncodingException {
 
-            createCode(); //인증 코드 생성
+        createCode(); //인증 코드 생성
         String setFrom = "rnjstnwjd32@gamil.com"; //email-config에 설정한 이메일 보내는사람 (수정이꺼)
         String title = "인증 번호"; //메일 제목
 
@@ -172,7 +185,7 @@ public class NMemberService {
         message.addRecipients(MimeMessage.RecipientType.TO, email); //보낼 이메일 설정
         message.setSubject(title); //제목 설정
         message.setFrom(setFrom); //보내는 이메일
-        message.setText("인증 번호 :" + authNum);
+        message.setText("인증 번호 :" + authNum + " "+"해당 인증번호를 인증번호 기입란에 동일하게 입력해주세요.");
 
         return message;
 
@@ -201,4 +214,25 @@ public class NMemberService {
         authNum = key.toString();
     }
 
+
+    public String changepass(NmemberTbl nmemberTbl) {
+        log.info("changepass()");
+        String res = null;
+
+        //비밀번호 암호화
+        String enpwd = encoder.encode(nmemberTbl.getNpw());
+        //log.info("enpwd : {} " , enpwd);
+        nmemberTbl = nmRepo.findById(nmemberTbl.getNid()).get();
+        nmemberTbl.setNpw(enpwd); //새 비밀번호로 변경
+
+        try {
+            nmRepo.save(nmemberTbl);
+            res = "ok";
+        } catch (Exception e){
+            e.printStackTrace();
+            res = "fail";
+        }
+
+        return res;
+    }
 }//class end
