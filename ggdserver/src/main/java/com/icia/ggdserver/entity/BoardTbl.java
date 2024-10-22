@@ -18,10 +18,10 @@ public class BoardTbl {
     @Column(nullable = false)
     private String bnid; // 회원 ID
 
-    @Column
+    @Column(nullable = false)
     private long ProductCode;//상품고유번호
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 50)
     private String boardType;// 문의 종류
 
     @Column(nullable = false, length = 50)

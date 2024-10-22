@@ -97,9 +97,27 @@ const InquiryWrite = () => {
         />
         <input
           className="Input"
+          name="bnid"
+          value={nid}
+          placeholder="작성자"
+          onChange={onch}
+          autoFocus
+          required
+        />
+        <input
+          className="Input"
           name="product"
           value={product}
           placeholder="주문내역"
+          onChange={onch}
+          autoFocus
+          required
+        />
+        <input
+          className="Input"
+          name="nphonenum"
+          value={phonenum}
+          placeholder="전화번호"
           onChange={onch}
           autoFocus
           required
