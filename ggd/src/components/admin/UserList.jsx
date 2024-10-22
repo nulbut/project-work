@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Paging from "../shop/Paging";
+import Paging from "./Paging";
 import TableRow from "./TableRow";
 import TableColumn from "./TableColumn";
 import { useNavigate } from "react-router-dom";
@@ -7,9 +7,6 @@ import axios from "axios";
 import Table from "./Table";
 import "./scss/Table.scss";
 import "./scss/Admin.scss";
-
-
-
 
 const UserList = () => {
   const nav = useNavigate();
@@ -20,22 +17,22 @@ const UserList = () => {
     totalPage: 0,
     pageNum: 1,
   });
-  
+
   const [list, setList] = useState({});
 
   const user = sessionStorage.getItem("bid");
   const pnum = sessionStorage.getItem("pageNum");
 
   const getUserList = (pnum) => {
-    // axios
-    //   .get("/list", { params: { pageNum: pnum } })
-    //   .then((res) => {
-    //     const { list, totalPage, pageNum } = res.data;
-    //     setPage({ totalPage: totalPage, pageNum: pageNum });
-    //     setList(list);
-    //     sessionStorage.setItem("pageNum", pageNum);
-    //   })
-    //   .catch((err) => console.log(err));
+    axios
+      .get("/list", { params: { pageNum: pnum } })
+      .then((res) => {
+        const { list,totalPage, pageNum } = res.data;
+        setPage({ totalPage: totalPage, pageNum: pageNum });
+        setList(list);
+        sessionStorage.setItem("userList", userList);
+      })
+      .catch((err) => console.log(err));
   };
 
   useEffect(() => {
@@ -62,12 +59,12 @@ const UserList = () => {
         <TableColumn wd={40}>{item.hEmail}</TableColumn>
         <TableColumn wd={50}>{item.hsigndt}</TableColumn>
         <TableColumn wd={60}>
-            <select>
-                <option selected={item.hState === ""? true: false}></option>
-                <option selected={item.hState === ""? true: false}></option>
-                <option selected={item.hState === ""? true: false}></option>
-                <option selected={item.hState === ""? true: false}></option>
-            </select>
+          <select>
+            <option selected={item.hState === "" ? true : false}></option>
+            <option selected={item.hState === "" ? true : false}></option>
+            <option selected={item.hState === "" ? true : false}></option>
+            <option selected={item.hState === "" ? true : false}></option>
+          </select>
         </TableColumn>
       </TableRow>
     ));
@@ -76,9 +73,17 @@ const UserList = () => {
   const onSearch = () => {};
 
   return (
-    <div>
+    <div className="menu">
       <h1>기간별 회원 조회</h1>
       <form onSubmit={onSearch}>
+        <div search>
+          <select id="Id" name="ID">
+            <option value="ID">ID</option>
+            <option value="이름">이름</option>
+          </select>
+          <input placeholder="이름" />
+          <button>검색</button>
+        </div>
         <div>
           <label>시작 날짜:</label>
           <input

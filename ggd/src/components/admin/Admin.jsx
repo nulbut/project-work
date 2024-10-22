@@ -12,6 +12,7 @@ import Button from "../idealcup/Button";
 import logo from "../images/logo.svg";
 import UserList from "./UserList";
 import Review from "./Review";
+import Paging from "./Paging";
 
 // function Admin() {
 //   const history = useHistory();
@@ -67,22 +68,9 @@ const Admin = () => {
     }
   };
   return (
-    <div className="App">
-      <Routes>{/* <Route path="/" element={<UserList/>}/> */}</Routes>
+    <div className="admin">
       <div className="sideber">
-        {/* <div className="Buttons">
-                  <Button
-                    type="button"
-                    size="large"
-                    color="gray"
-                    wsize="s-10"
-                    outline
-                    onClick={() => nav("/UserListPage")}
-                  >
-                    회원목록
-                  </Button>
-                  </div> */}
-        <div className="mypage">
+        <div className="adminpage">
           <p>
             admin
             <img src={logo} />
@@ -110,7 +98,7 @@ const Admin = () => {
         </div>
         <Outlet />
       </div>
-      <div className="menu">{viewName}</div>
+      <div className="desc">{viewName}</div>
     </div>
   );
 };

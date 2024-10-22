@@ -1,17 +1,17 @@
 import React from "react";
 
 const Table = ({ hName, children }) => {
+  const theadlist = Object.values(hName).map((hitem, idx) => {
+    return (
+      <th className="TableHeader w-10" key={idx}>
+        {hitem}
+      </th>
+    );
+  });
   return (
     <table className="Table">
       <thead>
-        <tr>
-          <th className="TableHeader w-10">{hName[0]}</th>
-          <th className="TableHeader w-10">{hName[1]}</th>
-          <th className="TableHeader w-10">{hName[2]}</th>
-          <th className="TableHeader w-10">{hName[3]}</th>
-          <th className="TableHeader w-10">{hName[4]}</th>
-          <th className="TableHeader w-10">{hName[5]}</th>
-        </tr>
+        <tr>{theadlist}</tr>
       </thead>
       <tbody>{children}</tbody>
     </table>

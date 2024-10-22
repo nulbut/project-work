@@ -1,7 +1,7 @@
-// .mypage-ex {
-//   display: flex;
-//   flex-direction: row;
-// }
+.admin {
+  display: flex;
+  flex-direction: row;
+}
 // .App {
 //   display: flex; /* Flexbox를 사용하여 사이드바와 메뉴를 나란히 배치 */
 // }
@@ -21,7 +21,7 @@
   background-color: white;
   position: relative;
 }
-.admin {
+.adminpage {
   font-size: 3em;
   float: left;
   background: #000;
@@ -46,22 +46,22 @@
   padding-bottom: 8%;
   margin-top: 30%;
 
-  // .sideber-menu {
-  //   background-color: orange;
-  //   align-items: center;
-  //   text-decoration: none;
-  //   padding-bottom: 3%;
-  //   padding-top: 3%;
-  // }
+  .sideber-menu {
+    background-color: orange;
+    align-items: center;
+    text-decoration: none;
+    padding-bottom: 3%;
+    padding-top: 3%;
+  }
   .btn {
     margin-top: 30px;
     background-color: hotpink;
   }
 }
-// .desc {
-//   display: flex;
-//   width: 80%;
-// }
+.desc {
+  display: inline-block;
+  width: 100%;
+}
 .menu {
-  
+  flex-direction: column;  
 }
