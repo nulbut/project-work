@@ -69,7 +69,7 @@ const InquiryWrite = () => {
         .then((res) => {
           if (res.data === "ok") {
             alert("작성 성공");
-            nav("/inquiry");
+            nav("/mypage/inquiry");
           } else {
             alert("작성 실패");
           }

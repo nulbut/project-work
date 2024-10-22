@@ -12,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -52,17 +53,17 @@ public class BoardService {
 
         Map<String, Object> res = new HashMap<>();
         res.put("Blist", Blist);
-        res.put("totalPages", totalPage);
+        res.put("totalPage", totalPage);
         res.put("pageNum", pageNum);
 
         return res;
     }
 
     //문의 게시글 저장하는 메소드
-    public String insertinqiry(BoardTbl board,
+    public String insertinquiry(BoardTbl board,
                                List<MultipartFile> files,
                                HttpSession session) {
-        log.info("insertiuqiry()");
+        log.info("insertinquiry()");
         String result = null;//React 쪽으로 보내는 처리 결과 메시지
 
         try {
@@ -114,5 +115,55 @@ public class BoardService {
             //파일 정보를 db에 저장
             bfRepo.save(bf);
         }
+    }
+
+    public BoardTbl getBoard(long boardCode) {
+        log.info("getBoard()");
+
+        //문의게시글 가져와서 담기
+        BoardTbl board = bRepo.findById(boardCode).get();
+        //첨부파일 목록 가져와서 담기
+        List<BoardFileTbl> bfList = bfRepo.findByBoardFileNum(boardCode);
+
+        board.setBoardFileTblList(bfList);//문의게시글에 첨부파일 목록 추가
+        return board;
+    }
+
+    @Transactional
+    public Map<String, String> deleteBoard(long boardCode,
+                                           HttpSession session) {
+        log.info("deleteBoard()");
+        Map<String, String> reMap = new HashMap<>();
+
+        try {
+            //파일 삭제
+            List<BoardFileTbl> fileList = bfRepo.findByBoardFileNum(boardCode);
+            if(!fileList.isEmpty()) {
+                deleteFiles(fileList,session);
+            }
+            bRepo.deleteById(boardCode);//문의게시글 삭제
+            bfRepo.deleteByBoardFileNum(boardCode);//파일 목록(DB) 삭제
+            reMap.put("res", "ok");
+        } catch (Exception e) {
+            e.printStackTrace();
+            reMap.put("res", "fail");
+        }
+        return reMap;
+    }
+
+    private void deleteFiles(List<BoardFileTbl> fileList,
+                             HttpSession session)
+            throws Exception {
+        log.info("deleteFiles()");
+        String realPath = session.getServletContext().getRealPath("/");
+        realPath += "update/";
+
+        for(BoardFileTbl bf : fileList) {
+            File file = new File(realPath + bf.getBoardFileOriname());
+            if(file.exists()) {
+                file.delete();
+            }
+        }
+
     }
 }

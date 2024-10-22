@@ -32,8 +32,21 @@ public class BoardController {
                                  @RequestPart(value = "files", required = false)List<MultipartFile> files,
                                  HttpSession session) {
         log.info("boardWriteProc()");
-        String result = bServ.insertinqiry(board, files, session);
+        String result = bServ.insertinquiry(board, files, session);
         return result;
+    }
+    //문의게시글 받기
+    @GetMapping("getinquiry")
+    public BoardTbl getinquiry(@RequestParam long boardCode){
+        log.info("getinquiry()");
+        return bServ.getBoard(boardCode);
+    }
+    //문의게시글 삭제
+    @PostMapping("deleteInquiry")
+    public Map<String, String> deleteInquiry(@RequestParam long boardCode,
+                                             HttpSession session){
+        log.info("deleteInquiry()");
+        return bServ.deleteBoard(boardCode,session);
     }
 
 }

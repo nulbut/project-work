@@ -27,9 +27,11 @@ const Inquiry = () => {
       .get("/boardlist", { params: { pageNum: pnum } })
       .then((res) => {
         const { Blist, totalPage, pageNum } = res.data;
+        console.log(totalPage);
         setPage({ totalPage: totalPage, pageNum: pageNum });
+        console.log(page);
         setIitem(Blist);
-        sessionStorage.setItem("pageNum", pageNum);
+        sessionStorage.getItem("pageNum", pageNum);
       })
       .catch((err) => console.log(err));
   };
@@ -67,7 +69,7 @@ const Inquiry = () => {
   }
 
   const getBoard = useCallback((boardCode) => {
-    nav("", { state: { bc: boardCode } });
+    nav("/inView", { state: { bc: boardCode } });
   }); //상세보기 화면으로 전환될 때 문의게시글 번호로 보낸다.
 
   return (
@@ -81,7 +83,7 @@ const Inquiry = () => {
         size="large"
         wsize="s-50"
         onClick={() => {
-          nav("/inqiryWrite");
+          nav("/mypage/inquiryWrite");
         }}
       >
         글작성
