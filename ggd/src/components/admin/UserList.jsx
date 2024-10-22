@@ -25,23 +25,25 @@ const UserList = () => {
 
   const getUserList = (pnum) => {
     axios
-      .get("/list", { params: { pageNum: pnum } })
+      .get("/list", { params: { pageNum: pnum, startDate, endDate } })
       .then((res) => {
         const { list,totalPage, pageNum } = res.data;
         setPage({ totalPage: totalPage, pageNum: pageNum });
         setList(list);
-        sessionStorage.setItem("userList", userList);
+        // sessionStorage.setItem("userList", userList);
       })
       .catch((err) => console.log(err));
   };
 
-  useEffect(() => {
-    if (user === null) {
-      //   nav("/", { replace: true });
-      //   return; // 로그인 안한 경우 첫 화면으로 이동
-    }
-    pnum !== null ? getUserList(pnum) : getUserList(1);
-  }, []);
+//   useEffect(() => {
+//     if (!admin) {
+//         nav("/", { replace: true });
+//         return; // 로그인 안한 경우 첫 화면으로 이동
+//     } else {
+//         pnum !== null ? getUserList(pnum) : getUserList(1);
+//     }
+//     // pnum !== null ? getUserList(pnum) : getUserList(1);
+//   }, [admin, pnum]);
 
   let userList = null;
   if (list.length === 0) {
@@ -53,11 +55,11 @@ const UserList = () => {
   } else {
     userList = Object.values(list).map((item, idx) => (
       <TableRow key={idx}>
-        <TableColumn wd={10}>{item.hId}</TableColumn>
-        <TableColumn wd={20}>{item.hName}</TableColumn>
-        <TableColumn wd={30}>{item.hPhone}</TableColumn>
-        <TableColumn wd={40}>{item.hEmail}</TableColumn>
-        <TableColumn wd={50}>{item.hsigndt}</TableColumn>
+        <TableColumn wd={10}>{item.nid}</TableColumn>
+        <TableColumn wd={20}>{item.nName}</TableColumn>
+        <TableColumn wd={30}>{item.nPhone}</TableColumn>
+        <TableColumn wd={40}>{item.nEmail}</TableColumn>
+        <TableColumn wd={50}>{item.nsigndt}</TableColumn>
         <TableColumn wd={60}>
           <select>
             <option selected={item.hState === "" ? true : false}></option>
@@ -70,7 +72,10 @@ const UserList = () => {
     ));
   }
 
-  const onSearch = () => {};
+  const onSearch = (e) => {
+    e.preventDefualt();
+    getUserList(1);
+  };
 
   return (
     <div className="menu">

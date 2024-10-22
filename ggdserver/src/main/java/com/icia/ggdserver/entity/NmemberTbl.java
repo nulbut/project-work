@@ -44,10 +44,10 @@ public class    NmemberTbl { //일반 회원 테이블
 
     @CreationTimestamp
     @Column
-    private Timestamp n_signdt; //가입날짜
+    private Timestamp nSigndt; //가입날짜
 
     @Column
-    private String n_status; // 회원 상태
+    private String nStatus; // 회원 상태
 
 
 
