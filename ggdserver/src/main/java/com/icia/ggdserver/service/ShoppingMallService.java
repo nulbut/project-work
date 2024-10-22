@@ -37,6 +37,7 @@ public String insertSpm(ProductTbl pdt,
     String result = null;
 
     try{
+        //pdtRepo
         pdtRepo.save(pdt);
         log.info("bnum : {}", pdt.getProductCode());
 
@@ -100,11 +101,11 @@ public Map<String, Object> getBoardList(Integer pNum){
 
     List<ProductTbl> bList = result.getContent();
 
-    int totalPages = result.getTotalPages();
+    int totalPage = result.getTotalPages();
 
     Map<String, Object> res = new HashMap<>();
     res.put("bList", bList);
-    res.put("totalPages", totalPages);
+    res.put("totalPage", totalPage);
     res.put("pageNum", pNum);
 
     return res;

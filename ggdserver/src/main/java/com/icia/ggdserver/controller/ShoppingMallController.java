@@ -1,5 +1,6 @@
 package com.icia.ggdserver.controller;
 
+import com.icia.ggdserver.entity.ProductFileTbl;
 import com.icia.ggdserver.entity.ProductTbl;
 import com.icia.ggdserver.service.ShoppingMallService;
 import jakarta.servlet.http.HttpSession;
@@ -27,9 +28,9 @@ public class ShoppingMallController {
     }
 
     @GetMapping("getBoard")
-    public ProductTbl getBoard(@RequestParam long productFileNum){
+    public ProductTbl getBoard(@RequestParam long productCode){
         log.info("getBoard()");
-        return spmServ.getBoard(productFileNum);
+        return spmServ.getBoard(productCode);
     }
 
     @PostMapping("boardDelete")

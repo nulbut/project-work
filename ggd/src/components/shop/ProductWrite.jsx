@@ -34,16 +34,18 @@ const ProductWrite = () => {
   const nav = useNavigate();
 
   //전송 데이터와 파일을 담을 멀티파트 폼 생성
-  const formData = useRef(new FormData());
+  let formData = new FormData();
 
-  const onch = useCallback((e) => {
-    const { name, value } = e.target;
-    setData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  }, []);
-
+  const onch = useCallback(
+    (e) => {
+      const dataObj = {
+        ...data,
+        [e.target.name]: e.target.value,
+      };
+      setData(dataObj);
+    },
+    [data]
+  );  
 
   //파일 선택 시 폼데이터에 파일 목록 추가
   const onFileChange = useCallback(
@@ -52,7 +54,7 @@ const ProductWrite = () => {
     let fnames = ""; //span에 출력할 파일명 목록
 
     for (let i = 0; i < files.length; i++) {
-      formData.current.append("files", files[i]);
+      formData.append("files", files[i]);
       fnames += files[i].name + " ";
     }
 
@@ -68,11 +70,11 @@ const ProductWrite = () => {
       e.preventDefault(); // 페이지 변환을 방지하는 함수.
 
       // 전송 시 파일 이외의 데이터를 폼데이터에 추가
-      formData.current.append(
+      formData.append(
         "data",
         new Blob([JSON.stringify(data)], { type: "application/json" })
       );
-
+      console.log(formData)
       axios
         .post("/pdwriteProc", formData, {
           headers: { "Content-Type": "multipart/form-data" },
@@ -181,7 +183,7 @@ const ProductWrite = () => {
           </label>
 
           <span className="FileSpan">
-            {/* {fileName} */} 
+            {fileName} 
           </span>
         </div>
         <div className="Buttons">
@@ -191,11 +193,16 @@ const ProductWrite = () => {
             color="gray"
             wsize="s-10"
             outline
-            onClick={() => nav("/ProductRegistered")}
+            onClick={() => nav("/")}
           >
             목록으로
           </Button>
-          <Button type="submit" size="large" color="blue" wsize="s-30">
+          <Button 
+          type="submit" 
+          size="large" 
+          color="blue" 
+          wsize="s-30"
+          >
             등록
           </Button>
         </div>

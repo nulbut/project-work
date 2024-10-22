@@ -2,8 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import "./scss/InfiniteScroll.scss";
 import noimage from "../images/no-image.jpg";
 
-
-function InfiniteScroll() {
+function InfiniteScroll () {
   const [items, setItems] = useState([]);
   const [hasMore, setHasMore] = useState(true);
   const [offset, setOffset] = useState(0);
