@@ -3,13 +3,18 @@ package com.icia.ggdserver.service;
 import com.icia.ggdserver.entity.BmemberTbl;
 import com.icia.ggdserver.repository.BMemberRepository;
 import com.icia.ggdserver.repository.NMemberRepository;
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 @Service
 @Slf4j
@@ -20,6 +25,12 @@ public class BMemberSevrvice {
 
     @Autowired
     NMemberRepository nmRepo;
+
+    @Autowired
+    private JavaMailSender emailSender;
+
+    //랜덤 인증 코드
+    private String authNum;
 
     //비밀번호를 암호화 하는 객체 (평문 암호화, 비교가능)
     BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
@@ -97,4 +108,80 @@ public class BMemberSevrvice {
         }
         return rsMap;
     }//loginproc end
-}
+
+    //아이디 가져오기
+    public BmemberTbl getBMemeber(String bid) {
+        log.info("getBMemeber()");
+        BmemberTbl bmemberTbl = bmRepo.findById(bid).get();
+        bmemberTbl.setBpw("");
+        return bmemberTbl;
+    }
+
+    public String sendBEmail(String bmail)
+        throws MessagingException, UnsupportedEncodingException {
+        //메일 전송에 필요한 정보 설정
+        MimeMessage emailForm = createEmailform(bmail);
+        //실제 메일 전송
+        emailSender.send(emailForm);
+        return  authNum; //인증 코드 반환
+    }
+
+    private MimeMessage createEmailform(String email)
+        throws MessagingException, UnsupportedEncodingException  {
+
+        createCode(); //인증 코드 생성
+        String setFrom = "rnjstnwjd32@gamil.com"; //email-config에 설정한 이메일 보내는사람 (수정이꺼)
+        String title = "인증 번호"; //메일 제목
+
+        MimeMessage message = emailSender.createMimeMessage();
+        message.addRecipients(MimeMessage.RecipientType.TO, email); //보낼 이메일 설정
+        message.setSubject(title); //제목 설정
+        message.setFrom(setFrom); //보내는 이메일
+        message.setText("인증 번호 :" + authNum + " "+"해당 인증번호를 인증번호 기입란에 동일하게 입력해주세요.");
+
+        return message;
+
+        }
+
+    private void createCode() {
+        Random random = new Random();
+        StringBuffer key = new StringBuffer();
+
+        for (int i=0; i<8; i++) {
+            int index = random.nextInt(3);
+
+            switch (index) {
+                case 0 :
+                    key.append((char) ((int)random.nextInt(26) + 97));
+                    break;
+                case 1 :
+                    key.append((char) ((int)random.nextInt(26) + 65));
+                    break;
+                case 2:
+                    key.append(random.nextInt(9));
+                    break;
+            }
+        }
+        authNum = key.toString();
+    }
+
+
+    public String bchangepass(BmemberTbl bmemberTbl) {
+        log.info("bchangepass()");
+        String res = null;
+
+        //비밀번호 암호화
+        String benpwd = encoder.encode(bmemberTbl.getBpw());
+        bmemberTbl = bmRepo.findById(bmemberTbl.getBid()).get();
+        bmemberTbl.setBpw(benpwd); //새 비밀번호로 변경
+
+        try {
+            bmRepo.save(bmemberTbl);
+            res = "ok";
+        } catch (Exception e){
+            e.printStackTrace();
+            res = "fail";
+        }
+        return res;
+    }
+}//class end

@@ -5,12 +5,12 @@ import com.icia.ggdserver.entity.BmemberTbl;
 import com.icia.ggdserver.entity.NmemberTbl;
 import com.icia.ggdserver.service.BMemberSevrvice;
 import com.icia.ggdserver.service.NMemberService;
+import jakarta.mail.MessagingException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
 @RestController
@@ -44,4 +44,29 @@ public class BMemberController {
         log.info("bloginproc()");
         return bmServ.bloginproc(bmemberTbl);
     }
+
+    //아이디 불러오기
+    @GetMapping("getBMemeber")
+    public BmemberTbl getBMemeber(@RequestParam String bid){
+        log.info("getBMemeber()");
+        return bmServ.getBMemeber(bid);
+    }
+
+    //회원가입 이메일 인증
+    @GetMapping("bmailconfirm")
+    public String bmailconfirm (@RequestParam String bmail)
+        throws MessagingException, UnsupportedEncodingException {
+        log.info("bmailconfirm() : {}", bmail);
+        String bauthCode = bmServ.sendBEmail(bmail);
+        return bauthCode;
+    }
+
+    //비밀번호 인증
+    @PostMapping("bchangepass")
+    public String bchangepass(@RequestBody BmemberTbl bmemberTbl) {
+        log.info("bchangepass() : {}", bmemberTbl.getBid());
+        return bmServ.bchangepass(bmemberTbl);
+    }
+
+
 }//class end

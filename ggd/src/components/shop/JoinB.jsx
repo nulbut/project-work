@@ -1,14 +1,19 @@
 import axios from "axios";
-import React, { useRef } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import Button from "./Button";
 
 let ck = false; //아이디 중복 체크
 let cnumclick = false; //사업자등록번호 확인
+let eck = false; //이메일 확인
 
 const JoinB = () => {
   const nav = useNavigate();
+
+  const bemail = sessionStorage.getItem("bemail");
+  const [code, setCode] = useState("");
+  const [userCode, setUserCode] = useState("");
 
   //입력값 유효성 체크를 위한 useForm 사용
   const {
@@ -68,6 +73,14 @@ const JoinB = () => {
       alert("아이디 중복 확인을 해주세요.");
       return;
     }
+    if (cnumclick === false) {
+      alert("사업자등록번호 확인을 해주세요.");
+      return;
+    }
+    if (eck === false) {
+      alert("이메일 인증 해주세요.");
+      return;
+    }
 
     //form 전송
     axios
@@ -84,6 +97,42 @@ const JoinB = () => {
         alert("가입 실패. 관리자에게 문의해주세요.");
         console.log(err);
       });
+  };
+
+  //e-mail 인증
+  const mailCh = () => {
+    let conf = window.confirm("이메일 인증 받으시겠습니까?");
+    if (!conf) {
+      return;
+    }
+    const bmail = watch("bemail");
+    axios
+      .get("/bmailconfirm", { params: { bmail: bmail } })
+      .then((res) => {
+        console.log(res.data);
+        setCode(res.data);
+        alert("인증번호가 발송 되었습니다.");
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const onch = useCallback((e) => {
+    const newCode = e.target.value;
+    setUserCode(newCode);
+  });
+
+  const emailmatch = () => {
+    if (userCode === "") {
+      alert("인증번호가 입력되지 않았습니다.");
+      return;
+    }
+    if (code === userCode) {
+      alert("인증번호 일치 합니다.");
+      eck = true;
+    } else {
+      eck = false;
+      alert("인증번호 다시 확인 해주세요.");
+    }
   };
 
   return (
@@ -174,6 +223,37 @@ const JoinB = () => {
             })}
           />
           <span className="error">{errors?.bbtype?.message}</span>
+        </div>
+        <div className="email">
+          <p>사업자 EMail *</p>
+          <input
+            placeholder="you@example.com"
+            className="input"
+            {...register("bemail", {
+              required: {
+                value: true,
+                message: "이메일 주소는 필수 입력값입니다.",
+              },
+              pattern: {
+                value:
+                  /^[A-Za-z0-9]([-_.]?[A-Za-z0-9])*@[A-Za-z0-9]([-_.]?[A-Za-z0-9])*\.[A-Za-z]{2,3}$/i,
+                message: "'you@example.com' 형식으로 입력 해주세요.",
+              },
+            })}
+          />
+          <span className="error">{errors?.bemail?.message}</span>
+          <Button outline onClick={mailCh}>
+            E-mail전송
+          </Button>
+          <input
+            className="input"
+            placeholder="인증번호를 입력해주세요"
+            onChange={onch}
+            value={userCode}
+          />
+          <Button outline onClick={emailmatch}>
+            E-mail인증
+          </Button>
         </div>
         <div className="address">
           <p>주소 *</p>

@@ -141,6 +141,7 @@ public class NMemberService {
         return rsMap;
     }//loginproc end
 
+    //아이디 가져오기
     public NmemberTbl getNMember(String nid) {
         log.info("getNMember()");
         NmemberTbl nmemberTbl = nmRepo.findById(nid).get();

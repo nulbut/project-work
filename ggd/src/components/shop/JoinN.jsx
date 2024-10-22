@@ -149,6 +149,10 @@ const JoinN = () => {
   });
 
   const emailmatch = () => {
+    if (userCode === "") {
+      alert("인증번호가 입력되지 않았습니다.");
+      return;
+    }
     if (code === userCode) {
       alert("인증번호 일치 합니다.");
       eck = true;
