@@ -51,7 +51,7 @@ const Inquiry = () => {
   if (iitem.length === 0) {
     boardList = (
       <TableRow key={0}>
-        <TableColumn span={4}>문의게시글이 없습니다.</TableColumn>
+        <TableColumn span={5}>문의게시글이 없습니다.</TableColumn>
       </TableRow>
     );
   } else {
@@ -71,7 +71,7 @@ const Inquiry = () => {
   }
 
   const getBoard = useCallback((boardCode) => {
-    nav("/inView", { state: { bc: boardCode } });
+    nav("/", { state: { bc: boardCode } });
   }); //상세보기 화면으로 전환될 때 문의게시글 번호로 보낸다.
 
   return (
@@ -82,6 +82,7 @@ const Inquiry = () => {
           {boardList}
         </InquiryBoard>
         <Paging page={page} getList={getBoardList} />
+      
         <Button
           size="large"
           wsize="s-50"
@@ -91,7 +92,7 @@ const Inquiry = () => {
         >
           글작성
         </Button>
-      </div>
+        </div>
     </div>
   );
 };
