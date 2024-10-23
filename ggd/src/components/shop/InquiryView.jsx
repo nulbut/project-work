@@ -52,7 +52,7 @@ const InquiryView = () => {
       .catch((err) => console.log(err));
   }, []);
 
-  const viewFlist = flist.map((v) => {
+  const viewFlist = flist.map((v, i) => {
     return (
       <div className="Down">
         {v.image && <img src={v.image} alt="preview-img" />}
@@ -82,7 +82,7 @@ const InquiryView = () => {
   }, []);
 
   const updateInquiry = () => {
-    nav("/update", { state: { boardCode: bc } });
+    nav("/", { state: { boardCode: bc } });
   };
 
   return (

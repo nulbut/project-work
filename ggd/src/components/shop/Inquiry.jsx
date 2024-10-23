@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
+import "./scss/Main.scss";
 import axios from "axios";
 import TableRow from "./TableRow";
 import TableColumn from "./TableColumn";
@@ -40,7 +41,7 @@ const Inquiry = () => {
   useEffect(() => {
     console.log(bnid);
     if (bnid === null) {
-      nav("/", { replace: true });
+      nav("/login", { replace: true });
       return;
     }
     pnum !== null ? getBoardList(pnum) : getBoardList(1);
@@ -64,6 +65,7 @@ const Inquiry = () => {
         </TableColumn>
         <TableColumn wd="w-20">{column.bnid}</TableColumn>
         <TableColumn wd="w-30">{df(column.boardDate)}</TableColumn>
+        <TableColumn wd="w-30">{df(column.boardDate)}</TableColumn>
       </TableRow>
     ));
   }
@@ -73,21 +75,23 @@ const Inquiry = () => {
   }); //상세보기 화면으로 전환될 때 문의게시글 번호로 보낸다.
 
   return (
-    <div className="table-ex">
-      <h1>1:1 문의 게시판</h1>
-      <InquiryBoard bName={["번호", "제목", "이름", "날짜"]}>
-        {boardList}
-      </InquiryBoard>
-      <Paging page={page} getList={getBoardList} />
-      <Button
-        size="large"
-        wsize="s-50"
-        onClick={() => {
-          nav("/mypage/inquiryWrite");
-        }}
-      >
-        글작성
-      </Button>
+    <div className="Main">
+      <div className="Content">
+        <h1>1:1 문의 게시판</h1>
+        <InquiryBoard bName={["번호", "제목", "이름", "날짜", "문의 현황"]}>
+          {boardList}
+        </InquiryBoard>
+        <Paging page={page} getList={getBoardList} />
+        <Button
+          size="large"
+          wsize="s-50"
+          onClick={() => {
+            nav("/mypage/inquiryWrite");
+          }}
+        >
+          글작성
+        </Button>
+      </div>
     </div>
   );
 };
