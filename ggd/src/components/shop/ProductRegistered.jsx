@@ -1,15 +1,15 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import moment from "moment";
 import Button from "./Button";
-import ProductView from "./ProductView";
+import ProductTable from "./ProductTable";
 import Paging from "./Paging";
 import TableRow from "./TableRow";
 import TableColumn from "./TableColumn";
 
 
-const df = (date) => moment(date).format("YYYY-MM-DD HH:mm:ss");
+const df = (date) => moment(date).format("YYYY-MM-DD");
 
 const ProductRegistered = () => {
   const nav = useNavigate();
@@ -21,8 +21,10 @@ const ProductRegistered = () => {
     totalPage: 0,
     pageNum: 1,
   });
-  console.log(page);
-  console.log(bitem);
+
+  // console.log(page);
+  // console.log(bitem);
+
   // 서버로부터 등록상품 가져오는 함수
   const getBoardList = (pNum) => {
     axios
@@ -73,15 +75,16 @@ const ProductRegistered = () => {
 
   return (
     <div className="table-ex">
-      <ProductView hName={["번호", "상품", "판매자", "등록날짜"]}>
+      <h1>등록한 상품</h1>
+      <ProductTable hName={["번호", "상품", "판매자", "등록날짜"]}>
         {BoardList}
-      </ProductView>
+      </ProductTable>
       <Paging page={page} getList={getBoardList} />
       <Button
         size="large"
         wsize="s-50"
         onClick={() => {
-          nav("/productWrite");
+          nav("/123");
         }}
       >
         상품등록

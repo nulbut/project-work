@@ -26,6 +26,7 @@ import IdPasswordFind from "./components/shop/IdPasswordFind";
 import IdealcupMy from "./components/idealcup/IdealcupMy";
 import ProductWrite from "./components/shop/ProductWrite";
 import ProductRegistered from "./components/shop/ProductRegistered";
+import ProductView from "./components/shop/ProductView";
 
 function App() {
   const nav = useNavigate();
@@ -96,15 +97,13 @@ function App() {
           <Route path="/mypage" element={<Mypage />}>
             <Route path="orderDelivery" element={<OrderDelivery />} />
             <Route path="productRegisterd" element={<ProductRegistered />} />
-            <Route
-              path="productWrite"
-              element={<ProductWrite />}
-            />
+            <Route path="productWrite"element={<ProductWrite />}/>
             <Route path="dibs" element={<Dibs />} />
             <Route path="inquiry" element={<Inquiry />} />
           </Route>
-          <Route path="/123" element={<ProductWrite />} />
-          <Route path="/456" element={<ProductRegistered />} />
+          <Route path="/123" element={<ProductWrite />} /> 
+          <Route path="/456" element={<ProductRegistered />} /> 
+          <Route path="/789" element={<ProductView />} />
         </Route>
 
         <Route
