@@ -52,7 +52,7 @@ const InquiryView = () => {
       .catch((err) => console.log(err));
   }, []);
 
-  const viewFlist = flist.map((v, i) => {
+  const viewFlist = flist.map((v) => {
     return (
       <div className="Down">
         {v.image && <img src={v.image} alt="preview-img" />}

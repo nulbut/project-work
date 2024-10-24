@@ -51,7 +51,7 @@ const Inquiry = () => {
   if (iitem.length === 0) {
     boardList = (
       <TableRow key={0}>
-        <TableColumn span={4}>문의게시글이 없습니다.</TableColumn>
+        <TableColumn span={5}>문의게시글이 없습니다.</TableColumn>
       </TableRow>
     );
   } else {
@@ -81,17 +81,17 @@ const Inquiry = () => {
         <InquiryBoard bName={["번호", "제목", "이름", "날짜", "문의 현황"]}>
           {boardList}
         </InquiryBoard>
-        <Paging page={page} getList={getBoardList} />
-        <Button
-          size="large"
-          wsize="s-50"
-          onClick={() => {
-            nav("/mypage/inquiryWrite");
-          }}
-        >
-          글작성
-        </Button>
       </div>
+      <Paging page={page} getList={getBoardList} />
+      <Button
+        size="large"
+        wsize="s-50"
+        onClick={() => {
+          nav("/mypage/inquiryWrite");
+        }}
+      >
+        글작성
+      </Button>
     </div>
   );
 };

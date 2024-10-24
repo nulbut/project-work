@@ -2,6 +2,10 @@ import axios from "axios";
 import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "./Button";
+import "./scss/Main.scss";
+import "./scss/Input.scss";
+import "./scss/Textarea.scss";
+import "./scss/FileInput.scss";
 
 const InquiryWrite = () => {
   const nav = useNavigate();
