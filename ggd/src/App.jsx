@@ -28,6 +28,7 @@ import ProductWrite from "./components/shop/ProductWrite";
 import ProductRegistered from "./components/shop/ProductRegistered";
 import InquiryWrite from "./components/shop/InquiryWrite";
 import InquiryView from "./components/shop/InquiryView";
+import InquiryUpdate from "./components/shop/InquiryUpdate";
 
 function App() {
   const nav = useNavigate();
@@ -102,7 +103,8 @@ function App() {
             <Route path="dibs" element={<Dibs />} />
             <Route path="inquiry" element={<Inquiry />} />
             <Route path="inquiryWrite" element={<InquiryWrite />} />
-            <Route path="inView" element={<InquiryView />} />
+            <Route path="inquiry/inView" element={<InquiryView />} />
+            <Route path="inUpdate" element={<InquiryUpdate />} />
           </Route>
           <Route path="/123" element={<ProductWrite />} />
           <Route path="/456" element={<ProductRegistered />} />

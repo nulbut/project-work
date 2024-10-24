@@ -88,7 +88,7 @@ public class BoardService {
 
         String realPath = session.getServletContext().getRealPath("/");
 
-        realPath += "update/"; //파일 저장 위치
+        realPath += "upload/"; //파일 저장 위치
 
         File folder = new File(realPath);
 
@@ -156,7 +156,7 @@ public class BoardService {
             throws Exception {
         log.info("deleteFiles()");
         String realPath = session.getServletContext().getRealPath("/");
-        realPath += "update/";
+        realPath += "upload/";
 
         for(BoardFileTbl bf : fileList) {
             File file = new File(realPath + bf.getBoardFileOriname());

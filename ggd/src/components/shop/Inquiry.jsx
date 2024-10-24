@@ -70,9 +70,9 @@ const Inquiry = () => {
     ));
   }
 
-  const getBoard = useCallback((boardCode) => {
-    nav("/", { state: { bc: boardCode } });
-  }); //상세보기 화면으로 전환될 때 문의게시글 번호로 보낸다.
+  const getBoard = (boardCode) => {
+    nav("inView", { state: { bc: boardCode } });
+  }; //상세보기 화면으로 전환될 때 문의게시글 번호로 보낸다.
 
   return (
     <div className="Main">
@@ -82,7 +82,7 @@ const Inquiry = () => {
           {boardList}
         </InquiryBoard>
         <Paging page={page} getList={getBoardList} />
-      
+
         <Button
           size="large"
           wsize="s-50"
@@ -92,7 +92,7 @@ const Inquiry = () => {
         >
           글작성
         </Button>
-        </div>
+      </div>
     </div>
   );
 };

@@ -21,9 +21,9 @@ const InquiryView = () => {
       boardCode: 0,
       boardType: "",
       bnid: 0,
-      nphonoenum: 0,
-      boardsysname: "",
-      boardoriname: "Nothing",
+      nphonenum: 0,
+      boardSysname: "",
+      boardOriname: "Nothing",
       image: "",
       productName: 0,
     },
@@ -42,7 +42,7 @@ const InquiryView = () => {
           for (let i = 0; i < res.data.bfList.length; i++) {
             const newFile = {
               ...res.data.bfList[i],
-              image: "update/" + res.data.bfList[i].boardsysname,
+              image: "upload/" + res.data.bfList[i].boardSysname,
             };
             newFileList.push(newFile); //배열에 추가
           }
@@ -54,9 +54,9 @@ const InquiryView = () => {
 
   const viewFlist = flist.map((v, i) => {
     return (
-      <div className="Down">
+      <div className="Down" key={i}>
         {v.image && <img src={v.image} alt="preview-img" />}
-        {v.boardoriname}
+        {v.boardOriname}
       </div>
     );
   });
@@ -82,7 +82,7 @@ const InquiryView = () => {
   }, []);
 
   const updateInquiry = () => {
-    nav("/", { state: { boardCode: bc } });
+    nav("/inUpdate", { state: { boardCode: bc } });
   };
 
   return (
@@ -104,7 +104,7 @@ const InquiryView = () => {
           </div>
           <div className="Box">
             <div className="Title">전화번호</div>
-            <div className="Data">{inquiry.nphonoenum}</div>
+            <div className="Data">{inquiry.nphonenum}</div>
           </div>
           <div className="Box">
             <div className="Title">등록일</div>
