@@ -1,7 +1,9 @@
 package com.icia.ggdserver.service;
 
 import com.icia.ggdserver.dto.DateDto;
+import com.icia.ggdserver.entity.BmemberTbl;
 import com.icia.ggdserver.entity.NmemberTbl;
+import com.icia.ggdserver.repository.BMemberRepository;
 import com.icia.ggdserver.repository.NMemberRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,11 +36,11 @@ public class AdminService {
         //PageRequest.of(페이지번호, 페이지당 게시글 개수, 정렬방식, 컬럼명)
 
         Page<NmemberTbl> result = null;
-        if(dd.getStartDate() == ""){
+        if(dd.getStartDate() == null && dd.getSearchKeyword() == null){
             result = aRepo.findAll(pb);
         }
-        else {
-            //result = aRepo.findBySearch(dd.getStartDate(), dd.getEndDate(), pb);
+        else if(dd.getStartDate() != null) {
+            result = aRepo.findByDateSearch(dd.getStartDate(), dd.getEndDate(), pb);
         }
 
         //page 객체를 list로 변환 후 전송.
@@ -48,6 +50,39 @@ public class AdminService {
 
         Map<String, Object> res = new HashMap<>();
         res.put("mlist", mList);
+        res.put("totalPage", totalPage);
+        res.put("pageNum", dd.getPageNum());
+
+        return res;
+    }
+
+    @Autowired
+    private BMemberRepository abRepo;
+
+    public Map<String, Object> getBmemberList(DateDto dd) {
+        log.info("getBoardList()");
+
+        //페이지 당 보여질 게시글 개수
+        int listCnt = 10;
+
+        //페이징 조건 처리 객체 생성(Pageable)
+        Pageable pb = PageRequest.of((dd.getPageNum() - 1), listCnt);
+        //PageRequest.of(페이지번호, 페이지당 게시글 개수, 정렬방식, 컬럼명)
+
+        Page<BmemberTbl> result = null;
+        if (dd.getStartDate() == null) {
+            result = abRepo.findAll(pb);
+        } else {
+            //result = aRepo.findBySearch(dd.getStartDate(), dd.getEndDate(), pb);
+        }
+
+        //page 객체를 list로 변환 후 전송.
+        List<BmemberTbl> bList = result.getContent();//page에서 게시글목록을 꺼내와서
+        //bList에 저장.
+        int totalPage = result.getTotalPages();//전체 페이지 개수
+
+        Map<String, Object> res = new HashMap<>();
+        res.put("blist", bList);
         res.put("totalPage", totalPage);
         res.put("pageNum", dd.getPageNum());
 

@@ -20,11 +20,19 @@ public class AdminController {
 
     @GetMapping("/list")
     public Map<String, Object> getMemberList(DateDto dd) {
-        log.info("getMemberList() startDate : {}", dd.getStartDate());
+        log.info("getMemberList() startDate : {} ",  dd);
 
         Map<String, Object> rsMap = aServ.getMemberList(dd);
         return rsMap;
 
+        }
+
+    @GetMapping("/blist")
+    public Map<String, Object> geteBmemberList(DateDto dd) {
+        log.info("getBmemberList() startDate : {}", dd.getPageNum());
+
+        Map<String, Object> rsMap = aServ.getBmemberList(dd);
+        return rsMap;
     }
 
 

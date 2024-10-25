@@ -26,24 +26,24 @@ const Review = () => {
 //     prev();
 //   }, []);
 
-let previews = null;
-if (list.length === 0) {
-  previews = (
-    <TableRow key={0}>
-      <TableColumn span={5}>후기가 없습니다.</TableColumn>
-    </TableRow>
-  );
-} else {
-  previews = Object.values(list).map((item, idx) => (
-    <TableRow key={idx}>
-    <TableColumn wd={10}>{item.hProduct}</TableColumn>
-    <TableColumn wd={20}>{item.hId}</TableColumn>
-    <TableColumn wd={30}>{item.hReview}</TableColumn>
-    <TableColumn wd={40}>{item.hProduct}</TableColumn>
-    <TableColumn wd={50}>{item.hSet}</TableColumn>
-    </TableRow>
-  ))
-};
+// let previews = null;
+// if (list.length === 0) {
+//   previews = (
+//     <TableRow key={0}>
+//       <TableColumn span={5}>후기가 없습니다.</TableColumn>
+//     </TableRow>
+//   );
+// } else {
+//   previews = Object.values(list).map((item, idx) => (
+//     <TableRow key={idx}>
+//     <TableColumn wd={10}>{item.hProduct}</TableColumn>
+//     <TableColumn wd={20}>{item.hId}</TableColumn>
+//     <TableColumn wd={30}>{item.hReview}</TableColumn>
+//     <TableColumn wd={40}>{item.hProduct}</TableColumn>
+//     <TableColumn wd={50}>{item.hSet}</TableColumn>
+//     </TableRow>
+//   ))
+// };
 
   return (
     <div className="menu">
