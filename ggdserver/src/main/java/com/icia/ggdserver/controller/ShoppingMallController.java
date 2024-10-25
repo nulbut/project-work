@@ -1,6 +1,5 @@
 package com.icia.ggdserver.controller;
 
-import com.icia.ggdserver.entity.ProductFileTbl;
 import com.icia.ggdserver.entity.ProductTbl;
 import com.icia.ggdserver.service.ShoppingMallService;
 import jakarta.servlet.http.HttpSession;
@@ -34,10 +33,10 @@ public class ShoppingMallController {
     }
 
     @PostMapping("boardDelete")
-    public Map<String, String> boardDelete(@RequestParam long productFileNum,
+    public Map<String, String> boardDelete(@RequestParam long productCode,
                                            HttpSession session) throws Exception {
         log.info("boardDelete()");
-        return spmServ.boardDelete(productFileNum, session);
+        return spmServ.boardDelete(productCode, session);
     }
 
     @GetMapping("BoardList")

@@ -82,7 +82,7 @@ const ProductWrite = () => {
         .then((res) => {
           if (res.data === "ok") {
             alert("등록 성공");
-            nav("/456");
+            nav("/mypage");
           } else {
             alert("등록 실패");
           }
@@ -193,7 +193,7 @@ const ProductWrite = () => {
             color="gray"
             wsize="s-10"
             outline
-            onClick={() => nav("/")}
+            onClick={() => nav("/mypage")}
           >
             목록으로
           </Button>
