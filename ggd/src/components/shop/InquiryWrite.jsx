@@ -10,12 +10,12 @@ import "./scss/FileInput.scss";
 const InquiryWrite = () => {
   const nav = useNavigate();
   const nid = sessionStorage.getItem("nid");
-  const product = sessionStorage.getItem("productName");
+  // const product = sessionStorage.getItem("productName");
   // const phonenum = sessionStorage.getItem("nphonenum");
 
   const [data, setData] = useState({
     boardType: "",
-    productCode: "",
+    ProductCode: "",
     bnid: nid,
     bnphonenum: "",
     boardTitle: "",
@@ -23,7 +23,7 @@ const InquiryWrite = () => {
   });
   console.log(data);
 
-  const { boardType, boardTitle, boardContent, bnphonenum, productCode } = data;
+  const { boardType, boardTitle, boardContent, bnphonenum, ProductCode } = data;
   const [fileName, setFileName] = useState("선택된 파일이 없습니다.");
 
   //전송 데이터와 파일을 담을 멀티파트 폼 생성
@@ -112,8 +112,8 @@ const InquiryWrite = () => {
         />
         <input
           className="Input"
-          name="productCode"
-          value={productCode}
+          name="ProductCode"
+          value={ProductCode}
           placeholder="주문내역"
           onChange={onch}
           autoFocus
