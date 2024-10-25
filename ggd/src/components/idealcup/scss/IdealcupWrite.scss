@@ -1,20 +1,85 @@
-.Write {
+.gameWrite {
   flex: 1;
   min-height: 250px;
-  width: 800px;
-  margin: 10px auto;
 
-  .Content {
+  width: 100%;
+  tr {
+    td {
+      border: 1px solid red;
+      width: auto;
+
+      .Input {
+        width: 100%;
+        height: 2.5rem;
+        font-size: 1.25rem;
+        line-height: 2.5rem;
+        border: none;
+        border-radius: 1.25rem;
+        background: rgb(230, 230, 230);
+        text-align: center;
+
+        &::placeholder {
+          color: rgb(85, 84, 84);
+        }
+
+        & + &,
+        & + .Button,
+        .Button + & {
+          margin-top: 1rem;
+        }
+      }
+
+      .FileInput {
+        text-align: center;
+        input {
+          width: 0;
+        }
+        .FileLabel {
+          width: 300px;
+          display: flex;
+        }
+      }
+    }
+    .radio-box {
+      text-align: left;
+    }
+    .radio {
+      width: auto;
+    }
+    .radio-ex {
+      color: rgb(85, 84, 84);
+    }
+    :first-child {
+      width: auto;
+    }
+    .cols {
+      width: 100%;
+    }
+  }
+  .Content-iw {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     width: 100%;
-    padding: 10px;
     background: white;
     margin: 1.5rem auto;
     border-radius: 5px;
     padding-bottom: 2rem;
     box-sizing: border-box;
+
+    .Textarea {
+      width: 100%;
+      height: 20rem;
+      font-size: 1.25rem;
+      line-height: 2.5rem;
+      border: none;
+      border-radius: 1.25rem;
+      background: rgb(230, 230, 230);
+      resize: none;
+      margin: 1rem auto;
+      padding: 10px 20px;
+      box-sizing: border-box;
+    }
 
     .DataArea {
       width: 80%;

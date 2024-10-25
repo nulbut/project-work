@@ -39,7 +39,8 @@ const IdealcupMain = () => {
   // const mid = sessionStorage.getItem("mid");
   const mid = "asd"; //로그인 구현 전 임시
   const nav = useNavigate();
-
+  console.log("페이지", page);
+  console.log("게임", games);
   const fetchGoods = async (inpage) => {
     //중복호출 제거
     if (pageParams.includes(inpage.pageNum)) return;
@@ -164,7 +165,7 @@ const IdealcupMain = () => {
   }; //상세보기 화면으로 전환될 때 게시글 번호를 보낸다.
 
   return (
-    <div className="body">
+    <div className="idealmain">
       {/* <GameViewLayout hName={["NO", "Title", "Writer", "Date"]}>
         {list}
       </GameViewLayout> */}
@@ -173,19 +174,28 @@ const IdealcupMain = () => {
           <div key={index} className="product-card">
             <div className="vs-imgset">
               <img
-                src={noimage}
+                src={`upload/${item.iwcFirstImage}`}
                 alt={`상품 이미지 ${item.iwcCode}`}
                 className="product-image"
               />
               <img
-                src={noimage}
+                src={`upload/${item.iwcSecondImage}`}
                 alt={`상품 이미지 ${item.iwcCode}`}
                 className="product-image"
               />
             </div>
 
             <div className="product-title">
-              <div>{item.iwcName}</div>
+              <Link
+                to="/game"
+                state={{
+                  code: item.iwcCode,
+                  name: item.iwcName,
+                  expl: item.iwcExplanation,
+                }}
+              >
+                <div>{item.iwcName}</div>
+              </Link>
               <div className="title-btn">
                 <div>
                   <FontAwesomeIcon icon={faHeart} />
@@ -193,18 +203,28 @@ const IdealcupMain = () => {
                 <div>
                   <FontAwesomeIcon icon={faCircleExclamation} />
                 </div>
+                <div>{item.iwcViews}</div>
               </div>
             </div>
-
+                
             <p className="product-body">{item.iwcExplanation}</p>
             <p className="product-sub">{item.iwcAuthor}</p>
-            <p className="product-body">{df(item.rdate)}</p>
+            <p className="product-body">{df(item.iwcDate)}</p>
             <div className="btn-set">
               {/* <button>시작</button>
               <button>랭킹</button>
               <button>공유</button> */}
+              <Link
+                to={`/game?${item.iwcCode}`}
+                state={{
+                  code: item.iwcCode,
+                  name: item.iwcName,
+                  expl: item.iwcExplanation,
+                }}
+              >
+                <Button size="s-25">시작</Button>
+              </Link>
 
-              <Button size="s-25">시작</Button>
               <Button size="s-25">랭킹</Button>
               <Button size="s-25">공유</Button>
             </div>
@@ -213,11 +233,9 @@ const IdealcupMain = () => {
       </div>
       {hasNextPage && (
         <h1 ref={observerRef} className="loading-indicator">
-          Loading more product...
+          이상형 월드컵 불러오는 중...
         </h1>
       )}
-      이상형월드컵
-      <Link to="/game">게임하러가기</Link>
     </div>
   );
 };
