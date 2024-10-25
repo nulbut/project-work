@@ -18,14 +18,11 @@ const InquiryView = () => {
   const [inquiry, setInquiry] = useState({});
   const [flist, setFlist] = useState([
     {
-      boardCode: 0,
-      boardType: "",
-      bnid: 0,
-      nphonenum: 0,
-      boardSysname: "",
-      boardOriname: "Nothing",
+      boardFileId: 0,
+      boardFileNum: 0,
+      boardFileSysname: "",
+      boardFileOriname: "Nothing",
       image: "",
-      productName: 0,
     },
   ]);
 
@@ -35,28 +32,34 @@ const InquiryView = () => {
       .get("/getinquiry", { params: { boardCode: bc } })
       .then((res) => {
         setInquiry(res.data);
+        console.log(res.data);
+
+        const bfList = res.data.boardFileTblList;
+        console.log(bfList);
 
         //파일 목록 처리(res.date에서 파일 목록을 꺼내서 flist로 처리)
-        if (res.data.bfList.length > 0) {
+        if (bfList.length > 0) {
+          console.log("bfList.length : ", bfList.length);
           let newFileList = [];
-          for (let i = 0; i < res.data.bfList.length; i++) {
+          for (let i = 0; i < bfList.length; i++) {
             const newFile = {
-              ...res.data.bfList[i],
-              image: "upload/" + res.data.bfList[i].boardSysname,
+              ...bfList[i],
+              image: "../../upload/" + bfList[i].boardFileSysname,
             };
             newFileList.push(newFile); //배열에 추가
           }
+          console.log(newFileList);
           setFlist(newFileList);
         }
       })
       .catch((err) => console.log(err));
   }, []);
 
-  const viewFlist = flist.map((v) => {
+  const viewFlist = flist.map((v, i) => {
     return (
       <div className="Down" key={i}>
         {v.image && <img src={v.image} alt="preview-img" />}
-        {v.boardOriname}
+        {v.boardFileOriname}
       </div>
     );
   });
@@ -82,7 +85,7 @@ const InquiryView = () => {
   }, []);
 
   const updateInquiry = () => {
-    nav("/inUpdate", { state: { boardCode: bc } });
+    nav("inUpdate", { state: { boardCode: bc } });
   };
 
   return (

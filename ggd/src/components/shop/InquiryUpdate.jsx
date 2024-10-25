@@ -24,14 +24,11 @@ const InquiryUpdate = () => {
 
   const [flist, setFlist] = useState([
     {
-      boardCode: 0,
-      boardType: "",
-      bnid: 0,
-      nphonoenum: 0,
-      boardsysname: "",
-      boardoriname: "Nothing",
+      boardFileId: 0,
+      boardFileNum: 0,
+      boardFileSysname: "",
+      boardFileOriname: "Nothing",
       image: "",
-      productName: 0,
     },
   ]);
 
@@ -43,16 +40,21 @@ const InquiryUpdate = () => {
       .then((res) => {
         setData(res.data);
 
+        const bfList = res.data.boardFileTblList;
+        console.log(bfList);
+
         //파일 목록 처리(res.date에서 파일 목록을 꺼내서 flist로 처리)
-        if (res.data.bfList.length > 0) {
+        if (bfList.length > 0) {
+          console.log("bfList.length : ", bfList.length);
           let newFileList = [];
-          for (let i = 0; i < res.data.bfList.length; i++) {
+          for (let i = 0; i < bfList.length; i++) {
             const newFile = {
-              ...res.data.bfList[i],
-              image: "upload/" + res.data.bfList[i].boardsysname,
+              ...bfList[i],
+              image: "../../upload/" + bfList[i].boardFileSysname,
             };
             newFileList.push(newFile); //배열에 추가
           }
+          console.log(newFileList);
           setFlist(newFileList);
         }
       })
@@ -63,7 +65,7 @@ const InquiryUpdate = () => {
     return (
       <div className="Down" key={i}>
         {v.image && <img src={v.image} alt="preview-img" />}
-        {v.boardoriname}
+        {v.boardFileOriname}
       </div>
     );
   });

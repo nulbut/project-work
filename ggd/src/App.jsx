@@ -104,7 +104,7 @@ function App() {
             <Route path="inquiry" element={<Inquiry />} />
             <Route path="inquiryWrite" element={<InquiryWrite />} />
             <Route path="inquiry/inView" element={<InquiryView />} />
-            <Route path="inUpdate" element={<InquiryUpdate />} />
+            <Route path="inquiry/inView/inUpdate" element={<InquiryUpdate />} />
           </Route>
           <Route path="/123" element={<ProductWrite />} />
           <Route path="/456" element={<ProductRegistered />} />
