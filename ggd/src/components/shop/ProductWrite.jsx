@@ -7,7 +7,7 @@ import "./scss/Textarea.scss";
 import "./scss/FileInput.scss";
 import "./scss/Write.scss";
 
-const ProductregistrationWrite = () => {
+const ProductWrite = () => {
   const id = sessionStorage.getItem("sellerId");
   const [data, setData] = useState({
     productName: "",
@@ -34,56 +34,27 @@ const ProductregistrationWrite = () => {
   const nav = useNavigate();
 
   //전송 데이터와 파일을 담을 멀티파트 폼 생성
-  // let formData = new FormData();
+  let formData = new FormData();
 
-  // const onch = useCallback(
-  //   (e) => {
-  //     const dataObj = {
-  //       ...data,
-  //       [e.target.name]: e.target.value,
-  //     };
-  //     setData(dataObj);
-  //   },
-  //   [data]
-  // );
-
-  //전송 데이터와 파일을 담을 멀티파트 폼 생성
-  const formData = useRef(new FormData());
-
-  const onch = useCallback((e) => {
-    const { name, value } = e.target;
-    setData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  }, []);
+  const onch = useCallback(
+    (e) => {
+      const dataObj = {
+        ...data,
+        [e.target.name]: e.target.value,
+      };
+      setData(dataObj);
+    },
+    [data]
+  );  
 
   //파일 선택 시 폼데이터에 파일 목록 추가
-  // const onFileChange = useCallback(
-  //   (e) => {
-  //     const files = e.target.files;
-  //     let fnames = ""; //span에 출력할 파일명 목록
-
-  //     for (let i = 0; i < files.length; i++) {
-  //       formData.append("files", files[i]);
-  //       fnames += files[i].name + " ";
-  //     }
-
-  //     if (fnames === "") {
-  //       fnames = "선택한 파일이 없습니다.";
-  //     }
-  //     setFileName(fnames);
-  //   },
-  //   [formData]
-  // );
-
-  //파일 선택 시 폼데이터에 파일 목록 추가
-  const onFileChange = useCallback((e) => {
+  const onFileChange = useCallback(
+    (e) => {
     const files = e.target.files;
     let fnames = ""; //span에 출력할 파일명 목록
 
     for (let i = 0; i < files.length; i++) {
-      formData.current.append("files", files[i]);
+      formData.append("files", files[i]);
       fnames += files[i].name + " ";
     }
 
@@ -91,38 +62,7 @@ const ProductregistrationWrite = () => {
       fnames = "선택한 파일이 없습니다.";
     }
     setFileName(fnames);
-  }, []);
-
-  //작성한 내용(제목, 글, 파일들) 전송 함수
-  // const onWrite = useCallback(
-  //   (e) => {
-  //     e.preventDefault(); // 페이지 변환을 방지하는 함수.
-
-  //     //전송 시 파일 이외의 데이터를 폼데이터에 추가
-  //     formData.append(
-  //       "data",
-  //       new Blob([JSON.stringify(data)], { type: "application/json" })
-  //     );
-
-  //     axios
-  //       .post("/pdwriteProc", formData, {
-  //         headers: { "Content-Type": "Multipart/form-data" },
-  //       })
-  //       .then((res) => {
-  //         if (res.data === "ok") {
-  //           alert("등록 성공");
-  //           nav("/456");
-  //         } else {
-  //           alert("등록 실패");
-  //         }
-  //       })
-  //       .catch((err) => {
-  //         alert("전송 실패");
-  //         console.log(err);
-  //       });
-  //   },
-  //   [data]
-  // );
+  },[formData]);
 
   //작성한 내용(제목, 글, 파일들) 전송 함수
   const onWrite = useCallback(
@@ -130,19 +70,19 @@ const ProductregistrationWrite = () => {
       e.preventDefault(); // 페이지 변환을 방지하는 함수.
 
       // 전송 시 파일 이외의 데이터를 폼데이터에 추가
-      formData.current.append(
+      formData.append(
         "data",
         new Blob([JSON.stringify(data)], { type: "application/json" })
       );
-
+      console.log(formData)
       axios
-        .post("/pdwriteProc", formData.current, {
+        .post("/pdwriteProc", formData, {
           headers: { "Content-Type": "multipart/form-data" },
         })
         .then((res) => {
           if (res.data === "ok") {
             alert("등록 성공");
-            nav("/456");
+            nav("/mypage");
           } else {
             alert("등록 실패");
           }
@@ -155,6 +95,8 @@ const ProductregistrationWrite = () => {
     [data]
   );
   console.log("현재값", data);
+  
+
   return (
     <div className="Write">
       <form className="Content" onSubmit={onWrite}>
@@ -230,11 +172,19 @@ const ProductregistrationWrite = () => {
           value={productDetail}
         ></textarea>
         <div className="FileInput">
-          <input id="upload" type="file" multiple onChange={onFileChange} />
+          <input id="upload"
+           type="file"
+            multiple 
+            onChange={onFileChange} 
+         />
+
           <label className="FileLabel" htmlFor="upload">
             파일선택
           </label>
-          <span className="FileSpan">{fileName}</span>
+
+          <span className="FileSpan">
+            {fileName} 
+          </span>
         </div>
         <div className="Buttons">
           <Button
@@ -245,9 +195,14 @@ const ProductregistrationWrite = () => {
             outline
             onClick={() => nav("/mypage")}
           >
-            취소
+            목록으로
           </Button>
-          <Button type="submit" size="large" color="blue" wsize="s-30">
+          <Button 
+          type="submit" 
+          size="large" 
+          color="blue" 
+          wsize="s-30"
+          >
             등록
           </Button>
         </div>
@@ -256,4 +211,4 @@ const ProductregistrationWrite = () => {
   );
 };
 
-export default ProductregistrationWrite;
+export default ProductWrite;

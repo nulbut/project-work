@@ -97,6 +97,7 @@ const JoinN = () => {
   const onSubmit = (form) => {
     // console.log("체크 아이디", ck);
     // console.log("체크 닉", nck);
+    console.log(form);
     if (ck == false) {
       alert("아이디 중복 확인을 해주세요.");
       return;

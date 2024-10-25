@@ -16,7 +16,7 @@ public class ProductTbl { //상품 테이블
     private long productCode; //상품 고유번호
 
     @Column(name = "CategoryCode", nullable = false)
-    private long categoryCode; //카테고리 고유번호
+    private String categoryCode; //카테고리 고유번호
 
     @Column(nullable = false, length = 40)
     private String productName; //상품 이름

@@ -24,8 +24,12 @@ import JoinN from "./components/shop/JoinN";
 import JoinB from "./components/shop/JoinB";
 import IdPasswordFind from "./components/shop/IdPasswordFind";
 import IdealcupMy from "./components/idealcup/IdealcupMy";
-import ProductregistrationWrite from "./components/shop/ProductWrite";
+import ProductWrite from "./components/shop/ProductWrite";
 import ProductRegistered from "./components/shop/ProductRegistered";
+import InquiryWrite from "./components/shop/InquiryWrite";
+import InquiryView from "./components/shop/InquiryView";
+import InquiryUpdate from "./components/shop/InquiryUpdate";
+import ProductView from "./components/shop/ProductView";
 import IdPasswordFind2 from "./components/shop/scss/IdPasswordFind2";
 
 function App() {
@@ -98,15 +102,16 @@ function App() {
           <Route path="/mypage" element={<Mypage />}>
             <Route path="orderDelivery" element={<OrderDelivery />} />
             <Route path="productRegisterd" element={<ProductRegistered />} />
-            <Route
-              path="productregistrationWrite"
-              element={<ProductregistrationWrite />}
-            />
+            <Route path="productWrite" element={<ProductWrite />} />
             <Route path="dibs" element={<Dibs />} />
             <Route path="inquiry" element={<Inquiry />} />
+            <Route path="inquiryWrite" element={<InquiryWrite />} />
+            <Route path="inquiry/inView" element={<InquiryView />} />
+            <Route path="inquiry/inView/inUpdate" element={<InquiryUpdate />} />
           </Route>
-          <Route path="/123" element={<ProductregistrationWrite />} />
+          <Route path="/123" element={<ProductWrite />} />
           <Route path="/456" element={<ProductRegistered />} />
+          <Route path="/789" element={<ProductView />} />
         </Route>
 
         <Route

@@ -2,8 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import "./scss/InfiniteScroll.scss";
 import noimage from "../images/no-image.jpg";
 
-
-function InfiniteScroll() {
+function InfiniteScroll () {
   const [items, setItems] = useState([]);
   const [hasMore, setHasMore] = useState(true);
   const [offset, setOffset] = useState(0);
@@ -70,6 +69,7 @@ function InfiniteScroll() {
                 className="product-image"
               />
             </div>
+            <h3 className="product-title">상품명 {item + 1} </h3>
             <p className="product-price">₩{item.price}</p>
             <p className="product-body">{item.description}</p>
           </div>
