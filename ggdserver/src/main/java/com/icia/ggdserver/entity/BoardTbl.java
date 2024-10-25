@@ -18,11 +18,11 @@ public class BoardTbl {
     @Column(nullable = false)
     private String bnid; // 회원 ID
 
-    @Column
+    @Column(nullable = false)
     private long ProductCode;//상품고유번호
 
-    @Column(nullable = false)
-    private String boardNtype;// 문의 종류
+    @Column(nullable = false, length = 30)
+    private String boardType;// 문의 종류
 
     @Column(nullable = false, length = 50)
     private String boardTitle;//글제목
@@ -35,5 +35,5 @@ public class BoardTbl {
     private Timestamp boardDate;//문의 게시글 등록일
 
     @Transient
-    private List<ProductFileTbl> ProductFileList;// 첨부파일
+    private List<BoardFileTbl> boardFileTblList;// 첨부파일
 }

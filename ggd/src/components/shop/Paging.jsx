@@ -3,6 +3,7 @@ import React from "react";
 import "./scss/Paging.scss";
 
 const Paging = ({ page, getList }) => {
+  console.log(page);
   const { totalPage, pageNum } = page;
   const pageCnt = 5;
 

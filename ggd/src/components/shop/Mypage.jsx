@@ -8,11 +8,11 @@ const Mypage = () => {
   const menuArr = [
     {
       name: "포인트",
-      path: "/mypage",
+      path: "mypage",
     },
     {
       name: "등록한 상품",
-      path: "productRegisterd",
+      path: "ProductRegisterd",
     },
     {
       name: "주문내역/배송조회",
