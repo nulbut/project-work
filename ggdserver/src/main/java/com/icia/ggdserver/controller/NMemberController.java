@@ -93,4 +93,11 @@ public class NMemberController {
         log.info("changepass() : {}", nmemberTbl.getNid());
         return nmServ.changepass(nmemberTbl);
     }
+
+    //아이디 찾기
+    @PostMapping("nidfindproc")
+    public Map<String, String> nidfindproc(@RequestBody NmemberTbl nmemberTbl){
+        log.info("nidfindproc()");
+        return nmServ.nidfindproc(nmemberTbl);
+    }
 }

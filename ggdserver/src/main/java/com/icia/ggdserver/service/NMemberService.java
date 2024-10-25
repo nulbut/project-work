@@ -243,4 +243,38 @@ public class NMemberService {
         nmemberTbl.setNemail("");
         return nmemberTbl;
     }
+
+    // 아이디 찾기
+    public Map<String, String> nidfindproc(NmemberTbl nmemberTbl) {
+        log.info("nidfindproc()");
+        NmemberTbl dbMail = null;
+        Map<String, String> mailMap = new HashMap<>();
+
+        try {
+            dbMail = nmRepo.findById(nmemberTbl.getNemail()).get();
+            //db에서 꺼내온 사용자의 이름과 입력한 이름 비교.
+            if (encoder.matches(nmemberTbl.getNname(), dbMail.getNname())){
+                //찾기 성공
+                mailMap.put("res1","ok");
+                mailMap.put("id",nmemberTbl.getNid());
+            }
+            else {
+                //이름이 틀린 경우
+                mailMap.put("res1","fail");
+                mailMap.put("msg","해당하는 이름의 회원이 존재하지 않습니다.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            //이메일이 틀린 경우
+            mailMap.put("res1","fail");
+            mailMap.put("msg","가입된 이메일이 아닙니다.");
+        }
+        return mailMap;
+    }
+
+
+
+
+
+
 }//class end
