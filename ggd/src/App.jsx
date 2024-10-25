@@ -30,6 +30,7 @@ import InquiryWrite from "./components/shop/InquiryWrite";
 import InquiryView from "./components/shop/InquiryView";
 import InquiryUpdate from "./components/shop/InquiryUpdate";
 import ProductView from "./components/shop/ProductView";
+import IdPasswordFind2 from "./components/shop/scss/IdPasswordFind2";
 
 function App() {
   const nav = useNavigate();
@@ -94,21 +95,22 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/login" element={<Login sucLogin={sucLogin} />} />
           <Route path="/idpwdfind" element={<IdPasswordFind />} />
+          <Route path="/idpwdfind2" element={<IdPasswordFind2 />} />
           <Route path="/joinchoice" element={<JoinChoice />} />
           <Route path="/join_n" element={<JoinN />} />
           <Route path="/join_b" element={<JoinB />} />
           <Route path="/mypage" element={<Mypage />}>
             <Route path="orderDelivery" element={<OrderDelivery />} />
             <Route path="productRegisterd" element={<ProductRegistered />} />
-            <Route path="productWrite"element={<ProductWrite />}/>
+            <Route path="productWrite" element={<ProductWrite />} />
             <Route path="dibs" element={<Dibs />} />
             <Route path="inquiry" element={<Inquiry />} />
             <Route path="inquiryWrite" element={<InquiryWrite />} />
             <Route path="inquiry/inView" element={<InquiryView />} />
             <Route path="inquiry/inView/inUpdate" element={<InquiryUpdate />} />
           </Route>
-          <Route path="/123" element={<ProductWrite />} /> 
-          <Route path="/456" element={<ProductRegistered />} /> 
+          <Route path="/123" element={<ProductWrite />} />
+          <Route path="/456" element={<ProductRegistered />} />
           <Route path="/789" element={<ProductView />} />
         </Route>
 

@@ -7,10 +7,13 @@ import lombok.Data;
 @Entity
 @Table(name = "nmember_tbl")
 @Data
-public class    NmemberTbl { //일반 회원 테이블
+public class NmemberTbl { //일반 회원 테이블
     @Id
     @Column(name = "n_id")
     private String nid; //아이디 (PK)
+
+    @Column(name = "m_num", nullable = false, length = 1)
+    private int nmnum; //회원 구분 번호 (일반 = 1)
 
     @Column(name = "n_nickname", nullable = false, length = 30)
     private String nnickname; //닉네임
@@ -38,6 +41,5 @@ public class    NmemberTbl { //일반 회원 테이블
 
     @Column(name = "n_address", length = 100)
     private String naddress; //주소
-
 
 }
