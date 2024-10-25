@@ -21,9 +21,6 @@ public class BoardTbl {
     @Column
     private long ProductCode;//상품고유번호
 
-    @Column(nullable = false)
-    private String boardNtype;// 문의 종류
-
     @Column(nullable = false, length = 50)
     private String boardTitle;//글제목
 
