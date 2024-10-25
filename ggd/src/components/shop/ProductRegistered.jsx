@@ -64,19 +64,20 @@ const ProductRegistered = () => {
             {item.productName}
           </div>
         </TableColumn>
+        <TableColumn wd={"w-30"}>{item.categoryCode}</TableColumn>
         <TableColumn wd={"w-20"}>{item.sellerId}</TableColumn>
         <TableColumn wd={"w-30"}>{df(item.ProductDate)}</TableColumn>
       </TableRow>
     ));
   }
   const getBoard = useCallback((productCode) => {
-    nav("", { state: { pc: productCode } });
+    nav("pdView", { state: { pc: productCode } });
   });
 
   return (
     <div className="table-ex">
       <h1>등록한 상품</h1>
-      <ProductTable hName={["번호", "상품", "판매자", "등록날짜"]}>
+      <ProductTable hName={["번호", "상품", "종류" , "판매자", "등록날짜"]}>
         {BoardList}
       </ProductTable>
       <Paging page={page} getList={getBoardList} />
@@ -84,7 +85,7 @@ const ProductRegistered = () => {
         size="large"
         wsize="s-50"
         onClick={() => {
-          nav("/123");
+          nav("/mypage/productWrite");
         }}
       >
         상품등록

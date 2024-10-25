@@ -8,9 +8,10 @@ const ProductTable = ({ hName, children }) => {
             <thead>
             <tr>
                 <th className="TableHeader w-10">{hName[0]}</th>
-                <th className="TableHeader w-40">{hName[1]}</th>
-                <th className="TableHeader w-20">{hName[2]}</th>
-                <th className="TableHeader w-30">{hName[3]}</th>
+                <th className="TableHeader w-10">{hName[1]}</th>
+                <th className="TableHeader w-10">{hName[2]}</th>
+                <th className="TableHeader w-10">{hName[3]}</th>
+                <th className="TableHeader w-10">{hName[4]}</th>
             </tr>
             </thead>
             <tbody>{children}</tbody>
