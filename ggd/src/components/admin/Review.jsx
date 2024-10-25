@@ -6,7 +6,25 @@ import TableColumn from "./TableColumn";
 
 const Review = () => {
 
+//   const [reviews, setReviews] = useState([]);
+//   const [loading, setLoading] = useState(true);
 
+//   useEffect(() => {
+//     const prev = async () => {
+//       try {
+//         // 여기서 API 호출을 통해 리뷰 데이터를 가져옵니다.
+//         const response = await fetch('/api/reviews'); // API 경로에 맞게 수정
+//         const data = await response.json();
+//         setReviews(data);
+//       } catch (error) {
+//         console.error("리뷰를 가져오는 중 오류 발생:", error);
+//       } finally {
+//         setLoading(false);
+//       }
+//     };
+
+//     prev();
+//   }, []);
 
 let previews = null;
 if (list.length === 0) {

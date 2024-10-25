@@ -4,9 +4,12 @@ import TableRow from "./TableRow";
 import TableColumn from "./TableColumn";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import moment from "moment";
 import Table from "./Table";
 import "./scss/Table.scss";
 import "./scss/Admin.scss";
+
+const df = (date) => moment(date).format("YYYY-MM-DD");
 
 const UserList = () => {
   const nav = useNavigate();
@@ -20,33 +23,36 @@ const UserList = () => {
 
   const [list, setList] = useState({});
 
-  const user = sessionStorage.getItem("bid");
+  const admin = sessionStorage.getItem("bid");
   const pnum = sessionStorage.getItem("pageNum");
 
   const getUserList = (pnum) => {
     axios
-      .get("/list", { params: { pageNum: pnum, startDate, endDate } })
+      .get("/admin/list", {
+        params: { pageNum: pnum, startDate: startDate, endDate: endDate },
+      })
       .then((res) => {
-        const { list,totalPage, pageNum } = res.data;
+        console.log(res.data);
+        const { mlist, totalPage, pageNum } = res.data;
         setPage({ totalPage: totalPage, pageNum: pageNum });
-        setList(list);
+        setList(mlist);
         // sessionStorage.setItem("userList", userList);
       })
       .catch((err) => console.log(err));
   };
 
-//   useEffect(() => {
-//     if (!admin) {
-//         nav("/", { replace: true });
-//         return; // 로그인 안한 경우 첫 화면으로 이동
-//     } else {
-//         pnum !== null ? getUserList(pnum) : getUserList(1);
-//     }
-//     // pnum !== null ? getUserList(pnum) : getUserList(1);
-//   }, [admin, pnum]);
+  useEffect(() => {
+    // if (!admin) {
+    //     nav("/", { replace: true });
+    //     return; // 로그인 안한 경우 첫 화면으로 이동
+    // }
+    pnum !== null ? getUserList(pnum) : getUserList(1);
+  }, []);
 
   let userList = null;
+  console.log(list);
   if (list.length === 0) {
+    console.log("length 0");
     userList = (
       <TableRow key={0}>
         <TableColumn span={6}>회원이 없습니다.</TableColumn>
@@ -56,10 +62,10 @@ const UserList = () => {
     userList = Object.values(list).map((item, idx) => (
       <TableRow key={idx}>
         <TableColumn wd={10}>{item.nid}</TableColumn>
-        <TableColumn wd={20}>{item.nName}</TableColumn>
-        <TableColumn wd={30}>{item.nPhone}</TableColumn>
-        <TableColumn wd={40}>{item.nEmail}</TableColumn>
-        <TableColumn wd={50}>{item.nsigndt}</TableColumn>
+        <TableColumn wd={20}>{item.nname}</TableColumn>
+        <TableColumn wd={30}>{item.nphonenum}</TableColumn>
+        <TableColumn wd={40}>{item.nemail}</TableColumn>
+        <TableColumn wd={50}>{df(item.nsigndt)}</TableColumn>
         <TableColumn wd={60}>
           <select>
             <option selected={item.hState === "" ? true : false}></option>
@@ -110,7 +116,7 @@ const UserList = () => {
         <button type="submit">조회</button>
       </form>
       <Table hName={["ID", "이름", "연락처", "이메일", "가입날짜", "비고"]}>
-        {UserList}
+        {userList}
       </Table>
       <Paging page={page} getList={getUserList} />
     </div>

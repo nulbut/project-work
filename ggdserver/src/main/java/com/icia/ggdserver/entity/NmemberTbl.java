@@ -43,11 +43,11 @@ public class    NmemberTbl { //일반 회원 테이블
     private String naddress; //주소
 
     @CreationTimestamp
-    @Column
-    private Timestamp nSigndt; //가입날짜
+    @Column(name = "n_signdt")
+    private Timestamp nsigndt; //가입날짜
 
-    @Column
-    private String nStatus; // 회원 상태
+    @Column(name = "n_status")
+    private String nstatus; // 회원 상태
 
 
 

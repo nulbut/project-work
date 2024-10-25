@@ -1,16 +1,16 @@
 package com.icia.ggdserver.controller;
 
+import com.icia.ggdserver.dto.DateDto;
 import com.icia.ggdserver.entity.NmemberTbl;
-import com.icia.ggdserver.repository.AdminRepository;
 import com.icia.ggdserver.service.AdminService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Timestamp;
 import java.util.Map;
-import java.util.Optional;
 
+@Slf4j
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
@@ -18,11 +18,11 @@ public class AdminController {
     @Autowired
     private AdminService aServ;
 
-    @PostMapping("id")
-    public ResponseEntity<NmemberTbl> getMemberById(@RequestBody NmemberTbl nmemberTbl) {
-        log.info("nid() n_id : {}", nmemberTbl.getNid());
+    @GetMapping("/list")
+    public Map<String, Object> getMemberList(DateDto dd) {
+        log.info("getMemberList() startDate : {}", dd.getStartDate());
 
-        Map<String, String> rsMap = aServ.countByNid(nmemberTbl.getNid());
+        Map<String, Object> rsMap = aServ.getMemberList(dd);
         return rsMap;
 
     }
