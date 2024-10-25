@@ -256,6 +256,7 @@ public class NMemberService {
             if (encoder.matches(nmemberTbl.getNname(), dbMail.getNname())){
                 //찾기 성공
                 mailMap.put("res1","ok");
+                //해당하는 이름의 아이디 꺼내오기
                 mailMap.put("id",nmemberTbl.getNid());
             }
             else {

@@ -61,6 +61,13 @@ public class BMemberController {
         return bauthCode;
     }
 
+    //아이디 찾기
+    @PostMapping("bidfindproc")
+    public Map<String, String> bidfindproc(@RequestBody BmemberTbl bmemberTbl) {
+        log.info("bidfindproc()");
+        return bmServ.bidfindproc(bmemberTbl);
+    }
+
     //비밀번호 인증
     @PostMapping("bchangepass")
     public String bchangepass(@RequestBody BmemberTbl bmemberTbl) {
