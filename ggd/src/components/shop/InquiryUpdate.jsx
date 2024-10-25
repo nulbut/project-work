@@ -9,15 +9,15 @@ const InquiryUpdate = () => {
   const { state } = useLocation();
   const { boardCode } = state;
 
-  const productName = sessionStorage.getItem("productName");
+  // const productCode = sessionStorage.getItem("productCode");
   const nphonenum = sessionStorage.getItem("nphonenum");
   const nid = sessionStorage.getItem("nid");
 
   const [data, setData] = useState({
     boardCode: boardCode,
     boardType: "",
-    productName: productName,
-    // nphonenum: nphonenum,
+    productCode: "",
+    nphonenum: nphonenum,
     boardTitle: "",
     boardContent: "",
   });
@@ -32,7 +32,7 @@ const InquiryUpdate = () => {
     },
   ]);
 
-  const { boardType, boardTitle, boardContent } = data;
+  const { boardType, boardTitle, boardContent, productCode } = data;
   //서버로부터 게시글 내용을 받아오기
   useEffect(() => {
     axios
@@ -164,8 +164,8 @@ const InquiryUpdate = () => {
         />
         <input
           className="Input"
-          name="productName"
-          value={productName}
+          name="productCode"
+          value={productCode}
           placeholder="주문내역"
           onChange={onch}
           autoFocus

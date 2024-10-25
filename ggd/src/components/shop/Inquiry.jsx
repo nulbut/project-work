@@ -9,7 +9,7 @@ import InquiryBoard from "./InquiryBoard";
 import Button from "./Button";
 import Paging from "./Paging";
 
-const df = (data) => moment(data).format("YYYY-MM-DD HH:mm:ss");
+const df = (data) => moment(data).format("YYYY-MM-DD");
 
 const Inquiry = () => {
   const nav = useNavigate();

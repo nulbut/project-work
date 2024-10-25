@@ -150,14 +150,14 @@ const Header = ({ lstate, onLogout }) => {
     //   name: "Q&A",
     //   path: "/Inquiry",
     // },
-    {
-      name: "주문/배송",
-      path: "/mypage/orderDelivery",
-    },
-    {
-      name: "Q&A",
-      path: "/Inquiry",
-    },
+    // {
+    //   name: "주문/배송",
+    //   path: "/mypage/orderDelivery",
+    // },
+    // {
+    //   name: "Q&A",
+    //   path: "/Inquiry",
+    // },
   ];
 
   const Categotry = [
