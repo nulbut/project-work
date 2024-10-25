@@ -180,10 +180,20 @@ const JoinN = () => {
   //     }, [inputValue]);
   //   }
   // };
+
+  //가입 날짜 가져오기
+  const today = new Date();
+
+  //날짜 형식 2024-01-01 형식으로 변경
+  const formattedDate = `${today.getFullYear()}-${
+    today.getMonth() + 1
+  }-${today.getDate()}`;
   return (
     <div className="join">
       <form className="content" onSubmit={handleSubmit(onSubmit)}>
         <input type="hidden" value={1} {...register("nmnum")} />
+        <input type="hidden" value={formattedDate} {...register("nsigndt")} />
+        <input type="hidden" value={1} {...register("nstatus")} />
         <h1>JOIN</h1>
         <div className="id">
           <p>

@@ -50,7 +50,7 @@ public class NmemberTbl { //일반 회원 테이블
     private Timestamp nsigndt; //가입날짜
 
     @Column(name = "n_status")
-    private String nstatus; // 회원 상태
+    private String nstatus; // 회원 상태 ( 1 = (기본) 정상 , 2 = 정지 , 3 = 차단)
 
 
 }

@@ -135,10 +135,20 @@ const JoinB = () => {
     }
   };
 
+  //가입 날짜 가져오기
+  const today = new Date();
+
+  //날짜 형식 2024-01-01 형식으로 변경
+  const formattedDate = `${today.getFullYear()}-${
+    today.getMonth() + 1
+  }-${today.getDate()}`;
+
   return (
     <div className="join">
       <form className="content" onSubmit={handleSubmit(onBSubmit)}>
         <input type="hidden" value={2} {...register("bmnum")} />
+        <input type="hidden" value={formattedDate} {...register("bsigndt")} />
+        <input type="hidden" value={1} {...register("bstatus")} />
         <h1>JOIN</h1>
         <div className="essential">
           <p>* 표시 필수 입력</p>

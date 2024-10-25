@@ -129,13 +129,13 @@ public class NMemberService {
             }
             else {
                 //비밀번호가 틀림
-                rsMap.put("res1","fail2");
+                rsMap.put("res1","fail1");
                 rsMap.put("msg","비밀번호가 일치하지 않습니다.");
             }
         } catch (Exception e){
             e.printStackTrace();
             //회원이 아닌 경우
-            rsMap.put("res1","fail3");
+            rsMap.put("res1","fail2");
             rsMap.put("msg","회원정보가 존재하지 않습니다.");
         }
         return rsMap;
