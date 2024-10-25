@@ -138,7 +138,7 @@ const Header = ({ lstate, onLogout }) => {
       icon: <FontAwesomeIcon icon={faHeart} style={{ color: "#000000" }} />,
     },
     {
-      path: "/mypage/productWrite",
+      path: "/usedRegistered",
       icon: <FontAwesomeIcon icon={faHandshakeSimple} style={{ color: "#000000" }} />
       },
     // {

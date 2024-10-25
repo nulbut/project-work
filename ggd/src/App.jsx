@@ -33,6 +33,7 @@ import InquiryUpdate from "./components/shop/InquiryUpdate";
 import ProductView from "./components/shop/ProductView";
 import IdPasswordFind2 from "./components/shop/scss/IdPasswordFind2";
 import ProductUpdate from "./components/shop/ProductUpdate";
+import UsedRegistered from "./components/shop/UsedRegistered";
 
 function App() {
   const nav = useNavigate();
@@ -112,7 +113,7 @@ function App() {
             <Route path="inquiry/inView/inUpdate" element={<InquiryUpdate />} />
             <Route path="productRegistered/pdView" element={<ProductView />} />
             <Route path="productRegistered/pdview/pdUpdate" element={<ProductUpdate />} />
-
+            <Route path="usedRegistered" element={<UsedRegistered />} />
           </Route>
           {/* <Route path="/123" element={<ProductWrite />} />
           <Route path="/456" element={<ProductRegistered />} />
