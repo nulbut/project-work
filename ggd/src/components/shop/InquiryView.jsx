@@ -44,7 +44,7 @@ const InquiryView = () => {
           for (let i = 0; i < bfList.length; i++) {
             const newFile = {
               ...bfList[i],
-              image: "../../upload/" + bfList[i].boardFileSysname,
+              image: "../../update/" + bfList[i].boardFileSysname,
             };
             newFileList.push(newFile); //배열에 추가
           }

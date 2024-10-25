@@ -8,16 +8,16 @@ const InquiryUpdate = () => {
 
   const { state } = useLocation();
   const { boardCode } = state;
-  const { productName } = state;
-  const { nphonenum } = state;
 
+  const productName = sessionStorage.getItem("productName");
+  const nphonenum = sessionStorage.getItem("nphonenum");
   const nid = sessionStorage.getItem("nid");
 
   const [data, setData] = useState({
     boardCode: boardCode,
     boardType: "",
     productName: productName,
-    nphonenum: nphonenum,
+    // nphonenum: nphonenum,
     boardTitle: "",
     boardContent: "",
   });
@@ -50,7 +50,7 @@ const InquiryUpdate = () => {
           for (let i = 0; i < bfList.length; i++) {
             const newFile = {
               ...bfList[i],
-              image: "../../upload/" + bfList[i].boardFileSysname,
+              image: "../../update/" + bfList[i].boardFileSysname,
             };
             newFileList.push(newFile); //배열에 추가
           }
@@ -118,14 +118,14 @@ const InquiryUpdate = () => {
         })
         .then((res) => {
           if (res.data === "ok") {
-            alert("수성 성공");
-            nav("/main");
+            alert("수정 성공");
+            nav("/mypage/inquiry");
           } else {
-            alert("수성 실패");
+            alert("수정 실패");
           }
         })
         .catch((err) => {
-          alert("수송 실패");
+          alert("수정 실패");
           console.log(err);
         });
     },
@@ -135,6 +135,15 @@ const InquiryUpdate = () => {
     <div className="Update">
       <form className="Content" onSubmit={onWrite}>
         <h1>1:1 문의 작성</h1>
+        <input
+          className="Input"
+          name="boardCode"
+          value={boardCode}
+          placeholder="NO"
+          onChange={onch}
+          autoFocus
+          required
+        />
         <input
           className="Input"
           name="boardType"
@@ -200,7 +209,7 @@ const InquiryUpdate = () => {
             color="gray"
             wsize="s-10"
             outline
-            onClick={() => nav("/mypage")}
+            onClick={() => nav("/mypage/inquiry")}
           >
             목록으로
           </Button>

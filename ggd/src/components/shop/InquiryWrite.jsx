@@ -155,7 +155,7 @@ const InquiryWrite = () => {
             color="gray"
             wsize="s-10"
             outline
-            onClick={() => nav("/mypage")}
+            onClick={() => nav("/mypage/inquiry")}
           >
             목록으로
           </Button>
