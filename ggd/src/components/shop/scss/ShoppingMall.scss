@@ -1,4 +1,13 @@
-.body{
-    padding-left: 3%;
-    padding-right: 3%;
+.body {
+  padding-left: 3%;
+  padding-right: 3%;
+
+  flex-grow: 1;
+  text-align: center;
+}
+
+.showcase {
+  max-width: 80%;
+  margin: 50px auto;
+  padding: 0 auto;
 }

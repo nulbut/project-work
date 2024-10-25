@@ -9,7 +9,7 @@ const ShopLayout = (props) => {
     <div>
       <Header lstate={props.lstate} onLogout={props.onLogout} />
       <ShopSideber />
-      <div className="">
+      <div className="body">
         <Outlet />
       </div>
       <Footer />
