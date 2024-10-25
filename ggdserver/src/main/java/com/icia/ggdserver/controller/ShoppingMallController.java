@@ -48,6 +48,17 @@ public class ShoppingMallController {
 
         return res;
     }
-
-
+    //상품등록글 받기
+    @GetMapping("getproduct")
+    public ProductTbl getproduct(@RequestParam long productCode){
+        log.info("getproduct()");
+        return spmServ.getBoard(productCode);
+    }
+    //상품등록글 삭제
+    @PostMapping("deleteProduct")
+    public Map<String, String> deleteProduct(@RequestParam long productCode,
+                                             HttpSession session){
+        log.info("deleteProduct()");
+        return spmServ.boardDelete(productCode, session);
+    }
 }

@@ -124,20 +124,20 @@ public ProductTbl getBoard(long productFileNum){
 }
 
 @Transactional
-public Map<String, String> boardDelete(long productFileNum,
+public Map<String, String> boardDelete(long productCode,
                                        HttpSession session) {
     log.info("boardDelete()");
     Map<String, String> rsMap = new HashMap<>();
     try {
         //파일 삭제
-        List<ProductFileTbl> fileTblList = pdrRepo.findByproductFileNum(productFileNum);
+        List<ProductFileTbl> fileTblList = pdrRepo.findByproductFileNum(productCode);
         if(!fileTblList.isEmpty()){
             filesDelete(fileTblList, session);
         }
         //게시글(DB)삭제
-        pdtRepo.deleteById(productFileNum);
+        pdtRepo.deleteById(productCode);
         //파일 목록(DB) 삭제
-        pdrRepo.deleteByproductFileNum(productFileNum);
+        pdrRepo.deleteByproductFileNum(productCode);
 
         rsMap.put("res", "ok");
     }catch (Exception e){
