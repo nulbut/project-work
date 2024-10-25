@@ -159,7 +159,7 @@ const JoinN = () => {
       eck = true;
     } else {
       eck = false;
-      alert("인증번호 다시 확인해주세요.");
+      alert("인증번호를 다시 확인해주세요.");
     }
   };
 
@@ -348,7 +348,7 @@ const JoinN = () => {
               })}
             />
             <span className="error">{errors?.nemail?.message}</span>
-            <Button outline onClick={mailCh}>
+            <Button type="button" outline onClick={mailCh}>
               E-mail전송
             </Button>
             <input
@@ -357,7 +357,7 @@ const JoinN = () => {
               onChange={onch}
               value={userCode}
             />
-            <Button outline onClick={emailmatch}>
+            <Button type="button" outline onClick={emailmatch}>
               E-mail인증
             </Button>
           </p>

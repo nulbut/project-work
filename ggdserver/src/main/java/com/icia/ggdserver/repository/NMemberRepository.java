@@ -26,6 +26,7 @@ public interface NMemberRepository extends CrudRepository<NmemberTbl, String> {
     long countByNphonenum (String n_phonenum);
 
     long countByNemail (String n_email);
+    NmemberTbl findByNemail(String nemail);
 
     //long Nsigndt (Timestamp n_signdt);
 

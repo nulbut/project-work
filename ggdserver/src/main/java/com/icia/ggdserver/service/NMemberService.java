@@ -129,13 +129,13 @@ public class NMemberService {
             }
             else {
                 //비밀번호가 틀림
-                rsMap.put("res1","fail1");
+                rsMap.put("res1","fail2");
                 rsMap.put("msg","비밀번호가 일치하지 않습니다.");
             }
         } catch (Exception e){
             e.printStackTrace();
             //회원이 아닌 경우
-            rsMap.put("res1","fail2");
+            rsMap.put("res1","fail3");
             rsMap.put("msg","회원정보가 존재하지 않습니다.");
         }
         return rsMap;
@@ -247,28 +247,28 @@ public class NMemberService {
     // 아이디 찾기
     public Map<String, String> nidfindproc(NmemberTbl nmemberTbl) {
         log.info("nidfindproc()");
-        NmemberTbl dbMail = null;
+        NmemberTbl dbNMail = null;
         Map<String, String> mailMap = new HashMap<>();
 
         try {
-            dbMail = nmRepo.findById(nmemberTbl.getNemail()).get();
-            //db에서 꺼내온 사용자의 이름과 입력한 이름 비교.
-            if (encoder.matches(nmemberTbl.getNname(), dbMail.getNname())){
+            dbNMail = nmRepo.findByNemail(nmemberTbl.getNemail());
+            //db에서 꺼내온 사용자의 이메일 비교
+            if (dbNMail != null){
                 //찾기 성공
-                mailMap.put("res1","ok");
-                //해당하는 이름의 아이디 꺼내오기
-                mailMap.put("id",nmemberTbl.getNid());
+                mailMap.put("res3","ok");
+                //해당하는 아이디 꺼내오기
+                mailMap.put("nid",dbNMail.getNid());
             }
             else {
                 //이름이 틀린 경우
-                mailMap.put("res1","fail");
-                mailMap.put("msg","해당하는 이름의 회원이 존재하지 않습니다.");
+                mailMap.put("res3","fail3");
+                mailMap.put("msg","가입된 이메일이 아닙니다.");
             }
         } catch (Exception e) {
             e.printStackTrace();
-            //이메일이 틀린 경우
-            mailMap.put("res1","fail");
-            mailMap.put("msg","가입된 이메일이 아닙니다.");
+//            //이메일이 틀린 경우
+//            mailMap.put("res3","fail3");
+//            mailMap.put("msg","가입된 이메일이 아닙니다.");
         }
         return mailMap;
     }

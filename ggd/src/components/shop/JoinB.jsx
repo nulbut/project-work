@@ -242,7 +242,7 @@ const JoinB = () => {
             })}
           />
           <span className="error">{errors?.bemail?.message}</span>
-          <Button outline onClick={mailCh}>
+          <Button type="button" outline onClick={mailCh}>
             E-mail전송
           </Button>
           <input
@@ -251,7 +251,7 @@ const JoinB = () => {
             onChange={onch}
             value={userCode}
           />
-          <Button outline onClick={emailmatch}>
+          <Button type="button" outline onClick={emailmatch}>
             E-mail인증
           </Button>
         </div>

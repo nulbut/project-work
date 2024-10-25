@@ -192,24 +192,35 @@ public class BMemberSevrvice {
         Map<String, String> mailMap = new HashMap<>();
 
         try {
-            dbBMail = bmRepo.findById(bmemberTbl.getBemail()).get();
-            //db에서 꺼내온 사업자의 대표자 이름과 이름 비교.
-            if (encoder.matches(bmemberTbl.getBname(), dbBMail.getBname())){
-                //찾기 성공
-                mailMap.put("res1","ok");
-                // 해당하는 대표자 이름의 아이디 꺼내오기
-                mailMap.put("id",bmemberTbl.getBid());
+            dbBMail = bmRepo.findByBemail(bmemberTbl.getBemail());
+            if(dbBMail != null){
+                mailMap.put("res4", "ok");
+                mailMap.put("bid", dbBMail.getBid());
             }
             else {
-                //대표자 이름이 틀린 경우
-                mailMap.put("res2","fail");
-                mailMap.put("msg","해당하는 대표자명의 회원이 존재하지 않습니다.");
+                mailMap.put("res4", "fail4");
+                mailMap.put("msg", "가입된 메일이 아닙니다.");
             }
+
+
+            //db에서 꺼내온 사업자의 대표자 이름과 이름 비교.
+//            if (encoder.matches(bmemberTbl.getBname(), dbBMail.getBname())){
+//                //찾기 성공
+//                mailMap.put("res4","ok");
+//                // 해당하는 대표자 이름, 아이디 꺼내오기
+//                mailMap.put("bname",bmemberTbl.getBname());
+//                mailMap.put("bid",bmemberTbl.getBid());
+//            }
+//            else {
+//                //대표자 이름이 틀린 경우
+//                mailMap.put("res4","fail3");
+//                mailMap.put("msg","해당하는 대표자명의 회원이 존재하지 않습니다.");
+//            }
         } catch (Exception e) {
             e.printStackTrace();
             //이메일이 틀린 경우
-            mailMap.put("res2","fail");
-            mailMap.put("res2","가입된 이메일이 아닙니다.");
+//            mailMap.put("res4","fail4");
+//            mailMap.put("msg","가입된 이메일이 아닙니다.");
         }
         return mailMap;
     }

@@ -16,4 +16,6 @@ public interface BMemberRepository extends CrudRepository<BmemberTbl, String> {
 
     @Query(value = "select m.bemail from BmemberTbl as m where m.bid=:bid")
     String selectMail(@Param("bid") String bid);
+
+    BmemberTbl findByBemail(String bemail);
 }

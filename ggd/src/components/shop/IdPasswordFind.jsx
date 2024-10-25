@@ -43,22 +43,70 @@ const IdPasswordFind = ({ sucFind }) => {
   });
 
   const emailmatch = () => {
+    if (code === "") {
+      alert("인증번호가 입력되지 않았습니다.");
+      return;
+    }
     if (code === userCode) {
       alert("인증번호 일치 합니다.");
-      mailck = "ok";
+      mailck = true;
     } else {
-      alert("인증번호 다시 확인해주세요.");
-      mailck = "fail";
+      mailck = false;
+      alert("인증번호를 다시 확인해주세요.");
     }
   };
 
   const idfund = (form) => {
     console.log(form);
+    const bform = {
+      banme: watch("nname"),
+      bemail: watch("nemail"),
+    };
+    console.log(bform);
+    //이메일 인증 확인 유무
+    if (mailck == false) {
+      alert("이메일 인증을 진행해주세요.");
+      return;
+    }
+
+    //form 전송
+    axios
+      .all([
+        axios.post("/nidfindproc", form),
+        axios.post("/bidfindproc", bform),
+      ])
+      .then(
+        axios.spread((res3, res4) => {
+          console.log(res3, res4);
+          if (res3.data.res3 == "ok") {
+            //일반 회원 이메일 일치
+            sessionStorage.setItem("nid", res3.data.nid);
+            nav("/idpwdfind2");
+          } else if (res3.data.res3 == "fail3") {
+            //일반 회원 이메일 불일치
+            if (res4.data.res4 == "ok") {
+              //사업자 이메일 일치
+              sessionStorage.setItem("bid", res4.data.bid);
+              nav("/idpwdfind2");
+            } else {
+              //사업자 이메일 불일치
+              alert(res4.data.msg);
+            }
+          } else {
+            //일반, 사업자 회원 불일치 경우
+            alert(res3.data.msg);
+          }
+        })
+      )
+      .catch((err) => {
+        alert("아이디 찾기 실패!");
+        console.log(err);
+      });
   };
 
   return (
     <div>
-      <form className="content" onSubmit={handleSubmit}>
+      <form className="content" onSubmit={handleSubmit(idfund)}>
         {/*아이디,비밀번호 찾기*/}
         <h1>아이디, 비밀번호 찾기</h1>
 
@@ -68,7 +116,7 @@ const IdPasswordFind = ({ sucFind }) => {
             <p>이름</p>
             <input
               placeholder="이름,대표자 이름"
-              {...register("name", {
+              {...register("nname", {
                 required: {
                   value: true,
                   message: "이름 or 대표자 이름 입력해주세요.",
@@ -99,11 +147,15 @@ const IdPasswordFind = ({ sucFind }) => {
             />
           </div>
           <div className="button">
-            <Button onClick={mailCh}>인증 메일 보내기</Button>
-            <Button onClick={emailmatch}>인증번호 확인</Button>
+            <Button type="button" outline onClick={mailCh}>
+              인증 메일 보내기
+            </Button>
+            <Button type="button" outline onClick={emailmatch}>
+              인증번호 확인
+            </Button>
           </div>
           <div>
-            <Button>아이디 찾기</Button>
+            <Button type="submit">아이디 찾기</Button>
           </div>
         </div>
       </form>
