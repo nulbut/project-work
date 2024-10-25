@@ -8,13 +8,12 @@ import Paging from "./Paging";
 import TableRow from "./TableRow";
 import TableColumn from "./TableColumn";
 
-
 const df = (date) => moment(date).format("YYYY-MM-DD HH:mm:ss");
 
 const ProductRegistered = () => {
   const nav = useNavigate();
-  const sellerId = sessionStorage.getItem("sellerId");
-  const pnum = sessionStorage.getItem("pageNum");
+  const sellerId = "sellerId";
+  const pNum = 1;
   const [bitem, setBitem] = useState([]);
   const [page, setPage] = useState({
     //페이징 관련 정보 저장
@@ -24,12 +23,12 @@ const ProductRegistered = () => {
   console.log(page);
   console.log(bitem);
   // 서버로부터 등록상품 가져오는 함수
-  const getBoardList = (pnum) => {
+  const getBoardList = (pNum) => {
     axios
-      .get("/BoardList", { params: { pageNum: pnum } })
+      .get("/BoardList", { params: { pageNum: pNum } })
       .then((res) => {
         const { bList, totalPage, pageNum } = res.data;
-        setPage({ totalPage: totalPage, pageNum: pageNum });
+        setPage({ totalPage: totalPage, pageNum: pNum });
         setBitem(bList);
         sessionStorage.getItem("pageNum", pageNum);
       })
@@ -43,7 +42,7 @@ const ProductRegistered = () => {
       nav("/", { replace: true });
       return;
     }
-    pnum !== null ? getBoardList(pnum) : getBoardList(1);
+    pNum !== null ? getBoardList(pNum) : getBoardList(1);
   }, []);
   //등록상품 목록 작성
   let BoardList = null;
@@ -81,7 +80,7 @@ const ProductRegistered = () => {
         size="large"
         wsize="s-50"
         onClick={() => {
-          nav("/ProductregistrationWrite");
+          nav("/123");
         }}
       >
         상품등록
