@@ -1,24 +1,30 @@
 .login {
-    background-color: aqua;
-    .content {
-        background-color: chartreuse;
-        .input {
-            background-color: darksalmon;
-        }
-        .error {
-            color: red;
-            height: 20px;
-            margin-bottom: 5px;
-        }
-        .join {
-            background-color: fuchsia;
-        }
-        button {
-            background-color: khaki;
-        }
+  background-color: aqua;
+  flex: 1;
+  min-height: 300px;
+  width: 800px;
+  margin: 10px auto;
+
+  .head {
+    background-color: blue;
+    align-items: center;
+  }
+  .content {
+    background-color: chartreuse;
+
+    .input {
+      background-color: darksalmon;
     }
+    .error {
+      color: red;
+      height: 20px;
+      margin-bottom: 5px;
+    }
+    .join {
+      background-color: fuchsia;
+    }
+    button {
+      background-color: khaki;
+    }
+  }
 }
-
-
-
-

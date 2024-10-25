@@ -1,15 +1,19 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { replace, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import Button from "./Button";
 
 let ck = false; //아이디 중복 체크
 let nck = false;
+let eck = false;
 
 const JoinN = () => {
   const nav = useNavigate();
 
+  const nemail = sessionStorage.getItem("nemail");
+  const [code, setCode] = useState("");
+  const [userCode, setUserCode] = useState("");
   //   const [ckid, setCkid] = useState(false);
 
   //   console.log("체크", ck);
@@ -48,7 +52,7 @@ const JoinN = () => {
           ck = false;
           //setCkid(false);
         }
-        console.log(ck);
+        // console.log(ck);
       })
       .catch((err) => {
         //error 표시
@@ -93,6 +97,7 @@ const JoinN = () => {
   const onSubmit = (form) => {
     // console.log("체크 아이디", ck);
     // console.log("체크 닉", nck);
+    console.log(form);
     if (ck == false) {
       alert("아이디 중복 확인을 해주세요.");
       return;
@@ -101,12 +106,16 @@ const JoinN = () => {
       alert("닉네임 중복 확인을 해주세요.");
       return;
     }
+    if (eck == false) {
+      alert("이메일 인증을 해주세요.");
+      return;
+    }
     //form 전송
     axios
       .post("/joinproc", form)
       .then((res) => {
         if ((res.data = "ok")) {
-          alert("가입 성공했습니다. 환영합니다!");
+          alert("가입 완료되었습니다.");
           nav("/login"); //가입 성공 시 로그인 페이지로 이동.
         } else {
           alert("가입 실패. 관리자에게 문의해주세요.");
@@ -118,9 +127,63 @@ const JoinN = () => {
       });
   };
 
+  //e-mail 인증
+  const mailCh = () => {
+    let conf = window.confirm("이메일 인증 받으시겠습니까?");
+    if (!conf) {
+      return;
+    }
+    const nmail = watch("nemail");
+    axios
+      .get("/mailconfirm", { params: { nmail: nmail } })
+      .then((res) => {
+        console.log(res.data);
+        setCode(res.data);
+        alert("인증번호가 발송 되었습니다.");
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const onch = useCallback((e) => {
+    const newCode = e.target.value;
+    setUserCode(newCode);
+  });
+
+  const emailmatch = () => {
+    if (userCode === "") {
+      alert("인증번호가 입력되지 않았습니다.");
+      return;
+    }
+    if (code === userCode) {
+      alert("인증번호 일치 합니다.");
+      eck = true;
+    } else {
+      eck = false;
+      alert("인증번호 다시 확인해주세요.");
+    }
+  };
+
+  //전화번호 하이픈 자동입력
+  // const [inputValue, setInputValue] = useState("");
+  // const autohyphen = (e) => {
+  //   const regex = /^[0-9\b -]{0,13}$/;
+  //   if (regex.test(e.target.value)) {
+  //     setInputValue(e.target.value);
+  //     useEffect(() => {
+  //       if (inputValue.length === 13) {
+  //         setInputValue(
+  //           inputValue
+  //             .replace(/-/g, "")
+  //             .replace(/(\d{3})(\d{4})(\d{4})/, "$1-$2-$3")
+  //         );
+  //       }
+  //     }, [inputValue]);
+  //   }
+  // };
   return (
     <div className="join">
       <form className="content" onSubmit={handleSubmit(onSubmit)}>
+        <input type="hidden" value={1} {...register("nmnum")} />
         <h1>JOIN</h1>
         <div className="id">
           <p>
@@ -206,11 +269,30 @@ const JoinN = () => {
         </div>
         <div className="gender">
           <p>성별</p>
-          <input type="radio" value={1} {...register("ngender")} />
+          <input
+            type="radio"
+            value={1}
+            {...register("ngender", {
+              required: {
+                value: true,
+                message: "성별 필수 입력 값입니다.",
+              },
+            })}
+          />
           남성
-          <input type="radio" value={2} {...register("ngender")} />
+          <input
+            type="radio"
+            value={2}
+            {...register("ngender", {
+              required: {
+                value: true,
+                message: "성별 필수 입력 값입니다.",
+              },
+            })}
+          />
           여성
         </div>
+        <span className="error">{errors?.ngender?.message}</span>
         <div className="birthday">
           <p>생년월일</p>
           <input
@@ -228,14 +310,20 @@ const JoinN = () => {
         </div>
         <div className="phonenum">
           <p>전화 번호</p>
-          {/* <Phone ></Phone> */}
           <input
             className="input"
+            name="numberValue"
             placeholder=" - 를 제외한 번호 입력"
+            // value={inputValue}
+            // onChange={autohyphen}
             {...register("nphonenum", {
               required: {
                 value: true,
                 message: "전화번호는 필수 입력값입니다.",
+              },
+              pattern: {
+                value: /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/,
+                message: "'010-1234-5678' 형식으로 입력 해주세요.",
               },
             })}
           />
@@ -252,10 +340,26 @@ const JoinN = () => {
                   value: true,
                   message: "이메일 주소는 필수 입력값입니다.",
                 },
+                pattern: {
+                  value:
+                    /^[A-Za-z0-9]([-_.]?[A-Za-z0-9])*@[A-Za-z0-9]([-_.]?[A-Za-z0-9])*\.[A-Za-z]{2,3}$/i,
+                  message: "'you@example.com' 형식으로 입력 해주세요.",
+                },
               })}
             />
             <span className="error">{errors?.nemail?.message}</span>
-            <Button>E-mail인증</Button>
+            <Button outline onClick={mailCh}>
+              E-mail전송
+            </Button>
+            <input
+              className="input"
+              placeholder="인증번호를 입력해주세요"
+              onChange={onch}
+              value={userCode}
+            />
+            <Button outline onClick={emailmatch}>
+              E-mail인증
+            </Button>
           </p>
         </div>
         <div className="address">
