@@ -13,8 +13,8 @@ const df = (date) => moment(date).format("YYYY-MM-DD");
 
 const ProductRegistered = () => {
   const nav = useNavigate();
-  const sellerId = ("sellerId");
-  const pNum = (1);
+  const sellerId = "sellerId";
+  const pNum = 1;
   const [bitem, setBitem] = useState([]);
   const [page, setPage] = useState({
     //페이징 관련 정보 저장

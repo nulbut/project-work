@@ -8,7 +8,7 @@ const Mypage = () => {
   const menuArr = [
     {
       name: "포인트",
-      path: "/mypage",
+      path: "mypage",
     },
     {
       name: "등록한 상품",
