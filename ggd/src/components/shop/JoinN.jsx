@@ -162,6 +162,23 @@ const JoinN = () => {
     }
   };
 
+  //전화번호 하이픈 자동입력
+  // const [inputValue, setInputValue] = useState("");
+  // const autohyphen = (e) => {
+  //   const regex = /^[0-9\b -]{0,13}$/;
+  //   if (regex.test(e.target.value)) {
+  //     setInputValue(e.target.value);
+  //     useEffect(() => {
+  //       if (inputValue.length === 13) {
+  //         setInputValue(
+  //           inputValue
+  //             .replace(/-/g, "")
+  //             .replace(/(\d{3})(\d{4})(\d{4})/, "$1-$2-$3")
+  //         );
+  //       }
+  //     }, [inputValue]);
+  //   }
+  // };
   return (
     <div className="join">
       <form className="content" onSubmit={handleSubmit(onSubmit)}>
@@ -292,10 +309,12 @@ const JoinN = () => {
         </div>
         <div className="phonenum">
           <p>전화 번호</p>
-          {/* <Phone ></Phone> */}
           <input
             className="input"
+            name="numberValue"
             placeholder=" - 를 제외한 번호 입력"
+            // value={inputValue}
+            // onChange={autohyphen}
             {...register("nphonenum", {
               required: {
                 value: true,

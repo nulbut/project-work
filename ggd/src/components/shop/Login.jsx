@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "./Button";
 import "./scss/Login.scss";
+import "./scss/Button.scss";
 
 const Login = ({ sucLogin }) => {
   const navigate = useNavigate();
@@ -17,7 +18,10 @@ const Login = ({ sucLogin }) => {
 
   const sendLogin = (form) => {
     console.log(form);
-    const bform = { bid: watch("nid"), bpw: watch("npw") };
+    const bform = {
+      bid: watch("nid"),
+      bpw: watch("npw"),
+    };
     console.log(bform);
     axios
       .all([axios.post("/loginproc", form), axios.post("/bloginproc", bform)])
@@ -66,8 +70,11 @@ const Login = ({ sucLogin }) => {
 
   return (
     <div className="login">
-      <form className="content" onSubmit={handleSubmit(sendLogin)}>
+      <div className="head">
         <h1>LOGIN</h1>
+        <br />
+      </div>
+      <form className="content" onSubmit={handleSubmit(sendLogin)}>
         <div className="id">
           <p>ID</p>
           <input
@@ -93,10 +100,14 @@ const Login = ({ sucLogin }) => {
           <span className="error">{errors?.npw?.message}</span>
         </div>
         <div className="loginbutton">
-          <Button type="submit">로그인</Button>
+          <Button className="Button" type="submit">
+            로그인
+          </Button>
         </div>
         <div className="idpwdfind">
-          <Button onClick={handleClick}>아이디/비밀번호 찾기</Button>
+          <Button className="Button" onClick={handleClick}>
+            아이디/비밀번호 찾기
+          </Button>
         </div>
         <div className="join">
           <Link to="/joinchoice">회원이 아니신가요? 회원가입 하기</Link>
