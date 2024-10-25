@@ -14,6 +14,7 @@ import java.lang.reflect.Member;
 import java.util.HashMap;
 import java.util.Map;
 
+@RequestMapping
 @RestController
 @Slf4j
 public class NMemberController {
@@ -61,6 +62,7 @@ public class NMemberController {
     public NmemberTbl getNickname(@RequestParam long nnickname){
         log.info("getNickname()");
         return nmServ.getNickname(nnickname);
+
 
     }
 
