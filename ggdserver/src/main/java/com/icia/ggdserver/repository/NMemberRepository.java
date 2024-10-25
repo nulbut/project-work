@@ -19,7 +19,9 @@ public interface NMemberRepository extends CrudRepository<NmemberTbl, String> {
 
     //long findById(String n_id);
 
-    long findByNnickname(String n_nickname);
+//    long findByNnickname(String n_nickname);
+
+    NmemberTbl findByNnickname(String nnick);
 
     long countByNname (String n_name);
 

@@ -6,7 +6,7 @@ import axios from "axios";
 
 let mailck = false; // 이메일 인증 확인 여부
 
-const IdPasswordFind = ({ sucFind }) => {
+const IdPasswordFind = () => {
   const nav = useNavigate();
 
   const nemail = sessionStorage.getItem("nemail");
@@ -80,14 +80,15 @@ const IdPasswordFind = ({ sucFind }) => {
           console.log(res3, res4);
           if (res3.data.res3 == "ok") {
             //일반 회원 이메일 일치
-            sessionStorage.setItem("nid", res3.data.nid);
-            nav("/idpwdfind2");
+            // sessionStorage.setItem("nid", res3.data.nid);
+            alert(res3.data.nid);
+            nav("/idpwdfind2", { state: { fid: res3.data.nid } });
           } else if (res3.data.res3 == "fail3") {
             //일반 회원 이메일 불일치
             if (res4.data.res4 == "ok") {
               //사업자 이메일 일치
-              sessionStorage.setItem("bid", res4.data.bid);
-              nav("/idpwdfind2");
+              // sessionStorage.setItem("bid", res4.data.bid);
+              nav("/idpwdfind2", { state: { fid: res4.data.bid } });
             } else {
               //사업자 이메일 불일치
               alert(res4.data.msg);
