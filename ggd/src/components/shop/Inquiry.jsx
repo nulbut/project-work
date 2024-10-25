@@ -78,7 +78,7 @@ const Inquiry = () => {
     <div className="Main">
       <div className="Content">
         <h1>1:1 문의 게시판</h1>
-        <InquiryBoard bName={["번호", "제목", "이름", "날짜", "문의 현황"]}>
+        <InquiryBoard bName={["번호", "제목", "작성자", "날짜", "문의 현황"]}>
           {boardList}
         </InquiryBoard>
       </div>

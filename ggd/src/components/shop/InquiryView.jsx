@@ -107,7 +107,7 @@ const InquiryView = () => {
             <div className="Data">{inquiry.ProdutCode}</div>
           </div>
           <div className="Box">
-            <div className="Title">ID</div>
+            <div className="Title">작성자</div>
             <div className="Data">{inquiry.bnid}</div>
           </div>
           <div className="Box">
