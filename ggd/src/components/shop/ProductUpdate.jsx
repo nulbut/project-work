@@ -32,6 +32,17 @@ const ProductUpdate = () => {
     ]);
 
     const { categoryCode, productDetail } = data;
+    //서버로부터 상품정보 받아오기
+    useEffect(() => {
+        axios
+        .get("/getproduct", { params: { productCode: productCode } })
+        .then((res) => {
+            setData(res.data);
+
+            //파일 목록 처리(res.data)에서 파일 목록을 꺼내서 flist로 처리
+            
+        })
+    })
 }
 
 export default ProductUpdate;
