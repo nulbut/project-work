@@ -4,8 +4,9 @@ package com.icia.ggdserver.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+
 @Entity
-@Table(name = "bproduct_tbl")
+@Table(name = "\"bproduct_tbl\"")
 @Data
 public class BproductTbl { // 사업자 상품 테이블
     @Id

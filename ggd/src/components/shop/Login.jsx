@@ -1,9 +1,10 @@
 import axios from "axios";
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { Link, replace, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "./Button";
 import "./scss/Login.scss";
+import "./scss/Button.scss";
 
 const Login = ({ sucLogin }) => {
   const navigate = useNavigate();
@@ -16,24 +17,47 @@ const Login = ({ sucLogin }) => {
   } = useForm();
 
   const sendLogin = (form) => {
+    console.log(form);
+    const bform = {
+      bid: watch("nid"),
+      bpw: watch("npw"),
+    };
+    console.log(bform);
     axios
-      .post("/loginproc", form)
-      .then((res) => {
-        if (res.data.res === "ok") {
-          sucLogin(res.data.nid);
-          //sessionStorage에 id 값 저장
-
-          sessionStorage.setItem("nid", res.data.nid);
-          // sessionStorage.setItem("nnickname",res.data.nnickname);
-          // 로그인 반응 확인용
-          // alert("로그인 성공!")
-          // id 전송 확인용
-          // console.log(sessionStorage);
-          navigate(-1, { replace: true }); //이전페이지
-        } else {
-          alert(res.data.msg);
-        }
-      })
+      .all([axios.post("/loginproc", form), axios.post("/bloginproc", bform)])
+      .then(
+        axios.spread((res1, res2) => {
+          console.log(res1, res2);
+          if (res1.data.res1 == "ok") {
+            //일반회원 아이디, 패스워드 일치
+            sucLogin(res1.data.nid);
+            sessionStorage.setItem("nid", res1.data.nid);
+            navigate("/shoppingmall");
+          } else if (res1.data.res1 == "fail2") {
+            //일반회원 회원정보 없음
+            if (res2.data.res2 == "ok") {
+              //사업자 회원 아이디, 패스워드 일치
+              sucLogin(res2.data.bid);
+              sessionStorage.setItem("bid", res2.data.bid);
+              navigate("/shoppingmall");
+            } else {
+              // 사업자 회원 패스워드 불일치
+              alert(res2.data.msg);
+            }
+          } else if (res1.data.res1 == "fail1") {
+            // 일반회원 패스워드 불일치
+            alert(res1.data.msg);
+          } else if (res2.data.res2 == "ok") {
+            sucLogin(res2.data.bid);
+            sessionStorage.setItem("bid", res2.data.bid);
+            navigate("/shoppingmall");
+          } else if (res2.data.res2 == "fail") {
+            alert(res1.data.msg);
+          } else if (res1.data.res1 == "fail") {
+            alert(res2.data.msg);
+          }
+        })
+      )
       .catch((err) => {
         alert("로그인 실패!");
         console.log(err);
@@ -46,8 +70,11 @@ const Login = ({ sucLogin }) => {
 
   return (
     <div className="login">
-      <form className="content" onSubmit={handleSubmit(sendLogin)}>
+      <div className="head">
         <h1>LOGIN</h1>
+        <br />
+      </div>
+      <form className="content" onSubmit={handleSubmit(sendLogin)}>
         <div className="id">
           <p>ID</p>
           <input
@@ -73,10 +100,14 @@ const Login = ({ sucLogin }) => {
           <span className="error">{errors?.npw?.message}</span>
         </div>
         <div className="loginbutton">
-          <Button type="submit">로그인</Button>
+          <Button className="Button" type="submit">
+            로그인
+          </Button>
         </div>
         <div className="idpwdfind">
-          <Button onClick={handleClick}>아이디/비밀번호 찾기</Button>
+          <Button className="Button" onClick={handleClick}>
+            아이디/비밀번호 찾기
+          </Button>
         </div>
         <div className="join">
           <Link to="/joinchoice">회원이 아니신가요? 회원가입 하기</Link>

@@ -26,9 +26,12 @@ import IdPasswordFind from "./components/shop/IdPasswordFind";
 import IdealcupMy from "./components/idealcup/IdealcupMy";
 import ProductWrite from "./components/shop/ProductWrite";
 import ProductRegistered from "./components/shop/ProductRegistered";
+import Admin from "./components/admin/Admin";
 import InquiryWrite from "./components/shop/InquiryWrite";
 import InquiryView from "./components/shop/InquiryView";
 import InquiryUpdate from "./components/shop/InquiryUpdate";
+import ProductView from "./components/shop/ProductView";
+import IdPasswordFind2 from "./components/shop/scss/IdPasswordFind2";
 
 function App() {
   const nav = useNavigate();
@@ -93,6 +96,7 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/login" element={<Login sucLogin={sucLogin} />} />
           <Route path="/idpwdfind" element={<IdPasswordFind />} />
+          <Route path="/idpwdfind2" element={<IdPasswordFind2 />} />
           <Route path="/joinchoice" element={<JoinChoice />} />
           <Route path="/join_n" element={<JoinN />} />
           <Route path="/join_b" element={<JoinB />} />
@@ -108,6 +112,7 @@ function App() {
           </Route>
           <Route path="/123" element={<ProductWrite />} />
           <Route path="/456" element={<ProductRegistered />} />
+          <Route path="/789" element={<ProductView />} />
         </Route>
 
         <Route
@@ -118,6 +123,7 @@ function App() {
           <Route path="/make" element={<IdealCupMaker />} />
           <Route path="/mycup" element={<IdealcupMy />} />
         </Route>
+        <Route path="/admin" element={<Admin />} />
       </Routes>
     </div>
   );
