@@ -8,6 +8,7 @@ import {
   faUser,
   faBagShopping,
   faHeart,
+  faHandshakeSimple,
 } from "@fortawesome/free-solid-svg-icons";
 import "./scss/Header.scss";
 
@@ -136,7 +137,15 @@ const Header = ({ lstate, onLogout }) => {
       path: "/mypage/dibs",
       icon: <FontAwesomeIcon icon={faHeart} style={{ color: "#000000" }} />,
     },
-
+    {
+      path: "/mypage/productWrite",
+      icon: (
+        <FontAwesomeIcon
+          icon={faHandshakeSimple}
+          style={{ color: "#000000" }}
+        />
+      ),
+    },
     // {
     //   name: "주문/배송",
     //   path: "/mypage/orderDelivery",
@@ -150,10 +159,7 @@ const Header = ({ lstate, onLogout }) => {
     //   name: "Q&A",
     //   path: "/Inquiry",
     // },
-    // {
-    //   name: "주문/배송",
-    //   path: "/mypage/orderDelivery",
-    // },
+
     // {
     //   name: "Q&A",
     //   path: "/Inquiry",
