@@ -26,6 +26,7 @@ import IdPasswordFind from "./components/shop/IdPasswordFind";
 import IdealcupMy from "./components/idealcup/IdealcupMy";
 import ProductWrite from "./components/shop/ProductWrite";
 import ProductRegistered from "./components/shop/ProductRegistered";
+import Admin from "./components/admin/Admin";
 import InquiryWrite from "./components/shop/InquiryWrite";
 import InquiryView from "./components/shop/InquiryView";
 import InquiryUpdate from "./components/shop/InquiryUpdate";
@@ -122,6 +123,7 @@ function App() {
           <Route path="/make" element={<IdealCupMaker />} />
           <Route path="/mycup" element={<IdealcupMy />} />
         </Route>
+        <Route path="/admin" element={<Admin />} />
       </Routes>
     </div>
   );

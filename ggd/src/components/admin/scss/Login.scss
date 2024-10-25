@@ -1,0 +1,24 @@
+.login {
+    background-color: aqua;
+    .content {
+        background-color: chartreuse;
+        .input {
+            background-color: darksalmon;
+        }
+        .error {
+            color: red;
+            height: 20px;
+            margin-bottom: 5px;
+        }
+        .join {
+            background-color: fuchsia;
+        }
+        button {
+            background-color: khaki;
+        }
+    }
+}
+
+
+
+
