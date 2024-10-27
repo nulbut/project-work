@@ -206,7 +206,7 @@ const IdealcupMain = () => {
                 <div>{item.iwcViews}</div>
               </div>
             </div>
-                
+
             <p className="product-body">{item.iwcExplanation}</p>
             <p className="product-sub">{item.iwcAuthor}</p>
             <p className="product-body">{df(item.iwcDate)}</p>
@@ -222,11 +222,14 @@ const IdealcupMain = () => {
                   expl: item.iwcExplanation,
                 }}
               >
-                <Button size="s-25">시작</Button>
+                <Button wsize="s-25">시작</Button>
               </Link>
-
-              <Button size="s-25">랭킹</Button>
-              <Button size="s-25">공유</Button>
+              <Link>
+                <Button wsize="s-25">랭킹</Button>
+              </Link>
+              <Link>
+                <Button wsize="s-25">공유</Button>
+              </Link>
             </div>
           </div>
         ))}

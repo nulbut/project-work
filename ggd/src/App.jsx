@@ -31,8 +31,9 @@ import InquiryWrite from "./components/shop/InquiryWrite";
 import InquiryView from "./components/shop/InquiryView";
 import InquiryUpdate from "./components/shop/InquiryUpdate";
 import ProductView from "./components/shop/ProductView";
-import IdPasswordFind2 from "./components/shop/IdPasswordFind2";
+import IdPasswordFind2 from "./components/shop/scss/IdPasswordFind2";
 import ChangePass from "./components/shop/ChangePass";
+import AdminEx from "./components/admin/AdminEx";
 
 function App() {
   const nav = useNavigate();
@@ -126,6 +127,7 @@ function App() {
           <Route path="/mycup" element={<IdealcupMy />} />
         </Route>
         <Route path="/admin" element={<Admin />} />
+        <Route path="/adminex" element={<AdminEx />} />
       </Routes>
     </div>
   );

@@ -1,6 +1,8 @@
 package com.icia.ggdserver.service;
 
+import com.icia.ggdserver.entity.BproductTbl;
 import  com.icia.ggdserver.entity.ProductFileTbl;
+import com.icia.ggdserver.repository.BproductRepository;
 import  com.icia.ggdserver.repository.ProductTblRepository;
 import  com.icia.ggdserver.entity.ProductTbl;
 import  com.icia.ggdserver.repository.ProductRegistrationRepository;
@@ -29,6 +31,9 @@ private ProductTblRepository pdtRepo;
 
 @Autowired
 private ProductRegistrationRepository pdrRepo;
+
+@Autowired
+private BproductRepository bpdRepo;
 
 public String insertSpm(ProductTbl pdt,
                         List<MultipartFile> files,
@@ -164,5 +169,30 @@ private void filesDelete(List<ProductFileTbl> fileTblList,
 }
 
 
+    public Map<String, Object> getbpdList(Integer pNum) {
+        log.info("getBoardList()");
+
+        if (pNum == null){
+            pNum = 1;
+        }
+        int listCnt = 10;
+
+        Pageable pb = PageRequest.of((pNum - 1), listCnt,
+                Sort.Direction.DESC, "bpnum");
+
+        Page<BproductTbl> result = null;
+        result = bpdRepo.findByBpnumGreaterThan(0L,pb);
+
+        List<BproductTbl> bList = result.getContent();
+
+        int totalPage = result.getTotalPages();
+
+        Map<String, Object> res = new HashMap<>();
+        res.put("bList", bList);
+        res.put("totalPage", totalPage);
+        res.put("pageNum", pNum);
+
+        return res;
+    }
 }
 

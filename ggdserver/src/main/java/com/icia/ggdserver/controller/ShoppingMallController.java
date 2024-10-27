@@ -49,5 +49,12 @@ public class ShoppingMallController {
         return res;
     }
 
+    @GetMapping("bpdList")
+    public Map<String, Object> bpdList(@RequestParam Integer pageNum){
+        log.info("getBoardList() - {}", pageNum);
+        Map<String, Object> res = spmServ.getbpdList(pageNum);
+        return res;
+    }
+
 
 }
