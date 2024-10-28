@@ -14,7 +14,8 @@ public interface BMemberRepository extends CrudRepository<BmemberTbl, String> {
     Page<BmemberTbl> findAll(Pageable pb);
 
     //아이디
-    long countByBid(String b_id);
+    BmemberTbl findByBemail(String bemail);
+    long countByBid(String nid);
 
     //이메일
     long countByBemail (String b_email);
