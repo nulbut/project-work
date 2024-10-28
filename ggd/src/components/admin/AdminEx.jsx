@@ -86,7 +86,6 @@ const AdminEx = ({ data }) => {
   ];
 
   const moveMenu = (menu) => {
-    alert(menu);
     switch (menu) {
       case "회원 정보 관리":
         setViewName(<UserList />);
