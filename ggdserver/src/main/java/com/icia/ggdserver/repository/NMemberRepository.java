@@ -19,13 +19,16 @@ public interface NMemberRepository extends CrudRepository<NmemberTbl, String> {
 
     //long findById(String n_id);
 
-    long findByNnickname(String n_nickname);
+//    long findByNnickname(String n_nickname);
+
+    NmemberTbl findByNnickname(String nnick);
 
     long countByNname (String n_name);
 
     long countByNphonenum (String n_phonenum);
 
     long countByNemail (String n_email);
+    NmemberTbl findByNemail(String nemail);
 
     //long Nsigndt (Timestamp n_signdt);
 
@@ -33,7 +36,7 @@ public interface NMemberRepository extends CrudRepository<NmemberTbl, String> {
 
     //Page<NmemberTbl> findBySearch(String startDate, String endDate, Pageable pb);
 
-    long countByNid(String nId);
+    long countByNid(String nid);
 
     long countByNnickname(String nNickname);
 }
