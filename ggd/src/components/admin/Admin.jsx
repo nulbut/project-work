@@ -13,7 +13,6 @@ import logo from "../images/logo.svg";
 import UserList from "./UserList";
 import Review from "./Review";
 import Paging from "./Paging";
-import BuserList from "./BuserList";
 
 // function Admin() {
 //   const history = useHistory();
