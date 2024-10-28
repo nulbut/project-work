@@ -96,8 +96,9 @@ const AdminEx = ({ data }) => {
       case "카테고리":
         setViewName(<Category />);
         break;
-      default:
-        setViewName(<AdminDashboard />);
+      // default:
+      //   console.log("Arcodian or invalid pass")
+      //   setViewName(<AdminDashboard />);
     }
     console.log(viewName);
   };

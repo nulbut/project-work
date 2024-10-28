@@ -10,7 +10,8 @@ public interface BMemberRepository extends CrudRepository<BmemberTbl, String> {
     //사업자 회원용 Repository
 
     //아이디
-    long countByBid(String b_id);
+    BmemberTbl findByBemail(String bemail);
+    long countByBid(String nid);
 
     //이메일
     long countByBemail (String b_email);
