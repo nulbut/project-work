@@ -41,7 +41,7 @@ function App() {
   const [loginState, setLoginState] = useState({
     loginid: "",
     mlink: "/login",
-  }); //로그인 전 상태
+  }); //로그인 전 상태`
 
   //로그아웃 함수
   const onLogout = () => {

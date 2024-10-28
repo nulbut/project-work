@@ -27,13 +27,13 @@ public class AdminController {
 
         }
 
-    @GetMapping("/blist")
-    public Map<String, Object> geteBmemberList(DateDto dd) {
-        log.info("getBmemberList() startDate : {}", dd.getPageNum());
-
-        Map<String, Object> rsMap = aServ.getBmemberList(dd);
-        return rsMap;
-    }
+//    @GetMapping("/blist")
+//    public Map<String, Object> geteBmemberList(DateDto dd) {
+//        log.info("getBmemberList() startDate : {}", dd.getPageNum());
+//
+//        Map<String, Object> rsMap = aServ.getBmemberList(dd);
+//        return rsMap;
+//    }
 
 
 //
