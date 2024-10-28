@@ -54,10 +54,10 @@ public class BMemberController {
 
     //회원가입 이메일 인증
     @GetMapping("bmailconfirm")
-    public String bmailconfirm (@RequestParam String bmail)
+    public String bmailconfirm (@RequestParam String bemail)
         throws MessagingException, UnsupportedEncodingException {
-        log.info("bmailconfirm() : {}", bmail);
-        String bauthCode = bmServ.sendBEmail(bmail);
+        log.info("bmailconfirm() : {}", bemail);
+        String bauthCode = bmServ.sendBEmail(bemail);
         return bauthCode;
     }
 
