@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Link,
   Outlet,
@@ -13,6 +13,7 @@ import logo from "../images/logo.svg";
 import UserList from "./UserList";
 import Review from "./Review";
 import Paging from "./Paging";
+import Notice from "./Notice";
 
 // function Admin() {
 //   const history = useHistory();
@@ -20,6 +21,18 @@ import Paging from "./Paging";
 //   const navigateToUserList = () => {
 //     history.push('/UserListPage');
 //   };
+
+// const pnum = sessionStorage.getItem("pageNum");
+
+
+// useEffect(() => {
+//   // if (!admin) {
+//   //     nav("/", { replace: true });
+//   //     return; // 로그인 안한 경우 첫 화면으로 이동
+//   // }
+//   pnum !== null ? Admin(pnum) : Admin(1);
+// }, []);
+
 
 const Admin = () => {
   const navigate = useNavigate();
@@ -64,6 +77,9 @@ const Admin = () => {
         break;
       case "후기 관리":
         setViewName(<Review />);
+        break;
+        case "공지사항":
+        setViewName(<Notice />);
         break;
     }
   };
