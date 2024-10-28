@@ -31,7 +31,7 @@ import InquiryWrite from "./components/shop/InquiryWrite";
 import InquiryView from "./components/shop/InquiryView";
 import InquiryUpdate from "./components/shop/InquiryUpdate";
 import ProductView from "./components/shop/ProductView";
-import IdPasswordFind2 from "./components/shop/scss/IdPasswordFind2";
+import IdPasswordFind2 from "./components/shop/IdPasswordFind2";
 import ProductUpdate from "./components/shop/ProductUpdate";
 import UsedWrite from "./components/shop/UsedWrite";
 
@@ -118,7 +118,7 @@ function App() {
           {/* <Route path="/123" element={<ProductWrite />} />
           <Route path="/456" element={<ProductRegistered />} />
           <Route path="/789" element={<ProductView />} />  */}
-          <Route path="/123" element={<UsedWrite />} />
+          {/* <Route path="/123" element={<UsedWrite />} /> */}
         </Route>
 
         <Route
