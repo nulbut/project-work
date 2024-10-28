@@ -1,13 +1,13 @@
 import React, { useCallback, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import Button from "./Button";
-import "./scss/Input.scss";
-import "./scss/Textarea.scss";
-import "./scss/FileInput.scss";
-import "./scss/Write.scss";
+import UsedButton from "./UsedButton";
+import "./scss/UsedInput.scss";
+import "./scss/UsedtextArea.scss";
+import "./scss/UsedfileInput.scss";
+import "./scss/UsedWrite.scss";
 
-const UsedRegistered = () => {
+const UsedWrite = () => {
   const id = sessionStorage.getItem("sellerId");
   const [data, setData] = useState({
     productName: "",
@@ -30,7 +30,7 @@ const UsedRegistered = () => {
     productDetail,
     productDate,
   } = data;
-  const [fileName, setFileName] = useState("선택된 파일이 없습니다.");
+  const [fileName, setFileName] = useState("선택된 이미지 파일이 없습니다.");
   const nav = useNavigate();
 
   //전송 데이터와 파일을 담을 멀티파트 폼 생성
@@ -59,7 +59,7 @@ const UsedRegistered = () => {
     }
 
     if (fnames === "") {
-      fnames = "선택한 파일이 없습니다.";
+      fnames = "선택된 이미지 파일이 없습니다.";
     }
     setFileName(fnames);
   },[formData]);
@@ -98,11 +98,11 @@ const UsedRegistered = () => {
   
 
   return (
-    <div className="Write">
-      <form className="Content" onSubmit={onWrite}>
-        <h1>상품 등록</h1>
+    <div className="UsedWrite">
+      <form className="UsedContent" onSubmit={onWrite}>
+        <h1>중고 상품 등록</h1>
         <input
-          className="Input"
+          className="UsedInput"
           name="productName"
           value={productName}
           placeholder="제품명"
@@ -111,7 +111,7 @@ const UsedRegistered = () => {
           required
         />
         <input
-          className="Input"
+          className="UsedInput"
           name="sellerId"
           value={sellerId}
           placeholder="판매자"
@@ -120,7 +120,7 @@ const UsedRegistered = () => {
           required
         />
         <input
-          className="Input"
+          className="UsedInput"
           name="categoryCode"
           value={categoryCode}
           placeholder="카테고리"
@@ -129,7 +129,7 @@ const UsedRegistered = () => {
           required
         />
         <input
-          className="Input"
+          className="UsedInput"
           name="sellerPayment"
           value={sellerPayment}
           placeholder="판매가"
@@ -138,7 +138,7 @@ const UsedRegistered = () => {
           required
         />
         <input
-          className="Input"
+          className="UsedInput"
           name="productlimit"
           value={productlimit}
           placeholder="구매제한"
@@ -147,7 +147,7 @@ const UsedRegistered = () => {
           required
         />
         <input
-          className="Input"
+          className="UsedInput"
           name="productStock"
           value={productStock}
           placeholder="수량"
@@ -156,7 +156,7 @@ const UsedRegistered = () => {
           required
         />
         <input
-          className="Input"
+          className="UsedInput"
           name="productDate"
           value={productDate}
           placeholder="등록일"
@@ -165,29 +165,30 @@ const UsedRegistered = () => {
           required
         />
         <textarea
-          className="Textarea"
+          className="UsedtextArea"
           name="productDetail"
           onChange={onch}
-          placeholder="상품 정보를 입력하세요."
+          placeholder=" 모델명, 구매 시기, 하자 유무 등 상품 설명을 최대한 자세히 적어주세요.
+          전화번호, SNS 계정 등 개인정보 입력은 제한이 될 수 있습니다."
           value={productDetail}
         ></textarea>
-        <div className="FileInput">
+        <div className="UsedfileInput">
           <input id="upload"
            type="file"
             multiple 
             onChange={onFileChange} 
          />
 
-          <label className="FileLabel" htmlFor="upload">
+          <label className="UsedfileLabel" htmlFor="upload">
             파일선택
           </label>
 
-          <span className="FileSpan">
+          <span className="UsedfileSpan">
             {fileName} 
           </span>
         </div>
         <div className="Buttons">
-          <Button
+          <UsedButton
             type="button"
             size="large"
             color="gray"
@@ -196,19 +197,19 @@ const UsedRegistered = () => {
             onClick={() => nav("/mypage")}
           >
             목록으로
-          </Button>
-          <Button 
+          </UsedButton>
+          <UsedButton 
           type="submit" 
           size="large" 
           color="blue" 
           wsize="s-30"
           >
             등록
-          </Button>
+          </UsedButton>
         </div>
       </form>
     </div>
   );
 };
 
-export default UsedRegistered;
+export default UsedWrite;

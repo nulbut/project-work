@@ -91,7 +91,7 @@ public Map<String, Object> getBoardList(Integer pNum){
     if (pNum == null){
         pNum = 1;
     }
-    int listCnt = 10;
+    int listCnt = 8;
 
     Pageable pb = PageRequest.of((pNum - 1), listCnt,
             Sort.Direction.DESC, "productCode");
