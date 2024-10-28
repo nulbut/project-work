@@ -31,8 +31,9 @@ import InquiryWrite from "./components/shop/InquiryWrite";
 import InquiryView from "./components/shop/InquiryView";
 import InquiryUpdate from "./components/shop/InquiryUpdate";
 import ProductView from "./components/shop/ProductView";
-import IdPasswordFind2 from "./components/shop/scss/IdPasswordFind2";
+import IdPasswordFind2 from "./components/shop/IdPasswordFind2";
 import ProductUpdate from "./components/shop/ProductUpdate";
+import UsedWrite from "./components/shop/UsedWrite";
 
 function App() {
   const nav = useNavigate();
@@ -110,11 +111,17 @@ function App() {
             <Route path="inquiryWrite" element={<InquiryWrite />} />
             <Route path="inquiry/inView" element={<InquiryView />} />
             <Route path="inquiry/inView/inUpdate" element={<InquiryUpdate />} />
-            <Route path="ProductRegistered/pdView" element={<ProductView />} />
+            <Route path="productRegistered/pdView" element={<ProductView />} />
+            <Route
+              path="productRegistered/pdview/pdUpdate"
+              element={<ProductUpdate />}
+            />
+            <Route path="usedWrite" element={<UsedWrite />} />
           </Route>
           {/* <Route path="/123" element={<ProductWrite />} />
           <Route path="/456" element={<ProductRegistered />} />
-          <Route path="/789" element={<ProductView />} /> */}
+          <Route path="/789" element={<ProductView />} />  */}
+          {/* <Route path="/123" element={<UsedWrite />} /> */}
         </Route>
 
         <Route
