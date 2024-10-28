@@ -25,13 +25,14 @@ const Inquiry = () => {
   //서버로부터 문의게시글 가져오는 함수
   const getBoardList = (pnum) => {
     axios
-      .get("/boardlist", { params: { pageNum: pnum } })
+      .get("/boardlist", { params: { pageNum: pnum, bnid: bnid } })
       .then((res) => {
         const { Blist, totalPage, pageNum } = res.data;
         console.log(totalPage);
         setPage({ totalPage: totalPage, pageNum: pageNum });
         console.log(page);
         setIitem(Blist);
+        console.log(Blist);
         sessionStorage.getItem("pageNum", pageNum);
       })
       .catch((err) => console.log(err));
@@ -41,11 +42,13 @@ const Inquiry = () => {
   useEffect(() => {
     console.log(bnid);
     if (bnid === null) {
+      alert("로그인이 필요합니다.");
       nav("/login", { replace: true });
       return;
     }
     pnum !== null ? getBoardList(pnum) : getBoardList(1);
   }, []);
+
   //출력할 문의게시글 목록 작성
   let boardList = null;
   if (iitem.length === 0) {
@@ -65,33 +68,34 @@ const Inquiry = () => {
         </TableColumn>
         <TableColumn wd="w-20">{column.bnid}</TableColumn>
         <TableColumn wd="w-30">{df(column.boardDate)}</TableColumn>
-        <TableColumn wd="w-30">{df(column.boardDate)}</TableColumn>
+        <TableColumn wd="w-30">답변 미완료</TableColumn>
       </TableRow>
     ));
   }
 
-  const getBoard = (boardCode) => {
-    nav("inView", { state: { bc: boardCode } });
+  const getBoard = (bnid) => {
+    nav("inView", { state: { bc: bnid } });
   }; //상세보기 화면으로 전환될 때 문의게시글 번호로 보낸다.
 
   return (
     <div className="Main">
       <div className="Content">
         <h1>1:1 문의 게시판</h1>
-        <InquiryBoard bName={["번호", "제목", "작성자", "날짜", "문의 현황"]}>
+        <InquiryBoard bName={["번호", "제목", "작성자", "날짜", "상태"]}>
           {boardList}
         </InquiryBoard>
+
+        <Paging page={page} getList={getBoardList} />
+        <Button
+          size="large"
+          wsize="s-50"
+          onClick={() => {
+            nav("/mypage/inquiryWrite");
+          }}
+        >
+          글작성
+        </Button>
       </div>
-      <Paging page={page} getList={getBoardList} />
-      <Button
-        size="large"
-        wsize="s-50"
-        onClick={() => {
-          nav("/mypage/inquiryWrite");
-        }}
-      >
-        글작성
-      </Button>
     </div>
   );
 };

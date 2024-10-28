@@ -12,7 +12,7 @@ const InquiryView = () => {
   //게시글 번호 받기
   const { state } = useLocation();
   const { bc } = state; //게시글 번호를 꺼냈다.
-
+  // const nmnum = sessionStorage.getItem("nmnum");
   const nid = sessionStorage.getItem("nid");
   // const bnphonenum = sessionStorage.getItem("nphonenum");
 
@@ -88,6 +88,13 @@ const InquiryView = () => {
   const updateInquiry = () => {
     nav("inUpdate", { state: { boardCode: bc } });
   };
+  // useEffect(() => {
+  //   console.log(nmnum);
+  //   if (nmnum === null) {
+  //     alert("관리자가 아닙니다.");
+  //     return;
+  //   }
+  // }, []);
 
   return (
     <div className="Main">
@@ -104,7 +111,7 @@ const InquiryView = () => {
           </div>
           <div className="Box">
             <div className="Title">주문 내역</div>
-            <div className="Data">{inquiry.ProdutCode}</div>
+            <div className="Data">{inquiry.productCode}</div>
           </div>
           <div className="Box">
             <div className="Title">작성자</div>
@@ -124,6 +131,7 @@ const InquiryView = () => {
           </div>
           <div className="Cont">{inquiry.boardContent}</div>
         </div>
+
         <div className="Buttons">
           <Button
             wsize="s-10"

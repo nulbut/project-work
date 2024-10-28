@@ -30,22 +30,23 @@ public class BoardService {
     @Autowired
     private BoardFileRepository bfRepo;
 
-    public Map<String, Object> getBoardList(Integer pageNum) {
-        log.info("getBoardList()");
+    public Map<String, Object> getBoardList(Integer pageNum, String bnid) {
+        log.info("getBoardList() bnid : {}", bnid);
 
         if (pageNum == null) {
             pageNum = 1;
         }
 
         //페이지 당 보여질 문의게시글 개수
-        int listCnt = 10;
+        int listCnt = 5;
 
         //페이징 조건 처리 객체 생성(Pageable)
         Pageable pb = PageRequest.of((pageNum - 1), listCnt,
                 Sort.Direction.DESC,"BoardCode");
         //PageRequest.of(페이지번호, 페이지당 문의게시글 개수, 정렬방식, 컬럼명)
 
-        Page<BoardTbl> result = bRepo.findByBoardCodeGreaterThan(0L, pb);
+        //Page<BoardTbl> result = bRepo.findByBoardCodeGreaterThan(0L, pb);
+        Page<BoardTbl> result = bRepo.findByBoardCodeGreaterThanAndBnid(0L, bnid, pb);
         //page 객체를 list 로 변환 후 전송.
         List<BoardTbl> Blist = result.getContent();//page에서 문의게시글을 꺼내서
                                                        //boardList에 저장
@@ -55,6 +56,7 @@ public class BoardService {
         res.put("Blist", Blist);
         res.put("totalPage", totalPage);
         res.put("pageNum", pageNum);
+        res.put("bnid", bnid);
 
         return res;
     }

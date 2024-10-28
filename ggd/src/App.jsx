@@ -106,12 +106,11 @@ function App() {
             <Route path="productRegistered" element={<ProductRegistered />} />
             <Route path="productWrite" element={<ProductWrite />} />
             <Route path="dibs" element={<Dibs />} />
-            <Route path="inquiry" element={<Inquiry />} />
+            <Route path="inquiry" element={<Inquiry sucLogin={sucLogin} />} />
             <Route path="inquiryWrite" element={<InquiryWrite />} />
             <Route path="inquiry/inView" element={<InquiryView />} />
             <Route path="inquiry/inView/inUpdate" element={<InquiryUpdate />} />
             <Route path="ProductRegistered/pdView" element={<ProductView />} />
-
           </Route>
           {/* <Route path="/123" element={<ProductWrite />} />
           <Route path="/456" element={<ProductRegistered />} />
