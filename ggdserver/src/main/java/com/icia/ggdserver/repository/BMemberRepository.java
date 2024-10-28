@@ -8,6 +8,8 @@ import org.springframework.data.repository.query.Param;
 public interface BMemberRepository extends CrudRepository<BmemberTbl, String> {
     //사업자 회원용 Repository
 
+
+
     //아이디
     long countByBid(String b_id);
 

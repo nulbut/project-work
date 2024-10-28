@@ -21,7 +21,7 @@ const ChangePass = () => {
   } = useForm();
 
   const npw = useRef();
-  npw.current = watch("npw", "bpw");
+  npw.current = watch("npw", "npwcheck", "bpw", "bpwcheck");
   // console.log(npw);
   //비밀번호 재설정 함수
   const sendPass = (form) => {
@@ -31,8 +31,10 @@ const ChangePass = () => {
     };
     const bfrom = {
       bpw: watch("npw"),
+      bpwcheck: watch("npwcheck"),
       bid: fid,
     };
+    console.log(form);
     console.log(bfrom);
     axios
       .all([axios.post("/changepass", form), axios.post("/bchangepass", bfrom)])
@@ -46,13 +48,13 @@ const ChangePass = () => {
           } else if (res5.data === "fail5") {
             //일반회원 비밀번호 변경 실패
             alert("비밀번호 변경 실패하였습니다.");
-          }
-          if (res6.data === "ok") {
-            //사업자 회원 비밀번호 변경 성공
-            alert("비밀번호가 변경되었습니다.");
-          } else if (res6.data === "fail6") {
-            //사업자 회원 비밀번호 변경 실패
-            alert("비밀번호 변경 실패하였습니다.");
+            if (res6.data === "ok") {
+              //사업자 회원 비밀번호 변경 성공
+              alert("비밀번호가 변경되었습니다.");
+            } else if (res6.data === "fail6") {
+              //사업자 회원 비밀번호 변경 실패
+              alert("비밀번호 변경 실패하였습니다.");
+            }
           }
         })
       )
