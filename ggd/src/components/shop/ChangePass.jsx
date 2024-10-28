@@ -41,20 +41,19 @@ const ChangePass = () => {
       .then(
         axios.spread((res5, res6) => {
           console.log(res5, res6);
-          if (res5.data === "ok") {
+          if (res5.data == "ok") {
             //일반회원 비밀번호 변경 성공
             alert("비밀번호가 변경되었습니다.");
             nav("/login");
-          } else if (res5.data === "fail5") {
-            //일반회원 비밀번호 변경 실패
-            alert("비밀번호 변경 실패하였습니다.");
-            if (res6.data === "ok") {
-              //사업자 회원 비밀번호 변경 성공
+          } else if (res5.data == "fail5") {
+            if (res6.data == "ok") {
               alert("비밀번호가 변경되었습니다.");
-            } else if (res6.data === "fail6") {
-              //사업자 회원 비밀번호 변경 실패
-              alert("비밀번호 변경 실패하였습니다.");
+              nav("/login");
+            } else {
+              alert("비밀번호 변경 실패!");
             }
+          } else if (res5.data == "fail5") {
+            alert("비밀번호 변경 실패!");
           }
         })
       )

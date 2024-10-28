@@ -224,11 +224,12 @@ public class NMemberService {
         //비밀번호 암호화
         String enpwd = encoder.encode(nmemberTbl.getNpw());
         log.info("enpwd : {} " , enpwd);
-        nmemberTbl = nmRepo.findById(nmemberTbl.getNid()).get();
-        nmemberTbl.setNpw(enpwd); //새 비밀번호로 변경
-        nmemberTbl.setNpwcheck(enpwd); //비밀번호 체크
+
 
         try {
+            nmemberTbl = nmRepo.findById(nmemberTbl.getNid()).get();
+            nmemberTbl.setNpw(enpwd); //새 비밀번호로 변경
+            nmemberTbl.setNpwcheck(enpwd); //비밀번호 체크
             nmRepo.save(nmemberTbl);
             res5 = "ok";
         } catch (Exception e){
