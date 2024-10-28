@@ -27,7 +27,7 @@ const Inquiry = () => {
     axios
       .get("/boardlist", { params: { pageNum: pnum, bnid: bnid } })
       .then((res) => {
-        const { Blist, totalPage, pageNum } = res.data;
+        const { Blist, totalPage, pageNum, nid } = res.data;
         console.log(totalPage);
         setPage({ totalPage: totalPage, pageNum: pageNum });
         console.log(page);
