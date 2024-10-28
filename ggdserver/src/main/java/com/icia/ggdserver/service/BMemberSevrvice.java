@@ -168,7 +168,7 @@ public class BMemberSevrvice {
 
     public String bchangepass(BmemberTbl bmemberTbl) {
         log.info("bchangepass()");
-        String res = null;
+        String res6 = null;
 
         //비밀번호 암호화
         String benpwd = encoder.encode(bmemberTbl.getBpw());
@@ -177,12 +177,12 @@ public class BMemberSevrvice {
 
         try {
             bmRepo.save(bmemberTbl);
-            res = "ok";
+            res6 = "ok";
         } catch (Exception e){
             e.printStackTrace();
-            res = "fail";
+            res6 = "fail6";
         }
-        return res;
+        return res6;
     }
 
     //아이디 찾기
@@ -223,5 +223,21 @@ public class BMemberSevrvice {
 //            mailMap.put("msg","가입된 이메일이 아닙니다.");
         }
         return mailMap;
+    }
+
+    public Map<String, String> bemailCheck(String bemail) {
+        log.info("bemailCheck()");
+        Map<String, String> bersMap = new HashMap<>();
+
+        long ebcnt = bmRepo.countByBemail(bemail); //0또는 1의 값이 넘어옴
+        log.info("ebcnt : {}", ebcnt);
+
+        if (ebcnt == 0) {
+            bersMap.put("res8","ok");
+        } else {
+            bersMap.put("res8","err");
+            bersMap.put("msg","이미 가입된 이메일 입니다.");
+        }
+        return bersMap;
     }
 }//class end

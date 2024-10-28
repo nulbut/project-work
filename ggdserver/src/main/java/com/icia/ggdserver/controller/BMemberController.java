@@ -75,5 +75,15 @@ public class BMemberController {
         return bmServ.bchangepass(bmemberTbl);
     }
 
+    // 이메일 중복 체크
+    @PostMapping("bemailCheck")
+    public Map<String, String> bemailCheck(@RequestBody BmemberTbl bmemberTbl) {
+        log.info("bemailCheck() b_email : {}", bmemberTbl.getBemail());
+
+        Map<String, String> bersMap = bmServ.bemailCheck(bmemberTbl.getBemail());
+
+        return bersMap;
+    }
+
 
 }//class end

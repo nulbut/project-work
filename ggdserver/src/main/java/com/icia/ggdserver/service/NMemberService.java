@@ -8,6 +8,7 @@ import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -216,9 +217,10 @@ public class NMemberService {
     }
 
 
-    public String changepass(NmemberTbl nmemberTbl) {
+    public String changepass(NmemberTbl nmemberTbl)
+            {
         log.info("changepass()");
-        String res = null;
+        String res5 = null;
 
         //비밀번호 암호화
         String enpwd = encoder.encode(nmemberTbl.getNpw());
@@ -228,13 +230,13 @@ public class NMemberService {
 
         try {
             nmRepo.save(nmemberTbl);
-            res = "ok";
+            res5 = "ok";
         } catch (Exception e){
             e.printStackTrace();
-            res = "fail";
+            res5 = "fail5";
         }
 
-        return res;
+        return res5;
     }
 
     public NmemberTbl getNName(String nname) {
@@ -274,8 +276,20 @@ public class NMemberService {
     }
 
 
+    public Map<String, String> nemailCheck(String nemail) {
+        log.info("nemailCheck()");
+        Map<String, String> nersMap = new HashMap<>();
 
+        long encnt = nmRepo.countByNemail(nemail); //0또는 1의 값이 넘어옴
+        log.info("encnt : {}", encnt);
 
-
-
+        if (encnt == 0) {
+            nersMap.put("res7","ok");
+        }
+        else {
+            nersMap.put("res7","err");
+            nersMap.put("msg","이미 가입된 이메일 입니다.");
+        }
+        return nersMap;
+    }
 }//class end

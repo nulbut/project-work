@@ -7,6 +7,7 @@ import Button from "./Button";
 let ck = false; //아이디 중복 체크
 let nck = false;
 let eck = false;
+let neck = false; //닉네임 중복 체크
 
 const JoinN = () => {
   const nav = useNavigate();
@@ -110,6 +111,9 @@ const JoinN = () => {
       alert("이메일 인증을 해주세요.");
       return;
     }
+    if (neck == false) {
+      alert("이미 가입된 이메일 입니다.");
+    }
     //form 전송
     axios
       .post("/joinproc", form)
@@ -130,18 +134,35 @@ const JoinN = () => {
   //e-mail 인증
   const mailCh = () => {
     let conf = window.confirm("이메일 인증 받으시겠습니까?");
+    let nemail = watch("nemail");
     if (!conf) {
       return;
     }
-    const nmail = watch("nemail");
+
+    const sendMail = { nemail: nemail };
     axios
-      .get("/mailconfirm", { params: { nmail: nmail } })
-      .then((res) => {
-        console.log(res.data);
-        setCode(res.data);
-        alert("인증번호가 발송 되었습니다.");
-      })
-      .catch((err) => console.log(err));
+      .all([
+        axios.post("/nemailCheck", sendMail), //이메일 중복 체크
+        axios.get("/mailconfirm", { params: { nemail: nemail } }), //이메일 인증
+      ])
+      .then(
+        axios.spread((res7, res) => {
+          console.log(res7, res);
+          if (res7.data.res7 === "ok") {
+            neck = true;
+            console.log(res.data);
+            setCode(res.data);
+            alert("인증번호가 발송 되었습니다.");
+          } else {
+            alert(res7.data.msg); //이미 가입된 이메일 입니다.
+            neck = false;
+          }
+        })
+      )
+      .catch((err) => {
+        console.log(err);
+        neck = false;
+      });
   };
 
   const onch = useCallback((e) => {
@@ -188,6 +209,12 @@ const JoinN = () => {
   const formattedDate = `${today.getFullYear()}-${
     today.getMonth() + 1
   }-${today.getDate()}`;
+
+  const onmailch = () => {
+    const email = watch("nemail");
+    console.log(email);
+  };
+
   return (
     <div className="join">
       <form className="content" onSubmit={handleSubmit(onSubmit)}>
@@ -345,6 +372,7 @@ const JoinN = () => {
             <input
               placeholder="you@example.com"
               className="input"
+              onChange={onmailch}
               {...register("nemail", {
                 required: {
                   value: true,

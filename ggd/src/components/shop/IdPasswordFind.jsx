@@ -81,7 +81,8 @@ const IdPasswordFind = () => {
           if (res3.data.res3 == "ok") {
             //일반 회원 이메일 일치
             // sessionStorage.setItem("nid", res3.data.nid);
-            alert(res3.data.nid);
+            // alert(res3.data.nid);
+            console.log(res3.data.nid);
             nav("/idpwdfind2", { state: { fid: res3.data.nid } });
           } else if (res3.data.res3 == "fail3") {
             //일반 회원 이메일 불일치

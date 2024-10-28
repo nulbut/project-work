@@ -36,7 +36,7 @@ public interface NMemberRepository extends CrudRepository<NmemberTbl, String> {
 
     //Page<NmemberTbl> findBySearch(String startDate, String endDate, Pageable pb);
 
-    long countByNid(String nId);
+    long countByNid(String nid);
 
     long countByNnickname(String nNickname);
 }

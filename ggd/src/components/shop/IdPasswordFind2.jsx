@@ -11,7 +11,7 @@ const IdPasswordFind2 = () => {
 
   //비밀번호 재설정으로 이동
   const changePass = () => {
-    nav("/changepass");
+    nav("/changepass", { state: { fid } });
   };
 
   //로그인 화면으로 이동
