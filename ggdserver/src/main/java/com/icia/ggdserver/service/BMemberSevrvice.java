@@ -117,10 +117,10 @@ public class BMemberSevrvice {
         return bmemberTbl;
     }
 
-    public String sendBEmail(String bmail)
+    public String sendBEmail(String bEmail)
         throws MessagingException, UnsupportedEncodingException {
         //메일 전송에 필요한 정보 설정
-        MimeMessage emailForm = createEmailform(bmail);
+        MimeMessage emailForm = createEmailform(bEmail);
         //실제 메일 전송
         emailSender.send(emailForm);
         return  authNum; //인증 코드 반환
