@@ -7,4 +7,6 @@ public class DateDto {
     private int pageNum;
     private String startDate;
     private String endDate;
+    private String searchColumn;
+    private String searchKeyword;
 }
