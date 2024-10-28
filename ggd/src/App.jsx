@@ -32,6 +32,7 @@ import InquiryView from "./components/shop/InquiryView";
 import InquiryUpdate from "./components/shop/InquiryUpdate";
 import ProductView from "./components/shop/ProductView";
 import IdPasswordFind2 from "./components/shop/scss/IdPasswordFind2";
+import AdminEx from "./components/admin/AdminEx";
 
 function App() {
   const nav = useNavigate();
@@ -97,6 +98,7 @@ function App() {
           <Route path="/login" element={<Login sucLogin={sucLogin} />} />
           <Route path="/idpwdfind" element={<IdPasswordFind />} />
           <Route path="/idpwdfind2" element={<IdPasswordFind2 />} />
+          <Route path="changepass" element={<ChangePass />} />
           <Route path="/joinchoice" element={<JoinChoice />} />
           <Route path="/join_n" element={<JoinN />} />
           <Route path="/join_b" element={<JoinB />} />
@@ -124,6 +126,7 @@ function App() {
           <Route path="/mycup" element={<IdealcupMy />} />
         </Route>
         <Route path="/admin" element={<Admin />} />
+        <Route path="/adminex" element={<AdminEx />} />
       </Routes>
     </div>
   );

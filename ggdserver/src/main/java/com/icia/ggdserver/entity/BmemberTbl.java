@@ -71,11 +71,4 @@ public class BmemberTbl { //사업자 회원 테이블
     @Column(name = "b_memail", length = 100)
     private String bmemail; //담당자 이메일
 
-    @CreationTimestamp
-    @Column(name = "b_signdt")
-    private Timestamp bsigndt; //가입날짜
-
-    @Column(name = "b_status")
-    private String bstatus; // 회원 상태
-
 }

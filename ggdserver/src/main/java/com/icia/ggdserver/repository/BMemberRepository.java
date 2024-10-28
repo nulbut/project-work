@@ -13,10 +13,12 @@ public interface BMemberRepository extends CrudRepository<BmemberTbl, String> {
 
     Page<BmemberTbl> findAll(Pageable pb);
 
+    //아이디
     long countByBid(String b_id);
+
+    //이메일
+    long countByBemail (String b_email);
 
     @Query(value = "select m.bemail from BmemberTbl as m where m.bid=:bid")
     String selectMail(@Param("bid") String bid);
-
-
 }
