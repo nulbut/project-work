@@ -1,6 +1,9 @@
 package com.icia.ggdserver.repository;
 
 import com.icia.ggdserver.entity.BmemberTbl;
+import com.icia.ggdserver.entity.NmemberTbl;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -10,14 +13,15 @@ public interface BMemberRepository extends CrudRepository<BmemberTbl, String> {
 
 
 
+    Page<BmemberTbl> findAll(Pageable pb);
+
     //아이디
-    long countByBid(String b_id);
+    BmemberTbl findByBemail(String bemail);
+    long countByBid(String nid);
 
     //이메일
     long countByBemail (String b_email);
 
     @Query(value = "select m.bemail from BmemberTbl as m where m.bid=:bid")
     String selectMail(@Param("bid") String bid);
-
-    BmemberTbl findByBemail(String bemail);
 }

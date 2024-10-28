@@ -13,7 +13,6 @@ import logo from "../images/logo.svg";
 import UserList from "./UserList";
 import Review from "./Review";
 import Paging from "./Paging";
-import Category from "./Category";
 
 // function Admin() {
 //   const history = useHistory();
@@ -65,9 +64,6 @@ const Admin = () => {
         break;
       case "후기 관리":
         setViewName(<Review />);
-        break;
-      case "카테고리":
-        setViewName(<Category />);
         break;
     }
   };
