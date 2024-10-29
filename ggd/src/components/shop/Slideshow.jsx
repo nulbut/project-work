@@ -40,7 +40,7 @@ const Slideshow = () => {
           key={index}
           className={`slide fade ${slideIndex === index ? "active" : ""}`}
         >
-          <img src={slide.src} alt={slide.alt} />
+          <img src={slide.src} alt={slide.alt} style={{ opacity: 1 }} />
           <div className="text">{slide.text}</div>
         </div>
       ))}

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import "./scss/styles.scss";
+import "./scss/Adminstyles.scss";
 import UserList from "./UserList";
 import Review from "./Review";
 import Category from "./Category";
 import AdminDashboard from "./AdminDashboard";
-import "bootstrap/dist/css/bootstrap.css";
+
 import "bootstrap/dist/js/bootstrap.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -13,6 +13,10 @@ import {
   faMagnifyingGlass,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
+import ManageUserGrade from "./manageuser/ManageUserGrade";
+import ManagePoint from "./manageuser/ManagePoint";
+import ManageAllPoint from "./manageuser/ManageAllPoint";
+import ManageCupList from "./manageidealcup/ManageCupList";
 
 const AdminEx = ({ data }) => {
   const [viewName, setViewName] = useState(<AdminDashboard />);
@@ -22,12 +26,17 @@ const AdminEx = ({ data }) => {
     {
       depth: "회원 관리",
       content: [
-        { name: "회원 정보 관리" },
+        {
+          name: "회원 정보 관리",
+          target: "UserBoard",
+          content2: [{ name: "일반 회원" }, { name: "사업자 회원" }],
+        },
         {
           name: "포인트 관리",
           target: "pointBoard",
-          content2: [{ name: "포인트 내역" }, { name: "일괄 제공" }],
+          content2: [{ name: "포인트 내역" }, { name: "포인트 일괄 제공" }],
         },
+        { name: "회원 등급 관리" },
       ],
       // path: "/UserListPage",
       // Element: UserList,
@@ -87,8 +96,20 @@ const AdminEx = ({ data }) => {
 
   const moveMenu = (menu) => {
     switch (menu) {
-      case "회원 정보 관리":
-        setViewName(<UserList />);
+      case "일반 회원":
+        setViewName(<UserList user="일반 회원" />);
+        break;
+      case "사업자 회원":
+        setViewName(<UserList user="사업자 회원" />);
+        break;
+      case "포인트 내역":
+        setViewName(<ManagePoint />);
+        break;
+      case "포인트 일괄 제공":
+        setViewName(<ManageAllPoint />);
+        break;
+      case "회원 등급 관리":
+        setViewName(<ManageUserGrade />);
         break;
       case "후기 관리":
         setViewName(<Review />);
@@ -99,9 +120,14 @@ const AdminEx = ({ data }) => {
       // default:
       //   console.log("Arcodian or invalid pass")
       //   setViewName(<AdminDashboard />);
+
+      case "월드컵 리스트":
+        setViewName(<ManageCupList />);
+        break;
     }
-    console.log(viewName);
+    console.log("뷰네임", viewName);
   };
+  useEffect(() => {}, viewName);
 
   const sidebarClick = () => {
     state === true ? setState(false) : setState(true);
@@ -210,6 +236,7 @@ const AdminEx = ({ data }) => {
                               data-bs-target={"#" + el.target}
                               aria-expanded="false"
                               aria-controls={el.target}
+                              style={{ cursor: "pointer" }}
                             >
                               <div className="sb-nav-link-icon">
                                 <i className="fas fa-book-open"></i>
@@ -234,6 +261,7 @@ const AdminEx = ({ data }) => {
                                       <div
                                         className="nav-link"
                                         onClick={() => moveMenu(el.name)}
+                                        style={{ cursor: "pointer" }}
                                       >
                                         {el.name}
                                       </div>
