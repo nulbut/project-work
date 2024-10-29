@@ -69,6 +69,7 @@ function App() {
       //로그인 상태
       const newState = {
         loginid: nid,
+
         mlink: "/mypage",
       };
       setLoginState(newState);

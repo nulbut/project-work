@@ -1,72 +1,61 @@
 import axios from "axios";
 import moment from "moment";
-import React, { useCallback, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useCallback, useEffect, useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import TableRow from "./TableRow";
 import TableColumn from "./TableColumn";
 import Table from "./Table";
 import Paging from "./Paging";
 import Button from "../idealcup/Button";
-
-const df = (date) => moment(date).format("YYYY-MM-DD");
+import Nwrite from "./Nwrite";
+import NoticeList from "./NoticeList";
 
 const Notice = () => {
   const nav = useNavigate();
-  const [aitem, setBitem] = useState({});
-  const [page, setPage] = useState({
-    totalPage: 0,
-    pageNum: 1,
-  });
+  const [viewName, setViewName] = useState(<NoticeList />);
+  // const aid = sessionStorage.getItem("mid");
 
-  const getnList = (pnum) => {
-    axios
-      .get("/notice", { params: { pageNum: pnum } })
-      .then((res) => {
-        const { bList, totalPage, pageNum } = res.data;
-        setPage({ totalPage: totalPage, pageNum: pageNum });
-        setBitem(bList);
-        sessionStorage.setItem("pageNum", pageNum);
-      })
-      .catch((err) => console.log(err));
+  const buttons = [
+    {
+      name: "등록",
+      // path: "/UserListPage",
+      // Element: UserList,
+    },
+  ];
+
+  const viewChange = () => {
+    setViewName(<NoticeList />);
   };
 
-  let list = null;
-  if (aitem.length === 0) {
-    list = (
-      <TableRow key={0}>
-        <TableColumn span={2}>공지사항이 없습니다</TableColumn>
-      </TableRow>
-    );
-  } else {
-    list = Object.values(aitem).map((item) => (
-      <TableRow key={item.nnum}>
-        <TableColumn wd="w-10">
-          <div onClick={() => getNotice(item.nnum)}>{item.ntitle}</div>
-        </TableColumn>
-        <TableColumn wd="w-20">{df(item.rdate)}</TableColumn>
-      </TableRow>
-    ));
-  }
-  const getNotice = useCallback((nnum) => {
-    nav("/notice", { state: { nn: nnum } });
-  });
+  const moveMenu = () => {
+    setViewName(<Nwrite viewChange={viewChange} />);
+  };
 
-  return ( <div className="Main">
-    <div className="Content">
-      <h1>공지사항</h1>
-      <Table hName={["제목", "날짜"]}>{list}</Table>
-      <Paging page={page} getList={getnList} />
-      <Button
-        size="large"
-        wsize="s-50"
-        onClick={() => {
-          nav("/write");
-        }}
-      >
-        등록
-      </Button>
+  return (
+    <div className="Main">
+      <div className="Content">
+        <h1>공지사항</h1>
+        <Button size="small" wsize="s-50" onClick={moveMenu}>
+          등록
+        </Button>
+        {/* {buttons.map((butn, idx) => {
+          return (
+            <Link className="sideber-menu" to={butn.path} key={idx}>
+              <Button
+                size="large"
+                color="black"
+                onClick={() => moveMenu(butn.name)}
+              >
+                {butn.name}
+              </Button>
+            </Link>
+          );
+        })} */}
+        {viewName}
+      </div>
+      {/* <div className="desc">{viewName}</div> */}
     </div>
-  </div>);
+  );
 };
 
 export default Notice;

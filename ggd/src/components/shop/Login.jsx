@@ -32,6 +32,7 @@ const Login = ({ sucLogin }) => {
             //일반회원 아이디, 패스워드 일치
             sucLogin(res1.data.nid);
             sessionStorage.setItem("nid", res1.data.nid);
+
             navigate("/shoppingmall");
           } else if (res1.data.res1 == "fail2") {
             //일반회원 회원정보 없음
