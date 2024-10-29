@@ -53,11 +53,7 @@ public class ShoppingMallController {
     public Map<String, Object> getProductList(@RequestParam Integer pageNum){
         log.info("getProductList() - {}", pageNum);
 
-        Map<String, Object> res= spmServ.getproductList(pageNum);
-
-        return res;
-    }
-
+<<<<<<<<< Temporary merge branch 1
     @GetMapping("bpdList")
     public Map<String, Object> bpdList(@RequestParam Integer pageNum){
         log.info("getBoardList() - {}", pageNum);
@@ -65,6 +61,9 @@ public class ShoppingMallController {
         return res;
     }
 
+=========
+        Map<String, Object> res= spmServ.getproductList(pageNum);
+>>>>>>>>> Temporary merge branch 2
 
     //상품등록글 받기
     @GetMapping("getproduct")
@@ -79,4 +78,13 @@ public class ShoppingMallController {
         log.info("deleteProduct()");
         return spmServ.boardDelete(productCode, session);
     }
+
+    @GetMapping("bpdList")
+    public Map<String, Object> bpdList(@RequestParam Integer pageNum){
+        log.info("getBoardList() - {}", pageNum);
+        Map<String, Object> res = spmServ.getbpdList(pageNum);
+        return res;
+    }
+
+
 }

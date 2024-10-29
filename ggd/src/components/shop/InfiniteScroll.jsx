@@ -4,16 +4,10 @@ import noimage from "../images/no-image.jpg";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import moment from "moment";
-import { Link } from "react-router-dom";
 import Button from "./Button";
 import TableRow from "./TableRow";
 import TableColumn from "./TableColumn";
 
-import {
-  faHeart,
-  faCircleExclamation,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const df = (date) => moment(date).format("YYYY-MM-DD HH:mm:ss");
 
@@ -134,7 +128,7 @@ const InfiniteScroll = () => {
                 className="product-image"
               />
             </div>
-            <h3 className="product-title">상품명 {item + 1} </h3>
+            <h3 className="product-title">상품명 : {item.productName + 1} </h3>
             <p className="product-price">₩{item.sellerPayment}</p>
             <p className="product-body">{item.productDetail}</p>
           </div>
@@ -154,10 +148,10 @@ const InfiniteScroll = () => {
                 className="product-image"
               />
             </div>
-            <h3 className="product-title">상품명 {item + 1} </h3>
+            <h3 className="product-title">상품명 : {item.productName + 1} </h3>
             <p className="product-price">₩{item.sellerPayment}</p>
             <p className="product-body">{item.productDetail}</p>
-          </div> //
+        </div>
         ))}
       </div>
       {hasNextPage && (
