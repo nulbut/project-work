@@ -18,14 +18,14 @@ const ProductView = () => {
   const [ProductRegistered, setProductRegistered] = useState({});
   const [flist, setFlist] = useState([
     {
-      productCode: "",
-      sellerId: "",
+      // productCode: "",
+      // sellerId: 0,
       productFileCode: "",
-      productFileNum: "",
+      productFileNum: 0,
       productFileSysname: "",
       productFileOriname: "Nothing",
       image: "",
-      productName: "",
+      // productName: "",
     },
   ]);
 
@@ -37,14 +37,14 @@ const ProductView = () => {
         setProductRegistered(res.data);
         console.log(res.data);
 
-        const bfList = res.data.productFileTblList;
+        const bfList = res.data.productFileList;
         console.log(bfList);
 
         //파일 목록 처리 (res.data에서 파일목록을 꺼내서 flist로 처리)
         if (bfList > 0) {
           console.log("bfList.length : ", bfList.length);
           let newFileList = [];
-          for (let i = 0; i < bfList.length; i++) {
+          for (let i = 0; i < bfList.length; i++) { 
             const newFile = {
               ...bfList[i],
               image: "../../upload/" + bfList[i].productFileSysname,
@@ -135,7 +135,7 @@ const ProductView = () => {
           </div>
           <div className="Box">
             <div className="Title">구매제한</div>
-            <div className="Data">{ProductRegistered.productlimit}</div>
+            <div className="Data">{ProductRegistered.productLimit}</div>
           </div>
           <div className="Box">
             <div className="Title">수량</div>

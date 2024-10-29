@@ -3,10 +3,11 @@ import "./scss/InfiniteScroll.scss";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import moment from "moment";
-import React, { useEffect, useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import Button from "../idealcup/Button";
-import "./scss/ShoppingMall.scss";
+// import Button from "./Button";
+import TableRow from "./TableRow";
+import TableColumn from "./TableColumn";
+
+const df = (date) => moment(date).format("YYYY-MM-DD HH:mm:ss");
 
 const LatestProducts = () => {
   const [products, setProducts] = useState([]);

@@ -14,7 +14,7 @@ const ProductWrite = () => {
     sellerId: id,
     categoryCode: "",
     sellerPayment: "",
-    productlimit: "",
+    productLimit: "",
     productStock: "",
     productDetail: "",
     productDate: "",
@@ -25,7 +25,7 @@ const ProductWrite = () => {
     sellerId,
     categoryCode,
     sellerPayment,
-    productlimit,
+    productLimit,
     productStock,
     productDetail,
     productDate,
@@ -139,8 +139,8 @@ const ProductWrite = () => {
         />
         <input
           className="Input"
-          name="productlimit"
-          value={productlimit}
+          name="productLimit"
+          value={productLimit}
           placeholder="구매제한"
           onChange={onch}
           autoFocus
@@ -173,18 +173,11 @@ const ProductWrite = () => {
         ></textarea>
         <div className="FileInput">
           <input id="upload"
-           type="file"
-            multiple 
-            onChange={onFileChange} 
-         />
-
+           type="file" multiple onChange={onFileChange} />
           <label className="FileLabel" htmlFor="upload">
             파일선택
           </label>
-
-          <span className="FileSpan">
-            {fileName} 
-          </span>
+          <span className="FileSpan">{fileName}</span>
         </div>
         <div className="Buttons">
           <Button
@@ -193,14 +186,13 @@ const ProductWrite = () => {
             color="gray"
             wsize="s-10"
             outline
-            onClick={() => nav("/mypage")}
+            onClick={() => nav("/mypage/productRegistered")}
           >
             목록으로
           </Button>
           <Button 
           type="submit" 
-          size="large" 
-          color="blue" 
+          size="large"  
           wsize="s-30"
           >
             등록

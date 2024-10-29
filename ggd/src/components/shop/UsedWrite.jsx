@@ -178,11 +178,9 @@ const UsedWrite = () => {
             multiple 
             onChange={onFileChange} 
          />
-
           <label className="UsedfileLabel" htmlFor="upload">
             파일선택
           </label>
-
           <span className="UsedfileSpan">
             {fileName} 
           </span>
@@ -201,7 +199,6 @@ const UsedWrite = () => {
           <UsedButton 
           type="submit" 
           size="large" 
-          color="blue" 
           wsize="s-30"
           >
             등록

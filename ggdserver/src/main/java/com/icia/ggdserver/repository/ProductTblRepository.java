@@ -8,5 +8,5 @@ import  org.springframework.data.repository.CrudRepository;
 public interface ProductTblRepository extends CrudRepository<ProductTbl, Long> {
     Page<ProductTbl> findByProductCodeGreaterThan(long ProductCode, Pageable pageable);
 
-    Page<ProductTbl> findByProductCodeGreaterThanAndSellerId(long ProductCode, String selleId, Pageable pb);
+    Page<ProductTbl> findByProductCodeGreaterThanAndSellerId(long ProductCode, String sellerId, Pageable pb);
 }

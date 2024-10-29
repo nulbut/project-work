@@ -90,8 +90,8 @@ private void uploadFile(List<MultipartFile> files,
     }
 }
 
-public Map<String, Object> getProductList(Integer pageNum, String selleId){
-    log.info("getProductList() sellerId : {}", selleId);
+public Map<String, Object> getProductList(Integer pageNum, String sellerId){
+    log.info("getProductList() sellerId : {}", sellerId);
 
     if (pageNum == null){
         pageNum = 1;
@@ -101,7 +101,7 @@ public Map<String, Object> getProductList(Integer pageNum, String selleId){
     Pageable pb = PageRequest.of((pageNum - 1), listCnt,
             Sort.Direction.DESC, "productCode");
 
-    Page<ProductTbl> result = pdtRepo.findByProductCodeGreaterThanAndSellerId(0L, selleId, pb);
+    Page<ProductTbl> result = pdtRepo.findByProductCodeGreaterThanAndSellerId(0L, sellerId, pb);
 
     List<ProductTbl> bList = result.getContent();
 
@@ -111,7 +111,7 @@ public Map<String, Object> getProductList(Integer pageNum, String selleId){
     res.put("bList", bList);
     res.put("totalPage", totalPage);
     res.put("pageNum", pageNum);
-    res.put("selleId", selleId);
+    res.put("sellerId", sellerId);
 
     return res;
 }
