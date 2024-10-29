@@ -96,6 +96,9 @@ const AdminEx = ({ data }) => {
 
   const moveMenu = (menu) => {
     switch (menu) {
+      case "대쉬 보드":
+        setViewName(<AdminDashboard />);
+        break;
       case "일반 회원":
         setViewName(<UserList user="일반 회원" />);
         break;
@@ -141,7 +144,10 @@ const AdminEx = ({ data }) => {
       >
         <nav className="sb-topnav navbar navbar-expand navbar-dark bg-dark">
           {/* <!-- Navbar Brand--> */}
-          <div className="navbar-brand ps-3" onClick={() => moveMenu()}>
+          <div
+            className="navbar-brand ps-3"
+            onClick={() => moveMenu("대쉬 보드")}
+          >
             관리자 페이지
           </div>
           {/* <!-- Sidebar Toggle--> */}

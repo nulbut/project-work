@@ -3,20 +3,18 @@ package com.icia.ggdserver.service;
 import com.icia.ggdserver.dto.DateDto;
 import com.icia.ggdserver.entity.BmemberTbl;
 import com.icia.ggdserver.entity.NmemberTbl;
+import com.icia.ggdserver.entity.UserGradeTbl;
 import com.icia.ggdserver.repository.BMemberRepository;
 import com.icia.ggdserver.repository.NMemberRepository;
+import com.icia.ggdserver.repository.UserGradeRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @Slf4j
@@ -114,8 +112,32 @@ public class AdminService {
 
         return res;
     }
+    @Autowired
+    private UserGradeRepository ugRepo;
 
+    public void writeGradeProc(ArrayList<UserGradeTbl> gl){
+        ugRepo.saveAll(gl);
+        ugRepo.deleteByUgIdIsGreaterThan(gl.size());
+        log.info("writeGradeProc");
+    }
 
+//    public Map<String, Object> getGradeList() {
+//        log.info("getBoardList()");
+//        UserGradeTbl result = null;
+//        result = ugRepo.findAll();
+//
+//        //page 객체를 list로 변환 후 전송.
+//        List<BmemberTbl> bList = result.getContent();//page에서 게시글목록을 꺼내와서
+//        //bList에 저장.
+//        int totalPage = result.getTotalPages();//전체 페이지 개수
+//
+//        Map<String, Object> res = new HashMap<>();
+//        res.put("blist", bList);
+//        res.put("totalPage", totalPage);
+//        res.put("pageNum", dd.getPageNum());
+//
+//        return res;
+//    }
 //    public long countByNid(String n_id) {
 //        return aRepo.countByNid(n_id);
 //    }
