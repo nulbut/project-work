@@ -86,6 +86,7 @@ public class BMemberSevrvice {
         BmemberTbl bdbMember = null;
         Map<String, String> rsMap = new HashMap<>();
 
+
         try {
             bdbMember = bmRepo.findById(bmemberTbl.getBid()).get();
             //db에서 꺼내온 사용자의 비밀번호와 입력한 비밀번호를 비교
@@ -94,6 +95,9 @@ public class BMemberSevrvice {
                 //로그인 성공
                 rsMap.put("res2","ok");
                 rsMap.put("bid",bmemberTbl.getBid());
+                rsMap.put("bcname", bdbMember.getBcname());
+
+
             }
             else {
                 //비밀번호 틀림

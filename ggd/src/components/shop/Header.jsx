@@ -12,8 +12,11 @@ import {
 import "./scss/Header.scss";
 
 const Header = ({ lstate, onLogout }) => {
-  const { loginid } = lstate;
-  const { mlink } = lstate;
+  const { loginid, mlink, loginnick } = lstate;
+
+  console.log(loginnick);
+  // const { mlink } = lstate;
+  // const { loginnick } = lstate;
 
   // const [categoryitem, setCategoryitem] = useState([]);//빈 객체로 초기화
   const menus = [
@@ -88,7 +91,7 @@ const Header = ({ lstate, onLogout }) => {
     {
       name: (
         <div className="logintab">
-          <Link to={mlink}>{loginid !== "" ? `${loginid}님` : "로그인"}</Link>
+          <Link to={mlink}>{loginid !== "" ? `${loginnick}님` : "로그인"}</Link>
           {loginid !== "" ? (
             <span className="Sub" onClick={onLogout}>
               로그아웃
