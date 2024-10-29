@@ -1,8 +1,8 @@
-// import React, { useEffect, useState } from "react";
-// import Table from "./Table";
-// import Paging from "./Paging";
-// import TableRow from "./TableRow";
-// import TableColumn from "./TableColumn";
+import React, { useEffect, useState } from "react";
+import Table from "./Table";
+import Paging from "./Paging";
+import TableRow from "./TableRow";
+import TableColumn from "./TableColumn";
 
 const Review = () => {
 
