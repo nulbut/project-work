@@ -1,10 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./scss/InfiniteScroll.scss";
-import noimage from "../images/no-image.jpg";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import moment from "moment";
-import Button from "./Button";
+// import Button from "./Button";
 import TableRow from "./TableRow";
 import TableColumn from "./TableColumn";
 
