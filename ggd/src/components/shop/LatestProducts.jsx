@@ -1,14 +1,18 @@
+import React, { useEffect, useRef, useState } from "react";
+import "./scss/InfiniteScroll.scss";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import moment from "moment";
-import React, { useEffect, useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import Button from "../idealcup/Button";
-import "./scss/ShoppingMall.scss";
+// import Button from "./Button";
+import TableRow from "./TableRow";
+import TableColumn from "./TableColumn";
+
+const df = (date) => moment(date).format("YYYY-MM-DD HH:mm:ss");
 
 const LatestProducts = () => {
-  const [games, setGames] = useState([]);
+  const [products, setProducts] = useState([]);
   const [page, setPage] = useState({
-    //페이징 관련 정보 저장 state
+    //페이징 관련 정보 저장
     totalPage: 0,
     pageNum: 1,
   });
@@ -16,29 +20,22 @@ const LatestProducts = () => {
   const [hasNextPage, setHasNextPage] = useState(true);
   const [pageParams, setPageParams] = useState([]);
   const observerRef = useRef();
-  // const mid = sessionStorage.getItem("mid");
-  const mid = "asd"; //로그인 구현 전 임시
+
+  const sellerId = "sellerId";
   const nav = useNavigate();
   console.log("페이지", page);
-  console.log("게임", games);
-  const fetchGoods = async (inpage) => {
-    //중복호출 제거
+  console.log("상품", products);
+  const fetchProducts = async (inpage) => {
+    //중복 호출 제거
     if (pageParams.includes(inpage.pageNum)) return;
     setLoading(true);
     try {
-      // const paramData = {
-      //   column: ps.searchColumn,
-      //   keyword: ps.searchKeyword,
-      // };
-      // .get("/list", { params: { ...paramData, pageNum: page } })
-
       axios
-        .get("/bpdList", { params: { pageNum: inpage.pageNum } })
+        .get("productList", { params: { pageNum: inpage.pageNum } })
         .then((res) => {
           const { bList, totalPage, pageNum } = res.data;
           setPage({ totalPage: totalPage, pageNum: pageNum });
-          setGames((preGames) => [...preGames, ...bList]);
-          // ps.setPageNum(pageNum);
+          setProducts((preProducts) => [...preProducts, ...bList]);
           setHasNextPage(pageNum < totalPage);
           setPageParams((prev) => [...prev, inpage.pageNum]);
           setLoading(false);
@@ -50,37 +47,25 @@ const LatestProducts = () => {
     }
   };
 
-  // const ps = useContext(PageContextStore);
-  //console.log(ps);
-
   const options = [
-    { value: "iwcName", label: "제목" },
-    { value: "iwcExplanation", label: "내용" },
+    { value: "productName", label: "상품이름" },
+    { value: "productDetail", label: "내용" },
   ];
 
   useEffect(() => {
-    fetchGoods(page);
+    fetchProducts(page);
   }, [page]);
 
-  // useEffect(() => {
-
-  //   // fetchGoods(page);
-  //   // ps.pageNum !== null ? getList(ps.pageNum) : getList(1);
-  //   // getList(1);
-  // }, []);
-
   useEffect(() => {
-    if (mid === null) {
+    if (sellerId === null) {
       nav("/", { replace: true });
 
       return; //로그인 안한 경우 첫 화면으로 이동.
     }
-    // if (page.pageNum == 1) {
-    //   fetchGoods(page);
-    // }
+
     const observer = new IntersectionObserver((entries) => {
       const firstEntry = entries[0];
-      // if (page.pageNum == 1) return;
+
       if (firstEntry.isIntersecting) {
         setPage((prev) => {
           return {
@@ -95,87 +80,65 @@ const LatestProducts = () => {
     });
     if (observerRef.current) observer.observe(observerRef.current);
     return () => {
-      if (observerRef.current) observer.unserve(observerRef.current);
+      if (observerRef.current) observer.unobserve(observerRef.current);
     };
   }, []);
 
+  //출력할 상품 목록
+  let list = null;
+  if (products.length === 0) {
+    list = (
+      <TableRow key={0}>
+        <TableColumn span={4}>상품이 없습니다.</TableColumn>
+      </TableRow>
+    );
+  } else {
+    list = Object.values(products).map((item) => (
+      <TableRow key={item.productCode}>
+        <TableColumn wd="w-10">{item.productCode}</TableColumn>
+        <TableColumn wd="w-40">
+          <div onClick={() => getBoard(item.productCode)}>
+            {item.productName}
+          </div>
+        </TableColumn>
+        <TableColumn wd="w-20">{item.sellerId}</TableColumn>
+        <TableColumn wd="w-30">{df(item.productDate)}</TableColumn>
+      </TableRow>
+    ));
+  }
+
   const getBoard = (code) => {
-    nav("/game", { state: { iwcCode: code } }); //'/board?bn=1'
-  }; //상세보기 화면으로 전환될 때 게시글 번호를 보낸다.
+    nav("/ShoppingMall", { state: { productCode: code } });
+  };
+
   return (
-    <div className="showcase">
-      {/* <GameViewLayout hName={["NO", "Title", "Writer", "Date"]}>
-        {list}
-      </GameViewLayout> */}
+    <div className="product-list">
+      <h2 className="section-title">
+        <span>최신</span>상품
+      </h2>
       <div className="product-grid">
-        {games.map((item, index) => (
+        {products.map((item, index) => (
           <div key={index} className="product-card">
-            <div className="vs-imgset">
+            <div className="product-image-placeholder">
               <img
-                src={`upload/${item.bprsysname}`}
-                alt={`상품 이미지 ${item.bpnum}`}
+                src={`upload/${item.productFileSysname}`}
+                alt={`상품 이미지 ${item.productCode}`}
                 className="product-image"
               />
             </div>
-
-            <div className="product-title">
-              <Link
-                to="/game"
-                state={
-                  {
-                    //   code: item.iwcCode,
-                    //   name: item.iwcName,
-                    //   expl: item.iwcExplanation,
-                  }
-                }
-              >
-                <div>{item.iwcName}</div>
-              </Link>
-              <div className="title-btn">
-                <div></div>
-                <div></div>
-                <div>{item.iwcViews}</div>
-              </div>
-            </div>
-
-            <p className="product-body">{item.bpprice}</p>
-            <p className="product-sub">{item.bpname}</p>
-            <p className="product-sub">{item.bpexplanation}</p>
-            <p className="product-body">{df(item.bpdate)}</p>
-            <div className="btn-set">
-              {/* <button>시작</button>
-              <button>랭킹</button>
-              <button>공유</button> */}
-              <Link
-                to={`/game?${item.bpnum}`}
-                state={
-                  {
-                    //   code: item.iwcCode,
-                    //   name: item.iwcName,
-                    //   expl: item.iwcExplanation,
-                  }
-                }
-              >
-                <Button wsize="s-25">시작</Button>
-              </Link>
-              <Link>
-                <Button wsize="s-25">랭킹</Button>
-              </Link>
-              <Link>
-                <Button wsize="s-25">공유</Button>
-              </Link>
-            </div>
+            <h3 className="product-title">상품명 : {item.productName + 1} </h3>
+            <p className="product-price">₩{item.sellerPayment}</p>
+            <p className="product-body">{item.productDetail}</p>
           </div>
         ))}
       </div>
       {hasNextPage && (
-        <h1 ref={observerRef} className="loading-indicator">
-          이상형 월드컵 불러오는 중...
-        </h1>
+        <div ref={observerRef} className="loading-indicator">
+          더 많은 상품 불러오는 중...
+        </div>
       )}
     </div>
   );
 };
-const df = (date) => moment(date).format("YYYY-MM-DD");
 
 export default LatestProducts;

@@ -169,7 +169,7 @@ private void filesDelete(List<ProductFileTbl> fileTblList,
 }
 
 
-<<<<<<<<< Temporary merge branch 1
+
     public Map<String, Object> getbpdList(Integer pNum) {
         log.info("getBoardList()");
 
@@ -187,7 +187,14 @@ private void filesDelete(List<ProductFileTbl> fileTblList,
         List<BproductTbl> bList = result.getContent();
 
         int totalPage = result.getTotalPages();
-=========
+
+        Map<String, Object> res = new HashMap<>();
+        res.put("bList", bList);
+        res.put("totalPage", totalPage);
+        res.put("pageNum", pNum);
+
+        return res;
+    }
     public Map<String, Object> getproductList(Integer pageNum) {
         log.info("getBoardList()");
 
@@ -217,7 +224,6 @@ private void filesDelete(List<ProductFileTbl> fileTblList,
         res.put("totalPage", totalPage);
         res.put("pageNum", pageNum);
 
->>>>>>>>> Temporary merge branch 2
 
         return res;
     }

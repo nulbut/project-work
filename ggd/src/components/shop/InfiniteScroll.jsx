@@ -8,7 +8,6 @@ import Button from "./Button";
 import TableRow from "./TableRow";
 import TableColumn from "./TableColumn";
 
-
 const df = (date) => moment(date).format("YYYY-MM-DD HH:mm:ss");
 
 const InfiniteScroll = () => {
@@ -151,7 +150,7 @@ const InfiniteScroll = () => {
             <h3 className="product-title">상품명 : {item.productName + 1} </h3>
             <p className="product-price">₩{item.sellerPayment}</p>
             <p className="product-body">{item.productDetail}</p>
-        </div>
+          </div>
         ))}
       </div>
       {hasNextPage && (

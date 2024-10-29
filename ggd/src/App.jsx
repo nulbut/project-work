@@ -36,7 +36,6 @@ import ChangePass from "./components/shop/ChangePass";
 import AdminEx from "./components/admin/AdminEx";
 import ProductUpdate from "./components/shop/ProductUpdate";
 import UsedWrite from "./components/shop/UsedWrite";
->>>>>>>>> Temporary merge branch 2
 
 function App() {
   const nav = useNavigate();
@@ -116,11 +115,13 @@ function App() {
             <Route path="inquiry/inView" element={<InquiryView />} />
             <Route path="inquiry/inView/inUpdate" element={<InquiryUpdate />} />
             <Route path="productRegistered/pdView" element={<ProductView />} />
-            <Route path="productRegistered/pdview/pdUpdate" element={<ProductUpdate />} />
+            <Route
+              path="productRegistered/pdview/pdUpdate"
+              element={<ProductUpdate />}
+            />
           </Route>
           <Route path="usedWrite" element={<UsedWrite />} />
         </Route>
-      
 
         <Route
           element={<IdealcupLayout lstate={loginState} onLogout={onLogout} />}
