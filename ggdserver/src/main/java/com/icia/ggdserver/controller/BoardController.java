@@ -19,10 +19,11 @@ public class BoardController {
     private BoardService bServ;
 
     @GetMapping("boardlist")
-    public Map<String, Object> getboardlist(@RequestParam Integer pageNum) {
+    public Map<String, Object> getboardlist(@RequestParam Integer pageNum,
+                                            @RequestParam String bnid) {
         log.info("getboardlist");
 
-        Map<String, Object> res = bServ.getBoardList(pageNum);
+        Map<String, Object> res = bServ.getBoardList(pageNum, bnid);
 
         return res;
     }

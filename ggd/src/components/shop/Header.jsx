@@ -139,8 +139,13 @@ const Header = ({ lstate, onLogout }) => {
     },
     {
       path: "usedWrite",
-      icon: <FontAwesomeIcon icon={faHandshakeSimple} style={{ color: "#000000" }} />
-      },
+      icon: (
+        <FontAwesomeIcon
+          icon={faHandshakeSimple}
+          style={{ color: "#000000" }}
+        />
+      ),
+    },
     // {
     //   name: "주문/배송",
     //   path: "/mypage/orderDelivery",
@@ -154,7 +159,7 @@ const Header = ({ lstate, onLogout }) => {
     //   name: "Q&A",
     //   path: "/Inquiry",
     // },
-    
+
     // {
     //   name: "Q&A",
     //   path: "/Inquiry",

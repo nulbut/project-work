@@ -4,7 +4,7 @@ import axios from "axios";
 import Button from "./Button";
 import moment from "moment";
 
-const bf = (date) => moment(date).format("YYYY-MM-DD HH:mm:ss");
+const bf = (date) => moment(date).format("YYYY-MM-DD");
 
 const InquiryView = () => {
   const nav = useNavigate();
@@ -12,8 +12,9 @@ const InquiryView = () => {
   //게시글 번호 받기
   const { state } = useLocation();
   const { bc } = state; //게시글 번호를 꺼냈다.
-
+  // const nmnum = sessionStorage.getItem("nmnum");
   const nid = sessionStorage.getItem("nid");
+  // const bnphonenum = sessionStorage.getItem("nphonenum");
 
   const [inquiry, setInquiry] = useState({});
   const [flist, setFlist] = useState([
@@ -44,7 +45,7 @@ const InquiryView = () => {
           for (let i = 0; i < bfList.length; i++) {
             const newFile = {
               ...bfList[i],
-              image: "../../upload/" + bfList[i].boardFileSysname,
+              image: "../../update/" + bfList[i].boardFileSysname,
             };
             newFileList.push(newFile); //배열에 추가
           }
@@ -55,9 +56,9 @@ const InquiryView = () => {
       .catch((err) => console.log(err));
   }, []);
 
-  const viewFlist = flist.map((v, i) => {
+  const viewFlist = flist.map((v) => {
     return (
-      <div className="Down" key={i}>
+      <div className="Down">
         {v.image && <img src={v.image} alt="preview-img" />}
         {v.boardFileOriname}
       </div>
@@ -87,6 +88,13 @@ const InquiryView = () => {
   const updateInquiry = () => {
     nav("inUpdate", { state: { boardCode: bc } });
   };
+  // useEffect(() => {
+  //   console.log(nmnum);
+  //   if (nmnum === null) {
+  //     alert("관리자가 아닙니다.");
+  //     return;
+  //   }
+  // }, []);
 
   return (
     <div className="Main">
@@ -98,16 +106,20 @@ const InquiryView = () => {
             <div className="Data">{inquiry.boardCode}</div>
           </div>
           <div className="Box">
-            <div className="Title">문의 종류</div>
+            <div className="Title">머리말</div>
             <div className="Data">{inquiry.boardType}</div>
           </div>
           <div className="Box">
-            <div className="Title">ID</div>
+            <div className="Title">주문 내역</div>
+            <div className="Data">{inquiry.productCode}</div>
+          </div>
+          <div className="Box">
+            <div className="Title">작성자</div>
             <div className="Data">{inquiry.bnid}</div>
           </div>
           <div className="Box">
             <div className="Title">전화번호</div>
-            <div className="Data">{inquiry.nphonenum}</div>
+            <div className="Data">{inquiry.bnphonenum}</div>
           </div>
           <div className="Box">
             <div className="Title">등록일</div>
@@ -119,6 +131,7 @@ const InquiryView = () => {
           </div>
           <div className="Cont">{inquiry.boardContent}</div>
         </div>
+
         <div className="Buttons">
           <Button
             wsize="s-10"

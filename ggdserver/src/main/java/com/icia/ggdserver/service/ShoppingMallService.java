@@ -1,6 +1,5 @@
 package com.icia.ggdserver.service;
 
-import com.icia.ggdserver.entity.BproductTbl;
 import  com.icia.ggdserver.entity.ProductFileTbl;
 import com.icia.ggdserver.repository.BproductRepository;
 import  com.icia.ggdserver.repository.ProductTblRepository;
@@ -90,19 +89,18 @@ private void uploadFile(List<MultipartFile> files,
     }
 }
 
-public Map<String, Object> getBoardList(Integer pNum){
-    log.info("getBoardList()");
+public Map<String, Object> getProductList(Integer pageNum, String selleId){
+    log.info("getProductList() sellerId : {}", selleId);
 
-    if (pNum == null){
-        pNum = 1;
+    if (pageNum == null){
+        pageNum = 1;
     }
     int listCnt = 8;
 
-    Pageable pb = PageRequest.of((pNum - 1), listCnt,
+    Pageable pb = PageRequest.of((pageNum - 1), listCnt,
             Sort.Direction.DESC, "productCode");
 
-    Page<ProductTbl> result = null;
-    result = pdtRepo.findByProductCodeGreaterThan(0L,pb);
+    Page<ProductTbl> result = pdtRepo.findByProductCodeGreaterThanAndSellerId(0L, selleId, pb);
 
     List<ProductTbl> bList = result.getContent();
 
@@ -111,7 +109,8 @@ public Map<String, Object> getBoardList(Integer pNum){
     Map<String, Object> res = new HashMap<>();
     res.put("bList", bList);
     res.put("totalPage", totalPage);
-    res.put("pageNum", pNum);
+    res.put("pageNum", pageNum);
+    res.put("selleId", selleId);
 
     return res;
 }
@@ -169,28 +168,35 @@ private void filesDelete(List<ProductFileTbl> fileTblList,
 }
 
 
-    public Map<String, Object> getbpdList(Integer pNum) {
+    public Map<String, Object> getproductList(Integer pageNum) {
         log.info("getBoardList()");
 
-        if (pNum == null){
-            pNum = 1;
+        if(pageNum == null){
+            pageNum = 1;
         }
-        int listCnt = 10;
 
-        Pageable pb = PageRequest.of((pNum - 1), listCnt,
-                Sort.Direction.DESC, "bpnum");
+        //페이지 당 보여질 게시글 개수
+        int listCnt = 15;
 
-        Page<BproductTbl> result = null;
-        result = bpdRepo.findByBpnumGreaterThan(0L,pb);
+        //페이징 조건 처리 객체 생성(Pageable)
+        Pageable pb = PageRequest.of((pageNum - 1), listCnt,
+                Sort.Direction.DESC, "ProductCode");
 
-        List<BproductTbl> bList = result.getContent();
 
-        int totalPage = result.getTotalPages();
+        Page<ProductTbl> result = null;
+        result = pdtRepo.findByProductCodeGreaterThan(0L, pb);
+
+
+        //page 객체를 list로 변환 후 전송.
+        List<ProductTbl> bList = result.getContent();//page에서 게시글목록을 꺼내와서
+        //bList에 저장.
+        int totalPage = result.getTotalPages();//전체 페이지 개수
 
         Map<String, Object> res = new HashMap<>();
         res.put("bList", bList);
         res.put("totalPage", totalPage);
-        res.put("pageNum", pNum);
+        res.put("pageNum", pageNum);
+
 
         return res;
     }

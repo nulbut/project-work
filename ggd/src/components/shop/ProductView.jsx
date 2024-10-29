@@ -32,8 +32,8 @@ const ProductView = () => {
   //서버로부터 상품 내용 받아오기
   useEffect(() => {
     axios
-    .get("/getproduct", { params: { productCode: pc } })
-    .then((res) => {
+      .get("/getproduct", { params: { productCode: pc } })
+      .then((res) => {
         setProductRegistered(res.data);
         console.log(res.data);
 
@@ -42,43 +42,43 @@ const ProductView = () => {
 
         //파일 목록 처리 (res.data에서 파일목록을 꺼내서 flist로 처리)
         if (bfList > 0) {
-            console.log("bfList.length : ", bfList.length);
-            let newFileList = [];
-            for (let i = 0; i < bfList.length; i++) {
-                const newFile = {
-                    ...bfList[i],
-                    image: "../../upload/" + bfList[i].productFileSysname,
-                };
-                newFileList.push(newFile);// 배열에 추가
-            }
-            console.log(newFileList);
-            setFlist(newFileList);
+          console.log("bfList.length : ", bfList.length);
+          let newFileList = [];
+          for (let i = 0; i < bfList.length; i++) {
+            const newFile = {
+              ...bfList[i],
+              image: "../../upload/" + bfList[i].productFileSysname,
+            };
+            newFileList.push(newFile); // 배열에 추가
+          }
+          console.log(newFileList);
+          setFlist(newFileList);
         }
-    })
-    .catch((err) => console.log(err));
+      })
+      .catch((err) => console.log(err));
   }, []);
 
-//   useEffect(() => {
-//     axios //getBoard
-//       .get("/getproduct", { params: { productCode: pc } })
-//       .then((res) => {
-//         setProductRegistered(res.data);
+  // useEffect(() => {
+  //   axios //getBoard
+  //     .get("/getproduct", { params: { productCode: pc } })
+  //     .then((res) => {
+  //       setProductRegistered(res.data);
 
-//         //파일 목록 처리
-//         if (res.data.bfList.length > 0) {
-//           let newFileList = [];
-//           for (let i = 0; i < res.data.bfList.length; i++) {
-//             const newFile = {
-//               ...res.data.bfList[i],
-//               image: "upload/" + res.data.bfList[i].productFilesysname,
-//             };
-//             newFileList.push(newFile);
-//           }
-//           setFlist(newFileList);
-//         }
-//       })
-//       .catch((err) => console.log(err));
-//   }, []);
+  //       //파일 목록 처리
+  //       if (res.data.bfList.length > 0) {
+  //         let newFileList = [];
+  //         for (let i = 0; i < res.data.bfList.length; i++) {
+  //           const newFile = {
+  //             ...res.data.bfList[i],
+  //             image: "upload/" + res.data.bfList[i].productFilesysname,
+  //           };
+  //           newFileList.push(newFile);
+  //         }
+  //         setFlist(newFileList);
+  //       }
+  //     })
+  //     .catch((err) => console.log(err));
+  // }, []);
 
   const viewFlist = flist.map((v) => {
     return (
@@ -114,65 +114,65 @@ const ProductView = () => {
   };
   return (
     <div className="Main">
-        <div className="Content">
-            <h1>{ProductRegistered.productName}</h1>
-            <div className="DataArea">
-            <div className="Box">
-                <div className="Title">번호</div>
-                <div className="Data">{ProductRegistered.productCode}</div>
-            </div>
-            <div className="Box">
-                <div className="Title">종류</div>
-                <div className="Data">{ProductRegistered.categoryCode}</div>
-            </div>
-            <div className="Box">
-                <div className="Title">판매자</div>
-                <div className="Data">{ProductRegistered.sellerId}</div>
-            </div>
-            <div className="Box">
-                <div className="Title">판매가격</div>
-                <div className="Data">{ProductRegistered.sellerPayment}</div>
-            </div>
-            <div className="Box">
-                <div className="Title">구매제한</div>
-                <div className="Data">{ProductRegistered.productlimit}</div>
-            </div>
-            <div className="Box">
-                <div className="Title">수량</div>
-                <div className="Data">{ProductRegistered.productStock}</div>
-            </div>
-            <div className="Box">
-                <div className="Title">등록일</div>
-                <div className="Data">{df(ProductRegistered.productDate)}</div>
-            </div>
-            <div className="Box">
-                <div className="FileTitle">파일</div>
-                <div className="FileData">{viewFlist}</div>
-            </div>
-            <div className="Cont">{ProductRegistered.productDetail}</div>
+      <div className="Content">
+        <h1>{ProductRegistered.productName}</h1>
+        <div className="DataArea">
+          <div className="Box">
+            <div className="Title">번호</div>
+            <div className="Data">{ProductRegistered.productCode}</div>
+          </div>
+          <div className="Box">
+            <div className="Title">종류</div>
+            <div className="Data">{ProductRegistered.categoryCode}</div>
+          </div>
+          <div className="Box">
+            <div className="Title">판매자</div>
+            <div className="Data">{ProductRegistered.sellerId}</div>
+          </div>
+          <div className="Box">
+            <div className="Title">판매가격</div>
+            <div className="Data">{ProductRegistered.sellerPayment}</div>
+          </div>
+          <div className="Box">
+            <div className="Title">구매제한</div>
+            <div className="Data">{ProductRegistered.productlimit}</div>
+          </div>
+          <div className="Box">
+            <div className="Title">수량</div>
+            <div className="Data">{ProductRegistered.productStock}</div>
+          </div>
+          <div className="Box">
+            <div className="Title">등록일</div>
+            <div className="Data">{df(ProductRegistered.productDate)}</div>
+          </div>
+          <div className="Box">
+            <div className="FileTitle">파일</div>
+            <div className="FileData">{viewFlist}</div>
+          </div>
+          <div className="Cont">{ProductRegistered.productDetail}</div>
         </div>
         <div className="Buttons">
-            <Button
-              wsize="s-10"
-              color="gray"
-              onClick={() => nav("/mypage/productRegistered")}
-            >
-                뒤로가기
-            </Button>
-            {sellerId === ProductRegistered.sellerId ? (
-                <>
-                <Button wsize="s-10" color="red" onClick={updateProduct}>
-                    수정
-                </Button>
-                <Button wsize="s-10" color="red" onClick={deleteProduct}>
-                    삭제
-                </Button>
-                </>
-            ) : (
-              ""
-            )}
-            </div>
+          <Button
+            wsize="s-10"
+            color="gray"
+            onClick={() => nav("/mypage/productRegistered")}
+          >
+            뒤로가기
+          </Button>
+          {sellerId === ProductRegistered.sellerId ? (
+            <>
+              <Button wsize="s-10" color="red" onClick={updateProduct}>
+                수정
+              </Button>
+              <Button wsize="s-10" color="red" onClick={deleteProduct}>
+                삭제
+              </Button>
+            </>
+          ) : (
+            ""
+          )}
         </div>
+      </div>
     </div>
   );
 };
