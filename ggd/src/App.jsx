@@ -41,7 +41,7 @@ function App() {
   const nav = useNavigate();
 
   //로그인 상태 저장
-  const [loginState, setLoginState] = useState({
+  const [loginState, setLoginState] = useState({  
     loginid: "",
     mlink: "/login",
   }); //로그인 전 상태
