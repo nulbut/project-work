@@ -57,6 +57,15 @@ public class ShoppingMallController {
 
         return res;
     }
+
+    @GetMapping("bpdList")
+    public Map<String, Object> bpdList(@RequestParam Integer pageNum){
+        log.info("getBoardList() - {}", pageNum);
+        Map<String, Object> res = spmServ.getbpdList(pageNum);
+        return res;
+    }
+
+
     //상품등록글 받기
     @GetMapping("getproduct")
     public ProductTbl getproduct(@RequestParam long productCode){

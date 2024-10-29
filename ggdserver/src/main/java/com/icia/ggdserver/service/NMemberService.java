@@ -8,6 +8,7 @@ import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -216,9 +217,10 @@ public class NMemberService {
     }
 
 
-    public String changepass(NmemberTbl nmemberTbl) {
+    public String changepass(NmemberTbl nmemberTbl)
+            {
         log.info("changepass()");
-        String res = null;
+        String res5 = null;
 
         //비밀번호 암호화
         String enpwd = encoder.encode(nmemberTbl.getNpw());
@@ -228,13 +230,13 @@ public class NMemberService {
 
         try {
             nmRepo.save(nmemberTbl);
-            res = "ok";
+            res5 = "ok";
         } catch (Exception e){
             e.printStackTrace();
-            res = "fail";
+            res5 = "fail5";
         }
 
-        return res;
+        return res5;
     }
 
     public NmemberTbl getNName(String nname) {
@@ -242,5 +244,52 @@ public class NMemberService {
         NmemberTbl nmemberTbl = nmRepo.findById(nname).get();
         nmemberTbl.setNemail("");
         return nmemberTbl;
+    }
+
+    // 아이디 찾기
+    public Map<String, String> nidfindproc(NmemberTbl nmemberTbl) {
+        log.info("nidfindproc()");
+        NmemberTbl dbNMail = null;
+        Map<String, String> mailMap = new HashMap<>();
+
+        try {
+            dbNMail = nmRepo.findByNemail(nmemberTbl.getNemail());
+            //db에서 꺼내온 사용자의 이메일 비교
+            if (dbNMail != null){
+                //찾기 성공
+                mailMap.put("res3","ok");
+                //해당하는 아이디 꺼내오기
+                mailMap.put("nid",dbNMail.getNid());
+            }
+            else {
+                //이름이 틀린 경우
+                mailMap.put("res3","fail3");
+                mailMap.put("msg","가입된 이메일이 아닙니다.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+//            //이메일이 틀린 경우
+//            mailMap.put("res3","fail3");
+//            mailMap.put("msg","가입된 이메일이 아닙니다.");
+        }
+        return mailMap;
+    }
+
+
+    public Map<String, String> nemailCheck(String nemail) {
+        log.info("nemailCheck()");
+        Map<String, String> nersMap = new HashMap<>();
+
+        long encnt = nmRepo.countByNemail(nemail); //0또는 1의 값이 넘어옴
+        log.info("encnt : {}", encnt);
+
+        if (encnt == 0) {
+            nersMap.put("res7","ok");
+        }
+        else {
+            nersMap.put("res7","err");
+            nersMap.put("msg","이미 가입된 이메일 입니다.");
+        }
+        return nersMap;
     }
 }//class end

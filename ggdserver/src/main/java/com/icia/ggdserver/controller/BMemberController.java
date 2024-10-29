@@ -54,11 +54,18 @@ public class BMemberController {
 
     //회원가입 이메일 인증
     @GetMapping("bmailconfirm")
-    public String bmailconfirm (@RequestParam String bmail)
+    public String bmailconfirm (@RequestParam String bemail)
         throws MessagingException, UnsupportedEncodingException {
-        log.info("bmailconfirm() : {}", bmail);
-        String bauthCode = bmServ.sendBEmail(bmail);
+        log.info("bmailconfirm() : {}", bemail);
+        String bauthCode = bmServ.sendBEmail(bemail);
         return bauthCode;
+    }
+
+    //아이디 찾기
+    @PostMapping("bidfindproc")
+    public Map<String, String> bidfindproc(@RequestBody BmemberTbl bmemberTbl) {
+        log.info("bidfindproc()");
+        return bmServ.bidfindproc(bmemberTbl);
     }
 
     //비밀번호 인증
@@ -66,6 +73,16 @@ public class BMemberController {
     public String bchangepass(@RequestBody BmemberTbl bmemberTbl) {
         log.info("bchangepass() : {}", bmemberTbl.getBid());
         return bmServ.bchangepass(bmemberTbl);
+    }
+
+    // 이메일 중복 체크
+    @PostMapping("bemailCheck")
+    public Map<String, String> bemailCheck(@RequestBody BmemberTbl bmemberTbl) {
+        log.info("bemailCheck() b_email : {}", bmemberTbl.getBemail());
+
+        Map<String, String> bersMap = bmServ.bemailCheck(bmemberTbl.getBemail());
+
+        return bersMap;
     }
 
 

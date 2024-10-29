@@ -7,6 +7,7 @@ import Button from "./Button";
 let ck = false; //아이디 중복 체크
 let nck = false;
 let eck = false;
+let neck = false; //닉네임 중복 체크
 
 const JoinN = () => {
   const nav = useNavigate();
@@ -110,6 +111,9 @@ const JoinN = () => {
       alert("이메일 인증을 해주세요.");
       return;
     }
+    if (neck == false) {
+      alert("이미 가입된 이메일 입니다.");
+    }
     //form 전송
     axios
       .post("/joinproc", form)
@@ -130,18 +134,35 @@ const JoinN = () => {
   //e-mail 인증
   const mailCh = () => {
     let conf = window.confirm("이메일 인증 받으시겠습니까?");
+    let nemail = watch("nemail");
     if (!conf) {
       return;
     }
-    const nmail = watch("nemail");
+
+    const sendMail = { nemail: nemail };
     axios
-      .get("/mailconfirm", { params: { nmail: nmail } })
-      .then((res) => {
-        console.log(res.data);
-        setCode(res.data);
-        alert("인증번호가 발송 되었습니다.");
-      })
-      .catch((err) => console.log(err));
+      .all([
+        axios.post("/nemailCheck", sendMail), //이메일 중복 체크
+        axios.get("/mailconfirm", { params: { nemail: nemail } }), //이메일 인증
+      ])
+      .then(
+        axios.spread((res7, res) => {
+          console.log(res7, res);
+          if (res7.data.res7 === "ok") {
+            neck = true;
+            console.log(res.data);
+            setCode(res.data);
+            alert("인증번호가 발송 되었습니다.");
+          } else {
+            alert(res7.data.msg); //이미 가입된 이메일 입니다.
+            neck = false;
+          }
+        })
+      )
+      .catch((err) => {
+        console.log(err);
+        neck = false;
+      });
   };
 
   const onch = useCallback((e) => {
@@ -159,7 +180,7 @@ const JoinN = () => {
       eck = true;
     } else {
       eck = false;
-      alert("인증번호 다시 확인해주세요.");
+      alert("인증번호를 다시 확인해주세요.");
     }
   };
 
@@ -180,10 +201,26 @@ const JoinN = () => {
   //     }, [inputValue]);
   //   }
   // };
+
+  //가입 날짜 가져오기
+  const today = new Date();
+
+  //날짜 형식 2024-01-01 형식으로 변경
+  const formattedDate = `${today.getFullYear()}-${
+    today.getMonth() + 1
+  }-${today.getDate()}`;
+
+  const onmailch = () => {
+    const email = watch("nemail");
+    console.log(email);
+  };
+
   return (
     <div className="join">
       <form className="content" onSubmit={handleSubmit(onSubmit)}>
         <input type="hidden" value={1} {...register("nmnum")} />
+        <input type="hidden" value={formattedDate} {...register("nsigndt")} />
+        <input type="hidden" value={1} {...register("nstatus")} />
         <h1>JOIN</h1>
         <div className="id">
           <p>
@@ -335,6 +372,7 @@ const JoinN = () => {
             <input
               placeholder="you@example.com"
               className="input"
+              onChange={onmailch}
               {...register("nemail", {
                 required: {
                   value: true,
@@ -348,7 +386,7 @@ const JoinN = () => {
               })}
             />
             <span className="error">{errors?.nemail?.message}</span>
-            <Button outline onClick={mailCh}>
+            <Button type="button" outline onClick={mailCh}>
               E-mail전송
             </Button>
             <input
@@ -357,7 +395,7 @@ const JoinN = () => {
               onChange={onch}
               value={userCode}
             />
-            <Button outline onClick={emailmatch}>
+            <Button type="button" outline onClick={emailmatch}>
               E-mail인증
             </Button>
           </p>

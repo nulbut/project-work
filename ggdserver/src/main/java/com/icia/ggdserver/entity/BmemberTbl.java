@@ -2,6 +2,9 @@ package com.icia.ggdserver.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "bmember_tbl")
