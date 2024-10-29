@@ -169,6 +169,32 @@ private void filesDelete(List<ProductFileTbl> fileTblList,
 }
 
 
+
+    public Map<String, Object> getbpdList(Integer pNum) {
+        log.info("getBoardList()");
+
+        if (pNum == null){
+            pNum = 1;
+        }
+        int listCnt = 10;
+
+        Pageable pb = PageRequest.of((pNum - 1), listCnt,
+                Sort.Direction.DESC, "bpnum");
+
+        Page<BproductTbl> result = null;
+        result = bpdRepo.findByBpnumGreaterThan(0L,pb);
+
+        List<BproductTbl> bList = result.getContent();
+
+        int totalPage = result.getTotalPages();
+
+        Map<String, Object> res = new HashMap<>();
+        res.put("bList", bList);
+        res.put("totalPage", totalPage);
+        res.put("pageNum", pNum);
+
+        return res;
+    }
     public Map<String, Object> getproductList(Integer pageNum) {
         log.info("getBoardList()");
 
@@ -198,31 +224,6 @@ private void filesDelete(List<ProductFileTbl> fileTblList,
         res.put("totalPage", totalPage);
         res.put("pageNum", pageNum);
 
-
-        return res;
-    }
-    public Map<String, Object> getbpdList(Integer pNum) {
-        log.info("getBoardList()");
-
-        if (pNum == null){
-            pNum = 1;
-        }
-        int listCnt = 10;
-
-        Pageable pb = PageRequest.of((pNum - 1), listCnt,
-                Sort.Direction.DESC, "bpnum");
-
-        Page<BproductTbl> result = null;
-        result = bpdRepo.findByBpnumGreaterThan(0L,pb);
-
-        List<BproductTbl> bList = result.getContent();
-
-        int totalPage = result.getTotalPages();
-
-        Map<String, Object> res = new HashMap<>();
-        res.put("bList", bList);
-        res.put("totalPage", totalPage);
-        res.put("pageNum", pNum);
 
         return res;
     }

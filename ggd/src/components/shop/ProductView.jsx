@@ -13,7 +13,7 @@ const ProductView = () => {
   const { state } = useLocation();
   const { pc } = state;
 
-  const sellerId = sessionStorage.getItem("sellerId");
+  const sellerId = sessionStorage.getItem("nid");
 
   const [ProductRegistered, setProductRegistered] = useState({});
   const [flist, setFlist] = useState([

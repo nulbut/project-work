@@ -3386,9 +3386,9 @@ fieldset:disabled .btn {
     transition: none;
   }
 }
-.fade:not(.show) {
-  opacity: 0;
-}
+// .fade:not(.show) {
+//   opacity: 1;
+// }
 
 .collapse:not(.show) {
   display: none;

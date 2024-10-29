@@ -13,10 +13,16 @@ import NuserList from "./NuserList";
 
 const df = (date) => moment(date).format("YYYY-MM-DD");
 
-const UserList = () => {
+const UserList = ({ props, user }) => {
+  console.log(user);
   const nav = useNavigate();
+  const [viewName, setViewName] = useState();
 
-  const [viewName, setViewName] = useState(<NuserList />);
+  useEffect(() => {
+    user == "일반 회원"
+      ? setViewName(<NuserList />)
+      : setViewName(<BuserList />);
+  }, [user]);
 
   const uhandleClick = (num) => {
     if (num == 1) {
