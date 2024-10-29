@@ -18,7 +18,7 @@ const BMypage = () => {
     },
     {
       name: "등록한 상품",
-      path: "/",
+      path: "bp1",
     },
     {
       name: "주문내역/배송조회",
@@ -72,7 +72,7 @@ const BMypage = () => {
         </div>
       </div>
       <div className="desc">
-        <div className="oder">
+        {/* <div className="oder">
           <Button>주문완료</Button>
           <div className="count">건</div>
         </div>
@@ -108,7 +108,7 @@ const BMypage = () => {
             </td>
           </table>
         </div>
-        <div>공지사항</div>
+        <div>공지사항</div> */}
         <Outlet />
       </div>
     </div>

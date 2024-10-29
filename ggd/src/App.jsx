@@ -35,6 +35,8 @@ import IdPasswordFind2 from "./components/shop/IdPasswordFind2";
 import ChangePass from "./components/shop/ChangePass";
 import AdminEx from "./components/admin/AdminEx";
 import BMypage from "./components/shop/BMypage";
+import BproductRegisterd from "./components/shop/BproductRegisterd";
+import BproductWirte from "./components/shop/BproductWirte";
 
 function App() {
   const nav = useNavigate();
@@ -137,10 +139,14 @@ function App() {
             <Route path="inquiry/inView" element={<InquiryView />} />
             <Route path="inquiry/inView/inUpdate" element={<InquiryUpdate />} />
           </Route>
-          <Route path="/bmypage" element={<BMypage />} />
           <Route path="/123" element={<ProductWrite />} />
           <Route path="/456" element={<ProductRegistered />} />
           <Route path="/789" element={<ProductView />} />
+          <Route path="/bmypage" element={<BMypage />}>
+            <Route path="bp1" element={<BproductRegisterd />} />
+          </Route>
+          {/* <Route path="/bp1" element={<BproductRegisterd />} /> */}
+          <Route path="/bproductw" element={<BproductWirte />} />
         </Route>
 
         <Route
