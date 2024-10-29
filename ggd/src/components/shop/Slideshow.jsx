@@ -41,7 +41,7 @@ const Slideshow = () => {
           className={`slide fade ${slideIndex === index ? "active" : ""}`}
         >
           <img src={slide.src} alt={slide.alt} style={{ opacity: 1 }} />
-          <div className="text">{slide.text}</div>
+          {/* <div className="text">{slide.text}</div> */}
         </div>
       ))}
       <a className="prev" onClick={() => showSlides(-1)}>

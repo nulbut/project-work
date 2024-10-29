@@ -125,9 +125,9 @@ const AdminEx = ({ data }) => {
         setViewName(<ManageCupList />);
         break;
     }
-    console.log("뷰네임", viewName);
+    //console.log("뷰네임", viewName);
   };
-  useEffect(() => {}, viewName);
+  useEffect(() => {}, [viewName]);
 
   const sidebarClick = () => {
     state === true ? setState(false) : setState(true);
