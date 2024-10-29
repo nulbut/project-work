@@ -2,12 +2,16 @@ package com.icia.ggdserver.controller;
 
 import com.icia.ggdserver.dto.DateDto;
 import com.icia.ggdserver.entity.NmemberTbl;
+import com.icia.ggdserver.entity.UserGradeTbl;
 import com.icia.ggdserver.service.AdminService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -17,6 +21,7 @@ public class AdminController {
 
     @Autowired
     private AdminService aServ;
+
 
     @GetMapping("/list")
     public Map<String, Object> getMemberList(DateDto dd) {
@@ -35,6 +40,20 @@ public class AdminController {
         return rsMap;
     }
 
+    @PostMapping("/writeGrade")
+    public void writeGrade(@RequestBody ArrayList<UserGradeTbl> formFields){
+//        for (UserGradeTbl formField : formFields) {
+//            log.info(String.valueOf(formField.getUgId()));
+//            log.info(formField.getUgName());
+//            log.info(String.valueOf(formField.getUgDuration()));
+//        }
+        aServ.writeGradeProc(formFields);
+    }
+//    @GetMapping("/gradeList")
+//    public Map<String, Object> geteBmemberList(){
+//        Map<String, Object> rsMap = aServ.getBmemberList(dd);
+//        return rsMap;
+//    }
 
 //
 //    @GetMapping("/members")
