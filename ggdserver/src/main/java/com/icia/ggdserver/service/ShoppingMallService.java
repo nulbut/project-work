@@ -59,7 +59,7 @@ public String insertSpm(ProductTbl pdt,
 }
 private void uploadFile(List<MultipartFile> files,
                         HttpSession session,
-                        long productFileNum) throws Exception{
+                        long productCode) throws Exception{
     log.info("UploadFile");
 
     String realPath = session.getServletContext().getRealPath("/");
@@ -77,7 +77,7 @@ private void uploadFile(List<MultipartFile> files,
 
         ProductFileTbl bf = new ProductFileTbl();
         bf.setProductFileOriname(oriname);
-        bf.setProductFileNum(productFileNum);
+        bf.setProductFileNum(productCode);
 
         String sysname = System.currentTimeMillis()
                 + oriname.substring(oriname.lastIndexOf("."));
@@ -116,16 +116,16 @@ public Map<String, Object> getProductList(Integer pageNum, String selleId){
     return res;
 }
 
-public ProductTbl getBoard(long productFileNum){
-    log.info("getBoard()");
+public ProductTbl getProduct(long productCode){
+    log.info("getProduct()");
     //상품 가져오기
-    ProductTbl productTbl = pdtRepo.findById(productFileNum).get();
+    ProductTbl product = pdtRepo.findById(productCode).get();
     //첨부파일 목록 가져와서 담기
-    List<ProductFileTbl> pfList = pdrRepo.findByproductFileNum(productFileNum);
+    List<ProductFileTbl> bfList = pdrRepo.findByproductFileNum(productCode);
 
-    productTbl.setProductFileList(pfList);
+    product.setProductFileList(bfList);
 
-    return productTbl;
+    return product;
 }
 
 @Transactional

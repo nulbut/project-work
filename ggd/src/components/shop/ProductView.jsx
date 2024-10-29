@@ -18,14 +18,14 @@ const ProductView = () => {
   const [ProductRegistered, setProductRegistered] = useState({});
   const [flist, setFlist] = useState([
     {
-      productCode: "",
-      sellerId: "",
+      // productCode: "",
+      // sellerId: "",
       productFileCode: "",
-      productFileNum: "",
+      // productFileNum: "",
       productFileSysname: "",
       productFileOriname: "Nothing",
       image: "",
-      productName: "",
+      // productName: "",
     },
   ]);
 
@@ -37,7 +37,7 @@ const ProductView = () => {
         setProductRegistered(res.data);
         console.log(res.data);
 
-        const bfList = res.data.productFileTblList;
+        const bfList = res.data.productFileList;
         console.log(bfList);
 
         //파일 목록 처리 (res.data에서 파일목록을 꺼내서 flist로 처리)
