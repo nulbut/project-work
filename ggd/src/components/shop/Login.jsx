@@ -17,12 +17,14 @@ const Login = ({ sucLogin }) => {
   } = useForm();
 
   const sendLogin = (form) => {
-    console.log(form);
+    //넘어오는 값 확인용
+    // console.log(form);
     const bform = {
       bid: watch("nid"),
       bpw: watch("npw"),
     };
-    console.log(bform);
+    //넘어오는 값 확인용
+    // console.log(bform);
     axios
       .all([axios.post("/loginproc", form), axios.post("/bloginproc", bform)])
       .then(

@@ -126,7 +126,7 @@ public class NMemberService {
                 //로그인 성공
                 rsMap.put("res1", "ok");
                 rsMap.put("nid", nmemberTbl.getNid());
-                rsMap.put("nnickname", nmemberTbl.getNnickname());
+//                rsMap.put("nnickname", nmemberTbl.getNnickname());
             }
             else {
                 //비밀번호가 틀림
