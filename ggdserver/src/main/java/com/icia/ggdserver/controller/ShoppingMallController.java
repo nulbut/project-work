@@ -61,4 +61,13 @@ public class ShoppingMallController {
         log.info("deleteProduct()");
         return spmServ.boardDelete(productCode, session);
     }
+
+    @GetMapping("bpdList")
+    public Map<String, Object> bpdList(@RequestParam Integer pageNum){
+        log.info("getBoardList() - {}", pageNum);
+        Map<String, Object> res = spmServ.getbpdList(pageNum);
+        return res;
+    }
+
+
 }

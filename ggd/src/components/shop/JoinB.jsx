@@ -7,6 +7,7 @@ import Button from "./Button";
 let ck = false; //아이디 중복 체크
 let cnumclick = false; //사업자등록번호 확인
 let eck = false; //이메일 확인
+let neck = false; //닉네임 중복 체크
 
 const JoinB = () => {
   const nav = useNavigate();
@@ -81,6 +82,10 @@ const JoinB = () => {
       alert("이메일 인증 해주세요.");
       return;
     }
+    if (neck === false) {
+      alert("이미 가입된 이메일 입니다.");
+      return;
+    }
 
     //form 전송
     axios
@@ -102,17 +107,40 @@ const JoinB = () => {
   //e-mail 인증
   const mailCh = () => {
     let conf = window.confirm("이메일 인증 받으시겠습니까?");
+    let bemail = watch("bemail");
     if (!conf) {
       return;
     }
-    const bmail = watch("bemail");
+    // const bmail = watch("bemail");
+    // axios
+    //   .get("/bmailconfirm", { params: { bmail: bmail } })
+    //   .then((res) => {
+    //     console.log(res.data);
+    //     setCode(res.data);
+    //     alert("인증번호가 발송 되었습니다.");
+    //   })
+    //   .catch((err) => console.log(err));
+
+    const snedBMail = { bemail: bemail };
+
     axios
-      .get("/bmailconfirm", { params: { bmail: bmail } })
-      .then((res) => {
-        console.log(res.data);
-        setCode(res.data);
-        alert("인증번호가 발송 되었습니다.");
-      })
+      .all([
+        axios.post("/bemailCheck", snedBMail), //이메일 중복 체크
+        axios.get("/bmailconfirm", { params: { bemail: bemail } }), //이메일 인증
+      ])
+      .then(
+        axios.spread((res8, res) => {
+          if (res8.data.res8 === "ok") {
+            neck = true;
+            console.log(res.data);
+            setCode(res.data);
+            alert("인증번호가 발송 되었습니다.");
+          } else {
+            alert(res8.data.msg);
+            neck = false;
+          }
+        })
+      )
       .catch((err) => console.log(err));
   };
 
@@ -135,10 +163,20 @@ const JoinB = () => {
     }
   };
 
+  //가입 날짜 가져오기
+  const today = new Date();
+
+  //날짜 형식 2024-01-01 형식으로 변경
+  const formattedDate = `${today.getFullYear()}-${
+    today.getMonth() + 1
+  }-${today.getDate()}`;
+
   return (
     <div className="join">
       <form className="content" onSubmit={handleSubmit(onBSubmit)}>
         <input type="hidden" value={2} {...register("bmnum")} />
+        <input type="hidden" value={formattedDate} {...register("bsigndt")} />
+        <input type="hidden" value={1} {...register("bstatus")} />
         <h1>JOIN</h1>
         <div className="essential">
           <p>* 표시 필수 입력</p>
@@ -242,7 +280,7 @@ const JoinB = () => {
             })}
           />
           <span className="error">{errors?.bemail?.message}</span>
-          <Button outline onClick={mailCh}>
+          <Button type="button" outline onClick={mailCh}>
             E-mail전송
           </Button>
           <input
@@ -251,7 +289,7 @@ const JoinB = () => {
             onChange={onch}
             value={userCode}
           />
-          <Button outline onClick={emailmatch}>
+          <Button type="button" outline onClick={emailmatch}>
             E-mail인증
           </Button>
         </div>

@@ -7,6 +7,7 @@ import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.UnsupportedEncodingException;
@@ -17,7 +18,9 @@ import java.util.Map;
 @RequestMapping
 @RestController
 @Slf4j
+
 public class NMemberController {
+
     @Autowired
     private NMemberService nmServ;
 
@@ -40,6 +43,16 @@ public class NMemberController {
         Map<String, String> nrsMap = nmServ.nnickCheck(nmemberTbl.getNnickname());
 
         return nrsMap;
+    }
+
+    //이메일 중복 체크
+    @PostMapping("nemailCheck")
+    public Map<String,String> nemailCheck(@RequestBody NmemberTbl nmemberTbl) {
+        log.info("nemailCheck() n_email : {}", nmemberTbl.getNemail());
+
+        Map<String, String> nersMap = nmServ.nemailCheck(nmemberTbl.getNemail());
+
+        return nersMap;
     }
 
     //회원가입
@@ -82,10 +95,10 @@ public class NMemberController {
 
     //회원가입 이메일 인증
     @GetMapping("mailconfirm")
-    public String mailconfirm (@RequestParam String nmail)
+    public String mailconfirm (@RequestParam String nemail)
         throws MessagingException, UnsupportedEncodingException {
-        log.info("mailconfirm() : {}", nmail);
-        String authCode = nmServ.sendEmail(nmail);
+        log.info("mailconfirm() : {}", nemail);
+        String authCode = nmServ.sendEmail(nemail);
         return authCode;
     }
 
@@ -94,5 +107,12 @@ public class NMemberController {
     public String changepass(@RequestBody NmemberTbl nmemberTbl) {
         log.info("changepass() : {}", nmemberTbl.getNid());
         return nmServ.changepass(nmemberTbl);
+    }
+
+    //아이디 찾기
+    @PostMapping("nidfindproc")
+    public Map<String, String> nidfindproc(@RequestBody NmemberTbl nmemberTbl){
+        log.info("nidfindproc()");
+        return nmServ.nidfindproc(nmemberTbl);
     }
 }
