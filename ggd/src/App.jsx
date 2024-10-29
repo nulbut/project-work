@@ -32,11 +32,10 @@ import InquiryView from "./components/shop/InquiryView";
 import InquiryUpdate from "./components/shop/InquiryUpdate";
 import ProductView from "./components/shop/ProductView";
 import IdPasswordFind2 from "./components/shop/IdPasswordFind2";
-import ChangePass from "./components/shop/ChangePass";
-import AdminEx from "./components/admin/AdminEx";
-import IdPasswordFind2 from "./components/shop/IdPasswordFind2";
 import ProductUpdate from "./components/shop/ProductUpdate";
 import UsedWrite from "./components/shop/UsedWrite";
+import ChangePass from "./components/shop/ChangePass";
+import AdminEx from "./components/admin/AdminEx";
 
 function App() {
   const nav = useNavigate();
