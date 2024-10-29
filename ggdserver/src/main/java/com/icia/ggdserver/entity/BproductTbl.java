@@ -3,6 +3,9 @@ package com.icia.ggdserver.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.sql.Timestamp;
 
 
 @Entity
@@ -51,5 +54,9 @@ public class BproductTbl { // 사업자 상품 테이블
 
     @Column(length = 50)
     private String bpmaterial; //재질
+
+    @CreationTimestamp
+    @Column(name = "bp_signdt")
+    private Timestamp bpsigndt; //등록일
 
 }

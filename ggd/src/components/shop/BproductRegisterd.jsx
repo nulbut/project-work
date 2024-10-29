@@ -17,6 +17,7 @@ const BproductRegisterd = () => {
   return (
     <div>
       <h2>등록한 상품</h2>
+      <hr />
       <div>
         <select>
           <option>전체분류</option>
