@@ -116,8 +116,8 @@ function App() {
               path="productRegistered/pdview/pdUpdate"
               element={<ProductUpdate />}
             />
-            <Route path="usedWrite" element={<UsedWrite />} />
           </Route>
+          <Route path="usedWrite" element={<UsedWrite />} />
           {/* <Route path="/123" element={<ProductWrite />} />
           <Route path="/456" element={<ProductRegistered />} />
           <Route path="/789" element={<ProductView />} />  */}

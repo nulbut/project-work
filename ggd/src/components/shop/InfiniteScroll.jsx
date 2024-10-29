@@ -39,7 +39,7 @@ const InfiniteScroll = () => {
     setLoading(true);
     try {
       axios
-        .get("BoardList", { params: { pageNum: inpage.pageNum } })
+        .get("productList", { params: { pageNum: inpage.pageNum } })
         .then((res) => {
           const { bList, totalPage, pageNum } = res.data;
           setPage({ totalPage: totalPage, pageNum: pageNum });
@@ -126,7 +126,7 @@ const InfiniteScroll = () => {
       </h2>
       <div className="product-grid">
         {products.map((item, index) => (
-          <div key={item.id} className="product-card">
+          <div key={index} className="product-card">
             <div className="product-image-placeholder">
               <img
                 src={`upload/${item.productFileSysname}`}
@@ -146,7 +146,7 @@ const InfiniteScroll = () => {
       </h2>
       <div className="product-grid">
         {products.map((item, index) => (
-          <div key={`latest-${item}`} className="product-card">
+          <div key={index} className="product-card">
             <div className="product-image-placeholder">
               <img
                 src={`upload/${item.productFileSysname}`}

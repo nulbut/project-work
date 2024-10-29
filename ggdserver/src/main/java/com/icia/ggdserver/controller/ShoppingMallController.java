@@ -38,13 +38,22 @@ public class ShoppingMallController {
         log.info("boardDelete()");
         return spmServ.boardDelete(productCode, session);
     }
+    //마이페이지 등록한 상품
+    @GetMapping("ProductList")
+    public Map<String, Object> getProductList(@RequestParam Integer pageNum,
+                                              @RequestParam String sellerId){
+        log.info("getProductList() - {}", pageNum);
 
-    @GetMapping("BoardList")
-    public Map<String, Object> BoardList(@RequestParam Integer pageNum){
-        log.info("getBoardList() - {}", pageNum);
+        Map<String, Object> res= spmServ.getProductList(pageNum, sellerId);
 
-        Map<String, Object> res= spmServ.getBoardList(pageNum);
+        return res;
+    }
+    // 메인 무한 스크롤
+    @GetMapping("productList")
+    public Map<String, Object> getProductList(@RequestParam Integer pageNum){
+        log.info("getProductList() - {}", pageNum);
 
+        Map<String, Object> res= spmServ.getproductList(pageNum);
 
         return res;
     }
