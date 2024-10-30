@@ -34,6 +34,7 @@ import ProductView from "./components/shop/ProductView";
 import IdPasswordFind2 from "./components/shop/IdPasswordFind2";
 import ChangePass from "./components/shop/ChangePass";
 import AdminEx from "./components/admin/AdminEx";
+import AdminLogin from "./components/admin/AdminLogin";
 
 function App() {
   const nav = useNavigate();
@@ -128,6 +129,7 @@ function App() {
         </Route>
         <Route path="/admin" element={<Admin />} />
         <Route path="/adminex" element={<AdminEx />} />
+        <Route path="/adminLogin" element={<AdminLogin />} />
       </Routes>
     </div>
   );

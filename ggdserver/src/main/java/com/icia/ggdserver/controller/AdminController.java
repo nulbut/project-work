@@ -49,11 +49,16 @@ public class AdminController {
 //        }
         aServ.writeGradeProc(formFields);
     }
-//    @GetMapping("/gradeList")
-//    public Map<String, Object> geteBmemberList(){
-//        Map<String, Object> rsMap = aServ.getBmemberList(dd);
-//        return rsMap;
-//    }
+    @GetMapping("/gradeList")
+    public ArrayList<UserGradeTbl> gradeList(){
+        ArrayList<UserGradeTbl> rs = aServ.getGradeList();
+        for (UserGradeTbl formField : rs) {
+            log.info(String.valueOf(formField.getUgId()));
+            log.info(formField.getUgName());
+            log.info(String.valueOf(formField.getUgDuration()));
+        }
+        return rs;
+    }
 
 //
 //    @GetMapping("/members")

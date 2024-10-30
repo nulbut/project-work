@@ -121,12 +121,12 @@ public class AdminService {
         log.info("writeGradeProc");
     }
 
-//    public Map<String, Object> getGradeList() {
-//        log.info("getBoardList()");
-//        UserGradeTbl result = null;
-//        result = ugRepo.findAll();
-//
-//        //page 객체를 list로 변환 후 전송.
+    public ArrayList<UserGradeTbl> getGradeList() {
+        log.info("getBoardList()");
+        ArrayList<UserGradeTbl> result = null;
+        result = (ArrayList<UserGradeTbl>) ugRepo.findAll();
+
+        //page 객체를 list로 변환 후 전송.
 //        List<BmemberTbl> bList = result.getContent();//page에서 게시글목록을 꺼내와서
 //        //bList에 저장.
 //        int totalPage = result.getTotalPages();//전체 페이지 개수
@@ -135,9 +135,9 @@ public class AdminService {
 //        res.put("blist", bList);
 //        res.put("totalPage", totalPage);
 //        res.put("pageNum", dd.getPageNum());
-//
-//        return res;
-//    }
+
+        return result;
+    }
 //    public long countByNid(String n_id) {
 //        return aRepo.countByNid(n_id);
 //    }
