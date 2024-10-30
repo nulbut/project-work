@@ -1,19 +1,78 @@
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import BproductTable from "./BproductTable";
 import moment from "moment";
 import Button from "./Button";
-import { useNavigate } from "react-router-dom";
-
-const bf = (data) => moment(data).format("YYYY-MM-DD");
+import { useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
+import TableRow from "./TableRow";
+import TableColumn from "./TableColumn";
+import Paging from "./Paging";
 
 const BproductRegisterd = () => {
   const nav = useNavigate();
 
+  //상품등록으로 이동하는 함수
   const bproductwirtego = () => {
     nav("/bproductw");
   };
+  const bcname = sessionStorage.getItem("nnickname");
+  const bbpNum = 1;
+  const [bbitem, setBbitem] = useState([]);
+  const [bpage, setBpage] = useState({
+    //페이징 관련 정보 저장
+    totalpage: 0,
+    pageNum: 1,
+  });
+
+  //서버로부터 등록한 상품 불러오는 함수
+  const getBproduct = (bbpNum) => {
+    axios
+      .get("/getBproduct", { params: { pageNum: bbpNum } })
+      .then((res) => {
+        const { bbList, btotalPage, pageNum } = res.data;
+        setBpage({ btotalPage: btotalPage, pageNum: bbpNum });
+        setBbitem(bbList);
+        sessionStorage.getItem("pageNum", pageNum);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  //BProductRegistered 컴포넌트가 화면에 보일 때 서버로부터 등록상품 목록을 가져옴
+  useEffect(() => {
+    console.log(bcname);
+    if (bcname === null) {
+      nav("/", { replace: true });
+      return;
+    }
+    bbpNum !== null ? getBproduct(bbpNum) : getBproduct(1);
+  }, []);
+  //등록상품 목록 작성
+  let BproductList = null;
+  if (bbitem.length === 0) {
+    BproductList = (
+      <TableRow key={0}>
+        <TableColumn span={4}>등록된 상품이 없습니다.</TableColumn>
+      </TableRow>
+    );
+  } else {
+    BproductList = Object.values(bbitem).map((bbitem) => (
+      <TableRow key={bbitem.bpnum}>
+        <TableColumn wd={"w-10"}>{bbitem.bpnum}</TableColumn>
+        <TableColumn wd={"w-40"}>
+          <div onClick={() => getBboard(bbitem.bpnum)}>{bbitem.bpnum}</div>
+        </TableColumn>
+        <TableColumn wd={"w-20"}>{bbitem.bpname}</TableColumn>
+        <TableColumn wd={"w-30"}>{bbitem.bpprice}</TableColumn>
+      </TableRow>
+    ));
+  }
+  console.log(bbitem);
+  const getBboard = useCallback((bpnum) => {
+    nav("", { state: { bpc: bpnum } });
+  });
+
   return (
     <div>
       <h2>등록한 상품</h2>
@@ -54,8 +113,11 @@ const BproductRegisterd = () => {
             "등록일",
             "관리",
           ]}
-        ></BproductTable>
+        >
+          {BproductList}
+        </BproductTable>
       </div>
+      {/* <Paging page={bpage} getList={getBproduct} /> */}
       <div>
         <Button onClick={bproductwirtego}>상품등록</Button>
         <Button>상품삭제</Button>

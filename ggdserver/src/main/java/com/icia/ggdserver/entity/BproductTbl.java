@@ -15,7 +15,7 @@ import java.util.List;
 public class BproductTbl { // 사업자 상품 테이블
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long bpnum; //상품번호
+    private long bpnum; //상품고유번호
 
     @Column(nullable = false)
     private String bsellerId; //판매자 상호

@@ -140,4 +140,13 @@ public class BproductService {
             }
         }
     }
+
+//    public Map<String, Object> getBproductList(Integer bpageNum) {
+//        log.info("getBproductList()");
+//
+//        if (bpageNum == null){
+//            bpageNum = 1;
+//        }
+//        //나머지 더 쓰기
+//    }
 }//class end

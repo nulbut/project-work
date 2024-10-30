@@ -46,6 +46,14 @@ public class BproductController {
         return bpServ.bpdDelete(bpnum, session);
     }//bpdDelete
 
+//    @GetMapping("BproductList")
+//    public Map<String, Object> BproductList(@RequestParam Integer bpageNum){
+//        log.info("BproductList() - {}",bpageNum);
+//
+//        Map<String, Object> res = bpServ.getBproductList(bpageNum);
+//
+//        return res;
+//    }
 
 
 }
