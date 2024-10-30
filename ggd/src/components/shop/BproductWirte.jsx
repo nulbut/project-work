@@ -20,7 +20,7 @@ const BproductWirte = () => {
         <p className="title">카테고리</p>
         <p>대분류</p>
         <div>
-          <div className="input-group">
+          {/* <div className="input-group">
             <input
               className="form-control"
               type="text"
@@ -35,11 +35,12 @@ const BproductWirte = () => {
             >
               <FontAwesomeIcon icon={faMagnifyingGlass} />
             </button>
-          </div>
+          </div> */}
+          <input type="text" />
         </div>
         <p>중분류</p>
         <div>
-          <div className="input-group">
+          {/* <div className="input-group">
             <input
               className="form-control"
               type="text"
@@ -54,11 +55,12 @@ const BproductWirte = () => {
             >
               <FontAwesomeIcon icon={faMagnifyingGlass} />
             </button>
-          </div>
+          </div> */}
+          <input type="text" />
         </div>
         <p>소분류</p>
         <div>
-          <div className="input-group">
+          {/* <div className="input-group">
             <input
               className="form-control"
               type="text"
@@ -73,7 +75,8 @@ const BproductWirte = () => {
             >
               <FontAwesomeIcon icon={faMagnifyingGlass} />
             </button>
-          </div>
+          </div> */}
+          <input type="text" />
         </div>
       </div>
       <div>
