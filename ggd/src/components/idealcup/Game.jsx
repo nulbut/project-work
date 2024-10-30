@@ -156,7 +156,20 @@ const Game = () => {
       {displays.map((d) => {
         return (
           <div className="flex-1" key={d.src} onClick={clickHandler(d)}>
-            <img className="food-img" src={d.src} />
+            {gang.now == -98 ? (
+              <img
+                className="food-img"
+                src={d.src}
+                style={{
+                  width: "auto",
+                  height: "100%",
+                  transform: "translateX(-50%)",
+                  left: "50%",
+                }}
+              />
+            ) : (
+              <img className="food-img" src={d.src} />
+            )}
             <div className="name">{d.iwcContentsName}</div>
           </div>
         );

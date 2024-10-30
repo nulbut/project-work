@@ -51,14 +51,9 @@ const ManageUserGrade = () => {
 
   useEffect(() => {
     axios
-      .get("/admin/list", {
-        params: pm,
-      })
+      .get("/admin/gradeList")
       .then((res) => {
-        console.log(res.data);
-        const { mlist, totalPage, pageNum } = res.data;
-        setPage({ totalPage: totalPage, pageNum: pageNum });
-        setList(mlist);
+        setFormFields(res.data);
       })
       .catch((err) => console.log(err));
   }, []);

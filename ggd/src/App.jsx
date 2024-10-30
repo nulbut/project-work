@@ -37,6 +37,7 @@ import AdminEx from "./components/admin/AdminEx";
 import BMypage from "./components/shop/BMypage";
 import BproductRegisterd from "./components/shop/BproductRegisterd";
 import BproductWirte from "./components/shop/BproductWirte";
+import AdminLogin from "./components/admin/AdminLogin";
 
 function App() {
   const nav = useNavigate();
@@ -157,8 +158,9 @@ function App() {
           <Route path="/make" element={<IdealCupMaker />} />
           <Route path="/mycup" element={<IdealcupMy />} />
         </Route>
-        {/* <Route path="/admin" element={<Admin />} />
-        <Route path="/adminex" element={<AdminEx />} /> */}
+        <Route path="/admin" element={<Admin />} />
+        <Route path="/adminex" element={<AdminEx />} />
+        <Route path="/adminLogin" element={<AdminLogin />} />
       </Routes>
     </div>
   );

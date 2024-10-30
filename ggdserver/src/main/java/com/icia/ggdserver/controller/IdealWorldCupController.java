@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -37,10 +38,29 @@ public class IdealWorldCupController {
         return res;
     }
 
+    @GetMapping("myGameList")
+    public Map<String, Object> getMyGameList(Integer pageNum, String id){
+        log.info("getList() - {}", pageNum);
+
+        Map<String, Object> res = iwcServ.getMyBoardList(pageNum,id);
+
+        return res;
+    }
+
     @GetMapping("getGameData")
     public List<IwcContentsTbl> getGameData(Long code){
         log.info("getGameData()",code);
 
         return iwcServ.getGameContent(code);
+    }
+
+    @PostMapping("/updateGameData")
+    public void updateGameData(@RequestBody ArrayList<IwcContentsTbl> table){
+        for(IwcContentsTbl iwc : table){
+            log.info(String.valueOf(iwc.getIwcContentsIwcCode()));
+            log.info(iwc.getIwcContentsName());
+        }
+        iwcServ.updateGameContent(table);
+
     }
 }

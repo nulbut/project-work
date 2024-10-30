@@ -1,6 +1,7 @@
 package com.icia.ggdserver.controller;
 
 import com.icia.ggdserver.dto.DateDto;
+import com.icia.ggdserver.entity.Member;
 import com.icia.ggdserver.entity.NmemberTbl;
 import com.icia.ggdserver.entity.UserGradeTbl;
 import com.icia.ggdserver.service.AdminService;
@@ -22,6 +23,11 @@ public class AdminController {
     @Autowired
     private AdminService aServ;
 
+    @PostMapping("adminLoginProc")
+    public Map<String, String> loginProc(@RequestBody Member member){
+        log.info("loginProc()");
+        return aServ.loginProc(member);
+    }
 
     @GetMapping("/list")
     public Map<String, Object> getMemberList(DateDto dd) {
@@ -49,11 +55,16 @@ public class AdminController {
 //        }
         aServ.writeGradeProc(formFields);
     }
-//    @GetMapping("/gradeList")
-//    public Map<String, Object> geteBmemberList(){
-//        Map<String, Object> rsMap = aServ.getBmemberList(dd);
-//        return rsMap;
-//    }
+    @GetMapping("/gradeList")
+    public ArrayList<UserGradeTbl> gradeList(){
+        ArrayList<UserGradeTbl> rs = aServ.getGradeList();
+        for (UserGradeTbl formField : rs) {
+            log.info(String.valueOf(formField.getUgId()));
+            log.info(formField.getUgName());
+            log.info(String.valueOf(formField.getUgDuration()));
+        }
+        return rs;
+    }
 
 //
 //    @GetMapping("/members")
