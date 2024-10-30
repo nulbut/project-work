@@ -14,8 +14,6 @@ public class BproductFileTbl {
     @Column(nullable = false)
     private long bproductFileNum; //상품 게시글 번호
 
-
-
     @Column(nullable = false, length = 50)
     private String bproductFileOriname; //상품 이미지
 }
