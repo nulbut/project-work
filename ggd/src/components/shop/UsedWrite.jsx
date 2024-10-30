@@ -8,10 +8,10 @@ import "./scss/UsedfileInput.scss";
 import "./scss/UsedWrite.scss";
 
 const UsedWrite = () => {
-  const id = sessionStorage.getItem("sellerId");
+  const sellerId = sessionStorage.getItem("nid");
   const [data, setData] = useState({
     productName: "",
-    sellerId: id,
+    sellerId: sellerId,
     categoryCode: "",
     sellerPayment: "",
     productlimit: "",
@@ -22,7 +22,6 @@ const UsedWrite = () => {
 
   const {
     productName,
-    sellerId,
     categoryCode,
     sellerPayment,
     productlimit,

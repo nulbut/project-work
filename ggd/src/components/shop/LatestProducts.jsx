@@ -7,7 +7,7 @@ import moment from "moment";
 import TableRow from "./TableRow";
 import TableColumn from "./TableColumn";
 
-const df = (date) => moment(date).format("YYYY-MM-DD HH:mm:ss");
+const df = (date) => moment(date).format("YYYY-MM-DD");
 
 const LatestProducts = () => {
   const [products, setProducts] = useState([]);
@@ -126,7 +126,7 @@ const LatestProducts = () => {
                 className="product-image"
               />
             </div>
-            <h3 className="product-title">상품명 : {item.productName + 1} </h3>
+            <h3 className="product-title">상품명 : {item.productName} </h3>
             <p className="product-price">₩{item.sellerPayment}</p>
             <p className="product-body">{item.productDetail}</p>
           </div>

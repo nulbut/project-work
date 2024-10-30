@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Button from "./Button";
 import axios from "axios";
 
-const df = (date) => moment(date).format("YYYY-MM-DD HH:mm:ss ");
+const df = (date) => moment(date).format("YYYY-MM-DD");
 
 const ProductView = () => {
   const nav = useNavigate();
@@ -41,7 +41,7 @@ const ProductView = () => {
         console.log(bfList);
 
         //파일 목록 처리 (res.data에서 파일목록을 꺼내서 flist로 처리)
-        if (bfList > 0) {
+        if (bfList.length > 0) {
           console.log("bfList.length : ", bfList.length);
           let newFileList = [];
           for (let i = 0; i < bfList.length; i++) { 
@@ -58,28 +58,6 @@ const ProductView = () => {
       .catch((err) => console.log(err));
   }, []);
 
-  // useEffect(() => {
-  //   axios //getBoard
-  //     .get("/getproduct", { params: { productCode: pc } })
-  //     .then((res) => {
-  //       setProductRegistered(res.data);
-
-  //       //파일 목록 처리
-  //       if (res.data.bfList.length > 0) {
-  //         let newFileList = [];
-  //         for (let i = 0; i < res.data.bfList.length; i++) {
-  //           const newFile = {
-  //             ...res.data.bfList[i],
-  //             image: "upload/" + res.data.bfList[i].productFilesysname,
-  //           };
-  //           newFileList.push(newFile);
-  //         }
-  //         setFlist(newFileList);
-  //       }
-  //     })
-  //     .catch((err) => console.log(err));
-  // }, []);
-
   const viewFlist = flist.map((v) => {
     return (
       <div className="Down">
@@ -88,6 +66,7 @@ const ProductView = () => {
       </div>
     );
   });
+
   //boardDelete
   const deleteProduct = useCallback(() => {
     let conf = window.confirm("삭제하시겠습니까?");

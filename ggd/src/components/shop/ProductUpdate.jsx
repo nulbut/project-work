@@ -8,23 +8,17 @@ const ProductUpdate = () => {
 
     const { state } = useLocation();
     const { productCode } = state;
-    const { productName } = state;
-    const { sellerPayment } = state;
-    const { productlimit } = state;
-    const { productStock } = state;
-    const { productDate } = state;
 
-    const sellerId = sessionStorage.getItem("sellerId");
+    const sellerId = sessionStorage.getItem("nid");
 
     const [data, setData] = useState ({
-        productName: productName,
+        productName: "",
         sellerId: 0,
         categoryCode: "",
         sellerPayment: "",
-        productlimit: "",
+        productLimit: "",
         productStock: "",
         productDetail: "",
-        productDate: "",
     });
 
     const [flist, setFlist] = useState([
@@ -37,7 +31,13 @@ const ProductUpdate = () => {
         },
     ]);
 
-    const { categoryCode, productDetail } = data;
+    const { categoryCode, 
+            productDetail, 
+            productName, 
+            sellerPayment,
+            productLimit,
+            productStock,
+         } = data;
     //서버로부터 상품정보 받아오기
     useEffect(() => {
         axios
@@ -176,8 +176,8 @@ const ProductUpdate = () => {
         />
         <input
           className="Input"
-          name="productlimit"
-          value={productlimit}
+          name="productLimit"
+          value={productLimit}
           placeholder="구매제한"
           onChange={onch}
           autoFocus
@@ -188,15 +188,6 @@ const ProductUpdate = () => {
           name="productStock"
           value={productStock}
           placeholder="수량"
-          onChange={onch}
-          autoFocus
-          required
-        />
-        <input
-          className="Input"
-          name="productDate"
-          value={productDate}
-          placeholder="등록일"
           onChange={onch}
           autoFocus
           required
@@ -214,7 +205,7 @@ const ProductUpdate = () => {
         </div>
         <div className="FileInput">
           <input id="update" type="file" multiple onChange={onFileChange} />
-          <label className="FileLabel" htmlFor="../../update/">
+          <label className="FileLabel" htmlFor="../../upload">
             파일선택
           </label>
           <span className="FileSpan">{fileName}</span>
