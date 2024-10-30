@@ -291,7 +291,7 @@ const AdminEx = ({ data }) => {
             </nav>
           </div>
           <div id="layoutSidenav_content">
-            <div className="desc">{viewName}</div>
+            <div>{viewName}</div>
             <footer className="py-4 bg-light mt-auto">
               <div className="container-fluid px-4">
                 <div className="d-flex align-items-center justify-content-between small">

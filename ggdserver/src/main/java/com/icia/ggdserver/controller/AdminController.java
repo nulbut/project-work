@@ -1,6 +1,7 @@
 package com.icia.ggdserver.controller;
 
 import com.icia.ggdserver.dto.DateDto;
+import com.icia.ggdserver.entity.Member;
 import com.icia.ggdserver.entity.NmemberTbl;
 import com.icia.ggdserver.entity.UserGradeTbl;
 import com.icia.ggdserver.service.AdminService;
@@ -22,6 +23,11 @@ public class AdminController {
     @Autowired
     private AdminService aServ;
 
+    @PostMapping("adminLoginProc")
+    public Map<String, String> loginProc(@RequestBody Member member){
+        log.info("loginProc()");
+        return aServ.loginProc(member);
+    }
 
     @GetMapping("/list")
     public Map<String, Object> getMemberList(DateDto dd) {

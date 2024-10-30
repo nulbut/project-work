@@ -16,10 +16,10 @@ const AdminLogin = ({ sucLogin }) => {
 
   const sendLogin = (form) => {
     axios
-      .post("/loginProc", form)
+      .post("/admin/adminLoginProc", form)
       .then((res) => {
         if (res.data.res === "ok") {
-          sucLogin(res.data.id);
+          // sucLogin(res.data.id);
           //sessionStorage에 id 값 저장
           sessionStorage.setItem("mid", res.data.id);
           nav("/adminex"); //게시판 목록 화면으로 이동.
@@ -36,7 +36,7 @@ const AdminLogin = ({ sucLogin }) => {
   return (
     <div className="Login">
       <form className="Content" onSubmit={handleSubmit(sendLogin)}>
-        <h1>로그인</h1>
+        <h1>GGD's 관리자 로그인</h1>
         <input
           className="Input"
           placeholder="아이디"
@@ -51,7 +51,7 @@ const AdminLogin = ({ sucLogin }) => {
           type="password"
           {...register("mpwd", {
             required: { value: true, message: "비밀번호는 필수 입력값입니다." },
-            minLength: { value: 8, message: "8자리 이상 입력해 주세요." },
+            // minLength: { value: 8, message: "8자리 이상 입력해 주세요." },
           })}
         />
         <span className="Error">{errors?.mpwd?.message}</span>

@@ -2,9 +2,11 @@ package com.icia.ggdserver.service;
 
 import com.icia.ggdserver.dto.DateDto;
 import com.icia.ggdserver.entity.BmemberTbl;
+import com.icia.ggdserver.entity.Member;
 import com.icia.ggdserver.entity.NmemberTbl;
 import com.icia.ggdserver.entity.UserGradeTbl;
 import com.icia.ggdserver.repository.BMemberRepository;
+import com.icia.ggdserver.repository.MemberRepository;
 import com.icia.ggdserver.repository.NMemberRepository;
 import com.icia.ggdserver.repository.UserGradeRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -23,6 +26,38 @@ public class AdminService {
     @Autowired
     private NMemberRepository aRepo;
 
+    @Autowired
+    MemberRepository mRepo;
+    //로그인 처리 메소드
+    public Map<String, String> loginProc(Member member){
+        log.info("loginProc()");
+        Member dbMember = null;
+        Map<String, String> rsMap = new HashMap<>();
+
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+        try {
+            dbMember = mRepo.findById(member.getMid()).get();
+            //db에서 꺼내온 사용자의 비번과 입력한 비번을 비교.
+//            if(encoder.matches(member.getMpwd(), dbMember.getMpwd())){
+            if(Objects.equals(member.getMpwd(), dbMember.getMpwd())){
+                //로그인 성공
+                rsMap.put("res", "ok");
+                rsMap.put("id", member.getMid());
+            }
+            else {
+                //비번이 맞지 않은 경우
+                rsMap.put("res", "fail");
+                rsMap.put("msg", "비밀번호가 틀립니다.");
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+            //회원이 아닌 경우
+            rsMap.put("res", "fail");
+            rsMap.put("msg", "아이디가 존재하지 않습니다.");
+        }
+        return rsMap;
+    }
     public Map<String, Object> getMemberList(DateDto dd) {
         log.info("getBoardList()");
 
