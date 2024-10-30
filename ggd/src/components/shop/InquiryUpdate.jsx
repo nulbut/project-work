@@ -8,19 +8,20 @@ const InquiryUpdate = () => {
 
   const { state } = useLocation();
   const { boardCode } = state;
-  const { productName } = state;
-  const { nphonenum } = state;
 
+  // const productCode = sessionStorage.getItem("productCode");
+  // const bnphonenum = sessionStorage.getItem("bnphonenum");
   const nid = sessionStorage.getItem("nid");
 
   const [data, setData] = useState({
     boardCode: boardCode,
     boardType: "",
-    productName: productName,
-    nphonenum: nphonenum,
+    productCode: "",
+    bnphonenum: "",
     boardTitle: "",
     boardContent: "",
   });
+  console.log(data);
 
   const [flist, setFlist] = useState([
     {
@@ -32,7 +33,7 @@ const InquiryUpdate = () => {
     },
   ]);
 
-  const { boardType, boardTitle, boardContent } = data;
+  const { boardType, boardTitle, boardContent, productCode, bnphonenum } = data;
   //서버로부터 게시글 내용을 받아오기
   useEffect(() => {
     axios
@@ -50,7 +51,7 @@ const InquiryUpdate = () => {
           for (let i = 0; i < bfList.length; i++) {
             const newFile = {
               ...bfList[i],
-              image: "../../upload/" + bfList[i].boardFileSysname,
+              image: "../../../update/" + bfList[i].boardFileSysname,
             };
             newFileList.push(newFile); //배열에 추가
           }
@@ -65,7 +66,7 @@ const InquiryUpdate = () => {
     return (
       <div className="Down" key={i}>
         {v.image && <img src={v.image} alt="preview-img" />}
-        {v.boardFileOriname}
+        {/* {v.boardFileOriname} */}
       </div>
     );
   });
@@ -118,23 +119,33 @@ const InquiryUpdate = () => {
         })
         .then((res) => {
           if (res.data === "ok") {
-            alert("수성 성공");
-            nav("/main");
+            alert("수정 성공");
+            nav("/mypage/inquiry");
           } else {
-            alert("수성 실패");
+            alert("수정 실패");
           }
         })
         .catch((err) => {
-          alert("수송 실패");
+          alert("수정 실패");
           console.log(err);
         });
     },
     [data]
   );
+  console.log(data);
   return (
     <div className="Update">
-      <form className="Content" onSubmit={onWrite}>
+      <div className="Content" onSubmit={onWrite}>
         <h1>1:1 문의 작성</h1>
+        <input
+          className="Input"
+          name="boardCode"
+          value={boardCode}
+          placeholder="NO"
+          onChange={onch}
+          autoFocus
+          required
+        />
         <input
           className="Input"
           name="boardType"
@@ -155,16 +166,16 @@ const InquiryUpdate = () => {
         />
         <input
           className="Input"
-          name="productName"
-          value={productName}
+          name="productCode"
+          value={productCode}
           placeholder="주문내역"
           onChange={onch}
           autoFocus
         />
         <input
           className="Input"
-          name="nphonenum"
-          value={nphonenum}
+          name="bnphonenum"
+          value={bnphonenum}
           placeholder="전화번호"
           onChange={onch}
           autoFocus
@@ -186,21 +197,25 @@ const InquiryUpdate = () => {
           placeholder="문의 게시글을 작성하세요."
           value={boardContent}
         ></textarea>
+        <div className="Box">
+          <div className="FileTitle">File</div>
+          <div className="FileData">{viewFlist}</div>
+        </div>
         <div className="FileInput">
-          <input id="upload" type="file" multiple onChange={onFileChange} />
-          <label className="FileLabel" htmlFor="upload">
+          <input id="update" type="file" multiple onChange={onFileChange} />
+          <label className="FileLabel" htmlFor="../../update/">
             파일선택
           </label>
-          <span className="FileSapn">{fileName}</span>
+          <span className="FileSpan">{fileName}</span>
         </div>
-        <div className="Buttons">
+        <div>
           <Button
             type="button"
             size="large"
             color="gray"
             wsize="s-10"
             outline
-            onClick={() => nav("/mypage")}
+            onClick={() => nav("/mypage/inquiry")}
           >
             목록으로
           </Button>
@@ -208,7 +223,7 @@ const InquiryUpdate = () => {
             작성하기
           </Button>
         </div>
-      </form>
+      </div>
     </div>
   );
 };
