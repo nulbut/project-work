@@ -22,7 +22,7 @@ public class BproductController {
     //상품 등록
     @PostMapping("bpdwriteProc")
     public String bpdwriteProc (@RequestPart(value = "data", required = true) BproductTbl bproductTbl,
-                                @RequestPart(value = "files", required = false) List<MultipartFile> bfiles,
+                                @RequestPart(value = "bfiles", required = false) List<MultipartFile> bfiles,
                                 HttpSession session) {
         log.info("bpdwriteProc()");
         String bresult = bpServ.insertBproduct(bproductTbl, bfiles, session);

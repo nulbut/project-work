@@ -77,7 +77,7 @@ public class BproductService {
 
             String sysname = System.currentTimeMillis()
                     + boriname.substring(boriname.lastIndexOf("."));
-//            bproductFileTbl.setBproductFileSysnameM(sysname);
+            bproductFileTbl.setBproductFileOriname(sysname);
 
             File file = new File(realPath + sysname);
             bmf.transferTo(file);

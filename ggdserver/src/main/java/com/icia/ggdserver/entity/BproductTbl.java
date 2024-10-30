@@ -17,8 +17,8 @@ public class BproductTbl { // 사업자 상품 테이블
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long bpnum; //상품번호
 
-//    @Column(nullable = false, length = 50)
-//    private String bprsysname; //상품 대표 이미지
+    @Column(nullable = false)
+    private String bsellerId; //판매자 상호
 
     @Column(nullable = false, length = 100)
     private String bpname; // 상품명
@@ -41,7 +41,7 @@ public class BproductTbl { // 사업자 상품 테이블
 //    @Column(nullable = false, length = 50)
 //    private String bpdsysname; //상품 상세 이미지
 
-    @Column(nullable = false, length = 1)
+    @Column(length = 1)
     private int bpoption; //옵션 사용 여부
 
     @Column(length = 50)
@@ -56,7 +56,7 @@ public class BproductTbl { // 사업자 상품 테이블
     @Column(length = 50)
     private String bpmaterial; //재질
 
-    @Column(nullable = false, length = 50)
+    @Column(length = 50)
     private String bproductFileSysnameM; // 상품 대표 이미지
 
     @CreationTimestamp
