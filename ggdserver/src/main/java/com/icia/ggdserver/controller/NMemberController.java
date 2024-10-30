@@ -102,7 +102,7 @@ public class NMemberController {
         return authCode;
     }
 
-    //비밀번호 인증
+    //비밀번호 변경
     @PostMapping("changepass")
     public String changepass(@RequestBody NmemberTbl nmemberTbl) {
         log.info("changepass() : {}", nmemberTbl.getNid());

@@ -26,9 +26,9 @@ const IdPasswordFind = () => {
     if (!conf) {
       return;
     }
-    const nmail = watch("nemail");
+    const nemail = watch("nemail");
     axios
-      .get("/mailconfirm", { params: { nmail: nmail } })
+      .get("/mailconfirm", { params: { nemail: nemail } })
       .then((res) => {
         console.log(res.data);
         setCode(res.data);
