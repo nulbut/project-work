@@ -38,6 +38,8 @@ import BMypage from "./components/shop/BMypage";
 import BproductRegisterd from "./components/shop/BproductRegisterd";
 import BproductWirte from "./components/shop/BproductWirte";
 import AdminLogin from "./components/admin/AdminLogin";
+import ProductUpdate from "./components/shop/ProductUpdate";
+import UsedWrite from "./components/shop/UsedWrite";
 
 function App() {
   const nav = useNavigate();
@@ -132,17 +134,20 @@ function App() {
           <Route path="/join_b" element={<JoinB />} />
           <Route path="/mypage" element={<Mypage />}>
             <Route path="orderDelivery" element={<OrderDelivery />} />
-            <Route path="productRegisterd" element={<ProductRegistered />} />
+            <Route path="productRegistered" element={<ProductRegistered />} />
             <Route path="productWrite" element={<ProductWrite />} />
             <Route path="dibs" element={<Dibs />} />
             <Route path="inquiry" element={<Inquiry />} />
             <Route path="inquiryWrite" element={<InquiryWrite />} />
             <Route path="inquiry/inView" element={<InquiryView />} />
             <Route path="inquiry/inView/inUpdate" element={<InquiryUpdate />} />
+            <Route path="productRegistered/pdView" element={<ProductView />} />
+            <Route
+              path="productRegistered/pdview/pdUpdate"
+              element={<ProductUpdate />}
+            />
           </Route>
-          <Route path="/123" element={<ProductWrite />} />
-          <Route path="/456" element={<ProductRegistered />} />
-          <Route path="/789" element={<ProductView />} />
+          <Route path="usedWrite" element={<UsedWrite />} />
           <Route path="/bmypage" element={<BMypage />}>
             <Route path="bp1" element={<BproductRegisterd />} />
           </Route>

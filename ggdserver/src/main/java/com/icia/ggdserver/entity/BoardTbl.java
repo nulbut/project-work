@@ -21,6 +21,9 @@ public class BoardTbl {
     @Column(nullable = false)
     private long ProductCode;//상품고유번호
 
+    @Column(nullable = false, length = 20)
+    private String bnphonenum; // 회원 전화번호
+
     @Column(nullable = false, length = 30)
     private String boardType;// 문의 종류
 

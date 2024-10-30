@@ -10,18 +10,20 @@ import "./scss/FileInput.scss";
 const InquiryWrite = () => {
   const nav = useNavigate();
   const nid = sessionStorage.getItem("nid");
-  const product = sessionStorage.getItem("productName");
-  const phonenum = sessionStorage.getItem("nphonenum");
+  // const product = sessionStorage.getItem("productName");
+  // const phonenum = sessionStorage.getItem("nphonenum");
+  const productCode = sessionStorage.getItem("ProductCode");
   const [data, setData] = useState({
     boardType: "",
-    product: product,
+    ProductCode: productCode,
     bnid: nid,
-    nphonenum: phonenum,
+    bnphonenum: "",
     boardTitle: "",
     boardContent: "",
   });
+  console.log(data);
 
-  const { boardType, boardTitle, boardContent } = data;
+  const { boardType, boardTitle, boardContent, bnphonenum } = data;
   const [fileName, setFileName] = useState("선택된 파일이 없습니다.");
 
   //전송 데이터와 파일을 담을 멀티파트 폼 생성
@@ -110,16 +112,17 @@ const InquiryWrite = () => {
         />
         <input
           className="Input"
-          name="product"
-          value={product}
+          name="ProductCode"
+          value={productCode}
           placeholder="주문내역"
           onChange={onch}
           autoFocus
+          required
         />
         <input
           className="Input"
-          name="nphonenum"
-          value={phonenum}
+          name="bnphonenum"
+          value={bnphonenum}
           placeholder="전화번호"
           onChange={onch}
           autoFocus
@@ -155,7 +158,7 @@ const InquiryWrite = () => {
             color="gray"
             wsize="s-10"
             outline
-            onClick={() => nav("/mypage")}
+            onClick={() => nav("/mypage/inquiry")}
           >
             목록으로
           </Button>
