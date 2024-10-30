@@ -17,7 +17,7 @@ const BproductWirte = () => {
       <hr />
 
       <div>
-        <p>카테고리</p>
+        <p className="title">카테고리</p>
         <p>대분류</p>
         <div>
           <div className="input-group">
@@ -77,7 +77,7 @@ const BproductWirte = () => {
         </div>
       </div>
       <div>
-        <p>상품정보</p>
+        <p className="title">상품정보</p>
         <p>상품 대표 이미지</p>
         <label className="FileLabel" htmlFor="upload">
           파일 선택
@@ -102,12 +102,12 @@ const BproductWirte = () => {
         <p>미리보기들어갈것 </p>
       </div>
       <div>
-        <p>상품상세정보</p>
+        <p className="title">상품상세정보</p>
         <p>상품 상세 설명</p>
         <input type="text" />
       </div>
       <div>
-        <p>옵션사용</p>
+        <p className="title">옵션사용</p>
         <p>상품 옵션</p>
         <div className="onoff">
           {isOpen ? (
@@ -118,7 +118,7 @@ const BproductWirte = () => {
         </div>
       </div>
       <div>
-        <p>사양</p>
+        <p className="title">사양</p>
         <p>사이즈</p>
         <input type="text" />
         <p>재질</p>

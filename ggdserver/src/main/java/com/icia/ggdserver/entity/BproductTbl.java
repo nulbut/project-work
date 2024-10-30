@@ -6,6 +6,7 @@ import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 
 @Entity
@@ -55,8 +56,14 @@ public class BproductTbl { // 사업자 상품 테이블
     @Column(length = 50)
     private String bpmaterial; //재질
 
+    @Column(nullable = false, length = 50)
+    private String bproductFileSysnameM; // 상품 대표 이미지
+
     @CreationTimestamp
     @Column(name = "bp_signdt")
     private Timestamp bpsigndt; //등록일
+
+    @Transient
+    private List<BproductFileTbl> bproductFileTblList; //첨부 파일
 
 }
