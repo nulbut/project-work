@@ -3,6 +3,10 @@ package com.icia.ggdserver.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.sql.Timestamp;
+import java.util.List;
 
 
 @Entity
@@ -11,10 +15,10 @@ import lombok.Data;
 public class BproductTbl { // 사업자 상품 테이블
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long bpnum; //상품번호
+    private long bpnum; //상품고유번호
 
-    @Column(nullable = false, length = 50)
-    private String bprsysname; //상품 대표 이미지
+    @Column(nullable = false)
+    private String bsellerId; //판매자 상호
 
     @Column(nullable = false, length = 100)
     private String bpname; // 상품명
@@ -34,10 +38,10 @@ public class BproductTbl { // 사업자 상품 테이블
     @Column(nullable = false, length = 2000)
     private String bpexplanation; //상품 상세 설명
 
-    @Column(nullable = false, length = 50)
-    private String bpdsysname; //상품 상세 이미지
+//    @Column(nullable = false, length = 50)
+//    private String bpdsysname; //상품 상세 이미지
 
-    @Column(nullable = false, length = 1)
+    @Column(length = 1)
     private int bpoption; //옵션 사용 여부
 
     @Column(length = 50)
@@ -51,5 +55,15 @@ public class BproductTbl { // 사업자 상품 테이블
 
     @Column(length = 50)
     private String bpmaterial; //재질
+
+    @Column(length = 50)
+    private String bproductFileSysnameM; // 상품 대표 이미지
+
+    @CreationTimestamp
+    @Column(name = "bp_signdt")
+    private Timestamp bpsigndt; //등록일
+
+    @Transient
+    private List<BproductFileTbl> bproductFileTblList; //첨부 파일
 
 }

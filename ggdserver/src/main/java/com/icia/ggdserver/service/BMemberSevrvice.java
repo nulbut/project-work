@@ -86,6 +86,7 @@ public class BMemberSevrvice {
         BmemberTbl bdbMember = null;
         Map<String, String> rsMap = new HashMap<>();
 
+
         try {
             bdbMember = bmRepo.findById(bmemberTbl.getBid()).get();
             //db에서 꺼내온 사용자의 비밀번호와 입력한 비밀번호를 비교
@@ -94,6 +95,9 @@ public class BMemberSevrvice {
                 //로그인 성공
                 rsMap.put("res2","ok");
                 rsMap.put("bid",bmemberTbl.getBid());
+                rsMap.put("bcname", bdbMember.getBcname());
+
+
             }
             else {
                 //비밀번호 틀림
@@ -117,10 +121,10 @@ public class BMemberSevrvice {
         return bmemberTbl;
     }
 
-    public String sendBEmail(String bmail)
+    public String sendBEmail(String bEmail)
         throws MessagingException, UnsupportedEncodingException {
         //메일 전송에 필요한 정보 설정
-        MimeMessage emailForm = createEmailform(bmail);
+        MimeMessage emailForm = createEmailform(bEmail);
         //실제 메일 전송
         emailSender.send(emailForm);
         return  authNum; //인증 코드 반환
@@ -172,10 +176,13 @@ public class BMemberSevrvice {
 
         //비밀번호 암호화
         String benpwd = encoder.encode(bmemberTbl.getBpw());
-        bmemberTbl = bmRepo.findById(bmemberTbl.getBid()).get();
-        bmemberTbl.setBpw(benpwd); //새 비밀번호로 변경
+        String bidtest = bmemberTbl.getBid();
+        log.info("benpwd : {} ", benpwd);
 
         try {
+            bmemberTbl = bmRepo.findById(bmemberTbl.getBid()).get();
+            bmemberTbl.setBpw(benpwd); //새 비밀번호로 변경
+            bmemberTbl.setBpwcheck(benpwd);// 비밀번호 체크
             bmRepo.save(bmemberTbl);
             res6 = "ok";
         } catch (Exception e){
