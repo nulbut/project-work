@@ -69,8 +69,9 @@ const BasicMaker = ({
           headers: { "Content-Type": "multipart/form-data" },
         })
         .then((res) => {
-          if (res.data === "ok") {
+          if (res.data !== "fail") {
             alert("작성 성공");
+            data.iwcCode = res.data;
             selectMenuHandler(1);
           } else {
             alert("작성 실패");
@@ -84,7 +85,6 @@ const BasicMaker = ({
     [data]
   );
   console.log(fileName);
-  console.log(fileImage);
 
   return (
     <div>
@@ -163,10 +163,9 @@ const BasicMaker = ({
                 </label>
 
                 <span className="FileSpan">
-                  {/* {fileName} */}
-                  {fileName.map((e) => (
+                  {/* {fileName.map((e) => (
                     <div>{e.name}</div>
-                  ))}
+                  ))} */}
                   {fileImage.map((e) => (
                     <img style={{ width: "55px" }} src={e} />
                   ))}

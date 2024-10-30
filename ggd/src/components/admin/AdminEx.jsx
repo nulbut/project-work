@@ -91,8 +91,23 @@ const AdminEx = ({ data }) => {
 
   const moveMenu = (menu) => {
     switch (menu) {
-      case "회원 정보 관리":
-        setViewName(<UserList />);
+      case "대쉬 보드":
+        setViewName(<AdminDashboard />);
+        break;
+      case "일반 회원":
+        setViewName(<UserList user="일반 회원" />);
+        break;
+      case "사업자 회원":
+        setViewName(<UserList user="사업자 회원" />);
+        break;
+      case "포인트 내역":
+        setViewName(<ManagePoint />);
+        break;
+      case "포인트 일괄 제공":
+        setViewName(<ManageAllPoint />);
+        break;
+      case "회원 등급 관리":
+        setViewName(<ManageUserGrade />);
         break;
       case "후기 관리":
         setViewName(<Review />);
@@ -119,7 +134,10 @@ const AdminEx = ({ data }) => {
       >
         <nav className="sb-topnav navbar navbar-expand navbar-dark bg-dark">
           {/* <!-- Navbar Brand--> */}
-          <div className="navbar-brand ps-3" onClick={() => moveMenu()}>
+          <div
+            className="navbar-brand ps-3"
+            onClick={() => moveMenu("대쉬 보드")}
+          >
             관리자 페이지
           </div>
           {/* <!-- Sidebar Toggle--> */}
@@ -261,7 +279,7 @@ const AdminEx = ({ data }) => {
             </nav>
           </div>
           <div id="layoutSidenav_content">
-            <div className="desc">{viewName}</div>
+            <div>{viewName}</div>
             <footer className="py-4 bg-light mt-auto">
               <div className="container-fluid px-4">
                 <div className="d-flex align-items-center justify-content-between small">
