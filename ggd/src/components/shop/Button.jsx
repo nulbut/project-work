@@ -1,6 +1,6 @@
 import React from "react";
-import classnames from "classnames";
-import "../idealcup/scss/IdealButton.scss";
+import classNames from "classnames";
+import "./scss/Button.scss";
 
 const Button = (props) => {
   const {
@@ -14,7 +14,7 @@ const Button = (props) => {
 
   return (
     <button
-      classname={classnames("Button", size, color, wsize, { outline })}
+      className={classNames("Button", size, color, wsize, { outline })}
       {...rest}
     >
       {children}

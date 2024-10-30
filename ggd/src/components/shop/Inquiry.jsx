@@ -87,8 +87,9 @@ const Inquiry = () => {
 
         <Paging page={page} getList={getBoardList} />
         <Button
+          type="submit"
           size="large"
-          wsize="s-50"
+          wsize="s-30"
           onClick={() => {
             nav("/mypage/inquiryWrite");
           }}

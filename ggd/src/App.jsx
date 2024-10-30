@@ -71,7 +71,7 @@ function App() {
       //로그인 상태
       const newState = {
         loginid: nid,
-        mlink: "/mypage",
+        mlink: "",
       };
       setLoginState(newState);
     }
@@ -81,7 +81,7 @@ function App() {
   const sucLogin = useCallback((nid) => {
     const newState = {
       loginid: nid,
-      mlink: "/mypage",
+      mlink: "",
     };
     setLoginState(newState);
   }, []);
@@ -110,7 +110,7 @@ function App() {
             <Route path="productRegistered" element={<ProductRegistered />} />
             <Route path="productWrite" element={<ProductWrite />} />
             <Route path="dibs" element={<Dibs />} />
-            <Route path="inquiry" element={<Inquiry sucLogin={sucLogin} />} />
+            <Route path="inquiry" element={<Inquiry />} />
             <Route path="inquiryWrite" element={<InquiryWrite />} />
             <Route path="inquiry/inView" element={<InquiryView />} />
             <Route path="inquiry/inView/inUpdate" element={<InquiryUpdate />} />

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./scss/InfiniteScroll.scss";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import moment from "moment";
 // import Button from "./Button";
@@ -20,6 +20,15 @@ const LatestProducts = () => {
   const [hasNextPage, setHasNextPage] = useState(true);
   const [pageParams, setPageParams] = useState([]);
   const observerRef = useRef();
+  const [flist, setFlist] = useState([
+    {
+      productCode: 0,
+      productName: 0,
+      productFileSysname: "",
+      productFileOriname: "Nothing",
+      image: "",
+    },
+  ]);
 
   const sellerId = "sellerId";
   const nav = useNavigate();
@@ -111,6 +120,37 @@ const LatestProducts = () => {
     nav("/ShoppingMall", { state: { productCode: code } });
   };
 
+  const like = (code, name) => {
+    console.log(code + ":" + name);
+    console.log(sessionStorage.getItem("nid"));
+  };
+
+  useEffect(() => {
+    axios
+      .post("getcart", products, { params: { sellerId: sellerId } })
+      .then((res) => {
+        setProducts(res.data);
+        console.log(res.data);
+
+        const pfList = res.data.productFileList;
+        console.log(pfList);
+
+        if (pfList.length > 0) {
+          console.log("pfList.length : ", pfList.length);
+          let newFileList = [];
+          for (let i = 0; i < pfList.length; i++) {
+            const newFile = {
+              ...pfList[i],
+              image: "../../update" + pfList[i].productFileSysname,
+            };
+            newFileList.push(newFile);
+          }
+          console.log(newFileList);
+          setFlist(newFileList);
+        }
+      })
+      .catch((err) => console.log(err));
+  }, []);
   return (
     <div className="product-list">
       <h2 className="section-title">
@@ -126,9 +166,12 @@ const LatestProducts = () => {
                 className="product-image"
               />
             </div>
-            <h3 className="product-title">상품명 : {item.productName + 1} </h3>
+            <h3 className="product-title">상품명 : {item.productName} </h3>
             <p className="product-price">₩{item.sellerPayment}</p>
             <p className="product-body">{item.productDetail}</p>
+            <button onClick={() => like(item.productCode, item.productName)}>
+              찜
+            </button>
           </div>
         ))}
       </div>
