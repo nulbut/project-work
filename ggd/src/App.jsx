@@ -40,6 +40,7 @@ import BproductWirte from "./components/shop/BproductWirte";
 import AdminLogin from "./components/admin/AdminLogin";
 import ProductUpdate from "./components/shop/ProductUpdate";
 import UsedWrite from "./components/shop/UsedWrite";
+import ProductDetails from "./components/shop/ProductDetails";
 
 function App() {
   const nav = useNavigate();
@@ -153,6 +154,7 @@ function App() {
           </Route>
           {/* <Route path="/bp1" element={<BproductRegisterd />} /> */}
           <Route path="/bproductw" element={<BproductWirte />} />
+          <Route path="/productdetails" element={<ProductDetails />} />
         </Route>
 
         <Route
