@@ -8,31 +8,30 @@ import Paging from "./Paging";
 import TableRow from "./TableRow";
 import TableColumn from "./TableColumn";
 
-
 const df = (date) => moment(date).format("YYYY-MM-DD");
 
 const ProductRegistered = () => {
   const nav = useNavigate();
-  const sellerId = "sellerId";
-  const pNum = 1;
-  const [bitem, setBitem] = useState([]);
+  const sellerId = sessionStorage.getItem("nid");
+  const pnum = sessionStorage.getItem("pageNum");
+  const [bitem, setBitem] = useState({});
   const [page, setPage] = useState({
     //페이징 관련 정보 저장
     totalPage: 0,
     pageNum: 1,
   });
 
-  // console.log(page);
-  // console.log(bitem);
-
   // 서버로부터 등록상품 가져오는 함수
-  const getBoardList = (pNum) => {
+  const getBoardList = (pnum) => {
     axios
-      .get("/BoardList", { params: { pageNum: pNum } })
+      .get("/ProductList", { params: { pageNum: pnum, sellerId: sellerId } })
       .then((res) => {
-        const { bList, totalPage, pageNum } = res.data;
-        setPage({ totalPage: totalPage, pageNum: pNum });
+        const { bList, totalPage, pageNum, sellerId } = res.data;
+        console.log(totalPage);
+        setPage({ totalPage: totalPage, pageNum: pageNum });
+        console.log(page);
         setBitem(bList);
+        console.log(bList);
         sessionStorage.getItem("pageNum", pageNum);
       })
       .catch((err) => console.log(err));
@@ -45,8 +44,9 @@ const ProductRegistered = () => {
       nav("/", { replace: true });
       return;
     }
-    pNum !== null ? getBoardList(pNum) : getBoardList(1);
+    pnum !== null ? getBoardList(pnum) : getBoardList(1);
   }, []);
+
   //등록상품 목록 작성
   let BoardList = null;
   if (bitem.length === 0) {
@@ -64,19 +64,20 @@ const ProductRegistered = () => {
             {item.productName}
           </div>
         </TableColumn>
+        <TableColumn wd={"w-30"}>{item.categoryCode}</TableColumn>
         <TableColumn wd={"w-20"}>{item.sellerId}</TableColumn>
         <TableColumn wd={"w-30"}>{df(item.ProductDate)}</TableColumn>
       </TableRow>
     ));
   }
-  const getBoard = useCallback((productCode) => {
-    nav("", { state: { pc: productCode } });
-  });
+  const getBoard = (productCode) => {
+    nav("pdView", { state: { pc: productCode } });
+  };
 
   return (
     <div className="table-ex">
       <h1>등록한 상품</h1>
-      <ProductTable hName={["번호", "상품", "판매자", "등록날짜"]}>
+      <ProductTable hName={["번호", "상품", "종류", "판매자", "등록날짜"]}>
         {BoardList}
       </ProductTable>
       <Paging page={page} getList={getBoardList} />
@@ -84,7 +85,7 @@ const ProductRegistered = () => {
         size="large"
         wsize="s-50"
         onClick={() => {
-          nav("/123");
+          nav("/mypage/productWrite");
         }}
       >
         상품등록

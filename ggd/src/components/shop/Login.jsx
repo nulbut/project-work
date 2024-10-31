@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "./Button";
@@ -9,6 +9,9 @@ import "./scss/Button.scss";
 const Login = ({ sucLogin }) => {
   const navigate = useNavigate();
 
+  // const [state, setState] = useState("");
+  // console.log(state);
+
   const {
     handleSubmit,
     register,
@@ -17,12 +20,14 @@ const Login = ({ sucLogin }) => {
   } = useForm();
 
   const sendLogin = (form) => {
-    console.log(form);
+    //넘어오는 값 확인용
+    // console.log(form);
     const bform = {
       bid: watch("nid"),
       bpw: watch("npw"),
     };
-    console.log(bform);
+    //넘어오는 값 확인용
+    // console.log(bform);
     axios
       .all([axios.post("/loginproc", form), axios.post("/bloginproc", bform)])
       .then(
@@ -30,16 +35,19 @@ const Login = ({ sucLogin }) => {
           console.log(res1, res2);
           if (res1.data.res1 == "ok") {
             //일반회원 아이디, 패스워드 일치
-            sucLogin(res1.data.nid);
+            sucLogin(res1.data.nid, res1.data.nnickname, "n");
             sessionStorage.setItem("nid", res1.data.nid);
+            sessionStorage.setItem("nnickname", res1.data.nnickname);
 
             navigate("/shoppingmall");
           } else if (res1.data.res1 == "fail2") {
             //일반회원 회원정보 없음
             if (res2.data.res2 == "ok") {
               //사업자 회원 아이디, 패스워드 일치
-              sucLogin(res2.data.bid);
+              sucLogin(res2.data.bid, res2.data.bcname, "b");
               sessionStorage.setItem("bid", res2.data.bid);
+              sessionStorage.setItem("nnickname", res2.data.bcname);
+              console.log(sessionStorage);
               navigate("/shoppingmall");
             } else {
               // 사업자 회원 패스워드 불일치
@@ -48,11 +56,14 @@ const Login = ({ sucLogin }) => {
           } else if (res1.data.res1 == "fail1") {
             // 일반회원 패스워드 불일치
             alert(res1.data.msg);
-          } else if (res2.data.res2 == "ok") {
-            sucLogin(res2.data.bid);
-            sessionStorage.setItem("bid", res2.data.bid);
-            navigate("/shoppingmall");
-          } else if (res2.data.res2 == "fail") {
+          }
+          // else if (res2.data.res2 == "ok") {
+          //   sucLogin(res2.data.bid);
+          //   sessionStorage.setItem("bid", res2.data.bid);
+          //   sessionStorage.setItem("bcname", res2.data.bcname);
+          //   navigate("/shoppingmall");
+          // }
+          else if (res2.data.res2 == "fail") {
             alert(res1.data.msg);
           } else if (res1.data.res1 == "fail") {
             alert(res2.data.msg);

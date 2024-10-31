@@ -26,11 +26,12 @@ public class ShoppingMallController {
         return result;
     }
 
-    @GetMapping("getBoard")
-    public ProductTbl getBoard(@RequestParam long productCode){
-        log.info("getBoard()");
-        return spmServ.getBoard(productCode);
-    }
+//    @GetMapping("getproduct")
+//    public ProductTbl getBoard(@RequestParam long productCode,
+//                               @RequestParam long productFileNum) {
+//        log.info("getproduct()");
+//        return spmServ.getBoard(productCode, productFileNum);
+//    }
 
     @PostMapping("boardDelete")
     public Map<String, String> boardDelete(@RequestParam long productCode,
@@ -38,13 +39,22 @@ public class ShoppingMallController {
         log.info("boardDelete()");
         return spmServ.boardDelete(productCode, session);
     }
+    //마이페이지 등록한 상품
+    @GetMapping("ProductList")
+    public Map<String, Object> getProductList(@RequestParam Integer pageNum,
+                                              @RequestParam String sellerId){
+        log.info("getProductList() - {}", pageNum);
 
-    @GetMapping("BoardList")
-    public Map<String, Object> BoardList(@RequestParam Integer pageNum){
-        log.info("getBoardList() - {}", pageNum);
+        Map<String, Object> res= spmServ.getProductList(pageNum, sellerId);
 
-        Map<String, Object> res= spmServ.getBoardList(pageNum);
+        return res;
+    }
+    // 메인 무한 스크롤
+    @GetMapping("productList")
+    public Map<String, Object> getProductList(@RequestParam Integer pageNum){
+        log.info("getProductList() - {}", pageNum);
 
+        Map<String, Object> res= spmServ.getproductList(pageNum);
 
         return res;
     }
@@ -57,4 +67,17 @@ public class ShoppingMallController {
     }
 
 
+    //상품등록글 받기
+    @GetMapping("getproduct")
+    public ProductTbl getproduct(@RequestParam long productCode){
+        log.info("getproduct()");
+        return spmServ.getProduct(productCode);
+    }
+    //상품등록글 삭제
+    @PostMapping("deleteProduct")
+    public Map<String, String> deleteProduct(@RequestParam long productCode,
+                                             HttpSession session){
+        log.info("deleteProduct()");
+        return spmServ.boardDelete(productCode, session);
+    }
 }

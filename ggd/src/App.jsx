@@ -34,6 +34,12 @@ import ProductView from "./components/shop/ProductView";
 import IdPasswordFind2 from "./components/shop/IdPasswordFind2";
 import ChangePass from "./components/shop/ChangePass";
 import AdminEx from "./components/admin/AdminEx";
+import BMypage from "./components/shop/BMypage";
+import BproductRegisterd from "./components/shop/BproductRegisterd";
+import BproductWirte from "./components/shop/BproductWirte";
+import AdminLogin from "./components/admin/AdminLogin";
+import ProductUpdate from "./components/shop/ProductUpdate";
+import UsedWrite from "./components/shop/UsedWrite";
 
 function App() {
   const nav = useNavigate();
@@ -41,6 +47,7 @@ function App() {
   //로그인 상태 저장
   const [loginState, setLoginState] = useState({
     loginid: "",
+    loginnick: "",
     mlink: "/login",
   }); //로그인 전 상태`
 
@@ -50,12 +57,15 @@ function App() {
     console.log("뭐냐이건?");
     const newState = {
       loginid: "",
+      loginnick: "",
       mlink: "/login",
     };
     setLoginState(newState);
 
     //로그아웃 후 로그인 상태정보 삭제
     sessionStorage.removeItem("nid");
+    sessionStorage.removeItem("bid");
+    sessionStorage.removeItem("nnickname");
 
     //첫페이지로 이동
     nav("/", { replace: true });
@@ -64,23 +74,42 @@ function App() {
   //세션에 저장된 로그인 정보를 가져옴 (로그인 상태 유지)
   useEffect(() => {
     const nid = sessionStorage.getItem("nid");
-
+    const bid = sessionStorage.getItem("bid");
+    console.log(nid, bid);
+    const nick = sessionStorage.getItem("nnickname");
     if (nid !== null) {
       //로그인 상태
       const newState = {
         loginid: nid,
+        loginnick: nick,
 
         mlink: "/mypage",
+      };
+      setLoginState(newState);
+    }
+
+    if (bid !== null) {
+      const newState = {
+        loginid: bid,
+        loginnick: nick,
+        mlink: "/bmypage",
       };
       setLoginState(newState);
     }
   }, []);
 
   //로그인 성공 시 로그인 상태 변경 함수
-  const sucLogin = useCallback((nid) => {
+  const sucLogin = useCallback((nid, nick, cate) => {
+    let link = "";
+    if (cate == "n") {
+      link = "/mypage";
+    } else {
+      link = "/bmypage";
+    }
     const newState = {
       loginid: nid,
-      mlink: "/mypage",
+      loginnick: nick,
+      mlink: link,
     };
     setLoginState(newState);
   }, []);
@@ -106,17 +135,25 @@ function App() {
           <Route path="/join_b" element={<JoinB />} />
           <Route path="/mypage" element={<Mypage />}>
             <Route path="orderDelivery" element={<OrderDelivery />} />
-            <Route path="productRegisterd" element={<ProductRegistered />} />
+            <Route path="productRegistered" element={<ProductRegistered />} />
             <Route path="productWrite" element={<ProductWrite />} />
             <Route path="dibs" element={<Dibs />} />
             <Route path="inquiry" element={<Inquiry />} />
             <Route path="inquiryWrite" element={<InquiryWrite />} />
             <Route path="inquiry/inView" element={<InquiryView />} />
             <Route path="inquiry/inView/inUpdate" element={<InquiryUpdate />} />
+            <Route path="productRegistered/pdView" element={<ProductView />} />
+            <Route
+              path="productRegistered/pdview/pdUpdate"
+              element={<ProductUpdate />}
+            />
           </Route>
-          <Route path="/123" element={<ProductWrite />} />
-          <Route path="/456" element={<ProductRegistered />} />
-          <Route path="/789" element={<ProductView />} />
+          <Route path="usedWrite" element={<UsedWrite />} />
+          <Route path="/bmypage" element={<BMypage />}>
+            <Route path="bp1" element={<BproductRegisterd />} />
+          </Route>
+          {/* <Route path="/bp1" element={<BproductRegisterd />} /> */}
+          <Route path="/bproductw" element={<BproductWirte />} />
         </Route>
 
         <Route
@@ -129,6 +166,7 @@ function App() {
         </Route>
         <Route path="/admin" element={<Admin />} />
         <Route path="/adminex" element={<AdminEx />} />
+        <Route path="/adminLogin" element={<AdminLogin />} />
       </Routes>
     </div>
   );

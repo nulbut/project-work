@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from "../images/logo.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -8,13 +8,14 @@ import {
   faUser,
   faBagShopping,
   faHeart,
+  faHandshakeSimple,
 } from "@fortawesome/free-solid-svg-icons";
 import "./scss/Header.scss";
 
 const Header = ({ lstate, onLogout }) => {
-  const { loginid } = lstate;
-  const { mlink } = lstate;
+  const { loginid, mlink, loginnick } = lstate;
 
+  console.log(loginnick);
   // const [categoryitem, setCategoryitem] = useState([]);//빈 객체로 초기화
   const menus = [
     //메뉴
@@ -88,7 +89,7 @@ const Header = ({ lstate, onLogout }) => {
     {
       name: (
         <div className="logintab">
-          <Link to={mlink}>{loginid !== "" ? `${loginid}님` : "로그인"}</Link>
+          <Link to={mlink}>{loginid !== "" ? `${loginnick}님` : "로그인"}</Link>
           {loginid !== "" ? (
             <span className="Sub" onClick={onLogout}>
               로그아웃
@@ -136,7 +137,15 @@ const Header = ({ lstate, onLogout }) => {
       path: "/mypage/dibs",
       icon: <FontAwesomeIcon icon={faHeart} style={{ color: "#000000" }} />,
     },
-
+    {
+      path: "usedWrite",
+      icon: (
+        <FontAwesomeIcon
+          icon={faHandshakeSimple}
+          style={{ color: "#000000" }}
+        />
+      ),
+    },
     // {
     //   name: "주문/배송",
     //   path: "/mypage/orderDelivery",
@@ -150,14 +159,11 @@ const Header = ({ lstate, onLogout }) => {
     //   name: "Q&A",
     //   path: "/Inquiry",
     // },
-    {
-      name: "주문/배송",
-      path: "/mypage/orderDelivery",
-    },
-    {
-      name: "Q&A",
-      path: "/Inquiry",
-    },
+
+    // {
+    //   name: "Q&A",
+    //   path: "/Inquiry",
+    // },
   ];
 
   const Categotry = [

@@ -1,7 +1,9 @@
 package com.icia.ggdserver.controller;
 
 import com.icia.ggdserver.dto.DateDto;
+import com.icia.ggdserver.entity.Member;
 import com.icia.ggdserver.entity.NmemberTbl;
+import com.icia.ggdserver.entity.UserGradeTbl;
 import com.icia.ggdserver.entity.NoticeTbl;
 import com.icia.ggdserver.service.AdminService;
 import jakarta.servlet.http.HttpSession;
@@ -11,7 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Map;
 
 @Slf4j
@@ -22,6 +24,12 @@ public class AdminController {
     @Autowired
     private AdminService aServ;
 
+    @PostMapping("adminLoginProc")
+    public Map<String, String> loginProc(@RequestBody Member member){
+        log.info("loginProc()");
+        return aServ.loginProc(member);
+    }
+
     @GetMapping("/list")
     public Map<String, Object> getMemberList(DateDto dd) {
         log.info("getMemberList() startDate : {} ",  dd);
@@ -31,7 +39,29 @@ public class AdminController {
 
         }
 
-        @GetMapping("/notice")
+
+
+    @PostMapping("/writeGrade")
+    public void writeGrade(@RequestBody ArrayList<UserGradeTbl> formFields){
+//        for (UserGradeTbl formField : formFields) {
+//            log.info(String.valueOf(formField.getUgId()));
+//            log.info(formField.getUgName());
+//            log.info(String.valueOf(formField.getUgDuration()));
+//        }
+        aServ.writeGradeProc(formFields);
+    }
+    @GetMapping("/gradeList")
+    public ArrayList<UserGradeTbl> gradeList(){
+        ArrayList<UserGradeTbl> rs = aServ.getGradeList();
+        for (UserGradeTbl formField : rs) {
+            log.info(String.valueOf(formField.getUgId()));
+            log.info(formField.getUgName());
+            log.info(String.valueOf(formField.getUgDuration()));
+        }
+        return rs;
+    }
+
+ @GetMapping("/notice")
     public Map<String, Object> getNoticeList(@RequestParam Integer pageNum){
         log.info("getNList()");
 
@@ -54,31 +84,6 @@ public class AdminController {
         return aServ.getNotice(nnum);
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//    @GetMapping("/blist")
-//    public Map<String, Object> geteBmemberList(DateDto dd) {
-//        log.info("getBmemberList() startDate : {}", dd.getPageNum());
-//
-//        Map<String, Object> rsMap = aServ.getBmemberList(dd);
-//        return rsMap;
-//    }
 
 
 

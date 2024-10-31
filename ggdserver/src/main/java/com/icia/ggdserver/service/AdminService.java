@@ -2,11 +2,15 @@ package com.icia.ggdserver.service;
 
 import com.icia.ggdserver.dto.DateDto;
 import com.icia.ggdserver.entity.BmemberTbl;
+import com.icia.ggdserver.entity.Member;
 import com.icia.ggdserver.entity.NmemberTbl;
+import com.icia.ggdserver.entity.UserGradeTbl;
 import com.icia.ggdserver.entity.NoticeFiletbl;
 import com.icia.ggdserver.entity.NoticeTbl;
 import com.icia.ggdserver.repository.BMemberRepository;
+import com.icia.ggdserver.repository.MemberRepository;
 import com.icia.ggdserver.repository.NMemberRepository;
+import com.icia.ggdserver.repository.UserGradeRepository;
 import com.icia.ggdserver.repository.NoticeFileRepository;
 import com.icia.ggdserver.repository.NoticeRepository;
 import jakarta.persistence.Transient;
@@ -16,15 +20,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @Slf4j
@@ -39,6 +40,42 @@ public class AdminService {
     @Autowired
     private NoticeFileRepository nfRepo;
 
+
+
+
+
+    @Autowired
+    MemberRepository mRepo;
+    //로그인 처리 메소드
+    public Map<String, String> loginProc(Member member){
+        log.info("loginProc()");
+        Member dbMember = null;
+        Map<String, String> rsMap = new HashMap<>();
+
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+        try {
+            dbMember = mRepo.findById(member.getMid()).get();
+            //db에서 꺼내온 사용자의 비번과 입력한 비번을 비교.
+//            if(encoder.matches(member.getMpwd(), dbMember.getMpwd())){
+            if(Objects.equals(member.getMpwd(), dbMember.getMpwd())){
+                //로그인 성공
+                rsMap.put("res", "ok");
+                rsMap.put("id", member.getMid());
+            }
+            else {
+                //비번이 맞지 않은 경우
+                rsMap.put("res", "fail");
+                rsMap.put("msg", "비밀번호가 틀립니다.");
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+            //회원이 아닌 경우
+            rsMap.put("res", "fail");
+            rsMap.put("msg", "아이디가 존재하지 않습니다.");
+        }
+        return rsMap;
+    }
     public Map<String, Object> getMemberList(DateDto dd) {
         log.info("getBoardList()");
 
@@ -120,8 +157,32 @@ public class AdminService {
 
         return res;
     }
+    @Autowired
+    private UserGradeRepository ugRepo;
 
-    public String insertNotice(NoticeTbl notice, List<MultipartFile> files, HttpSession session){
+    public void writeGradeProc(ArrayList<UserGradeTbl> gl){
+        ugRepo.saveAll(gl);
+        ugRepo.deleteByUgIdIsGreaterThan(gl.size());
+        log.info("writeGradeProc");
+    }
+
+    public ArrayList<UserGradeTbl> getGradeList() {
+        log.info("getBoardList()");
+        ArrayList<UserGradeTbl> result = null;
+        result = (ArrayList<UserGradeTbl>) ugRepo.findAll();
+
+        //page 객체를 list로 변환 후 전송.
+//        List<BmemberTbl> bList = result.getContent();//page에서 게시글목록을 꺼내와서
+//        //bList에 저장.
+//        int totalPage = result.getTotalPages();//전체 페이지 개수
+//
+//        Map<String, Object> res = new HashMap<>();
+//        res.put("blist", bList);
+//        res.put("totalPage", totalPage);
+//        res.put("pageNum", dd.getPageNum());
+
+        return result;
+    }    public String insertNotice(NoticeTbl notice, List<MultipartFile> files, HttpSession session){
         log.info("insertNotice()");
         String result = null;
 
