@@ -10,6 +10,9 @@ import TableRow from "./TableRow";
 import TableColumn from "./TableColumn";
 import Paging from "./Paging";
 
+const bf = (date) => moment(date).format("YYYY-MM-DD");
+const bn = (Number) => Number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
 const BproductRegisterd = () => {
   const nav = useNavigate();
 
@@ -17,23 +20,28 @@ const BproductRegisterd = () => {
   const bproductwirtego = () => {
     nav("/bproductw");
   };
-  const bcname = sessionStorage.getItem("nnickname");
+  const bsellerId = sessionStorage.getItem("nnickname");
   const bbpNum = 1;
-  const [bbitem, setBbitem] = useState([]);
-  const [bpage, setBpage] = useState({
+  const [bbitem, setitem] = useState([]);
+  const [page, setpage] = useState({
     //페이징 관련 정보 저장
     totalpage: 0,
     pageNum: 1,
   });
 
   //서버로부터 등록한 상품 불러오는 함수
-  const getBproduct = (bbpNum) => {
+  const getBproduct = (pnum) => {
     axios
-      .get("/getBproduct", { params: { pageNum: bbpNum } })
+      .get("/BproductList", {
+        params: { bpageNum: pnum, bsellerId: bsellerId },
+      })
       .then((res) => {
-        const { bbList, btotalPage, pageNum } = res.data;
-        setBpage({ btotalPage: btotalPage, pageNum: bbpNum });
-        setBbitem(bbList);
+        const { bList, totalPage, pageNum, bsellerId } = res.data;
+        console.log(totalPage);
+        setpage({ totalPage: totalPage, pageNum: pageNum });
+        console.log(page);
+        setitem(bList);
+        console.log(bList);
         sessionStorage.getItem("pageNum", pageNum);
       })
       .catch((err) => console.log(err));
@@ -41,8 +49,8 @@ const BproductRegisterd = () => {
 
   //BProductRegistered 컴포넌트가 화면에 보일 때 서버로부터 등록상품 목록을 가져옴
   useEffect(() => {
-    // console.log(bcname);
-    if (bcname === null) {
+    console.log(bsellerId);
+    if (bsellerId === null) {
       nav("/", { replace: true });
       return;
     }
@@ -59,19 +67,30 @@ const BproductRegisterd = () => {
   } else {
     BproductList = Object.values(bbitem).map((bbitem) => (
       <TableRow key={bbitem.bpnum}>
+        <TableColumn wd={"w-30"}>
+          <input type="checkbox" />
+        </TableColumn>
         <TableColumn wd={"w-10"}>{bbitem.bpnum}</TableColumn>
         <TableColumn wd={"w-40"}>
-          <div onClick={() => getBboard(bbitem.bpnum)}>{bbitem.bpnum}</div>
+          <div onClick={() => getBboard(bbitem.bpname)}>{bbitem.bpname}</div>
         </TableColumn>
-        <TableColumn wd={"w-20"}>{bbitem.bpname}</TableColumn>
-        <TableColumn wd={"w-30"}>{bbitem.bpprice}</TableColumn>
-        <TableColumn wd={"w-30"}>{bbitem.bpwarestock}</TableColumn>
-        <TableColumn wd={"w-30"}>{bbitem.bpsigndt}</TableColumn>
+        <TableColumn wd={"w-30"}>{bn(bbitem.bpprice)}</TableColumn>
+        <TableColumn wd={"w-20"}>{bbitem.bpwarestock}</TableColumn>
+        <TableColumn wd={"w-30"}>
+          <input type="checkbox" />
+        </TableColumn>
+        <TableColumn wd={"w-30"}>
+          <input type="checkbox" />
+        </TableColumn>
+        <TableColumn wd={"w-10"}>{bf(bbitem.bpsigndt)}</TableColumn>
+        <TableColumn wd={"w-30"}>
+          <Button>상품수정</Button>
+        </TableColumn>
       </TableRow>
     ));
   }
   const getBboard = (bpnum) => {
-    nav("/", { state: { bpc: bpnum } });
+    nav("pdView", { state: { bpc: bpnum } });
   };
 
   return (
@@ -117,8 +136,8 @@ const BproductRegisterd = () => {
         >
           {BproductList}
         </BproductTable>
+        {/* <Paging page={page} getList={getBproduct} /> */}
       </div>
-      {/* <Paging page={bpage} getList={getBproduct} /> */}
       <div>
         <Button onClick={bproductwirtego}>상품등록</Button>
         <Button>상품삭제</Button>

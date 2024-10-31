@@ -2,6 +2,7 @@ package com.icia.ggdserver.service;
 
 import com.icia.ggdserver.entity.BproductFileTbl;
 import com.icia.ggdserver.entity.BproductTbl;
+import com.icia.ggdserver.entity.ProductTbl;
 import com.icia.ggdserver.repository.BproductFileRepository;
 import com.icia.ggdserver.repository.BproductRepository;
 import com.icia.ggdserver.repository.ProductRegistrationRepository;
@@ -148,4 +149,29 @@ public class BproductService {
         }
     }
 
+    public Map<String, Object> getBproductList(Integer pageNum, String bsellerId) {
+        log.info("getBproductList() bsellerId : {}", bsellerId);
+
+        if (pageNum == null){
+            pageNum = 1;
+        }
+        int listCnt  = 8;
+
+        Pageable pb = PageRequest.of((pageNum - 1), listCnt,
+                Sort.Direction.DESC, "bpnum");
+
+        Page<BproductTbl> result =bpdRepo.findByBpnumGreaterThanAndBsellerId(0L, bsellerId, pb);
+        //page 객체를 list로 변환 후 전송
+        List<BproductTbl> bList = result.getContent();
+        //blist에 저장
+        int totalPage = result.getTotalPages();
+
+        Map<String, Object> res = new HashMap<>();
+        res.put("bList", bList);
+        res.put("totalPage",totalPage);
+        res.put("pageNum",pageNum);
+        res.put("bsellerId",bsellerId);
+
+        return res;
+    }
 }//class end

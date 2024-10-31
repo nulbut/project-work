@@ -47,5 +47,16 @@ public class BproductController {
     }//bpdDelete
 
 
+    //마이페이지 등록한 상품
+    @GetMapping("BproductList")
+    public Map<String, Object> getBproductList(@RequestParam Integer bpageNum,
+                                            @RequestParam String bsellerId){
+        log.info("BproductList() - {}", bpageNum);
+
+        Map<String, Object> res = bpServ.getBproductList(bpageNum, bsellerId);
+
+        return res;
+    }
+
 }
 

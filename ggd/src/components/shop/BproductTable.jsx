@@ -7,6 +7,8 @@ const BproductTable = ({ hname, children }) => {
         <thead>
           <tr>
             <th className="TableHeader w-10">{hname[0]}</th>
+          </tr>
+          <tr>
             <th className="TableHeader w-10">{hname[1]}</th>
             <th className="TableHeader w-10">{hname[2]}</th>
             <th className="TableHeader w-10">{hname[3]}</th>
@@ -20,6 +22,7 @@ const BproductTable = ({ hname, children }) => {
             <th className="TableHeader w-10">{hname[11]}</th>
           </tr>
         </thead>
+        <tobody>{children}</tobody>
       </table>
     </div>
   );
