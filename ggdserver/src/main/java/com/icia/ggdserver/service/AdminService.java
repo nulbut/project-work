@@ -20,8 +20,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -182,7 +184,9 @@ public class AdminService {
 //        res.put("pageNum", dd.getPageNum());
 
         return result;
-    }    public String insertNotice(NoticeTbl notice, List<MultipartFile> files, HttpSession session){
+    }
+
+    public String insertNotice(NoticeTbl notice, List<MultipartFile> files, HttpSession session){
         log.info("insertNotice()");
         String result = null;
 
@@ -209,8 +213,9 @@ public class AdminService {
         log.info("fileUpload()");
 
         String realPath = session.getServletContext().getRealPath("/");
+        log.info("realPath : {}", realPath);
 
-        realPath += "upload/"; // 파일 저장 위치 ->(webapp/upload/ 형식으로 폴더가 만들어지고, 그 폴더에 파일이 저장됨)
+        realPath += "nupload/"; // 파일 저장 위치 ->(webapp/upload/ 형식으로 폴더가 만들어지고, 그 폴더에 파일이 저장됨)
 
         File folder = new File(realPath);
 
@@ -252,6 +257,43 @@ public class AdminService {
         notice.setNfList(nfList); // 게시글에 첨부파일 목록 추가
 
         return notice;
+    }
+
+    @Transactional
+    public Map<String, String> deleteNotice(long nnum,
+                                            HttpSession session){
+        log.info("deleteNotice()");
+        Map<String, String> rsMap = new HashMap<>();
+
+        try {
+            List<NoticeFiletbl> fileList = nfRepo.findAllByNfAid(nnum);
+            if (!fileList.isEmpty()){
+                deleteNotices(fileList, session);
+            }
+            nRepo.deleteById(nnum);
+            nfRepo.deleteAllBynfAid(nnum);
+
+            rsMap.put("res", "ok");
+        } catch (Exception e){
+            e.printStackTrace();
+            rsMap.put("res", "ok");
+        }
+
+        return rsMap;
+
+    }
+
+    private void deleteNotices(List<NoticeFiletbl> fileList, HttpSession session)throws Exception {
+        log.info("deleteNotices()");
+        String realpath = session.getServletContext().getRealPath("/");
+        realpath += "nupload/";
+
+        for (NoticeFiletbl nf : fileList) {
+            File file = new File((realpath + nf.getNfSysname()));
+            if (file.exists()) {
+                file.delete();
+            }
+        }
     }
 
 

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import Paging from "./Paging";
 import TableRow from "./TableRow";
 import TableColumn from "./TableColumn";
@@ -8,6 +8,7 @@ import moment from "moment";
 import Table from "./Table";
 import "./scss/Table.scss";
 import "./scss/Admin.scss";
+import { AdminPageContextStore } from "./AdminPageStatus";
 
 const df = (date) => moment(date).format("YYYY-MM-DD");
 
@@ -116,8 +117,8 @@ const BuserList = () => {
           <label>시작 날짜:</label>
           <input
             type="date"
-            value={startDate}
-            onChange={(e) => setStartDate(e.target.value)}
+            value={pageSt.startDate}
+            onChange={(e) => pageSt.setStartDate(e.target.value)}
             required
           />
         </div>
@@ -125,8 +126,8 @@ const BuserList = () => {
           <label>종료 날짜:</label>
           <input
             type="date"
-            value={endDate}
-            onChange={(e) => setEndDate(e.target.value)}
+            value={pageSt.endDate}
+            onChange={(e) => pageSt.setEndDate(e.target.value)}
             required
           />
         </div>

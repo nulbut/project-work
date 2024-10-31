@@ -10,4 +10,5 @@ public interface NoticeFileRepository extends CrudRepository<NoticeFiletbl, Long
     List<NoticeFiletbl> findAllByNfAid(long nnum);
 
 
+    void deleteAllBynfAid(long nnum);
 }

@@ -1,10 +1,14 @@
 import axios from "axios";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../idealcup/Button";
+import { AdminPageContextStore } from "./AdminPageStatus";
+import NoticeList from "./NoticeList";
 
-const Nwrite = ({ viewChange }) => {
-  const nav = useNavigate();
+const Nwrite = (props) => {
+  //const nav = useNavigate();
+  const pageSt = useContext(AdminPageContextStore);
+
   const [data, setData] = useState({
     ntitle: "",
     ncontent: "",
@@ -12,8 +16,9 @@ const Nwrite = ({ viewChange }) => {
 
   const { ntitle, ncontent } = data;
   const [fileName, setFileName] = useState("선택한 파일이 없습니다.");
+  const [files, setFiles] = useState([]);
 
-  let formData = new FormData();
+  //let formData = new FormData();
 
   const onCh = useCallback(
     (e) => {
@@ -35,32 +40,42 @@ const Nwrite = ({ viewChange }) => {
     setData(dataObj);
   });
 
-  const onFileChange = useCallback(
-    (e) => {
-      const files = e.target.files;
-      let fnames = "";
+  const onFileChange = useCallback((e) => {
+    const nfiles = e.target.files;
+    let fnames = "";
 
-      for (let i = 0; i < files.length; i++) {
-        formData.append("files", files[i]);
-        fnames += files[i].name + " ";
-      }
-      if (fnames === "") {
-        fnames = "선택한 파일이 없습니다.";
-      }
-      setFileName(fnames);
-    },
-    [formData]
-  );
+    console.log(e.target.files);
+    setFiles(e.target.files);
+
+    for (let i = 0; i < nfiles.length; i++) {
+      //formData.append("files", nfiles[i]);
+      fnames += nfiles[i].name + " ";
+    }
+    if (fnames === "") {
+      fnames = "선택한 파일이 없습니다.";
+    }
+    setFileName(fnames);
+  }, []);
 
   const onWrite = useCallback(
     (e) => {
       e.preventDefault();
 
+      const formData = new FormData();
+      console.log(files);
+
+      for (let i = 0; i < files.length; i++) {
+        formData.append("files", files[i]);
+      }
+
       formData.append(
         "data",
         new Blob([JSON.stringify(data)], { type: "application/json" })
       );
-      console.log(formData);
+      for (let key of formData.keys()) {
+        console.log(key);
+      }
+
       axios
         .post("/admin/writeProc", formData, {
           headers: { "Content-Type": "multipart/form-data" },
@@ -69,7 +84,7 @@ const Nwrite = ({ viewChange }) => {
           if (res.data === "ok") {
             alert("등록되었습니다.");
             // nav("/notice");
-            viewChange;
+            viewChange();
           } else {
             alert("등록 실패");
           }
@@ -79,11 +94,16 @@ const Nwrite = ({ viewChange }) => {
           console.log(err);
         });
     },
-    [data]
+    [data, files]
   );
 
+  const viewChange = () => {
+    console.log("nwrite viewchange");
+    pageSt.setViewPage(<NoticeList />);
+  };
+
   return (
-    <div className="Main">
+    <>
       <form className="Content" onSubmit={onWrite}>
         <h1>공지사항</h1>
         <input
@@ -112,12 +132,7 @@ const Nwrite = ({ viewChange }) => {
         </div>
 
         <div className="Buttons">
-          <Button
-            type="button"
-            size="small"
-            w-size="s-50"
-            onClick={() => nav("/notice")}
-          >
+          <Button type="button" size="small" w-size="s-50" onClick={viewChange}>
             취소
           </Button>
           <Button type="button" size="small" wsize="s-50" onClick={onPinCk}>
@@ -128,7 +143,7 @@ const Nwrite = ({ viewChange }) => {
           </Button>
         </div>
       </form>
-    </div>
+    </>
   );
 };
 

@@ -1,10 +1,13 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import Table from "./Table";
 import TableRow from "./TableRow";
 import TableColumn from "./TableColumn";
 import axios from "axios";
 import moment from "moment";
 import Paging from "./Paging";
+import Button from "../idealcup/Button";
+import Nwrite from "./Nwrite";
+import { AdminPageContextStore } from "./AdminPageStatus";
 
 const df = (date) => moment(date).format("YYYY-MM-DD");
 
@@ -15,6 +18,8 @@ const NoticeList = () => {
     totalPage: 0,
     pageNum: 1,
   });
+
+  const pageSt = useContext(AdminPageContextStore);
 
   const getnList = (pnum) => {
     axios
@@ -57,8 +62,18 @@ const NoticeList = () => {
     pnum !== null ? getnList(pnum) : getnList(1);
   }, []);
 
+  const moveMenu = () => {
+    console.log("moveMenu()");
+    pageSt.setViewPage(<Nwrite />);
+  };
+
+
   return (
-    <div>
+    <div className="Content">
+      <h1>공지사항</h1>
+      <Button size="small" wsize="s-50" onClick={moveMenu}>
+        등록
+      </Button>
       <Table hName={["제목", "날짜"]}>{list}</Table>
       <Paging page={page} getList={getnList} />
     </div>

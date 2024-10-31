@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -37,7 +38,7 @@ public class AdminController {
         Map<String, Object> rsMap = aServ.getMemberList(dd);
         return rsMap;
 
-        }
+    }
 
 
 
@@ -61,29 +62,35 @@ public class AdminController {
         return rs;
     }
 
- @GetMapping("/notice")
+    @GetMapping("/notice")
     public Map<String, Object> getNoticeList(@RequestParam Integer pageNum){
         log.info("getNList()");
 
         Map<String, Object> res = aServ.getNoticeList(pageNum);
         return res;
-        }
+    }
 
-        @PostMapping("/writeProc")
+    @PostMapping("/writeProc")
     public String writeProc(@RequestPart(value = "data", required = true) NoticeTbl notice,
                             @RequestPart(value = "files", required = false) List<MultipartFile> files,
                             HttpSession session){
         log.info("writeProc()");
         String result = aServ.insertNotice(notice, files, session);
         return  result;
-        }
+    }
 
-        @GetMapping("getNotice")
+    @GetMapping("getNotice")
     public NoticeTbl getNotice(@RequestPart long nnum){
         log.info("getNotice()");
         return aServ.getNotice(nnum);
-        }
+    }
 
+    @PostMapping("/deleteNotice")
+    public Map<String, String> deleteNotice(@RequestParam long nnum,
+                                            HttpSession session){
+        log.info("`deleteNotice()");
+        return aServ.deleteNotice(nnum, session);
+    }
 
 
 

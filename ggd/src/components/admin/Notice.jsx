@@ -1,6 +1,6 @@
 import axios from "axios";
 import moment from "moment";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import TableRow from "./TableRow";
 import TableColumn from "./TableColumn";
@@ -9,11 +9,17 @@ import Paging from "./Paging";
 import Button from "../idealcup/Button";
 import Nwrite from "./Nwrite";
 import NoticeList from "./NoticeList";
+import { AdminPageContextStore } from "./AdminPageStatus";
 
 const Notice = () => {
   const nav = useNavigate();
-  const [viewName, setViewName] = useState(<NoticeList />);
+  const pageSt = useContext(AdminPageContextStore);
+
+  //const [viewName, setViewName] = useState(<NoticeList viewChange={viewChange}/>);
   // const aid = sessionStorage.getItem("mid");
+  useEffect(() => {
+    pageSt.setViewPage(<NoticeList />);
+  },[]);
 
   const buttons = [
     {
@@ -24,38 +30,15 @@ const Notice = () => {
   ];
 
   const viewChange = () => {
-    setViewName(<NoticeList />);
+    console.log("viewChange");
+    pageSt.setViewPage(<NoticeList />);
   };
 
-  const moveMenu = () => {
-    setViewName(<Nwrite viewChange={viewChange} />);
-  };
+  // const moveMenu = () => {
+  //   setViewName(<Nwrite viewChange={viewChange} />);
+  // };
 
-  return (
-    <div className="Main">
-      <div className="Content">
-        <h1>공지사항</h1>
-        <Button size="small" wsize="s-50" onClick={moveMenu}>
-          등록
-        </Button>
-        {/* {buttons.map((butn, idx) => {
-          return (
-            <Link className="sideber-menu" to={butn.path} key={idx}>
-              <Button
-                size="large"
-                color="black"
-                onClick={() => moveMenu(butn.name)}
-              >
-                {butn.name}
-              </Button>
-            </Link>
-          );
-        })} */}
-        {viewName}
-      </div>
-      {/* <div className="desc">{viewName}</div> */}
-    </div>
-  );
+  return <div className="Main">{pageSt.viewPage}</div>;
 };
 
 export default Notice;
