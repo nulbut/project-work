@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface BproductFileRepository extends CrudRepository<BproductFileTbl, Long> {
 
-    List<BproductFileTbl> findByBproductFileCode(long bproductFileCode);
+    List<BproductFileTbl> findByBproductfilenum(long bproductfilenum);
     //해당하는 파일 목록을 삭제하는 메소드
-    void deleteByBproductFileCode(long bproductFileCode);
+    void deleteByBproductfilenum(long bproductfilenum);
 }

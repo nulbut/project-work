@@ -8,6 +8,10 @@ import com.icia.ggdserver.repository.ProductRegistrationRepository;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.Mapping;
@@ -22,7 +26,7 @@ import java.util.Map;
 @Slf4j
 public class BproductService {
     @Autowired
-    private BproductRepository bpRepo;
+    private BproductRepository bpdRepo;
     //상품 목록 레포지터리
 
     @Autowired
@@ -38,7 +42,7 @@ public class BproductService {
         String bresult = null;
 
         try {
-            bpRepo.save(bproductTbl);
+            bpdRepo.save(bproductTbl);
             log.info("bnum : {} ", bproductTbl.getBpnum());
 
             if (bfiles != null && !bfiles.isEmpty()){
@@ -55,33 +59,36 @@ public class BproductService {
     // 파일 업로드
     private void buploadFile(List<MultipartFile> files,
                             HttpSession session,
-                            long bpnum) throws Exception{
-        log.info("uploadFile");
+                            long bproductfilenum) throws Exception{
+        log.info("buploadFile()");
 
         String realPath = session.getServletContext().getRealPath("/");
 
-        realPath += "upload/";
+        realPath += "productupload/";
 
         File folder = new File(realPath);
 
         if (folder.isDirectory() == false){
-            folder.mkdir();
+            folder.mkdir(); //productupload 폴더 없으면 생성
         }
 
+        //파일 목록에서 하나씩 꺼내서 저장
         for (MultipartFile bmf : files){
             String boriname = bmf.getOriginalFilename();
 
             BproductFileTbl bproductFileTbl = new BproductFileTbl();
-            bproductFileTbl.setBproductFileOriname(boriname);
-            bproductFileTbl.setBproductFileCode(bpnum);
+            bproductFileTbl.setBproductfileoriname(boriname); //원래 파일명
+            bproductFileTbl.setBproductfilenum(bproductfilenum); //게시글번호
 
             String sysname = System.currentTimeMillis()
                     + boriname.substring(boriname.lastIndexOf("."));
-            bproductFileTbl.setBproductFileOriname(sysname);
+            bproductFileTbl.setBproductfilesysname(sysname);
 
+            //파일저장
             File file = new File(realPath + sysname);
             bmf.transferTo(file);
 
+            //파일정보를 DB에 저장
             bpfRepo.save(bproductFileTbl);
         }
     } //uploadFile end
@@ -91,9 +98,9 @@ public class BproductService {
     public BproductTbl getBproduct(long bproductFileCode) {
         log.info("bpnum()");
         //상품 가져오기
-        BproductTbl bproductTbl = bpRepo.findById(bproductFileCode).get();
+        BproductTbl bproductTbl =  bpdRepo.findById(bproductFileCode).get();
         //첨부 이미지 파일 목록 가져와서 담기
-        List<BproductFileTbl> bpfList = bpfRepo.findByBproductFileCode(bproductFileCode);
+        List<BproductFileTbl> bpfList = bpfRepo.findByBproductfilenum(bproductFileCode);
 
         bproductTbl.setBproductFileTblList(bpfList);
 
@@ -108,14 +115,14 @@ public class BproductService {
 
         try {
             //파일 삭제
-            List<BproductFileTbl> bfileTblList = bpfRepo.findByBproductFileCode(bproductFileCode);
+            List<BproductFileTbl> bfileTblList = bpfRepo.findByBproductfilenum(bproductFileCode);
             if(!bfileTblList.isEmpty()){
                 bfileDelete(bfileTblList, session);
             }
             //상품(DB)삭제
-            bpRepo.deleteById(bproductFileCode);
+            bpdRepo.deleteById(bproductFileCode);
             //파일 목록(DB) 삭제
-            bpfRepo.deleteByBproductFileCode(bproductFileCode);
+            bpfRepo.deleteByBproductfilenum(bproductFileCode);
 
             brsMap.put("res","ok");
         }catch (Exception e){
@@ -134,19 +141,11 @@ public class BproductService {
         brealPath += "upload/";
 
         for (BproductFileTbl bproductFileTbl : bfileTblList){
-            File file = new File(brealPath + bproductFileTbl + bproductFileTbl.getBproductFileOriname());
+            File file = new File(brealPath + bproductFileTbl.getBproductfilesysname());
             if (file.exists()){
                 file.delete();
             }
         }
     }
 
-//    public Map<String, Object> getBproductList(Integer bpageNum) {
-//        log.info("getBproductList()");
-//
-//        if (bpageNum == null){
-//            bpageNum = 1;
-//        }
-//        //나머지 더 쓰기
-//    }
 }//class end

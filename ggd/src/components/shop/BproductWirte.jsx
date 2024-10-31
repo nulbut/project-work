@@ -10,13 +10,14 @@ import Button from "./Button";
 const BproductWirte = () => {
   //토글용 state (on,off)
   const [isOpen, setIsOpen] = useState(true);
+  const [files, setFiles] = useState([]);
 
   const toggleHandler = () => {
     setIsOpen(!isOpen);
   };
 
   const bcname = sessionStorage.getItem("nnickname");
-  console.log(bcname);
+  //console.log(bcname);
   const [data, setData] = useState({
     bpname: "",
     bsellerId: bcname,
@@ -45,7 +46,7 @@ const BproductWirte = () => {
   const nav = useNavigate();
 
   //전송 데이터와 파일을 담을 멀티 파트 폼 생성
-  let bformData = new FormData();
+  //let bformData = new FormData();
 
   const bonch = useCallback(
     (e) => {
@@ -59,35 +60,39 @@ const BproductWirte = () => {
   );
 
   //파일 선택 시 폼데이터에 파일 목록 추가
-  const onBFileChange = useCallback(
-    (e) => {
-      const files = e.target.files;
-      let bfnames = ""; //span에 출력할 파일명 목록
+  const onBFileChange = useCallback((e) => {
+    const bfiles = e.target.files;
+    let bfnames = ""; //span에 출력할 파일명 목록
+    setFiles(e.target.files);
 
-      for (let i = 0; i < files.length; i++) {
-        bformData.append("bfiles", files[i]);
-        bfnames += files[i].name + " ";
-      }
+    for (let i = 0; i < bfiles.length; i++) {
+      bfnames += bfiles[i].name + " ";
+    }
 
-      if (bfnames === "") {
-        bfnames = "선택한 파일이 없습니다.";
-      }
-      setFileName(bfnames);
-    },
-    [bformData]
-  );
+    if (bfnames === "") {
+      bfnames = "선택한 파일이 없습니다.";
+    }
+    setFileName(bfnames);
+  }, []);
 
   //작성한 내용들 (등록에 필요한 정보들) 전송 함수
   const bonWrite = useCallback(
     (e) => {
       e.preventDefault(); //페이지 변환을 방지하는 함수
 
+      const bformData = new FormData();
+
+      console.log(files);
+      for (let i = 0; i < files.length; i++) {
+        bformData.append("files", files[i]);
+      }
+
       //전송 시 파일 이외의 데이터를 폼 데이터에 추가
       bformData.append(
         "data",
         new Blob([JSON.stringify(data)], { type: "application/json" })
       );
-      console.log(bformData);
+
       axios
         .post("/bpdwriteProc", bformData, {
           headers: { "Content-Type": "multipart/form-data" },
@@ -190,16 +195,6 @@ const BproductWirte = () => {
             required
           />
           {/*여기까지*/}
-          <p>상품 대표 이미지</p>
-          <div>
-            <input id="upload" type="file" multiple onChange={onBFileChange} />
-            <label className="FileLabel" htmlFor="upload">
-              파일선택
-            </label>
-
-            <span className="FileSpan">{fileName}</span>
-            {/* <p>미리보기들어갈것</p> */}
-          </div>
 
           <p>제품명</p>
           <input
@@ -252,13 +247,13 @@ const BproductWirte = () => {
             autoFocus
             required
           />
-          <p>상품 이미지</p>
+          {/* <p>상품 이미지</p> */}
           <div>
             {/* <input type="file" id="upload" multiple onChange={onBFileChange} />
             <label className="FileLabel" htmlFor="upload">
               업로드
             </label> */}
-            <span className="FileSpan">{fileName}</span>
+            {/* <span className="FileSpan">{fileName}</span> */}
             {/* <p>미리보기들어갈것 </p> */}
           </div>
         </div>
@@ -308,6 +303,16 @@ const BproductWirte = () => {
             autoFocus
             required
           />
+        </div>
+        <p>상품 이미지</p>
+        <div>
+          <input id="upload" type="file" multiple onChange={onBFileChange} />
+          <label className="FileLabel" htmlFor="upload">
+            파일선택
+          </label>
+
+          <span className="FileSpan">{fileName}</span>
+          {/* <p>미리보기들어갈것</p> */}
         </div>
         <div>
           <Button type="submit">등록</Button>

@@ -41,7 +41,7 @@ const BproductRegisterd = () => {
 
   //BProductRegistered 컴포넌트가 화면에 보일 때 서버로부터 등록상품 목록을 가져옴
   useEffect(() => {
-    console.log(bcname);
+    // console.log(bcname);
     if (bcname === null) {
       nav("/", { replace: true });
       return;
@@ -65,13 +65,14 @@ const BproductRegisterd = () => {
         </TableColumn>
         <TableColumn wd={"w-20"}>{bbitem.bpname}</TableColumn>
         <TableColumn wd={"w-30"}>{bbitem.bpprice}</TableColumn>
+        <TableColumn wd={"w-30"}>{bbitem.bpwarestock}</TableColumn>
+        <TableColumn wd={"w-30"}>{bbitem.bpsigndt}</TableColumn>
       </TableRow>
     ));
   }
-  console.log(bbitem);
-  const getBboard = useCallback((bpnum) => {
-    nav("", { state: { bpc: bpnum } });
-  });
+  const getBboard = (bpnum) => {
+    nav("/", { state: { bpc: bpnum } });
+  };
 
   return (
     <div>

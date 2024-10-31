@@ -75,7 +75,7 @@ function App() {
   useEffect(() => {
     const nid = sessionStorage.getItem("nid");
     const bid = sessionStorage.getItem("bid");
-    console.log(nid, bid);
+    //console.log(nid, bid);
     const nick = sessionStorage.getItem("nnickname");
     if (nid !== null) {
       //로그인 상태
