@@ -126,7 +126,6 @@ const BasicMaker = ({
                   className="radio"
                   name="iwcPublic"
                   onChange={onch}
-                  defaultChecked
                 />
                 공개
               </label>
@@ -140,6 +139,7 @@ const BasicMaker = ({
                   className="radio"
                   name="iwcPublic"
                   onChange={onch}
+                  defaultChecked
                 />
                 비공개
               </label>
@@ -182,12 +182,12 @@ const BasicMaker = ({
                   color="gray"
                   wsize="s-10"
                   outline
-                  onClick={() => nav("/main")}
+                  onClick={() => nav(-1)}
                 >
-                  B
+                  돌아가기
                 </Button>
                 <Button type="submit" size="large" wsize="s-30">
-                  WRITE
+                  저장 후 이름 수정
                 </Button>
               </div>
             </td>

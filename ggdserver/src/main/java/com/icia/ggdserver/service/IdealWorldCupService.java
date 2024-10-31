@@ -1,5 +1,6 @@
 package com.icia.ggdserver.service;
 
+import com.icia.ggdserver.dto.GameVsDto;
 import com.icia.ggdserver.dto.TurnImgDto;
 import com.icia.ggdserver.entity.IwcContentsTbl;
 import com.icia.ggdserver.entity.IwcTbl;
@@ -199,5 +200,16 @@ public class IdealWorldCupService {
 
     public void updateGameContent(ArrayList<IwcContentsTbl> table) {
         conRepo.saveAll(table);
+    }
+
+
+    public void updateGameVs(GameVsDto request) {
+        Long win = request.getWin();
+        Long lose = request.getLose();
+        conRepo.updateVs(win);
+        if (lose != null){
+            conRepo.updateVs(lose);
+        }
+        conRepo.updateWin(win);
     }
 }
