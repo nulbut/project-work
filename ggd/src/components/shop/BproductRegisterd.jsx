@@ -20,9 +20,21 @@ const BproductRegisterd = () => {
   const bproductwirtego = () => {
     nav("/bproductw");
   };
+
+  //상품수정으로 이동하는 함수
+  const bproductupdatego = () => {
+    nav("/bproductupdata");
+  };
+
   const bsellerId = sessionStorage.getItem("nnickname");
+  const [fileName, setFileName] = useState({
+    bproductfilecode: "",
+    bproductfilesysname: "",
+  });
+  console.log(fileName);
   const bbpNum = 1;
   const [bbitem, setitem] = useState([]);
+
   const [page, setpage] = useState({
     //페이징 관련 정보 저장
     totalpage: 0,
@@ -64,27 +76,35 @@ const BproductRegisterd = () => {
         <TableColumn span={4}>등록된 상품이 없습니다.</TableColumn>
       </TableRow>
     );
+    // if (fdata.length === 0) {
+    //   BproductList = (
+    //     <TableRow key={0}>
+    //       <TableColumn span={3}>등록된 이미지가 없습니다.</TableColumn>
+    //     </TableRow>
+    //   );
+    // }
   } else {
     BproductList = Object.values(bbitem).map((bbitem) => (
       <TableRow key={bbitem.bpnum}>
-        <TableColumn wd={"w-30"}>
-          <input type="checkbox" />
+        <TableColumn wd={"w-10"}>
+          <input className="Input" type="checkbox" />
         </TableColumn>
         <TableColumn wd={"w-10"}>{bbitem.bpnum}</TableColumn>
-        <TableColumn wd={"w-40"}>
+        <TableColumn wd={"w-10"}>{bbitem.bpnum}</TableColumn>
+        <TableColumn wd={"w-10"}>
           <div onClick={() => getBboard(bbitem.bpname)}>{bbitem.bpname}</div>
         </TableColumn>
-        <TableColumn wd={"w-30"}>{bn(bbitem.bpprice)}</TableColumn>
+        <TableColumn wd={"w-10"}>{bn(bbitem.bpprice)}</TableColumn>
         <TableColumn wd={"w-20"}>{bbitem.bpwarestock}</TableColumn>
-        <TableColumn wd={"w-30"}>
-          <input type="checkbox" />
+        <TableColumn wd={"w-10"}>
+          <input className="Input" type="checkbox" />
         </TableColumn>
-        <TableColumn wd={"w-30"}>
-          <input type="checkbox" />
+        <TableColumn wd={"w-10"}>
+          <input className="Input" type="checkbox" />
         </TableColumn>
         <TableColumn wd={"w-10"}>{bf(bbitem.bpsigndt)}</TableColumn>
         <TableColumn wd={"w-30"}>
-          <Button>상품수정</Button>
+          <Button onClick={bproductupdatego}>상품수정</Button>
         </TableColumn>
       </TableRow>
     ));
@@ -94,7 +114,7 @@ const BproductRegisterd = () => {
   };
 
   return (
-    <div>
+    <div style={{ width: "90%" }}>
       <h2>등록한 상품</h2>
       <hr />
       <div>
@@ -122,7 +142,7 @@ const BproductRegisterd = () => {
           hname={[
             "",
             "분류",
-            "상품코드,",
+            "상품코드",
             "이미지",
             "상품명",
             "가격",
