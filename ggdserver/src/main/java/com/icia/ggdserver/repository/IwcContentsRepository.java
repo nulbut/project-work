@@ -2,6 +2,7 @@ package com.icia.ggdserver.repository;
 
 import com.icia.ggdserver.dto.TurnImgDto;
 import com.icia.ggdserver.entity.IwcContentsTbl;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -19,6 +20,18 @@ public interface IwcContentsRepository extends CrudRepository<IwcContentsTbl, Lo
             "from iwc_contents_tbl where iwc_contents_iwc_code = :id " +
             "order by iwc_contents_code limit 2",nativeQuery = true)
     List<IwcContentsTbl> findimg(@Param(value = "id") long id );
+
+    @Query(value = "update iwc_contents_tbl set iwc_content_vscount = iwc_content_vscount +1 " +
+            "where iwc_contents_code = :iwcContentsCode",nativeQuery = true)
+    @Modifying
+    @Transactional
+    void updateVs(@Param(value = "iwcContentsCode") long iwcContentsCode);
+
+    @Query(value = "update iwc_contents_tbl set iwc_content_wincount = iwc_content_wincount +1 " +
+            "where iwc_contents_code = :iwcContentsCode",nativeQuery = true)
+    @Modifying
+    @Transactional
+    void updateWin(@Param(value = "iwcContentsCode") long iwcContentsCode);
 
 
 

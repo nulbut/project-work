@@ -1,6 +1,7 @@
 package com.icia.ggdserver.controller;
 
 
+import com.icia.ggdserver.dto.GameVsDto;
 import com.icia.ggdserver.entity.IwcContentsTbl;
 import com.icia.ggdserver.entity.IwcTbl;
 import com.icia.ggdserver.service.IdealWorldCupService;
@@ -62,5 +63,10 @@ public class IdealWorldCupController {
         }
         iwcServ.updateGameContent(table);
 
+    }
+
+    @GetMapping("/updateGameVs")
+    public void updateGameVs( GameVsDto request){
+        iwcServ.updateGameVs(request);
     }
 }
