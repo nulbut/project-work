@@ -59,7 +59,7 @@ const Cart = () => {
   } else {
     cartList = Object.values(citem).map((type) => (
       <TableRow key={type.cartCode}>
-        <TableColumn wd="10">{type.cartCode}</TableColumn>
+        <TableColumn wd="10">{type.productCode}</TableColumn>
         <TableColumn wd="40">
           <div onClick={() => getCart(type.cartCode)}>이미지 들어갈곳</div>
         </TableColumn>

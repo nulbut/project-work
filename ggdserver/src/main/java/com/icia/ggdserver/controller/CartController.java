@@ -1,11 +1,11 @@
 package com.icia.ggdserver.controller;
 
+import com.icia.ggdserver.entity.CartTbl;
+import com.icia.ggdserver.entity.ProductTbl;
 import com.icia.ggdserver.service.CartService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -24,4 +24,11 @@ public class CartController {
 
         return res;
     }
+
+    @GetMapping("setcart")
+    public String setCart(CartTbl cart){
+        log.info("setcart()");
+        return "ok";
+    }
+
 }

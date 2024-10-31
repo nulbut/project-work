@@ -2,8 +2,11 @@ package com.icia.ggdserver.service;
 
 import com.icia.ggdserver.entity.BoardFileTbl;
 import com.icia.ggdserver.entity.CartTbl;
+import com.icia.ggdserver.entity.ProductTbl;
 import com.icia.ggdserver.repository.BoardFileRepository;
 import com.icia.ggdserver.repository.CartRepository;
+import com.icia.ggdserver.repository.ProductTblRepository;
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -11,6 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
@@ -25,17 +29,20 @@ public class CartService {
     @Autowired
     private BoardFileRepository bfRpo;
 
+    @Autowired
+    private ProductTblRepository pRpo;
+
     public Map<String, Object> getCartList(Integer pageNum, String cnid) {
         log.info("getCartList() cnid: {}", cnid);
 
-        if (pageNum == null){
+        if (pageNum == null) {
             pageNum = 1;
         }
 
         int listCnt = 5;
 
         Pageable pb = PageRequest.of((pageNum - 1), listCnt,
-                Sort.Direction.DESC,"cartCode");
+                Sort.Direction.DESC, "cartCode");
 
         Page<CartTbl> result = cRepo.findByCartCodeGreaterThanAndAndCnid(0L, cnid, pb);
         List<CartTbl> Clist = result.getContent();

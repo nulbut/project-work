@@ -16,6 +16,7 @@ const NuserList = () => {
   const nav = useNavigate();
 
   const pageSt = useContext(AdminPageContextStore);
+  console.log(pageSt);
 
   //   const [startDate, setStartDate] = useState("");
   //   const [endDate, setEndDate] = useState("");

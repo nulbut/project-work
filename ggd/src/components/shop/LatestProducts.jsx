@@ -9,7 +9,7 @@ import TableColumn from "./TableColumn";
 
 const df = (date) => moment(date).format("YYYY-MM-DD HH:mm:ss");
 
-const LatestProducts = () => {
+const LatestProducts = ({ sucCart }) => {
   const [products, setProducts] = useState([]);
   const [page, setPage] = useState({
     //페이징 관련 정보 저장
@@ -20,15 +20,6 @@ const LatestProducts = () => {
   const [hasNextPage, setHasNextPage] = useState(true);
   const [pageParams, setPageParams] = useState([]);
   const observerRef = useRef();
-  const [flist, setFlist] = useState([
-    {
-      productCode: 0,
-      productName: 0,
-      productFileSysname: "",
-      productFileOriname: "Nothing",
-      image: "",
-    },
-  ]);
 
   const sellerId = "sellerId";
   const nav = useNavigate();
@@ -120,37 +111,52 @@ const LatestProducts = () => {
     nav("/ShoppingMall", { state: { productCode: code } });
   };
 
-  const like = (code, name) => {
-    console.log(code + ":" + name);
-    console.log(sessionStorage.getItem("nid"));
-  };
+  const cartList = (pc) => {
+    console.log(pc);
+    const nid = sessionStorage.getItem("nid");
 
-  useEffect(() => {
     axios
-      .post("getcart", products, { params: { sellerId: sellerId } })
+      .get("/setcart", { params: { cnid: nid, productCode: pc } })
       .then((res) => {
-        setProducts(res.data);
-        console.log(res.data);
-
-        const pfList = res.data.productFileList;
-        console.log(pfList);
-
-        if (pfList.length > 0) {
-          console.log("pfList.length : ", pfList.length);
-          let newFileList = [];
-          for (let i = 0; i < pfList.length; i++) {
-            const newFile = {
-              ...pfList[i],
-              image: "../../update" + pfList[i].productFileSysname,
-            };
-            newFileList.push(newFile);
-          }
-          console.log(newFileList);
-          setFlist(newFileList);
+        console.log(res);
+        if (res.data == "ok") {
+          nav("/Cart");
+        } else {
+          alert("이건뭐니");
         }
       })
-      .catch((err) => console.log(err));
-  }, []);
+      .catch((err) => {
+        alert("돌아가");
+        console.log(err);
+      });
+  };
+
+  // useEffect(() => {
+  //   axios
+  //     .post("getcart", products, { params: { sellerId: sellerId } })
+  //     .then((res) => {
+  //       setProducts(res.data);
+  //       console.log(res.data);
+
+  //       const pfList = res.data.productFileList;
+  //       console.log(pfList);
+
+  //       if (pfList.length > 0) {
+  //         console.log("pfList.length : ", pfList.length);
+  //         let newFileList = [];
+  //         for (let i = 0; i < pfList.length; i++) {
+  //           const newFile = {
+  //             ...pfList[i],
+  //             image: "../../update" + pfList[i].productFileSysname,
+  //           };
+  //           newFileList.push(newFile);
+  //         }
+  //         console.log(newFileList);
+  //         setFlist(newFileList);
+  //       }
+  //     })
+  //     .catch((err) => console.log(err));
+  // }, []);
   return (
     <div className="product-list">
       <h2 className="section-title">
@@ -169,9 +175,7 @@ const LatestProducts = () => {
             <h3 className="product-title">상품명 : {item.productName} </h3>
             <p className="product-price">₩{item.sellerPayment}</p>
             <p className="product-body">{item.productDetail}</p>
-            <button onClick={() => like(item.productCode, item.productName)}>
-              찜
-            </button>
+            <button onClick={() => cartList(item.productCode)}>찜</button>
           </div>
         ))}
       </div>
