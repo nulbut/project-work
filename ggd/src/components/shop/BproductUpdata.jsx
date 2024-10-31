@@ -42,9 +42,9 @@ const BproductUpdata = () => {
 
   //   const { bpexplanation } = data;
   //서버로부터 상품 정보 받아오기
-  useEffect(() => {
-    axios;
-  });
+  //   useEffect(() => {
+  //     axios;
+  //   });
   return <div></div>;
 };
 
