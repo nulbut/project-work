@@ -23,7 +23,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const df = (date) => moment(date).format("YYYY-MM-DD HH:mm:ss");
+const df = (date) => moment(date).format("YYYY-MM-DD");
 
 const IdealcupMain = () => {
   const [games, setGames] = useState([]);
@@ -173,16 +173,22 @@ const IdealcupMain = () => {
         {games.map((item, index) => (
           <div key={index} className="product-card">
             <div className="vs-imgset">
-              <img
-                src={`upload/${item.iwcFirstImage}`}
-                alt={`상품 이미지 ${item.iwcCode}`}
-                className="product-image"
-              />
-              <img
-                src={`upload/${item.iwcSecondImage}`}
-                alt={`상품 이미지 ${item.iwcCode}`}
-                className="product-image"
-              />
+              <div>
+                <img
+                  src={`upload/${item.iwcFirstImage}`}
+                  alt={`상품 이미지 ${item.iwcCode}`}
+                  className="product-image"
+                />
+                {item.iwcFirstName}
+              </div>
+              <div>
+                <img
+                  src={`upload/${item.iwcSecondImage}`}
+                  alt={`상품 이미지 ${item.iwcCode}`}
+                  className="product-image"
+                />
+                {item.iwcSecondName}
+              </div>
             </div>
 
             <div className="product-title">
@@ -197,19 +203,24 @@ const IdealcupMain = () => {
                 <div>{item.iwcName}</div>
               </Link>
               <div className="title-btn">
+                <div>조회수 : {item.iwcViews}</div>
+                <hr />
+              </div>
+            </div>
+
+            <p className="product-body">{item.iwcExplanation}</p>
+            <p className="product-sub">{item.iwcAuthor}</p>
+            <p className="product-body">
+              {df(item.iwcDate)}{" "}
+              <h3>
                 <div>
                   <FontAwesomeIcon icon={faHeart} />
                 </div>
                 <div>
                   <FontAwesomeIcon icon={faCircleExclamation} />
                 </div>
-                <div>{item.iwcViews}</div>
-              </div>
-            </div>
-
-            <p className="product-body">{item.iwcExplanation}</p>
-            <p className="product-sub">{item.iwcAuthor}</p>
-            <p className="product-body">{df(item.iwcDate)}</p>
+              </h3>
+            </p>
             <div className="btn-set">
               {/* <button>시작</button>
               <button>랭킹</button>

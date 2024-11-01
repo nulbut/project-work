@@ -33,6 +33,15 @@ public interface IwcContentsRepository extends CrudRepository<IwcContentsTbl, Lo
     @Transactional
     void updateWin(@Param(value = "iwcContentsCode") long iwcContentsCode);
 
+    @Query(value = "update iwc_contents_tbl set iwc_content_finalcount = iwc_content_finalcount +1 " +
+            "where iwc_contents_code = :iwcContentsCode",nativeQuery = true)
+    @Modifying
+    @Transactional
+    void updateFinal(@Param(value = "iwcContentsCode") long iwcContentsCode);
+
+
+//    void deleteAllBy(Long iwcContentsIwcCode);
+
 
 
 

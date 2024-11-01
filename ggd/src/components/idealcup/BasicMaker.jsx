@@ -122,19 +122,6 @@ const BasicMaker = ({
               <label>
                 <input
                   type="radio"
-                  value="1"
-                  className="radio"
-                  name="iwcPublic"
-                  onChange={onch}
-                />
-                공개
-              </label>
-              <div className="radio-ex">
-                다른 사용자는 접근할 수 없습니다. 테스트 용으로 적합합니다.
-              </div>
-              <label>
-                <input
-                  type="radio"
                   value="0"
                   className="radio"
                   name="iwcPublic"
@@ -142,6 +129,19 @@ const BasicMaker = ({
                   defaultChecked
                 />
                 비공개
+              </label>
+              <div className="radio-ex">
+                다른 사용자는 접근할 수 없습니다. 테스트 용으로 적합합니다.
+              </div>
+              <label>
+                <input
+                  type="radio"
+                  value="1"
+                  className="radio"
+                  name="iwcPublic"
+                  onChange={onch}
+                />
+                공개
               </label>
               <div className="radio-ex">
                 모든 사용자가 플레이 할 수 있습니다.

@@ -199,17 +199,48 @@ public class IdealWorldCupService {
     }
 
     public void updateGameContent(ArrayList<IwcContentsTbl> table) {
+        log.info("updateGameContent()");
         conRepo.saveAll(table);
+
+        List<IwcContentsTbl> firstsecond = conRepo.findimg(table.get(0).getIwcContentsIwcCode());
+        log.info("first second: {}", firstsecond);
+        int i = 1;
+        for(IwcContentsTbl it : firstsecond){
+            if (i == 1){
+                log.info("it: {}", it);
+                iwcRepo.setFirstImg(it);
+                i++;
+            }else{
+                iwcRepo.setSecondImg(it);
+            }
+        }
+
+    }
+
+    public void updateDeleteGameContent(ArrayList<IwcContentsTbl> deleteGoods) {
+        log.info("updateDeleteGameContent()");
+        for(IwcContentsTbl iwc : deleteGoods){
+            log.info("iwc: {}", iwc);
+        }
+        conRepo.deleteAll(deleteGoods);
+
     }
 
 
     public void updateGameVs(GameVsDto request) {
         Long win = request.getWin();
         Long lose = request.getLose();
+        Long iwcCode = request.getIwcCode();
         conRepo.updateVs(win);
         if (lose != null){
             conRepo.updateVs(lose);
         }
         conRepo.updateWin(win);
+
+        log.info(iwcCode+"");
+        if(iwcCode != null){
+            conRepo.updateFinal(win);
+            iwcRepo.updateComplete(iwcCode);
+        }
     }
 }

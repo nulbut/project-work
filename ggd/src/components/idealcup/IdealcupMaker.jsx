@@ -6,12 +6,14 @@ import "./scss/FileInput.scss";
 import "./scss/IdealcupWrite.scss";
 import "./scss/IdealcupMaker.scss";
 import BasicMaker from "./BasicMaker";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import DetailMaker from "./DetailMaker";
 
 const IdealCupMaker = () => {
   const id = sessionStorage.getItem("nid");
   let formData = new FormData();
+  const location = useLocation();
+
   //탭 관련
   const [fileImage, setFileImage] = useState([]);
   const [data, setData] = useState({
@@ -25,7 +27,9 @@ const IdealCupMaker = () => {
 
   const nav = useNavigate();
 
-  const [currentTab, clickTab] = useState(0);
+  const [currentTab, clickTab] = useState(
+    location.state?.iwcInfo != null ? 1 : 0
+  );
   const selectMenuHandler = (index) => {
     // parameter로 현재 선택한 인덱스 값을 전달해야 하며, 이벤트 객체(event)는 쓰지 않는다
     // 해당 함수가 실행되면 현재 선택된 Tab Menu 가 갱신.
@@ -65,6 +69,11 @@ const IdealCupMaker = () => {
     if (id === null) {
       nav("/login", { replace: true });
       return; //로그인 안한 경우 첫 화면으로 이동.
+    }
+    if (location.state?.iwcInfo != null) {
+      console.log(location.state.iwcInfo);
+      setData(location.state.iwcInfo);
+      console.log("123", data);
     }
   }, []);
   console.log(data);

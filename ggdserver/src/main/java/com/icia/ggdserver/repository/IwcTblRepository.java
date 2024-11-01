@@ -26,6 +26,12 @@ public interface IwcTblRepository extends CrudRepository<IwcTbl, Long> {
     @Transactional
     void updateViews(@Param(value = "iwcCode") long pNum);
 
+    @Query(value = "update iwc_tbl set iwc_complete = iwc_complete +1 " +
+            "where iwc_code = :iwcCode",nativeQuery = true)
+    @Modifying
+    @Transactional
+    void updateComplete(@Param(value = "iwcCode") long iwcCode);
+
 //    @Query
 //    void updateIwcTblByIwcFirstImageAndIwcFirstNameAndIwcSecondImageAndIwcSecondName(List<IwcContentsTbl> firstsecond);
 

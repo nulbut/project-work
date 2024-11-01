@@ -75,17 +75,20 @@ const Game = () => {
   }, []);
 
   const updateVs = useCallback(
-    (d) => {
-      let winner, loser;
+    (d, final) => {
+      let winner,
+        loser = null;
       winner = d.iwcContentsCode;
       for (let i = 0; i < displays.length; i++) {
         if (displays[i].iwcContentsCode != winner) {
           loser = displays[i].iwcContentsCode;
         }
-        console.log("위너 루저", typeof winner, winner, loser);
+        console.log("위너 루저", typeof winner, winner, loser, final);
       }
       axios
-        .get("/updateGameVs", { params: { win: winner, lose: loser } })
+        .get("/updateGameVs", {
+          params: { win: winner, lose: loser, iwcCode: final },
+        })
         .then((res) => {})
         .catch((error) => {
           console.error(error);
@@ -100,8 +103,8 @@ const Game = () => {
         setGang((prev) => {
           return { ...prev, play: 0, now: -98 };
         });
-        updateVs(good);
-        console.log("어케바뀜?", gang);
+        updateVs(good, location.state.code);
+        console.log("어케바뀜?", location.state.code);
       } else {
         let updatedGood = [...winners, good];
         updatedGood.sort(() => Math.random() - 0.5);
@@ -178,23 +181,28 @@ const Game = () => {
 
       {displays.map((d) => {
         return (
-          <div className="flex-1" key={d.src} onClick={clickHandler(d)}>
+          <>
             {gang.now == -98 ? (
-              <img
-                className="food-img"
-                src={d.src}
-                style={{
-                  width: "auto",
-                  height: "100%",
-                  transform: "translateX(-50%)",
-                  left: "50%",
-                }}
-              />
+              <div className="flex-1" key={d.src}>
+                <img
+                  className="food-img"
+                  src={d.src}
+                  style={{
+                    width: "auto",
+                    height: "100%",
+                    transform: "translateX(-50%)",
+                    left: "50%",
+                  }}
+                />
+                <div className="name">{d.iwcContentsName}</div>
+              </div>
             ) : (
-              <img className="food-img" src={d.src} />
+              <div className="flex-1" key={d.src} onClick={clickHandler(d)}>
+                <img className="food-img" src={d.src} />
+                <div className="name">{d.iwcContentsName}</div>
+              </div>
             )}
-            <div className="name">{d.iwcContentsName}</div>
-          </div>
+          </>
         );
       })}
 

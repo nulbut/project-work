@@ -22,7 +22,21 @@ const DetailMaker = ({
   //FormData를 컴포넌트간 교환 할 수 있는 방법을 찾기
   //일단은 데이터베이스에서 조회하는 방식으로 작성
   const tableRef = useRef();
-  const [goods, setGoods] = useState([]);
+  const [goods, setGoods] = useState([
+    {
+      iwcContentFinalcount: "",
+      iwcContentVscount: "",
+      iwcContentWincount: "",
+      iwcContentsCategory: "",
+      iwcContentsCode: "",
+      iwcContentsIwcCode: "",
+      iwcContentsName: "",
+      iwcContentsOriname: "",
+      iwcContentsSysname: "",
+      src: "",
+    },
+  ]);
+  const [deleteGoods, setDeleteGoods] = useState([]);
   const location = useLocation();
   //데이터 뿌려주기
   useEffect(() => {
@@ -38,7 +52,6 @@ const DetailMaker = ({
                 src: "upload/" + res.data[i].iwcContentsSysname,
               };
               newGoodsList.push(newGoods); //배열에 추가
-              console.log(newGoodsList);
             }
             setGoods(newGoodsList);
           }
@@ -47,43 +60,45 @@ const DetailMaker = ({
     };
 
     axiosGet();
-  }, []);
-  console.log("123", fileImage);
-  console.log(goods);
+  }, [data]);
+
   //데이터 전송하기 axios
 
   const onch = (index, e) => {
     const values = [...goods];
     if (e.target.name === "iwcName") {
       values[index].iwcContentsName = e.target.value;
-    } else if (e.target.name === "iwcContentsCategory") {
+    } else if (e.target.name === "Category") {
       values[index].iwcContentsCategory = e.target.value;
+      console.log("카테고리");
     }
-    // const dataObj = {
-    //   ...data,
-    //   [e.target.name]: e.target.value,
-    // };
+
     setGoods(values);
   };
 
-  const subimg = useCallback((table) => {
+  const removeGoods = (index) => {
+    if (goods.length === 4) {
+      alert("4개 이하로는 작성하실 수 없습니다.");
+      return;
+    }
+    const values = [...goods];
+    const deletedItem = values.splice(index, 1)[0];
+    console.log(deletedItem); //[] 없애기
+    setDeleteGoods((prevDeleteGoods) => [...prevDeleteGoods, deletedItem]);
+    setGoods(values);
+
+    console.log(values);
+    console.log(deleteGoods);
+  };
+
+  const subimg = useCallback((table, table2) => {
     console.log(table);
     axios
-      .post("/updateGameData", table)
-      .then((res) => {
-        // if (res.data.length > 0) {
-        //   let newGoodsList = [];
-        //   for (let i = 0; i < res.data.length; i++) {
-        //     const newGoods = {
-        //       ...res.data[i],
-        //       src: "upload/" + res.data[i].iwcContentsSysname,
-        //     };
-        //     newGoodsList.push(newGoods); //배열에 추가
-        //     console.log(newGoodsList);
-        //   }
-        //   setGoods(newGoodsList);
-        // }
-      })
+      .all([
+        axios.post("/updateGameData", table),
+        axios.post("/updateDeleteGameData", table2),
+      ])
+      .then((res) => {})
       .catch((err) => console.log(err));
   }, []);
 
@@ -111,42 +126,51 @@ const DetailMaker = ({
           <td>라인 삭제</td>
         </tr>
         {/* // {fileImage.map((e) => ( */}
-        {goods.map((e, index) => (
+        {goods.map((con, index) => (
           <tr>
-            <td style={{ width: "100px" }}>{e.iwcContentsCode}</td>
+            <td style={{ width: "100px" }}>{index + 1}</td>
             <td style={{ width: "100px" }}>
-              <img style={{ width: "55px" }} src={e.src} />
+              <img style={{ width: "55px" }} src={con.src} />
             </td>
             <td style={{ width: "300px" }}>
               <input
                 class="Input"
                 name="iwcName"
-                value={e.iwcContentsName}
+                value={con.iwcContentsName}
                 placeholder="제목"
                 onChange={(e) => onch(index, e)}
               />
             </td>
             <td>
-              <progress value={e.iwcContentWincount} max="500"></progress>
+              {con.iwcContentFinalcount}/{data.iwcComplete}
+              <progress
+                value={con.iwcContentFinalcount}
+                max={data.iwcComplete}
+              ></progress>
             </td>
             <td>
-              {e.iwcContentWincount}
-              <progress value={e.e.iwcContentWincount} max="500"></progress>
+              {con.iwcContentWincount}/{con.iwcContentVscount}
+              <progress
+                value={con.iwcContentWincount}
+                max={con.iwcContentVscount}
+              ></progress>
             </td>
             <td>
               <input
                 class="Input"
-                name="iwcContentsCategory"
-                value={e.iwcContentsCategory}
+                name="Category"
+                value={con.iwcContentsCategory}
                 placeholder="카테고리"
                 onChange={(e) => onch(index, e)}
               />
             </td>
-            <td>X</td>
+            <td>
+              <button onClick={() => removeGoods(index)}>X</button>
+            </td>
           </tr>
         ))}
       </table>
-      <button onClick={() => subimg(goods)}>제출</button>
+      <button onClick={() => subimg(goods, deleteGoods)}>제출</button>
     </div>
   );
 };

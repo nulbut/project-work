@@ -141,28 +141,10 @@ const IdealcupMy = () => {
   }, []);
 
   //출력할 게시글 목록 작성
-  let list = null;
-  if (games.length === 0) {
-    list = (
-      <TableRow key={0}>
-        <TableColumn span={4}>게시글이 없습니다.</TableColumn>
-      </TableRow>
-    );
-  } else {
-    list = Object.values(games).map((item) => (
-      <TableRow key={item.iwcCode}>
-        <TableColumn wd="w-10">{item.iwcCode}</TableColumn>
-        <TableColumn wd="w-40">
-          <div onClick={() => getBoard(item.iwcCode)}>{item.iwcName}</div>
-        </TableColumn>
-        <TableColumn wd="w-20">{item.iwcAuthor}</TableColumn>
-        <TableColumn wd="w-30">{df(item.iwcDate)}</TableColumn>
-      </TableRow>
-    ));
-  }
 
-  const getBoard = (code) => {
-    nav("/game", { state: { iwcCode: code } }); //'/board?bn=1'
+  const getUpdateBoard = (item, e) => {
+    e.preventDefault();
+    nav("/make", { state: { iwcInfo: item } }); //'/board?bn=1'
   }; //상세보기 화면으로 전환될 때 게시글 번호를 보낸다.
 
   return (
@@ -233,7 +215,13 @@ const IdealcupMy = () => {
               </Link>
               <div />
               <Link>
-                <Button wsize="s-25">수정</Button>
+                <Button
+                  wsize="s-25"
+                  outline
+                  onClick={(e) => getUpdateBoard(item, e)}
+                >
+                  수정
+                </Button>
               </Link>
               <Link>
                 <Button wsize="s-25">삭제</Button>
