@@ -1,19 +1,8 @@
 package com.icia.ggdserver.service;
 
 import com.icia.ggdserver.dto.DateDto;
-import com.icia.ggdserver.entity.BmemberTbl;
-import com.icia.ggdserver.entity.Member;
-import com.icia.ggdserver.entity.NmemberTbl;
-import com.icia.ggdserver.entity.UserGradeTbl;
-import com.icia.ggdserver.entity.NoticeFiletbl;
-import com.icia.ggdserver.entity.NoticeTbl;
-import com.icia.ggdserver.repository.BMemberRepository;
-import com.icia.ggdserver.repository.MemberRepository;
-import com.icia.ggdserver.repository.NMemberRepository;
-import com.icia.ggdserver.repository.UserGradeRepository;
-import com.icia.ggdserver.repository.NoticeFileRepository;
-import com.icia.ggdserver.repository.NoticeRepository;
-import jakarta.persistence.Transient;
+import com.icia.ggdserver.entity.*;
+import com.icia.ggdserver.repository.*;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +33,12 @@ public class AdminService {
 
     @Autowired
     private NoticeFileRepository nfRepo;
+
+    @Autowired
+    private ReportRepository rRepo;
+
+    @Autowired
+    private ReportFileRepository rfRepo;
 
 
 
@@ -286,7 +281,7 @@ public class AdminService {
         for (MultipartFile mf : files){
             String oriname = mf.getOriginalFilename();
 
-            NoticeFiletbl nf = new NoticeFiletbl();
+            NoticeFileTbl nf = new NoticeFileTbl();
             nf.setNfOriname(oriname); // 원래 파일면
             nf.setNfAid(nfnum); // 게시글 번호
 
@@ -311,7 +306,7 @@ public class AdminService {
         // 게시글 가져와서 담기
         NoticeTbl notice = nRepo.findById(nnum).get();
         // 첨부파일 목록 가져와서 담기
-        List<NoticeFiletbl> nfList = nfRepo.findAllByNfAid(nnum);
+        List<NoticeFileTbl> nfList = nfRepo.findAllByNfAid(nnum);
 
         notice.setNfList(nfList); // 게시글에 첨부파일 목록 추가
 
@@ -325,7 +320,7 @@ public class AdminService {
         Map<String, String> rsMap = new HashMap<>();
 
         try {
-            List<NoticeFiletbl> fileList = nfRepo.findAllByNfAid(nnum);
+            List<NoticeFileTbl> fileList = nfRepo.findAllByNfAid(nnum);
             if (!fileList.isEmpty()){
                 deleteNotices(fileList, session);
             }
@@ -342,17 +337,58 @@ public class AdminService {
 
     }
 
-    private void deleteNotices(List<NoticeFiletbl> fileList, HttpSession session)throws Exception {
+    private void deleteNotices(List<NoticeFileTbl> fileList, HttpSession session)throws Exception {
         log.info("deleteNotices()");
         String realpath = session.getServletContext().getRealPath("/");
         realpath += "nupload/";
 
-        for (NoticeFiletbl nf : fileList) {
+        for (NoticeFileTbl nf : fileList) {
             File file = new File((realpath + nf.getNfSysname()));
             if (file.exists()) {
                 file.delete();
             }
         }
+    }
+
+    public Map<String, Object> getReportList(Integer pageNum) {
+
+        log.info("getReportList()");
+
+        if (pageNum == null) {
+            pageNum = 1;
+        }
+
+        int listCnt = 10;
+
+        Pageable pb = PageRequest.of((pageNum -1), listCnt, Sort.Direction.DESC, "rNum");
+
+        Page<ReportTbl> result = rRepo.findByrNumGreaterThan(0L, pb);
+
+        List<ReportTbl> rList = result.getContent();
+
+        int totalPage = result.getTotalPages();
+
+        Map<String, Object> res = new HashMap<>();
+        res.put("rList", rList);
+        res.put("totalPage", totalPage);
+        res.put("pageNum",pageNum);
+
+        return res;
+
+    }
+
+    public ReportTbl getReport(long rNum) {
+        log.info("getReport()");
+
+        // 게시글 가져와서 담기
+        ReportTbl report = rRepo.findById(rNum).get();
+        // 첨부파일 목록 가져와서 담기
+        List<ReportFileTbl> rfList = rfRepo.findByRfUid(rNum);
+
+        report.setRfList(rfList); // 게시글에 첨부파일 목록 추가
+
+        return report;
+
     }
 
 

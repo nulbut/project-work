@@ -1,10 +1,7 @@
 package com.icia.ggdserver.controller;
 
 import com.icia.ggdserver.dto.DateDto;
-import com.icia.ggdserver.entity.Member;
-import com.icia.ggdserver.entity.NmemberTbl;
-import com.icia.ggdserver.entity.UserGradeTbl;
-import com.icia.ggdserver.entity.NoticeTbl;
+import com.icia.ggdserver.entity.*;
 import com.icia.ggdserver.service.AdminService;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
@@ -98,6 +95,20 @@ public class AdminController {
                                             HttpSession session){
         log.info("`deleteNotice()");
         return aServ.deleteNotice(nnum, session);
+    }
+
+    @GetMapping("/report")
+    public Map<String, Object> getReportList(@RequestParam Integer pageNum){
+        log.info("getRList()");
+
+        Map<String, Object> res = aServ.getReportList(pageNum);
+        return res;
+    }
+
+    @GetMapping("/getReport")
+    public ReportTbl getReport(@RequestParam long rNum){
+        log.info("getReport()");
+        return aServ.getReport(rNum);
     }
 
 

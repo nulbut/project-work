@@ -33,6 +33,6 @@ public class NoticeTbl {
     private int isPinned;
 
     @Transient
-    private List<NoticeFiletbl> nfList;
+    private List<NoticeFileTbl> nfList;
 
 }

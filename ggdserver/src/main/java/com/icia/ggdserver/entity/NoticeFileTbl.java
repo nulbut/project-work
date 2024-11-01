@@ -6,7 +6,7 @@ import lombok.Data;
 @Entity
 @Table(name = "notice_file_tbl")
 @Data
-public class NoticeFiletbl {
+public class NoticeFileTbl {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long nfNum;

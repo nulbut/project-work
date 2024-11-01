@@ -14,6 +14,7 @@ import UserList from "./UserList";
 import Review from "./Review";
 import Paging from "./Paging";
 import Notice from "./Notice";
+import Report from "./Report";
 
 // function Admin() {
 //   const history = useHistory();
@@ -24,7 +25,6 @@ import Notice from "./Notice";
 
 // const pnum = sessionStorage.getItem("pageNum");
 
-
 // useEffect(() => {
 //   // if (!admin) {
 //   //     nav("/", { replace: true });
@@ -32,7 +32,6 @@ import Notice from "./Notice";
 //   // }
 //   pnum !== null ? Admin(pnum) : Admin(1);
 // }, []);
-
 
 const Admin = () => {
   const navigate = useNavigate();
@@ -78,7 +77,10 @@ const Admin = () => {
       case "후기 관리":
         setViewName(<Review />);
         break;
-        case "공지사항":
+      case "신고함":
+        setViewName(<Report />);
+        break;
+      case "공지사항":
         setViewName(<Notice />);
         break;
     }

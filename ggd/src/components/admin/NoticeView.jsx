@@ -1,7 +1,6 @@
 import axios from "axios";
 import moment from "moment";
 import React, { useCallback, useContext, useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
 import NoticeList from "./NoticeList";
 import { AdminPageContextStore } from "./AdminPageStatus";
 import Button from "../idealcup/Button";
@@ -80,7 +79,7 @@ const NotieView = ({ nnum }) => {
   });
 
   return (
-    <div className="Notice">
+    <div className="Main">
       <div className="Content">
         <h1>{notice.ntitle}</h1>
 

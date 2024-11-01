@@ -1,13 +1,6 @@
-import axios from "axios";
-import moment from "moment";
-import React, { useCallback, useContext, useEffect, useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import TableRow from "./TableRow";
-import TableColumn from "./TableColumn";
-import Table from "./Table";
-import Paging from "./Paging";
-import Button from "../idealcup/Button";
-import Nwrite from "./Nwrite";
+import React, { useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
 import NoticeList from "./NoticeList";
 import { AdminPageContextStore } from "./AdminPageStatus";
 
