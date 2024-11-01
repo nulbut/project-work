@@ -101,12 +101,12 @@ public class BproductService {
 
 
 
-    public BproductTbl getBproduct(long bproductFileCode) {
-        log.info("bpnum()");
+    public BproductTbl getBproduct(long bpnum) {
+        log.info("getBproduct()");
         //상품 가져오기
-        BproductTbl bproductTbl =  bpdRepo.findById(bproductFileCode).get();
+        BproductTbl bproductTbl =  bpdRepo.findById(bpnum).get();
         //첨부 이미지 파일 목록 가져와서 담기
-        List<BproductFileTbl> bpfList = bpfRepo.findByBproductfilenum(bproductFileCode);
+        List<BproductFileTbl> bpfList = bpfRepo.findByBproductfilenum(bpnum);
 
         bproductTbl.setBproductFileTblList(bpfList);
 

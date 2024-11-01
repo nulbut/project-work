@@ -42,6 +42,7 @@ import ProductUpdate from "./components/shop/ProductUpdate";
 import UsedWrite from "./components/shop/UsedWrite";
 import BproductUpdata from "./components/shop/BproductUpdata";
 import BMypageView from "./components/shop/BMypageView";
+import BproductView from "./components/shop/BproductView";
 
 function App() {
   const nav = useNavigate();
@@ -155,6 +156,7 @@ function App() {
             <Route path="bp1" element={<BproductRegisterd />} />
           </Route>
           <Route path="/bproductupdata" element={<BproductUpdata />} />
+          <Route path="/bproductview" element={<BproductView />} />
           <Route path="/bproductw" element={<BproductWirte />} />
         </Route>
 

@@ -9,6 +9,7 @@ import axios from "axios";
 import TableRow from "./TableRow";
 import TableColumn from "./TableColumn";
 import Paging from "./Paging";
+import "./scss/BproductRegisterd.scss";
 
 const bf = (date) => moment(date).format("YYYY-MM-DD");
 const bn = (Number) => Number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -22,23 +23,14 @@ const BproductRegisterd = () => {
   };
 
   //상품수정으로 이동하는 함수
-  const bproductupdatego = () => {
-    nav("/bproductupdata");
+  const bprupdate = () => {
+    nav("/bproductupdata", { state: { bpnum: bbpNum } });
   };
 
   const bsellerId = sessionStorage.getItem("nnickname");
   const bbpNum = 1;
 
   const [bbitem, setitem] = useState([]);
-  const [flist, setFlist] = useState([
-    {
-      bproductfilecode: 0,
-      bproductfilenum: 0,
-      bproductfilesysname: "",
-      bproductfileoriname: "Nothing",
-      image: "",
-    },
-  ]);
 
   const [page, setpage] = useState({
     //페이징 관련 정보 저장
@@ -91,10 +83,13 @@ const BproductRegisterd = () => {
         </TableColumn>
         <TableColumn wd={"w-10"}>{bbitem.bpnum}</TableColumn>
         <TableColumn wd={"w-10"}>
-          <img src={"../productupload/" + bbitem.bproductFileSysnameM} />
+          <img
+            className="img"
+            src={"../productupload/" + bbitem.bproductFileSysnameM}
+          />
         </TableColumn>
         <TableColumn wd={"w-10"}>
-          <div onClick={() => getBboard(bbitem.bpname)}>{bbitem.bpname}</div>
+          <div onClick={() => getBboard(bbitem.bpnum)}>{bbitem.bpname}</div>
         </TableColumn>
         <TableColumn wd={"w-10"}>{bn(bbitem.bpprice)}</TableColumn>
         <TableColumn wd={"w-20"}>{bbitem.bpwarestock}</TableColumn>
@@ -106,13 +101,14 @@ const BproductRegisterd = () => {
         </TableColumn>
         <TableColumn wd={"w-10"}>{bf(bbitem.bpsigndt)}</TableColumn>
         <TableColumn wd={"w-30"}>
-          <Button onClick={bproductupdatego}>상품수정</Button>
+          <Button onClick={bprupdate}>상품수정</Button>
         </TableColumn>
       </TableRow>
     ));
   }
   const getBboard = (bpnum) => {
-    nav("pdView", { state: { bpc: bpnum } });
+    console.log(bpnum);
+    nav("/bproductview", { state: { bpn: bpnum } });
   };
 
   return (

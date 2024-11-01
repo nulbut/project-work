@@ -1,11 +1,13 @@
 import React, { useCallback, useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import toggleoff from "../images/toggleoff.png";
 import toggleon from "../images/toggleon.png";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Button from "./Button";
+import "./scss/Input.scss";
+import "./scss/Textarea.scss";
+import "./scss/FileInput.scss";
+import "./scss/Write.scss";
 
 const BproductWirte = () => {
   //토글용 state (on,off)
@@ -17,10 +19,13 @@ const BproductWirte = () => {
   };
 
   const bcname = sessionStorage.getItem("nnickname");
+  const bid = sessionStorage.getItem("bid");
+  console.log(bid);
   //console.log(bcname);
   const [data, setData] = useState({
     bpname: "",
     bsellerId: bcname,
+    bprobid: bid,
     bpprice: "",
     bpprestriction: "",
     bpwarestock: "",
@@ -32,6 +37,7 @@ const BproductWirte = () => {
 
   const {
     bpname,
+    bprobid,
     bsellerId,
     bpsize,
     bpmaterial,
@@ -115,10 +121,11 @@ const BproductWirte = () => {
   console.log("현재값", data);
 
   return (
-    <div>
+    <div className="Write">
       <form className="Content" onSubmit={bonWrite}>
         <h3>상품등록</h3>
         <hr />
+        <input type="hidden" value={bprobid} />
         <div>
           <p className="title">카테고리</p>
           <p>대분류</p>
@@ -139,7 +146,7 @@ const BproductWirte = () => {
               <FontAwesomeIcon icon={faMagnifyingGlass} />
             </button>
           </div> */}
-            <input type="text" />
+            <input className="Input" type="text" />
           </div>
           <p>중분류</p>
           <div>
@@ -159,7 +166,7 @@ const BproductWirte = () => {
               <FontAwesomeIcon icon={faMagnifyingGlass} />
             </button>
           </div> */}
-            <input type="text" />
+            <input className="Input" type="text" />
           </div>
           <p>소분류</p>
           <div>
@@ -179,7 +186,7 @@ const BproductWirte = () => {
               <FontAwesomeIcon icon={faMagnifyingGlass} />
             </button>
           </div> */}
-            <input type="text" />
+            <input className="Input" type="text" />
           </div>
         </div>
         <div>
@@ -305,7 +312,7 @@ const BproductWirte = () => {
           />
         </div>
         <p>상품 이미지</p>
-        <div>
+        <div className="FileInput">
           <input id="upload" type="file" multiple onChange={onBFileChange} />
           <label className="FileLabel" htmlFor="upload">
             파일선택

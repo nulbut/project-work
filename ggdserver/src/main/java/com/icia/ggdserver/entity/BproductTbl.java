@@ -20,6 +20,9 @@ public class BproductTbl { // 사업자 상품 테이블
     @Column(nullable = false)
     private String bsellerId; //판매자 상호 (닉네임)
 
+    @Column(nullable = false)
+    private String bprobid; //사업자 아이디
+
     @Column(nullable = false, length = 100)
     private String bpname; // 상품명
 
