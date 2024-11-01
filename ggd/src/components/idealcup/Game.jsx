@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import "./scss/game.scss";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -74,6 +74,25 @@ const Game = () => {
     axiosGet();
   }, []);
 
+  const updateVs = useCallback(
+    (d) => {
+      let winner, loser;
+      winner = d.iwcContentsCode;
+      for (let i = 0; i < displays.length; i++) {
+        if (displays[i].iwcContentsCode != winner) {
+          loser = displays[i].iwcContentsCode;
+        }
+        console.log("위너 루저", typeof winner, winner, loser);
+      }
+      axios
+        .get("/updateGameVs", { params: { win: winner, lose: loser } })
+        .then((res) => {})
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+    [displays]
+  );
   const clickHandler = (good) => () => {
     if (goods.length <= 2) {
       if (winners.length === 0) {
@@ -81,6 +100,7 @@ const Game = () => {
         setGang((prev) => {
           return { ...prev, play: 0, now: -98 };
         });
+        updateVs(good);
         console.log("어케바뀜?", gang);
       } else {
         let updatedGood = [...winners, good];
@@ -91,6 +111,7 @@ const Game = () => {
         setGang((prev) => {
           return { ...prev, play: gang.play / 2, now: 1 };
         });
+        updateVs(good);
         console.log("어케바뀜?", gang);
       }
     } else if (goods.length > 2) {
@@ -100,6 +121,7 @@ const Game = () => {
       setGang((prev) => {
         return { ...prev, now: prev.now + 1 };
       });
+      updateVs(good);
       console.log("어케바뀜?", gang);
     }
   };
@@ -122,6 +144,7 @@ const Game = () => {
     setGang({ ...gang, total: e.target.value });
     console.log(gang);
   };
+  console.log(displays);
   return (
     <div className="frame">
       <div className="gametitle">

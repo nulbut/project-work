@@ -1,17 +1,25 @@
 header {
   height: 8vh;
-  align-content: center;
+  justify-content: space-between;
   text-align: left;
   width: 100%;
   background-color: #fef7ff;
-  font-size: 2em;
 
   display: flex;
 }
 
 .header-content {
   padding-left: 6%;
+  font-size: 2em;
   img {
     height: 50px;
+  }
+}
+
+.ihc {
+  margin-right: 5%;
+  * {
+    padding: 20px;
+    font-size: 20px;
   }
 }

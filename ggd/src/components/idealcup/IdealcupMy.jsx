@@ -231,8 +231,12 @@ const IdealcupMy = () => {
               <Link>
                 <Button wsize="s-25">공유</Button>
               </Link>
+              <div />
               <Link>
                 <Button wsize="s-25">수정</Button>
+              </Link>
+              <Link>
+                <Button wsize="s-25">삭제</Button>
               </Link>
             </div>
           </div>

@@ -1,6 +1,16 @@
 import axios from "axios";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
+import $ from "jquery";
+import "datatables.net-dt";
+import "datatables.net-responsive-dt";
+// import "datatables.net-dt/css/jquery.dataTables.min.css";
+import "datatables.net-responsive-dt/css/responsive.dataTables.min.css";
+import "./scss/DataTables.scss";
+import DataTable from "datatables.net-react";
+import DT from "datatables.net-dt";
+
+DataTable.use(DT);
 
 const DetailMaker = ({
   selectMenuHandler,
@@ -11,7 +21,7 @@ const DetailMaker = ({
 }) => {
   //FormData를 컴포넌트간 교환 할 수 있는 방법을 찾기
   //일단은 데이터베이스에서 조회하는 방식으로 작성
-
+  const tableRef = useRef();
   const [goods, setGoods] = useState([]);
   const location = useLocation();
   //데이터 뿌려주기
@@ -46,6 +56,8 @@ const DetailMaker = ({
     const values = [...goods];
     if (e.target.name === "iwcName") {
       values[index].iwcContentsName = e.target.value;
+    } else if (e.target.name === "iwcContentsCategory") {
+      values[index].iwcContentsCategory = e.target.value;
     }
     // const dataObj = {
     //   ...data,
@@ -74,18 +86,31 @@ const DetailMaker = ({
       })
       .catch((err) => console.log(err));
   }, []);
+
   return (
     <div>
+      <div class="card mb-4">
+        <div class="card-body">
+          DataTables is a third party plugin that is used to generate the demo
+          table below. For more information about DataTables, please visit the
+          <a target="_blank" href="https://datatables.net/">
+            official DataTables documentation
+          </a>
+          .
+        </div>
+      </div>
+
       <table>
         <tr>
           <td>번호</td>
           <td>이미지</td>
           <td>이름</td>
-          <td>1</td>
-          <td>2</td>
-          <td>3</td>
+          <td>우승비율</td>
+          <td>승률</td>
+          <td>카테고리</td>
+          <td>라인 삭제</td>
         </tr>
-        {/* {fileImage.map((e) => ( */}
+        {/* // {fileImage.map((e) => ( */}
         {goods.map((e, index) => (
           <tr>
             <td style={{ width: "100px" }}>{e.iwcContentsCode}</td>
@@ -94,18 +119,30 @@ const DetailMaker = ({
             </td>
             <td style={{ width: "300px" }}>
               <input
-                className="Input"
+                class="Input"
                 name="iwcName"
                 value={e.iwcContentsName}
                 placeholder="제목"
                 onChange={(e) => onch(index, e)}
-                autoFocus
-                required
               />
             </td>
-            <td>1</td>
-            <td>2</td>
-            <td>3</td>
+            <td>
+              <progress value={e.iwcContentWincount} max="500"></progress>
+            </td>
+            <td>
+              {e.iwcContentWincount}
+              <progress value={e.e.iwcContentWincount} max="500"></progress>
+            </td>
+            <td>
+              <input
+                class="Input"
+                name="iwcContentsCategory"
+                value={e.iwcContentsCategory}
+                placeholder="카테고리"
+                onChange={(e) => onch(index, e)}
+              />
+            </td>
+            <td>X</td>
           </tr>
         ))}
       </table>
