@@ -41,6 +41,7 @@ import AdminLogin from "./components/admin/AdminLogin";
 import ProductUpdate from "./components/shop/ProductUpdate";
 import UsedWrite from "./components/shop/UsedWrite";
 import BproductUpdata from "./components/shop/BproductUpdata";
+import BMypageView from "./components/shop/BMypageView";
 
 function App() {
   const nav = useNavigate();
@@ -150,6 +151,7 @@ function App() {
           </Route>
           <Route path="usedWrite" element={<UsedWrite />} />
           <Route path="/bmypage" element={<BMypage />}>
+            <Route path="bp0" element={<BMypageView />} />
             <Route path="bp1" element={<BproductRegisterd />} />
           </Route>
           <Route path="/bproductupdata" element={<BproductUpdata />} />

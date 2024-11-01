@@ -6,45 +6,45 @@ import logo from "../images/logo.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import inquiryicon from "../images/inquiryicon.png";
 
-const BMypage = () => {
-  //...님에 상호 불러오게 하기
-  const bcname = sessionStorage.getItem("nnickname");
+const BMypageView = () => {
+  // //...님에 상호 불러오게 하기
+  // const bcname = sessionStorage.getItem("nnickname");
 
-  const menuArr = [
-    {
-      name: "마이페이지",
-      path: "bp0",
-    },
-    {
-      name: "등록한 상품",
-      path: "bp1",
-    },
-    {
-      name: "주문내역/배송조회",
-      path: "/",
-    },
-    {
-      name: "재고관리",
-      path: "/",
-    },
-    {
-      name: "문의사항 관리",
-      path: "/",
-    },
-    {
-      name: "사업자 정보 변경",
-      path: "/",
-    },
-  ];
+  // const menuArr = [
+  //   {
+  //     name: "마이페이지",
+  //     path: "/bmypage",
+  //   },
+  //   {
+  //     name: "등록한 상품",
+  //     path: "bp1",
+  //   },
+  //   {
+  //     name: "주문내역/배송조회",
+  //     path: "/",
+  //   },
+  //   {
+  //     name: "재고관리",
+  //     path: "/",
+  //   },
+  //   {
+  //     name: "문의사항 관리",
+  //     path: "/",
+  //   },
+  //   {
+  //     name: "사업자 정보 변경",
+  //     path: "/",
+  //   },
+  // ];
 
-  //   const selectMenuHandler = (index) => {
-  //     // parameter로 현재 선택한 인덱스 값을 전달해야 하며, 이벤트 객체(event)는 쓰지 않는다
-  //     // 해당 함수가 실행되면 현재 선택된 Tab Menu 가 갱신.
-  //     clickTab(index);
-  //   };
+  // //   const selectMenuHandler = (index) => {
+  // //     // parameter로 현재 선택한 인덱스 값을 전달해야 하며, 이벤트 객체(event)는 쓰지 않는다
+  // //     // 해당 함수가 실행되면 현재 선택된 Tab Menu 가 갱신.
+  // //     clickTab(index);
+  // //   };
   return (
     <div className="mypage-ex">
-      <div className="sideber">
+      {/* <div className="sideber">
         <div className="mypage">
           <p>
             마이페이지
@@ -68,9 +68,9 @@ const BMypage = () => {
             </Button>
           </div>
         </div>
-      </div>
+      </div> */}
       <div className="desc">
-        {/* <div className="oder">
+        <div className="oder">
           <Button>주문완료</Button>
           <div className="count">건</div>
         </div>
@@ -106,11 +106,11 @@ const BMypage = () => {
             </td>
           </table>
         </div>
-        <div>공지사항</div> */}
+        <div>공지사항</div>
         <Outlet />
       </div>
     </div>
   );
 };
 
-export default BMypage;
+export default BMypageView;

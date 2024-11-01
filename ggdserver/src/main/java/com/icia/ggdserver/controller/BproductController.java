@@ -52,11 +52,10 @@ public class BproductController {
     public Map<String, Object> getBproductList(@RequestParam Integer bpageNum,
                                             @RequestParam String bsellerId){
         log.info("BproductList() - {}", bpageNum);
-
         Map<String, Object> res = bpServ.getBproductList(bpageNum, bsellerId);
-
         return res;
     }
+
 
 }
 

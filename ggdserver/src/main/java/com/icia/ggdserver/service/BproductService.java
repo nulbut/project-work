@@ -47,7 +47,7 @@ public class BproductService {
             log.info("bnum : {} ", bproductTbl.getBpnum());
 
             if (bfiles != null && !bfiles.isEmpty()){
-                buploadFile(bfiles, session, bproductTbl.getBpnum());
+                buploadFile(bfiles, session, bproductTbl);
             }
             bresult = "ok";
         } catch (Exception e) {
@@ -60,7 +60,7 @@ public class BproductService {
     // 파일 업로드
     private void buploadFile(List<MultipartFile> files,
                             HttpSession session,
-                            long bproductfilenum) throws Exception{
+                             BproductTbl bproductTbl) throws Exception{
         log.info("buploadFile()");
 
         String realPath = session.getServletContext().getRealPath("/");
@@ -72,19 +72,24 @@ public class BproductService {
         if (folder.isDirectory() == false){
             folder.mkdir(); //productupload 폴더 없으면 생성
         }
-
+        int fcnt = 0;
         //파일 목록에서 하나씩 꺼내서 저장
         for (MultipartFile bmf : files){
             String boriname = bmf.getOriginalFilename();
 
             BproductFileTbl bproductFileTbl = new BproductFileTbl();
             bproductFileTbl.setBproductfileoriname(boriname); //원래 파일명
-            bproductFileTbl.setBproductfilenum(bproductfilenum); //게시글번호
+            bproductFileTbl.setBproductfilenum(bproductTbl.getBpnum()); //게시글번호
 
             String sysname = System.currentTimeMillis()
                     + boriname.substring(boriname.lastIndexOf("."));
             bproductFileTbl.setBproductfilesysname(sysname);
 
+            if(fcnt == 0) {
+                bproductTbl.setBproductFileSysnameM(sysname);
+            }
+
+            fcnt++;
             //파일저장
             File file = new File(realPath + sysname);
             bmf.transferTo(file);
@@ -171,6 +176,7 @@ public class BproductService {
         res.put("totalPage",totalPage);
         res.put("pageNum",pageNum);
         res.put("bsellerId",bsellerId);
+
 
         return res;
     }

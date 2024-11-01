@@ -25,9 +25,9 @@ const BproductTable = ({ hname, children }) => {
             <th className="TableHeader" rowspan="2">
               {hname[10]}
             </th>
-            <th className="TableHeader" rowspan="2">
+            {/* <th className="TableHeader" rowspan="2">
               {hname[11]}
-            </th>
+            </th> */}
           </tr>
           <tr>
             <th className="TableHeader">{hname[2]}</th>

@@ -27,13 +27,18 @@ const BproductRegisterd = () => {
   };
 
   const bsellerId = sessionStorage.getItem("nnickname");
-  const [fileName, setFileName] = useState({
-    bproductfilecode: "",
-    bproductfilesysname: "",
-  });
-  console.log(fileName);
   const bbpNum = 1;
+
   const [bbitem, setitem] = useState([]);
+  const [flist, setFlist] = useState([
+    {
+      bproductfilecode: 0,
+      bproductfilenum: 0,
+      bproductfilesysname: "",
+      bproductfileoriname: "Nothing",
+      image: "",
+    },
+  ]);
 
   const [page, setpage] = useState({
     //페이징 관련 정보 저장
@@ -48,12 +53,14 @@ const BproductRegisterd = () => {
         params: { bpageNum: pnum, bsellerId: bsellerId },
       })
       .then((res) => {
-        const { bList, totalPage, pageNum, bsellerId } = res.data;
-        console.log(totalPage);
+        console.log(res.data);
+        setitem(res.data);
+        const { bList, totalPage, pageNum } = res.data;
+        // console.log(totalPage);
         setpage({ totalPage: totalPage, pageNum: pageNum });
-        console.log(page);
+        // console.log(page);
         setitem(bList);
-        console.log(bList);
+        // console.log(bList);
         sessionStorage.getItem("pageNum", pageNum);
       })
       .catch((err) => console.log(err));
@@ -61,7 +68,7 @@ const BproductRegisterd = () => {
 
   //BProductRegistered 컴포넌트가 화면에 보일 때 서버로부터 등록상품 목록을 가져옴
   useEffect(() => {
-    console.log(bsellerId);
+    // console.log(bsellerId);
     if (bsellerId === null) {
       nav("/", { replace: true });
       return;
@@ -76,13 +83,6 @@ const BproductRegisterd = () => {
         <TableColumn span={4}>등록된 상품이 없습니다.</TableColumn>
       </TableRow>
     );
-    // if (fdata.length === 0) {
-    //   BproductList = (
-    //     <TableRow key={0}>
-    //       <TableColumn span={3}>등록된 이미지가 없습니다.</TableColumn>
-    //     </TableRow>
-    //   );
-    // }
   } else {
     BproductList = Object.values(bbitem).map((bbitem) => (
       <TableRow key={bbitem.bpnum}>
@@ -90,7 +90,9 @@ const BproductRegisterd = () => {
           <input className="Input" type="checkbox" />
         </TableColumn>
         <TableColumn wd={"w-10"}>{bbitem.bpnum}</TableColumn>
-        <TableColumn wd={"w-10"}>{bbitem.bpnum}</TableColumn>
+        <TableColumn wd={"w-10"}>
+          <img src={"../productupload/" + bbitem.bproductFileSysnameM} />
+        </TableColumn>
         <TableColumn wd={"w-10"}>
           <div onClick={() => getBboard(bbitem.bpname)}>{bbitem.bpname}</div>
         </TableColumn>
@@ -149,7 +151,6 @@ const BproductRegisterd = () => {
             "재고",
             "판매",
             "품절",
-            "조회",
             "등록일",
             "관리",
           ]}
