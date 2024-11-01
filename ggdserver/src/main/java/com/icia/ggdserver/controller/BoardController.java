@@ -18,6 +18,7 @@ public class BoardController {
     @Autowired
     private BoardService bServ;
 
+    //문의 게시글 목록
     @GetMapping("boardlist")
     public Map<String, Object> getboardlist(@RequestParam Integer pageNum,
                                             @RequestParam String bnid) {
@@ -27,7 +28,7 @@ public class BoardController {
 
         return res;
     }
-
+    //문의 게시글 작성
     @PostMapping("boardWriteProc")
     public String boardWriteProc(@RequestPart(value = "data", required = true)BoardTbl board,
                                  @RequestPart(value = "files", required = false)List<MultipartFile> files,

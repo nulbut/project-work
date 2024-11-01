@@ -19,6 +19,19 @@ public class CartTbl {
     @Column(nullable = false)
     private long productCode; //상품 코드번호
 
-    @Transient
-    private List<ProductTbl> pdtList;
+    @Column(nullable = false, length = 10)
+    private int quantity; // 장바구니 상품 개수
+
+
+//    // 기본 생성자
+//    public CartTbl() {}
+//
+//    // ProductTbl을 인자로 받는 생성자 추가
+//    public CartTbl(ProductTbl product) {
+//        if (product != null) {
+//            this.productCode = product.getProductCode();
+//        } else {
+//            throw new IllegalArgumentException("Product cannot be null");
+//        }
+//    }
 }

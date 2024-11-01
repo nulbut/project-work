@@ -58,28 +58,6 @@ const ProductView = () => {
       .catch((err) => console.log(err));
   }, []);
 
-  // useEffect(() => {
-  //   axios //getBoard
-  //     .get("/getproduct", { params: { productCode: pc } })
-  //     .then((res) => {
-  //       setProductRegistered(res.data);
-
-  //       //파일 목록 처리
-  //       if (res.data.bfList.length > 0) {
-  //         let newFileList = [];
-  //         for (let i = 0; i < res.data.bfList.length; i++) {
-  //           const newFile = {
-  //             ...res.data.bfList[i],
-  //             image: "upload/" + res.data.bfList[i].productFilesysname,
-  //           };
-  //           newFileList.push(newFile);
-  //         }
-  //         setFlist(newFileList);
-  //       }
-  //     })
-  //     .catch((err) => console.log(err));
-  // }, []);
-
   const viewFlist = flist.map((v) => {
     return (
       <div className="Down">

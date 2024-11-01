@@ -30,7 +30,7 @@ public class CartService {
     private BoardFileRepository bfRpo;
 
     @Autowired
-    private ProductTblRepository pRpo;
+    private ProductTblRepository pRepo;
 
     public Map<String, Object> getCartList(Integer pageNum, String cnid) {
         log.info("getCartList() cnid: {}", cnid);
@@ -44,7 +44,7 @@ public class CartService {
         Pageable pb = PageRequest.of((pageNum - 1), listCnt,
                 Sort.Direction.DESC, "cartCode");
 
-        Page<CartTbl> result = cRepo.findByCartCodeGreaterThanAndAndCnid(0L, cnid, pb);
+        Page<CartTbl> result = cRepo.findByCartCodeGreaterThanAndCnid(0L, cnid, pb);
         List<CartTbl> Clist = result.getContent();
 
         int totalPage = result.getTotalPages();
@@ -58,5 +58,15 @@ public class CartService {
         return res;
 
 
+    }
+
+    public String getCart(String cnid, long productCode, int quantity) {
+
+        CartTbl cartItem = new CartTbl();
+        cartItem.setCnid(cnid);
+        cartItem.setProductCode(productCode);
+        cartItem.setQuantity(quantity);
+        cRepo.save(cartItem);
+        return "ok"; // 성공적으로 추가
     }
 }

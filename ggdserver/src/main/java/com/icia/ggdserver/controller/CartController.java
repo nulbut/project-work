@@ -26,9 +26,9 @@ public class CartController {
     }
 
     @GetMapping("setcart")
-    public String setCart(CartTbl cart){
-        log.info("setcart()");
-        return "ok";
+    public String setcart(@RequestParam String cnid,
+                            @RequestParam long productCode,
+                            @RequestParam int quantity) {
+        return cServ.getCart(cnid, productCode, quantity);
     }
-
 }

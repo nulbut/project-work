@@ -6,10 +6,12 @@ import moment from "moment";
 // import Button from "./Button";
 import TableRow from "./TableRow";
 import TableColumn from "./TableColumn";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBagShopping } from "@fortawesome/free-solid-svg-icons";
 
 const df = (date) => moment(date).format("YYYY-MM-DD HH:mm:ss");
 
-const LatestProducts = ({ sucCart }) => {
+const LatestProducts = () => {
   const [products, setProducts] = useState([]);
   const [page, setPage] = useState({
     //페이징 관련 정보 저장
@@ -114,13 +116,18 @@ const LatestProducts = ({ sucCart }) => {
   const cartList = (pc) => {
     console.log(pc);
     const nid = sessionStorage.getItem("nid");
+    const quantity = 1;
+    let conf = window.confirm("장바구니에 추가할까요?");
+    if (!conf) {
+      return;
+    }
 
     axios
-      .get("/setcart", { params: { cnid: nid, productCode: pc } })
+      .get("/setcart", { params: { cnid: nid, productCode: pc, quantity } })
       .then((res) => {
         console.log(res);
         if (res.data == "ok") {
-          nav("/Cart");
+          alert("성공");
         } else {
           alert("이건뭐니");
         }
@@ -131,32 +138,6 @@ const LatestProducts = ({ sucCart }) => {
       });
   };
 
-  // useEffect(() => {
-  //   axios
-  //     .post("getcart", products, { params: { sellerId: sellerId } })
-  //     .then((res) => {
-  //       setProducts(res.data);
-  //       console.log(res.data);
-
-  //       const pfList = res.data.productFileList;
-  //       console.log(pfList);
-
-  //       if (pfList.length > 0) {
-  //         console.log("pfList.length : ", pfList.length);
-  //         let newFileList = [];
-  //         for (let i = 0; i < pfList.length; i++) {
-  //           const newFile = {
-  //             ...pfList[i],
-  //             image: "../../update" + pfList[i].productFileSysname,
-  //           };
-  //           newFileList.push(newFile);
-  //         }
-  //         console.log(newFileList);
-  //         setFlist(newFileList);
-  //       }
-  //     })
-  //     .catch((err) => console.log(err));
-  // }, []);
   return (
     <div className="product-list">
       <h2 className="section-title">
@@ -175,7 +156,12 @@ const LatestProducts = ({ sucCart }) => {
             <h3 className="product-title">상품명 : {item.productName} </h3>
             <p className="product-price">₩{item.sellerPayment}</p>
             <p className="product-body">{item.productDetail}</p>
-            <button onClick={() => cartList(item.productCode)}>찜</button>
+            <button onClick={() => cartList(item.productCode)}>
+              <FontAwesomeIcon
+                icon={faBagShopping}
+                style={{ color: "#000000" }}
+              />
+            </button>
           </div>
         ))}
       </div>

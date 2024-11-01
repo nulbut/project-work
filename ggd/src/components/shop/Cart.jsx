@@ -16,6 +16,7 @@ const Cart = () => {
   const cnid = sessionStorage.getItem("nid");
   const pnum = sessionStorage.getItem("pageName");
   const [citem, setCitem] = useState({});
+  console.log(citem);
   const [page, setPage] = useState({
     totalPage: 0,
     pageNum: 1,
@@ -48,6 +49,19 @@ const Cart = () => {
     pnum !== null ? getCartList(pnum) : getCartList(1);
   }, []);
 
+  const removeFromCart = useCallback(
+    (cartCode) => {
+      axios
+        .delete(`/api/cart/${cartCode}`)
+        .then(() => {
+          alert("상품이 장바구니에서 제거되었습니다.");
+          getCartList(page.pageNum);
+        })
+        .catch((err) => console.error("장바구니 상품 제거 오류:", err));
+    },
+    [getCartList, page.pageNum]
+  );
+
   //출력할 장바구니 목록 작성
   let cartList = null;
   if (citem.length === 0) {
@@ -57,16 +71,24 @@ const Cart = () => {
       </TableRow>
     );
   } else {
-    cartList = Object.values(citem).map((type) => (
-      <TableRow key={type.cartCode}>
-        <TableColumn wd="10">{type.productCode}</TableColumn>
-        <TableColumn wd="40">
-          <div onClick={() => getCart(type.cartCode)}>이미지 들어갈곳</div>
+    cartList = Object.values(citem).map((item) => (
+      <TableRow key={item.cartCode}>
+        <TableColumn wd="10">{item.productCode}</TableColumn>
+        <TableColumn wd="30">
+          {/* <img
+            src={citem.productImage}
+            alt={citem.productName}
+            style={{ width: "50px", height: "50px" }}
+          /> */}
+          {item.productName}
         </TableColumn>
-        <TableColumn wd="20">수량</TableColumn>
-        <TableColumn wd="20">상태</TableColumn>
-        <TableColumn wd="30">가격</TableColumn>
-        <TableColumn wd="30">구매</TableColumn>
+        <TableColumn wd="15">{item.quantity}</TableColumn>
+        {/* <TableColumn wd="20">₩{citem.price.toLocaleString()}</TableColumn>
+        <TableColumn wd="10">
+          <Button size="small" onClick={() => removeFromCart(citem.cartCode)}>
+            삭제
+          </Button>
+        </TableColumn> */}
       </TableRow>
     ));
   }
@@ -78,17 +100,11 @@ const Cart = () => {
     <div className="Main">
       <div className="Content">
         <h1>장바구니</h1>
-        <CartBoard cName={["번호", "상품", "수량", "가격", "..."]}>
+        <CartBoard cName={["번호", "상품", "수량", "가격", "관리"]}>
           {cartList}
         </CartBoard>
         <Paging page={page} getList={getCartList} />
-        <Button
-          size="large"
-          wsize="s-50"
-          onClick={() => {
-            nav("/shoppingMall");
-          }}
-        >
+        <Button size="large" wsize="s-50" onClick={() => nav("/shoppingMall")}>
           홈으로
         </Button>
       </div>
