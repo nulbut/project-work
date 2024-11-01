@@ -40,6 +40,14 @@ public class AdminController {
 
     }
 
+    @GetMapping("/blist")
+    public Map<String, Object> getBmemberList(DateDto dd) {
+        log.info("getBmemberList() startDate : {} ", dd);
+
+        Map<String, Object> rsMap = aServ.getBmemberList(dd);
+        return rsMap;
+    }
+
 
 
     @PostMapping("/writeGrade")
@@ -79,8 +87,8 @@ public class AdminController {
         return  result;
     }
 
-    @GetMapping("getNotice")
-    public NoticeTbl getNotice(@RequestPart long nnum){
+    @GetMapping("/getNotice")
+    public NoticeTbl getNotice(@RequestParam long nnum){
         log.info("getNotice()");
         return aServ.getNotice(nnum);
     }

@@ -37,12 +37,13 @@ public class AdminService {
     private NMemberRepository aRepo;
 
     @Autowired
+    private BMemberRepository bRepo;
+
+    @Autowired
     private NoticeRepository nRepo;
 
     @Autowired
     private NoticeFileRepository nfRepo;
-
-
 
 
 
@@ -135,6 +136,64 @@ public class AdminService {
         return res;
     }
 
+    public Map<String, Object> getBmemberList(DateDto dd) {
+        log.info("getBboardList()");
+
+        //페이지 당 보여질 게시글 개수
+        int listCnt = 10;
+
+        //페이징 조건 처리 객체 생성(Pageable)
+        Pageable pb = PageRequest.of((dd.getPageNum() - 1), listCnt);
+        //PageRequest.of(페이지번호, 페이지당 게시글 개수, 정렬방식, 컬럼명)
+
+        Page<BmemberTbl> result = null;
+
+        //검색과 조회가 없는 경우
+        if(dd.getStartDate().isEmpty() && dd.getSearchKeyword().isEmpty()){
+            log.info("case1");
+            result = bRepo.findAll(pb);
+        }
+        //검색하는 경우
+        else if(!dd.getSearchKeyword().isEmpty()){
+            //아이디 검색
+            if(dd.getSearchColumn().equals("ID")){
+                log.info("case2");
+                result = bRepo.findByBid(dd.getSearchKeyword(), pb);
+            }
+            //이름 검색과 조회
+            else if(dd.getSearchColumn().equals("이름")
+                    && !dd.getStartDate().isEmpty()){
+                log.info("case3");
+                result = bRepo.searchByBnameAndBsigndt(
+                        dd.getSearchKeyword(),
+                        dd.getStartDate(),
+                        dd.getEndDate(), pb);
+            }
+            else {//이름 검색(조회는 안함.)
+                log.info("case4");
+                result = bRepo.findByBname(dd.getSearchKeyword(), pb);
+            }
+        }
+        //조회만 하는 경우
+        else if(!dd.getStartDate().isEmpty() && dd.getSearchKeyword().isEmpty()) {
+            log.info("case5");
+            result = bRepo.searchByBsigndt(dd.getStartDate(), dd.getEndDate(), pb);
+        }
+
+        //page 객체를 list로 변환 후 전송.
+        List<BmemberTbl> bList = result.getContent();//page에서 게시글목록을 꺼내와서
+        //bList에 저장.
+        int totalPage = result.getTotalPages();//전체 페이지 개수
+
+        Map<String, Object> res = new HashMap<>();
+        res.put("blist", bList);
+        res.put("totalPage", totalPage);
+        res.put("pageNum", dd.getPageNum());
+
+        return res;
+    }
+
+
     public Map<String, Object> getNoticeList(Integer pageNum) {
         log.info("getNoticeList()");
 
@@ -144,9 +203,9 @@ public class AdminService {
 
         int listCnt = 10;
 
-        Pageable pb = PageRequest.of((pageNum -1), listCnt, Sort.Direction.DESC, "nNum");
+        Pageable pb = PageRequest.of((pageNum -1), listCnt, Sort.Direction.DESC, "n_num");
 
-        Page<NoticeTbl> result = nRepo.findBynNumGreaterThan(0L, pb);
+        Page<NoticeTbl> result = nRepo.getNoticeTbl(pb);
 
         List<NoticeTbl> nList = result.getContent();
 

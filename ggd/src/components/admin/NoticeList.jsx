@@ -8,6 +8,7 @@ import Paging from "./Paging";
 import Button from "../idealcup/Button";
 import Nwrite from "./Nwrite";
 import { AdminPageContextStore } from "./AdminPageStatus";
+import NotieView from "./NoticeView";
 
 const df = (date) => moment(date).format("YYYY-MM-DD");
 
@@ -51,7 +52,7 @@ const NoticeList = () => {
     ));
   }
   const getNotice = useCallback((nnum) => {
-    //nav("/notice", { state: { nn: nnum } });
+    pageSt.setViewPage(<NotieView nnum={nnum}/>);
   });
 
   useEffect(() => {
