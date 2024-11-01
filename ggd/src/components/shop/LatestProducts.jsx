@@ -121,7 +121,7 @@ const LatestProducts = () => {
           <div key={index} className="product-card">
             <div className="product-image-placeholder">
               <img
-                src={`upload/${item.productFileSysname}`}
+                src={`usupload/${item.productFileList}`}
                 alt={`상품 이미지 ${item.productCode}`}
                 className="product-image"
               />

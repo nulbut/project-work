@@ -30,6 +30,8 @@ public class UsedShoppingService {
     @Autowired
     private UsedFileRepository usfRepo; // 중고 상품 이미지 레포지터리
 
+
+
     public String insertUsed(UsedProductTbl upt,
                              List<MultipartFile> files,
                              HttpSession session) {
@@ -58,7 +60,7 @@ public class UsedShoppingService {
 
         String realPath = session.getServletContext().getRealPath("/");
 
-        realPath += "upload/";// 파일 저장 위치
+        realPath += "usupload/";// 파일 저장 위치
 
         File folder = new File(realPath);
 
@@ -92,7 +94,7 @@ public class UsedShoppingService {
             throws Exception {
         log.info("usedfilesDelete()");
         String realPath = session.getServletContext().getRealPath("/");
-        realPath += "upload/";
+        realPath += "usupload/";
 
         for (UsedproductFileTbl upf : usedfileList) {
             File file = new File(realPath + upf.getUsedFileOriname());

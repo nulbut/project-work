@@ -18,7 +18,7 @@ const UsedWrite = () => {
     usedStock: "",
     usedDetail: "",
     usedDate: "",
-    usedFileList: "",
+    // usedFileOriname: "",
   });
 
   const {
@@ -29,7 +29,7 @@ const UsedWrite = () => {
     usedStock,
     usedDetail,
     usedDate,
-    usedFileList,
+    // usedFileOriname,
   } = data;
   const [fileName, setFileName] = useState("선택된 이미지 파일이 없습니다.");
   const nav = useNavigate();

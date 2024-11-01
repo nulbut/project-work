@@ -154,7 +154,7 @@ function App() {
           </Route>
           {/* <Route path="/bp1" element={<BproductRegisterd />} /> */}
           <Route path="/bproductw" element={<BproductWirte />} />
-          <Route path="/productdetails" element={<ProductDetails />} />
+          <Route path="/pddetails?" element={<ProductDetails />} />
         </Route>
 
         <Route

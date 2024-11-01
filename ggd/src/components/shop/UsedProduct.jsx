@@ -22,7 +22,7 @@ const UsedProduct = () => {
   const [pageParams, setPageParams] = useState([]);
   const observerRef = useRef();
 
-  const usedsellerId = "usedsellerId"
+  const usedsellerId = "nid"
   const nav = useNavigate();
   console.log("페이지", page);
   console.log("중고상품", useds);
@@ -107,11 +107,11 @@ const UsedProduct = () => {
       </TableRow>
     ));
   }
- 
+  
   const getusedBoard = (code) => {
-    nav("/productdetails", { state: { usedCode: code } });
+    nav("/pddetails", { state: { usedCode: code } });
   };
-  console.log("에러")
+  
   return (
     <div className="product-list">
       <h2 className="section-title">
@@ -122,7 +122,7 @@ const UsedProduct = () => {
           <div key={index} className="product-card">
             <div className="product-image-placeholder">
               <img
-                src={`upload/${item.usedFileList}`}
+                src={`/usupload${item.usedFileNum}`}
                 alt={`상품 이미지${item.usedCode}`}
                 className="product-image"
               />
@@ -135,14 +135,17 @@ const UsedProduct = () => {
                 <Button wsize="s-25">구매하기</Button>
               </Link>
               <Link
-              to={`/productdetails?${item.usedCode}`}
+              to={`/pddetails?${item.usedCode}`}
               state={{
                 code: item.usedCode,
-                name: item.nid,
+                name: item.usedName,
+                sellerId:item.usedsellerId,
                 detail: item.usedDetail,
+                seller: item.usedSeller,
+                imageNum: item.usedFileNum,
               }}
               >
-                <Button wsize="s-25">제품상세</Button>
+                <Button wsize="s-25">제품 상세</Button>
               </Link>
               <Link>
                 <Button wsize="s-25">장바구니</Button>

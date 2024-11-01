@@ -45,7 +45,7 @@ const ProductUpdate = () => {
         .then((res) => {
             setData(res.data);
 
-            const bfList = res.data.productFileTblList;
+            const bfList = res.data.productFileList;
             console.log(bfList);
 
             //파일 목록 처리(res.data)에서 파일 목록을 꺼내서 flist로 처리
@@ -55,7 +55,7 @@ const ProductUpdate = () => {
                 for (let i = 0; i < bfList.length; i++) {
                     const newFile = {
                         ...bfList[i],
-                        image: "../../upload/" + bfList[i].productFileSysname,
+                        image: "../../../upload/" + bfList[i].productFileSysname,
                     };
                     newFileList.push(newFile); //배열에 추가
                 }

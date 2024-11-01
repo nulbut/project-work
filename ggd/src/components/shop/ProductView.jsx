@@ -59,7 +59,7 @@ const ProductView = () => {
       .catch((err) => console.log(err));
   }, []);
 
-  const productFileList = flist.map((v) => {
+  const viewFList = flist.map((v) => {
     return (
       <div className="Down">
         {v.image && <img src={v.image} alt="preview-img" />}
@@ -127,7 +127,7 @@ const ProductView = () => {
           </div>
           <div className="Box">
             <div className="FileTitle">파일</div>
-            <div className="FileData">{productFileList}</div>
+            <div className="FileData">{viewFList}</div>
           </div>
           <div className="Cont">{ProductRegistered.productDetail}</div>
         </div>
