@@ -35,7 +35,7 @@ const BMypage = (props) => {
     },
     {
       name: "사업자 정보 변경",
-      path: "/",
+      path: "bmemberview",
     },
   ];
 
