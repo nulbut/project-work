@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Button from "../idealcup/Button";
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import "./scss/BmemberView.scss";
 
 const BMemberView = () => {
     const bnick = sessionStorage.getItem("nnickname");
@@ -45,11 +46,12 @@ const BMemberView = () => {
         <div className='Mypage'>
             <div className='Title'>
                 <h3>{bnick}님 회원 정보</h3>
+                <hr />
             </div>
             <div className='Titlesvr'>
                 <p>아이디 {id}</p>
                 <p>사업자번호 {bcnum}</p>
-                <p>회원정보 변경 <Button>변경</Button></p>
+                <p className='button'>회원정보 변경 <Button>변경</Button></p>
             </div>
             <div className='content1'>
                 <p>상호 {bnick}</p>
