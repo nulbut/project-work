@@ -151,13 +151,14 @@ function App() {
             />
           </Route>
           <Route path="usedWrite" element={<UsedWrite />} />
-          <Route path="/bmypage" element={<BMypage />}>
+          <Route path="/bmypage" element={<BMypage onLogout={onLogout}/>}>
             <Route path="bp0" element={<BMypageView />} />
             <Route path="bp1" element={<BproductRegisterd />} />
           </Route>
-          <Route path="/bproductupdata" element={<BproductUpdata />} />
-          <Route path="/bproductview" element={<BproductView />} />
+          
           <Route path="/bproductw" element={<BproductWirte />} />
+          <Route path="/bproductview" element={<BproductView />} />
+          <Route path="/bproductupdata" element={<BproductUpdata />} />
         </Route>
 
         <Route

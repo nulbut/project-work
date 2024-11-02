@@ -1,14 +1,16 @@
 import React, { useState } from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import "./scss/Bmypage.scss";
 import Button from "../idealcup/Button";
 import logo from "../images/logo.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import inquiryicon from "../images/inquiryicon.png";
 
-const BMypage = () => {
+const BMypage = (props) => {
+  
   //...님에 상호 불러오게 하기
   const bcname = sessionStorage.getItem("nnickname");
+
 
   const menuArr = [
     {
@@ -63,7 +65,7 @@ const BMypage = () => {
             );
           })}
           <div className="btn">
-            <Button type="submit" size="large" color="black">
+            <Button  size="large" color="black" onLogout={props.onLogout}>
               로그아웃
             </Button>
           </div>
