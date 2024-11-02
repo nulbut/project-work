@@ -70,6 +70,7 @@ const BproductWirte = () => {
     const bfiles = e.target.files;
     let bfnames = ""; //span에 출력할 파일명 목록
     setFiles(e.target.files);
+    
 
     for (let i = 0; i < bfiles.length; i++) {
       bfnames += bfiles[i].name + " ";
@@ -80,6 +81,7 @@ const BproductWirte = () => {
     }
     setFileName(bfnames);
   }, []);
+  
 
   //작성한 내용들 (등록에 필요한 정보들) 전송 함수
   const bonWrite = useCallback(
@@ -88,7 +90,6 @@ const BproductWirte = () => {
 
       const bformData = new FormData();
 
-      console.log(files);
       for (let i = 0; i < files.length; i++) {
         bformData.append("files", files[i]);
       }
@@ -119,6 +120,8 @@ const BproductWirte = () => {
     [data]
   );
   console.log("현재값", data);
+  console.log(files);
+  
 
   return (
     <div className="Write">

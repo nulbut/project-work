@@ -33,7 +33,7 @@ const BproductView = () => {
   const [filst, setFilst] = useState([
     {
       bpprice: "",
-      bprobid: bsellerId,
+      bprobid: "",
       bpprestriction: "",
       bpwarestock: "",
       bpexplanation: "",
@@ -84,7 +84,7 @@ const BproductView = () => {
     return (
       <div className="Down">
         {v.image && <img src={v.image} alt="preview-img" />}
-        {v.bproductfileoriname}
+        {/* {v.bproductfilesysname} */}
       </div>
     );
   });
@@ -162,7 +162,7 @@ const BproductView = () => {
           >
             뒤로가기
           </Button>
-          {bsellerId === BproductRegistered.bsellerId ? (
+          {bsellerId === BproductRegistered.bprobid ? (
             <>
               <Button wsize="s-10" color="red" onClick={updateBproduct}>
                 수정

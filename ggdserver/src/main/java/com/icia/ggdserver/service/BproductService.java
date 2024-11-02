@@ -61,7 +61,7 @@ public class BproductService {
     private void buploadFile(List<MultipartFile> files,
                             HttpSession session,
                              BproductTbl bproductTbl) throws Exception{
-        log.info("buploadFile()");
+        log.info("buploadFile");
 
         String realPath = session.getServletContext().getRealPath("/");
 
