@@ -44,6 +44,7 @@ import BproductUpdata from "./components/shop/BproductUpdata";
 import BMypageView from "./components/shop/BMypageView";
 import BproductView from "./components/shop/BproductView";
 import BMemberView from "./components/shop/BMemberView";
+import BMemberPasswordCheck from "./components/shop/BMemberPasswordCheck";
 
 function App() {
   const nav = useNavigate();
@@ -161,6 +162,7 @@ function App() {
           <Route path="/bproductw" element={<BproductWirte />} />
           <Route path="/bproductview" element={<BproductView />} />
           <Route path="/bproductupdata" element={<BproductUpdata />} />
+          <Route path="/bmemberpasswordcheck" element={<BMemberPasswordCheck />} />
         </Route>
 
         <Route
