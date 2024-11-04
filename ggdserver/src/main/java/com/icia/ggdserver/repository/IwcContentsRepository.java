@@ -1,5 +1,6 @@
 package com.icia.ggdserver.repository;
 
+import com.icia.ggdserver.dto.IwcCategoryCntDto;
 import com.icia.ggdserver.dto.TurnImgDto;
 import com.icia.ggdserver.entity.IwcContentsTbl;
 import org.springframework.data.jpa.repository.Modifying;
@@ -44,6 +45,13 @@ public interface IwcContentsRepository extends CrudRepository<IwcContentsTbl, Lo
     @Modifying
     @Transactional
     void deleteByIwcContentsIwcCode(Long iwccode);
+
+
+    @Query(value = "select iwc_contents_category,count(*) from iwc_contents_tbl where iwc_contents_category != '' group by " +
+            "iwc_contents_category order by count(*) desc limit 10",nativeQuery = true)
+
+    List<Object[]> categoryCnt();
+
 
 
 

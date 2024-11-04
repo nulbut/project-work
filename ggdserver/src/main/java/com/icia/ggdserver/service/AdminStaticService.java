@@ -1,5 +1,6 @@
 package com.icia.ggdserver.service;
 
+import com.icia.ggdserver.dto.IwcCategoryCntDto;
 import com.icia.ggdserver.repository.IwcContentsRepository;
 import com.icia.ggdserver.repository.IwcTblRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -10,7 +11,9 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -34,9 +37,15 @@ public class AdminStaticService {
         cupTodayCnt = iwcRepo.countCupToday(sdf.format(timestamp));
         log.info(cupTotalCnt + " cup total");
         log.info(cupTodayCnt + " cup today");
+        List<Object[]> results = conRepo.categoryCnt();
+
+
+
 
         res.put("cupTotalCnt", cupTotalCnt);
         res.put("cupTodayCnt", cupTodayCnt);
+        res.put("cCnt", results);
+
         return res;
     }
 }
