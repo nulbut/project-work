@@ -11,13 +11,15 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.List;
 
 public interface IwcTblRepository extends CrudRepository<IwcTbl, Long> {
     Page<IwcTbl> findByIwcCodeGreaterThanAndIwcPublicEquals(long pNum, long ispub, Pageable pageable);
 
 
-    Page<IwcTbl> findByIwcCodeGreaterThanAndIwcPublicEqualsAndIwcAuthorEquals(long pNum, long ispub, String id, Pageable pageable);
+    Page<IwcTbl> findByIwcCodeGreaterThanAndIwcAuthorEquals(long pNum,  String id, Pageable pageable);
 //    Page<IwcTbl> findByIwcCodeGreaterThan(long pNum, Pageable pageable);
 
     @Query(value = "update iwc_tbl set iwc_views = iwc_views +1 " +
@@ -48,6 +50,13 @@ public interface IwcTblRepository extends CrudRepository<IwcTbl, Long> {
     @Modifying
     @Transactional
     void setSecondImg(@Param(value = "second") IwcContentsTbl second);
+    //select * from iwc_tbl where iwc_date like "2024-11-04%"
+    //    long countAllByIwcDateLike(Timestamp iwcDate);
+    @Query(value = "select count(*) " +
+            "from iwc_tbl where iwc_date like concat( :date , '%') " ,nativeQuery = true)
+    Long countCupToday(@Param(value = "date") String date );
+
+//    Long countByIwcDateStartingWith(Timestamp iwcDate);
 }
 
 

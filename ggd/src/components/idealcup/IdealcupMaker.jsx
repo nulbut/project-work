@@ -22,7 +22,7 @@ const IdealCupMaker = () => {
     iwcExplanation: "",
     iwcAuthor: id,
     iwcGenre: "",
-    iwcPublic: "1",
+    iwcPublic: "0",
   });
 
   const nav = useNavigate();

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import "./scss/game.scss";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
-
+import CryptoJS from "crypto-js";
 const Game = () => {
   const location = useLocation();
   const nav = useNavigate();
@@ -16,17 +16,41 @@ const Game = () => {
     now: -99,
     ganglist: [],
   });
-
+  const [gameinfo, setGameInfo] = useState({
+    name: "",
+    expl: "",
+    code: 0,
+  });
   console.log("굿즈", goods);
   // console.log("로케이션", location);
   // console.log(location.state.code);
   // console.log("굿즈", goods);
 
+  const decryptData = (ciphertext) => {
+    const secretKey = "your_secret_key";
+    const bytes = CryptoJS.AES.decrypt(ciphertext, secretKey);
+    return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+  };
+
   useEffect(() => {
+    if (!location.state) {
+      const params = new URLSearchParams(location.search);
+      const encryptedData = decryptData(params.get("data"));
+      gameinfo.name = encryptedData.name;
+      gameinfo.expl = encryptedData.expl;
+      gameinfo.code = encryptedData.code;
+      console.log("로케이션 길이?", encryptedData);
+    } else {
+      gameinfo.name = location.state.name;
+      gameinfo.expl = location.state.expl;
+      gameinfo.code = location.state.code;
+      console.log("게임 인포?", gameinfo);
+    }
+
     console.log("디스플레이", displays.length);
     const axiosGet = async () => {
       await axios
-        .get("/getGameData", { params: { code: location.state.code } })
+        .get("/getGameData", { params: { code: gameinfo.code } })
         .then((res) => {
           if (res.data.length > 0) {
             let newGoodsList = [];
@@ -103,8 +127,8 @@ const Game = () => {
         setGang((prev) => {
           return { ...prev, play: 0, now: -98 };
         });
-        updateVs(good, location.state.code);
-        console.log("어케바뀜?", location.state.code);
+        updateVs(good, gameinfo.code);
+        console.log("어케바뀜?", gameinfo.code);
       } else {
         let updatedGood = [...winners, good];
         updatedGood.sort(() => Math.random() - 0.5);
@@ -152,7 +176,7 @@ const Game = () => {
     <div className="frame">
       <div className="gametitle">
         <h1>
-          {location.state.name}
+          {gameinfo.name}
           {gang.total}강{" "}
           {gang.play === 0 ? (
             <> 우승</>
@@ -211,8 +235,8 @@ const Game = () => {
           <div className="articleView_layer"></div>
           <div className="contents_layer">
             <div className="lightbox">
-              <h2>제목 : {location.state.name}</h2>
-              <h3>설명 : {location.state.expl}</h3>
+              <h2>제목 : {gameinfo.name}</h2>
+              <h3>설명 : {gameinfo.expl}</h3>
 
               <h3>총 라운드를 선택하세요</h3>
               <select name="gangmany" onChange={handleSelect}>
@@ -229,7 +253,7 @@ const Game = () => {
                 후보가 대결합니다.
               </h4>
               <button onClick={() => selectGang()}>시작하기</button>
-              <button onClick={() => nav("/idlecup")}>돌아가기</button>
+              <button onClick={() => nav(-1)}>돌아가기</button>
             </div>
           </div>
         </div>

@@ -120,7 +120,7 @@ public class IdealWorldCupService {
         }
 
         //페이지 당 보여질 게시글 개수
-        int listCnt = 15;
+        int listCnt = 16;
 
         //페이징 조건 처리 객체 생성(Pageable)
         Pageable pb = PageRequest.of((pNum - 1), listCnt,
@@ -166,7 +166,7 @@ public class IdealWorldCupService {
         //PageRequest.of(페이지번호, 페이지당 게시글 개수, 정렬방식, 컬럼명)
 
         Page<IwcTbl> result = null;
-        result = iwcRepo.findByIwcCodeGreaterThanAndIwcPublicEqualsAndIwcAuthorEquals(0L,1L, id,pb);
+        result = iwcRepo.findByIwcCodeGreaterThanAndIwcAuthorEquals(0L,id,pb);
 //        if(pNum.getKeyword() == ""){
 //            result = bRepo.findByBnumGreaterThan(0L, pb);
 //        }
@@ -241,6 +241,44 @@ public class IdealWorldCupService {
         if(iwcCode != null){
             conRepo.updateFinal(win);
             iwcRepo.updateComplete(iwcCode);
+        }
+    }
+
+    public Map<String, String> deleteCup(long iwccode, HttpSession session) {
+        Map<String, String> rsMap = new HashMap<>();
+
+        try{
+            //파일 삭제
+            List<IwcContentsTbl> fileList = conRepo.findAllByIwcContentsIwcCode(iwccode);
+            if(!fileList.isEmpty()){
+                deleteFiles(fileList, session);
+            }
+            //게시글(DB) 삭제
+            iwcRepo.deleteById(iwccode);
+            //파일 목록(DB) 삭제
+            conRepo.deleteByIwcContentsIwcCode(iwccode);
+
+            rsMap.put("res", "ok");
+        } catch (Exception e){
+            e.printStackTrace();
+            rsMap.put("res", "fail");
+        }
+
+        return rsMap;
+    }
+    private void deleteFiles(List<IwcContentsTbl> fileList,
+                             HttpSession session)
+            throws Exception{
+        log.info("deleteFiles()");
+        String realPath = session.getServletContext()
+                .getRealPath("/");
+        realPath += "upload/";
+
+        for(IwcContentsTbl bf : fileList){
+            File file = new File(realPath + bf.getIwcContentsSysname());
+            if(file.exists()){//파일 존재 확인
+                file.delete();
+            }
         }
     }
 }

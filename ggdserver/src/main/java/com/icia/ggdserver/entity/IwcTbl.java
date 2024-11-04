@@ -5,6 +5,7 @@ import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
 @Table(name = "iwc_tbl")
@@ -53,4 +54,8 @@ public class IwcTbl {
 
     @Column(length = 50)
     private String iwcSecondName;
+
+
+    @Transient
+    private List<IwcContentsTbl> bfList;
 }

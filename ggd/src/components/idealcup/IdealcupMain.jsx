@@ -22,6 +22,7 @@ import {
   faCircleExclamation,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import ShareButton from "./ShareButton";
 
 const df = (date) => moment(date).format("YYYY-MM-DD");
 
@@ -204,7 +205,6 @@ const IdealcupMain = () => {
               </Link>
               <div className="title-btn">
                 <div>조회수 : {item.iwcViews}</div>
-                <hr />
               </div>
             </div>
 
@@ -226,7 +226,7 @@ const IdealcupMain = () => {
               <button>랭킹</button>
               <button>공유</button> */}
               <Link
-                to={`/game?${item.iwcCode}`}
+                to={`/game`}
                 state={{
                   code: item.iwcCode,
                   name: item.iwcName,
@@ -238,9 +238,7 @@ const IdealcupMain = () => {
               <Link>
                 <Button wsize="s-25">랭킹</Button>
               </Link>
-              <Link>
-                <Button wsize="s-25">공유</Button>
-              </Link>
+              <ShareButton />
             </div>
           </div>
         ))}

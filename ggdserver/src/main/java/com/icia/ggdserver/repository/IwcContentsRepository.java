@@ -40,7 +40,10 @@ public interface IwcContentsRepository extends CrudRepository<IwcContentsTbl, Lo
     void updateFinal(@Param(value = "iwcContentsCode") long iwcContentsCode);
 
 
-//    void deleteAllBy(Long iwcContentsIwcCode);
+
+    @Modifying
+    @Transactional
+    void deleteByIwcContentsIwcCode(Long iwccode);
 
 
 

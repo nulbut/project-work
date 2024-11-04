@@ -78,4 +78,11 @@ public class IdealWorldCupController {
     public void updateGameVs( GameVsDto request){
         iwcServ.updateGameVs(request);
     }
+
+    @PostMapping("deleteCup")
+    public Map<String, String> deleteBoard(@RequestParam long iwccode,
+                                           HttpSession session){
+        log.info("deleteCup()");
+        return iwcServ.deleteCup(iwccode, session);
+    }
 }

@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import $ from "jquery";
 import "datatables.net-dt";
 import "datatables.net-responsive-dt";
@@ -22,6 +22,7 @@ const DetailMaker = ({
   //FormData를 컴포넌트간 교환 할 수 있는 방법을 찾기
   //일단은 데이터베이스에서 조회하는 방식으로 작성
   const tableRef = useRef();
+  const nav = useNavigate();
   const [goods, setGoods] = useState([
     {
       iwcContentFinalcount: "",
@@ -98,7 +99,10 @@ const DetailMaker = ({
         axios.post("/updateGameData", table),
         axios.post("/updateDeleteGameData", table2),
       ])
-      .then((res) => {})
+      .then((res) => {
+        alert("수정 되었습니다.");
+        nav("/mycup");
+      })
       .catch((err) => console.log(err));
   }, []);
 
@@ -106,12 +110,8 @@ const DetailMaker = ({
     <div>
       <div class="card mb-4">
         <div class="card-body">
-          DataTables is a third party plugin that is used to generate the demo
-          table below. For more information about DataTables, please visit the
-          <a target="_blank" href="https://datatables.net/">
-            official DataTables documentation
-          </a>
-          .
+          처음 두개의 이미지가 이상형 월드컵의 대표 이미지로 선정됩니다. 유의해
+          주세요 .
         </div>
       </div>
 
