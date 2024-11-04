@@ -87,17 +87,17 @@ const Admin = () => {
   };
   return (
     <div className="admin">
-      <div className="sideber">
-        <div className="adminpage">
+      <div className="side-ber">
+        <div className="admin-page">
           <p>
             admin
             <img src={logo} />
           </p>
         </div>
-        <div className="border-ber">
+        <div className="borderber">
           {buttons.map((butn, idx) => {
             return (
-              <Link className="sideber-menu" to={butn.path} key={idx}>
+              <Link className="sidebermenu" to={butn.path} key={idx}>
                 <Button
                   size="large"
                   color="black"
@@ -116,7 +116,7 @@ const Admin = () => {
         </div>
         <Outlet />
       </div>
-      <div className="desc">{viewName}</div>
+      <div className="admin-desc">{viewName}</div>
     </div>
   );
 };

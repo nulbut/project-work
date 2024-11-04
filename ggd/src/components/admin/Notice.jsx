@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
+import "./scss/Admin.scss";
 import NoticeList from "./NoticeList";
 import { AdminPageContextStore } from "./AdminPageStatus";
 
@@ -31,7 +31,7 @@ const Notice = () => {
   //   setViewName(<Nwrite viewChange={viewChange} />);
   // };
 
-  return <div className="Main">{pageSt.viewPage}</div>;
+  return <div className="admin-main">{pageSt.viewPage}</div>;
 };
 
 export default Notice;
