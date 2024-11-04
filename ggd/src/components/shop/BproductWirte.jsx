@@ -70,7 +70,6 @@ const BproductWirte = () => {
     const bfiles = e.target.files;
     let bfnames = ""; //span에 출력할 파일명 목록
     setFiles(e.target.files);
-    
 
     for (let i = 0; i < bfiles.length; i++) {
       bfnames += bfiles[i].name + " ";
@@ -81,7 +80,6 @@ const BproductWirte = () => {
     }
     setFileName(bfnames);
   }, []);
-  
 
   //작성한 내용들 (등록에 필요한 정보들) 전송 함수
   const bonWrite = useCallback(
@@ -99,6 +97,9 @@ const BproductWirte = () => {
         "data",
         new Blob([JSON.stringify(data)], { type: "application/json" })
       );
+      for (let key of bformData.keys()) {
+        console.log(key);
+      }
 
       axios
         .post("/bpdwriteProc", bformData, {
@@ -117,11 +118,10 @@ const BproductWirte = () => {
           console.log(err);
         });
     },
-    [data]
+    [data, files]
   );
   console.log("현재값", data);
   console.log(files);
-  
 
   return (
     <div className="Write">

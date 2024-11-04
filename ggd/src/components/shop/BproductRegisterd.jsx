@@ -85,8 +85,7 @@ const BproductRegisterd = () => {
         <TableColumn wd={"w-10"}>
           <img
             className="img"
-            src={"../productupload/" + bbitem.bproductFileSysnameM
-            }
+            src={"../productupload/" + bbitem.bproductFileSysnameM}
           />
         </TableColumn>
         <TableColumn wd={"w-10"}>

@@ -65,6 +65,7 @@ public class BproductService {
 
         String realPath = session.getServletContext().getRealPath("/");
 
+        log.info(realPath);
         realPath += "productupload/";
 
         File folder = new File(realPath);
