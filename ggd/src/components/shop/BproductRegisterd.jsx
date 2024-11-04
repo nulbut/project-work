@@ -80,7 +80,7 @@ const BproductRegisterd = () => {
   //console.log("checkList", checkList);
 
   //전체 체크가 되었는지 아닌지 확인하기 위한 state 변수
-  const [checkItems, setCheckItems] = useState([]);
+  //const [checkItems, setCheckItems] = useState([]);
 
   //일괄체크 함수
   const allCheckedHandler = (e) => {
@@ -105,6 +105,32 @@ const BproductRegisterd = () => {
       tempList.push(bi);
     }
     setBbitem(tempList);
+    console.log(tempList);
+  };
+
+  //체크한 상품 삭제 함수
+  const checkDelete = () => {
+    let checkItems = [];
+    for (let bitem of bbitem) {
+      if (bitem.checked) {
+        checkItems.push(bitem.bpnum);
+      }
+    }
+    console.log(checkItems);
+
+    axios
+      .post("/bpdCheckedDelete", null, {
+        params: { ckList: checkItems.join(",") },
+      })
+      .then((res) => {
+        console.log(res.data);
+        if (res.data === "ok") getBproduct(1);
+        else alert("삭제 실패");
+      })
+      .catch((err) => {
+        console.log(err);
+        alert("삭제 실패");
+      });
   };
 
   //BProductRegistered 컴포넌트가 화면에 보일 때 서버로부터 등록상품 목록을 가져옴
@@ -214,7 +240,7 @@ const BproductRegisterd = () => {
       </div>
       <div>
         <Button onClick={bproductwirtego}>상품등록</Button>
-        <Button>상품삭제</Button>
+        <Button onClick={checkDelete}>상품삭제</Button>
       </div>
     </div>
   );

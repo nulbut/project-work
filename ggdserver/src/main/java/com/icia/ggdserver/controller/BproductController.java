@@ -38,6 +38,13 @@ public class BproductController {
     } //getBproduct end
 
 
+    @PostMapping("bpdCheckedDelete")
+    public String bpdCheckedDelete(@RequestParam List<Long> ckList, HttpSession session){
+        log.info("bpdCheckedDelete()");
+        String result = bpServ.deleteCheckedList(ckList, session);
+        return result;
+    }
+
     //상품 삭제
     @PostMapping("bpdDelete")
     public Map<String, String> bpdDelete(@RequestParam long bpnum,

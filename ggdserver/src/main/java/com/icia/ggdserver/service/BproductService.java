@@ -145,7 +145,7 @@ public class BproductService {
         log.info("bfileDelete()");
         String brealPath = session.getServletContext()
                 .getRealPath("/");
-        brealPath += "upload/";
+        brealPath += "productupload/";
 
         for (BproductFileTbl bproductFileTbl : bfileTblList){
             File file = new File(brealPath + bproductFileTbl.getBproductfilesysname());
@@ -180,5 +180,37 @@ public class BproductService {
 
 
         return res;
+    }
+
+    @Transactional
+    public String deleteCheckedList(List<Long> ckList, HttpSession session) {
+        log.info("deleteCheckedList()");
+        String result = "";
+
+        try {
+            bpdRepo.deleteAllByIds(ckList);
+            List<String> delFileList = bpfRepo.selectBproductfilesysnames(ckList);
+            deleteFileList(delFileList, session);
+            bpfRepo.deleteAllByBproductfilenums(ckList);
+            result = "ok";
+        }catch (Exception e){
+            e.printStackTrace();
+            result = "fail";
+        }
+
+        return result;
+    }
+
+    private void deleteFileList(List<String> delFileList, HttpSession session) throws Exception{
+        log.info("deleteFileList()");
+        String brealPath = session.getServletContext().getRealPath("/");
+        brealPath += "productupload/";
+
+        for (String fileSysname : delFileList){
+            File file = new File(brealPath + fileSysname);
+            if (file.exists()){
+                file.delete();
+            }
+        }
     }
 }//class end
