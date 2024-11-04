@@ -102,7 +102,7 @@ const BproductUpdata = () => {
       };
       setData(bdataObj);
     },
-    [data]
+    [data, first]
   );
 
   const [fileName, setFileName] = useState("선택한 파일이 없습니다.");

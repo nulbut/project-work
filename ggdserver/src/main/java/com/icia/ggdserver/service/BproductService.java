@@ -138,7 +138,8 @@ public class BproductService {
         }
         return brsMap;
     }
-
+    
+    //체크 삭제
     private void bfileDelete(List<BproductFileTbl> bfileTblList,
                              HttpSession session)
             throws Exception{

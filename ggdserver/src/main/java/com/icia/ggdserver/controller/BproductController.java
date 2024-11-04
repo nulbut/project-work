@@ -38,6 +38,7 @@ public class BproductController {
     } //getBproduct end
 
 
+    // 체크삭제
     @PostMapping("bpdCheckedDelete")
     public String bpdCheckedDelete(@RequestParam List<Long> ckList, HttpSession session){
         log.info("bpdCheckedDelete()");
