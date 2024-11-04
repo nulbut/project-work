@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./scss/MyTable.scss";
 
 const BproductTable = ({ hname, children }) => {
@@ -38,6 +38,7 @@ const BproductTable = ({ hname, children }) => {
           </tr>
         </thead>
         <tbody>{children}</tbody>
+        <tbody></tbody>
       </table>
     </div>
   );

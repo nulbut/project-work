@@ -1,4 +1,4 @@
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { faL, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useCallback, useEffect, useState } from "react";
 import BproductTable from "./BproductTable";
@@ -10,6 +10,7 @@ import TableRow from "./TableRow";
 import TableColumn from "./TableColumn";
 import Paging from "./Paging";
 import "./scss/BproductRegisterd.scss";
+import CheckBox from "./checkbox/CheckBox";
 
 const bf = (date) => moment(date).format("YYYY-MM-DD");
 const bn = (Number) => Number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -30,7 +31,7 @@ const BproductRegisterd = () => {
   const bsellerId = sessionStorage.getItem("nnickname");
   const bbpNum = 1;
 
-  const [bbitem, setitem] = useState([]);
+  const [bbitem, setBbitem] = useState([]);
 
   const [page, setpage] = useState({
     //페이징 관련 정보 저장
@@ -46,16 +47,64 @@ const BproductRegisterd = () => {
       })
       .then((res) => {
         console.log(res.data);
-        setitem(res.data);
+
         const { bList, totalPage, pageNum } = res.data;
         // console.log(totalPage);
         setpage({ totalPage: totalPage, pageNum: pageNum });
         // console.log(page);
-        setitem(bList);
-        // console.log(bList);
+        let newBlist = [];
+        for (let bItem of bList) {
+          newBlist.push({ ...bItem, checked: false });
+        }
+        //setitem(bList);
+        setBbitem(newBlist);
+        //console.log(bList);
         sessionStorage.getItem("pageNum", pageNum);
+
+        // let checkList = [];
+        // for (let i = 0; i < bList.length; i++) {
+        //   checkList.push({ id: bList[i].bpnum, checked: false });
+        // }
+        // setCheckItems(checkList);
       })
       .catch((err) => console.log(err));
+  };
+
+  //체크 상품 삭제하는 함수
+  // const checkList = [
+  //   {
+  //     id: "",
+  //   },
+  // ];
+
+  //console.log("checkList", checkList);
+
+  //전체 체크가 되었는지 아닌지 확인하기 위한 state 변수
+  const [checkItems, setCheckItems] = useState([]);
+
+  //일괄체크 함수
+  const allCheckedHandler = (e) => {
+    let tempList = [];
+    for (let bi of bbitem) {
+      bi.checked = e.target.checked;
+
+      tempList.push(bi);
+    }
+    console.log(tempList);
+    setBbitem(tempList);
+  };
+
+  //개별체크 함수
+  const checkItemHandler = (id, isChecked) => {
+    console.log(isChecked);
+    let tempList = [];
+    for (let bi of bbitem) {
+      if (bi.bpnum == id) {
+        bi.checked = isChecked;
+      }
+      tempList.push(bi);
+    }
+    setBbitem(tempList);
   };
 
   //BProductRegistered 컴포넌트가 화면에 보일 때 서버로부터 등록상품 목록을 가져옴
@@ -79,7 +128,12 @@ const BproductRegisterd = () => {
     BproductList = Object.values(bbitem).map((bbitem) => (
       <TableRow key={bbitem.bpnum}>
         <TableColumn wd={"w-10"}>
-          <input className="Input" type="checkbox" />
+          <CheckBox
+            key={bbitem.bpnum}
+            itemid={bbitem.bpnum}
+            checkItemHandler={checkItemHandler}
+            checked={bbitem.checked}
+          />
         </TableColumn>
         <TableColumn wd={"w-10"}>{bbitem.bpnum}</TableColumn>
         <TableColumn wd={"w-10"}>
@@ -138,7 +192,10 @@ const BproductRegisterd = () => {
       <div>
         <BproductTable
           hname={[
-            "",
+            <label>
+              <input type="checkbox" onChange={allCheckedHandler} />
+            </label>,
+            //checkItems, 체크된 아이템 배열에 해당 id가 있으면 체크 없으면 해제
             "분류",
             "상품코드",
             "이미지",
