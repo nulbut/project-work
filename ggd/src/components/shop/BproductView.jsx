@@ -21,8 +21,8 @@ const BproductView = () => {
 
   //상품 번호 받기
   const { state } = useLocation();
-  const { bpn } = state;
-  console.log(bpn);
+  const { bpnum } = state;
+  console.log(bpnum);
 
   const bsellerId = sessionStorage.getItem("bid");
 
@@ -54,7 +54,7 @@ const BproductView = () => {
 
   const getBProduct = () => {
     axios
-      .get("/getBproduct", { params: { bpnum: bpn } })
+      .get("/getBproduct", { params: { bpnum: bpnum } })
       .then((res) => {
         setBproductRegistered(res.data);
         console.log(res.data);
@@ -98,7 +98,7 @@ const BproductView = () => {
     }
 
     axios
-      .post("/bpdDelete", null, { params: { bpnum: bpn } })
+      .post("/bpdDelete", null, { params: { bpnum: bpnum } })
       .then((res) => {
         if (res.data.res === "ok") {
           alert("삭제완료");
@@ -112,7 +112,7 @@ const BproductView = () => {
 
   //상품 수정 버튼으로 이동
   const updateBproduct = () => {
-    nav("/bproductupdata", { state: { bpnum: bpn } });
+    nav("/bproductupdata", { state: { bpnum: bpnum } });
   };
 
   return (

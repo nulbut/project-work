@@ -23,11 +23,6 @@ const BproductRegisterd = () => {
     nav("/bproductw");
   };
 
-  //상품수정으로 이동하는 함수
-  const bprupdate = () => {
-    nav("/bproductupdata", { state: { bpnum: bbpNum } });
-  };
-
   const bsellerId = sessionStorage.getItem("nnickname");
   const bbpNum = 1;
 
@@ -154,23 +149,19 @@ const BproductRegisterd = () => {
           <div onClick={() => getBboard(bbitem.bpnum)}>{bbitem.bpname}</div>
         </TableColumn>
         <TableColumn wd={"w-10"}>{bn(bbitem.bpprice)}</TableColumn>
-        <TableColumn wd={"w-20"}>{bbitem.bpwarestock}</TableColumn>
+        <TableColumn wd={"w-10"}>{bbitem.bpwarestock}</TableColumn>
         <TableColumn wd={"w-10"}>
           <input className="Input" type="checkbox" />
         </TableColumn>
         <TableColumn wd={"w-10"}>
           <input className="Input" type="checkbox" />
         </TableColumn>
-        <TableColumn wd={"w-10"}>{bf(bbitem.bpsigndt)}</TableColumn>
-        <TableColumn wd={"w-30"}>
-          <Button onClick={bprupdate}>상품수정</Button>
-        </TableColumn>
+        <TableColumn wd={"w-20"}>{bf(bbitem.bpsigndt)}</TableColumn>
       </TableRow>
     ));
   }
   const getBboard = (bpnum) => {
-    console.log(bpnum);
-    nav("/bproductview", { state: { bpn: bpnum } });
+    nav("/bproductview", { state: { bpnum: bpnum } });
   };
 
   return (
