@@ -219,7 +219,7 @@ const JoinN = () => {
     <div className="join">
       <form className="content" onSubmit={handleSubmit(onSubmit)}>
         <input type="hidden" value={1} {...register("nmnum")} />
-        <input type="hidden" value={formattedDate} {...register("nsigndt")} />
+        {/* <input type="hidden" value={formattedDate} {...register("nsigndt")} /> */}
         <input type="hidden" value={1} {...register("nstatus")} />
         <h1>JOIN</h1>
         <div className="id">

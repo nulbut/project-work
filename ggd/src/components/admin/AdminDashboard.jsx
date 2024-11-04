@@ -3,43 +3,80 @@ import MyResponsivePie from "./MyResponsivePie";
 import MyResponsiveLine from "./MyResponsiveLine";
 import { faChartBar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import axios from "axios";
 
 const AdminDashboard = () => {
-  const [dataPie, setDataPie] = useState();
+  const [dataPie, setDataPie] = useState([]);
   const [dataLine, setDataLine] = useState();
+  const [dashParams, setDashParams] = useState({
+    cupTotalCnt: "",
+    cupTodayCnt: "",
+    cCnt: "",
+  });
   useEffect(() => {
-    setDataPie([
-      {
-        id: "php",
-        label: "php",
-        value: 502,
-        color: "hsl(151, 70%, 50%)",
-      },
-      {
-        id: "erlang",
-        label: "erlang",
-        value: 103,
-        color: "hsl(280, 70%, 50%)",
-      },
-      {
-        id: "stylus",
-        label: "stylus",
-        value: 216,
-        color: "hsl(218, 70%, 50%)",
-      },
-      {
-        id: "scala",
-        label: "scala",
-        value: 148,
-        color: "hsl(194, 70%, 50%)",
-      },
-      {
-        id: "hack",
-        label: "hack",
-        value: 60,
-        color: "hsl(109, 70%, 50%)",
-      },
-    ]);
+    getIdealCnt();
+    // setDataPie([
+    //   {
+    //     id: "php",
+    //     label: "php",
+    //     value: 502,
+    //     color: "hsl(151, 70%, 50%)",
+    //   },
+    //   {
+    //     id: "erlang",
+    //     label: "erlang",
+    //     value: 103,
+    //     color: "hsl(280, 70%, 50%)",
+    //   },
+    //   {
+    //     id: "stylus",
+    //     label: "stylus",
+    //     value: 216,
+    //     color: "hsl(218, 70%, 50%)",
+    //   },
+    //   {
+    //     id: "scala",
+    //     label: "scala",
+    //     value: 148,
+    //     color: "hsl(194, 70%, 50%)",
+    //   },
+    //   {
+    //     id: "hack",
+    //     label: "hack",
+    //     value: 60,
+    //     color: "hsl(109, 70%, 50%)",
+    //   },
+    //   {
+    //     id: "hack5",
+    //     label: "hack5",
+    //     value: 60,
+    //     color: "hsl(109, 70%, 50%)",
+    //   },
+    //   {
+    //     id: "hack4",
+    //     label: "hack4",
+    //     value: 60,
+    //     color: "hsl(103, 70%, 50%)",
+    //   },
+    //   {
+    //     id: "hack3",
+    //     label: "hack3",
+    //     value: 60,
+    //     color: "hsl(109, 70%, 50%)",
+    //   },
+    //   {
+    //     id: "hack1",
+    //     label: "hack1",
+    //     value: 60,
+    //     color: "hsl(109, 70%, 50%)",
+    //   },
+    //   {
+    //     id: "hack2",
+    //     label: "hack2",
+    //     value: 60,
+    //     color: "hsl(109, 70%, 50%)",
+    //   },
+    // ]);
 
     setDataLine([
       {
@@ -314,6 +351,32 @@ const AdminDashboard = () => {
       },
     ]);
   }, []);
+
+  const getIdealCnt = async () => {
+    try {
+      axios
+        .get("/getDashBoard")
+        .then((res) => {
+          setDashParams(res.data);
+
+          for (let i = 0; i < res.data.cCnt.length; i++) {
+            console.log(res.data.cCnt[i][0]);
+            console.log(res.data.cCnt[i][1]);
+            const newPie = {
+              id: res.data.cCnt[i][0],
+              label: res.data.cCnt[i][0],
+              value: res.data.cCnt[i][1],
+              color: "hsl(151, 70%, 50%)",
+            };
+            setDataPie((prev) => [...prev, newPie]);
+          }
+        })
+        .catch((err) => console.log(err));
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
+  console.log(dashParams);
   return (
     <div className="container-fluid px-4">
       <h1 className="mt-4">Dashboard</h1>
@@ -375,11 +438,29 @@ const AdminDashboard = () => {
         </div>
       </div>
       <div className="row">
+        <div className="col-xl-3 col-md-6">
+          <div className="card bg-dark text-white mb-4">
+            <div className="card-body">등록된 이상형 월드컵</div>
+            <div className="card-footer d-flex align-items-center justify-content-between">
+              <a className="small text-white stretched-link" href="#">
+                총 개수 : {dashParams.cupTotalCnt}
+                <hr />
+                오늘 등록된 개수 : {dashParams.cupTodayCnt}
+              </a>
+              <div className="small text-white">
+                <i className="fas fa-angle-right"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="row">
         <div className="col-xl-6">
           <div className="card mb-4">
             <div className="card-header">
               <i className="fas fa-chart-area me-1"></i>
-              Area Chart Example
+              카테고리 점유율 Top 10
             </div>
             <div className="card-body">
               <MyResponsivePie data={dataPie} />

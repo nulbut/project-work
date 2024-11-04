@@ -2,6 +2,7 @@ package com.icia.ggdserver.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.ColumnDefault;
 
 @Entity
 @Table(name = "iwc_contents_tbl")
@@ -32,6 +33,8 @@ public class IwcContentsTbl {
     @Column
     private long iwcContentFinalcount;
 
-    @Column(length = 50)
-    private String iwcContentsCategory;
+
+    @Column(length = 50, nullable = false)
+    @ColumnDefault("''")
+    private String iwcContentsCategory = "";
 }
