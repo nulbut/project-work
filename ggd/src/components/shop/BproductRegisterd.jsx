@@ -60,27 +60,9 @@ const BproductRegisterd = () => {
         setBbitem(newBlist);
         //console.log(bList);
         sessionStorage.getItem("pageNum", pageNum);
-
-        // let checkList = [];
-        // for (let i = 0; i < bList.length; i++) {
-        //   checkList.push({ id: bList[i].bpnum, checked: false });
-        // }
-        // setCheckItems(checkList);
       })
       .catch((err) => console.log(err));
   };
-
-  //체크 상품 삭제하는 함수
-  // const checkList = [
-  //   {
-  //     id: "",
-  //   },
-  // ];
-
-  //console.log("checkList", checkList);
-
-  //전체 체크가 되었는지 아닌지 확인하기 위한 state 변수
-  //const [checkItems, setCheckItems] = useState([]);
 
   //일괄체크 함수
   const allCheckedHandler = (e) => {
