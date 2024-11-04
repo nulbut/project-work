@@ -9,5 +9,5 @@ public interface UsedTblRepository extends CrudRepository<UsedProductTbl, Long> 
 
     Page<UsedProductTbl> findByUsedCodeGreaterThanAndUsedsellerId(long UsedCode, String usedsellerId, Pageable pb);
 
-    Page<UsedProductTbl> findByusedCodeGreaterThan(long l, Pageable pb);
+    Page<UsedProductTbl> findByusedCodeGreaterThan(long usedCode, Pageable pageable);
 }

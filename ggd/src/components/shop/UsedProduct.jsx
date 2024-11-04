@@ -122,7 +122,7 @@ const UsedProduct = () => {
           <div key={index} className="product-card">
             <div className="product-image-placeholder">
               <img
-                src={`/usupload${item.usedFileNum}`}
+                src={`usupload/${item.usedFileSysname}`}
                 alt={`상품 이미지${item.usedCode}`}
                 className="product-image"
               />
@@ -142,7 +142,7 @@ const UsedProduct = () => {
                 sellerId:item.usedsellerId,
                 detail: item.usedDetail,
                 seller: item.usedSeller,
-                imageNum: item.usedFileNum,
+                imageNum: item.usedFileSysname,
               }}
               >
                 <Button wsize="s-25">제품 상세</Button>

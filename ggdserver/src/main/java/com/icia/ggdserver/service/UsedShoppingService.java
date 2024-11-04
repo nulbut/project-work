@@ -55,7 +55,7 @@ public class UsedShoppingService {
 
     private void usedfileUpload(List<MultipartFile> files,
                                 HttpSession session,
-                                long usedCode) throws Exception {
+                                long usedFileNum) throws Exception {
         log.info("usedfileUpload()");
 
         String realPath = session.getServletContext().getRealPath("/");
@@ -73,7 +73,7 @@ public class UsedShoppingService {
 
             UsedproductFileTbl upf = new UsedproductFileTbl();
             upf.setUsedFileOriname(oriname);//파일명
-            upf.setUsedFileNum(usedCode);// 중고상품 글 번호
+            upf.setUsedFileNum(usedFileNum);// 중고상품 글 번호
 
             String sysname = System.currentTimeMillis()
                     + oriname.substring(oriname.lastIndexOf("."));
@@ -89,20 +89,6 @@ public class UsedShoppingService {
     }
 
 
-    private void usedfilesDelete(List<UsedproductFileTbl> usedfileList,
-                                 HttpSession session)
-            throws Exception {
-        log.info("usedfilesDelete()");
-        String realPath = session.getServletContext().getRealPath("/");
-        realPath += "usupload/";
-
-        for (UsedproductFileTbl upf : usedfileList) {
-            File file = new File(realPath + upf.getUsedFileOriname());
-            if (file.exists()) {
-                file.delete();
-            }
-        }
-    }
 
 
     @Transactional
@@ -112,9 +98,9 @@ public class UsedShoppingService {
         Map<String, String> rsMap = new HashMap<>();
         try {
             //파일 삭제
-            List<UsedproductFileTbl> fileList = usfRepo.findByUsedFileNum(usedCode);
-            if (!fileList.isEmpty()) {
-                usedfilesDelete(fileList, session);
+            List<UsedproductFileTbl> ufileList = usfRepo.findByUsedFileNum(usedCode);
+            if (!ufileList.isEmpty()) {
+                usedfilesDelete(ufileList, session);
             }
             //게시글 db 삭제
             ustRepo.deleteById(usedCode);
@@ -127,6 +113,46 @@ public class UsedShoppingService {
         }
         return rsMap;
     }
+
+    private void usedfilesDelete(List<UsedproductFileTbl> ufileList,
+                                 HttpSession session)
+            throws Exception {
+        log.info("usedfilesDelete()");
+        String realPath = session.getServletContext().getRealPath("/");
+        realPath += "usupload/";
+
+        for (UsedproductFileTbl upf : ufileList) {
+            File file = new File(realPath + upf.getUsedFileOriname());
+            if (file.exists()) {
+                file.delete();
+            }
+        }
+    }
+
+//    @Transactional
+//    public Map<String, String> usedboardDelete(Long usedCode,
+//                                              HttpSession session) {
+//        log.info("usedboardDelete()");
+//        Map<String, String> rsMap = new HashMap<>();
+//        try {
+//            //파일 삭제
+//            List<UsedproductFileTbl> usedfileList = usfRepo.findByUsedFileNum(usedCode);
+//            if (!usedfileList.isEmpty()) {
+//                usedfilesDelete(usedfileList, session);
+//            }
+//            //게시글 db 삭제
+//            ustRepo.deleteById(usedCode);
+//            //파일 목록 db 삭제
+//            usfRepo.deleteByUsedFileNum(usedCode);
+//            rsMap.put("res", "ok");
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            rsMap.put("res", "fail");
+//        }
+//        return rsMap;
+//    }
+
+
 
     public UsedProductTbl getUsedBoard(long usedFileNum) {
         log.info("getusedBoard()");
@@ -169,7 +195,7 @@ public class UsedShoppingService {
     }
 
     public Map<String, Object> getusedList(Integer pageNum) {
-        log.info("getBoardList()");
+        log.info("getusedBoardList()");
 
         if (pageNum == null){
             pageNum = 1;

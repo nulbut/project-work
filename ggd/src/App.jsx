@@ -41,6 +41,8 @@ import AdminLogin from "./components/admin/AdminLogin";
 import ProductUpdate from "./components/shop/ProductUpdate";
 import UsedWrite from "./components/shop/UsedWrite";
 import ProductDetails from "./components/shop/ProductDetails";
+import UsedRegistered from "./components/shop/UsedRegistered";
+import UsedView from "./components/shop/UsedView";
 
 function App() {
   const nav = useNavigate();
@@ -147,6 +149,8 @@ function App() {
               path="productRegistered/pdview/pdUpdate"
               element={<ProductUpdate />}
             />
+            <Route path="usedRegistered" element={<UsedRegistered />} />
+            <Route path="usedRegistered/usView" element={<UsedView />} /> 
           </Route>
           <Route path="usedWrite" element={<UsedWrite />} />
           <Route path="/bmypage" element={<BMypage />}>

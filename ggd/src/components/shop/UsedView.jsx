@@ -6,49 +6,46 @@ import axios from "axios";
 
 const df = (date) => moment(date).format("YYYY-MM-DD");
 
-const ProductView = () => {
+const UsedView = () => {
   const nav = useNavigate();
 
-  //상품 번호 받기
+  //중고 상품 번호 받기
   const { state } = useLocation();
-  const { pc } = state;
+  const { uc } = state;
 
-  const sellerId = sessionStorage.getItem("nid");
+  const usedsellerId = sessionStorage.getItem("nid");
 
-  const [ProductRegistered, setProductRegistered] = useState({});
+  const [UsedRegistered, setUsedRegistered] = useState({});
   const [flist, setFlist] = useState([
     {
-      // productCode: "",
-      // sellerId: 0,
-      productFileCode: "",
-      productFileNum: 0,
-      productFileSysname: "",
-      productFileOriname: "Nothing",
+      usedFileCode: "",
+      usedFileNum: 0,
+      usedFileSysname: "",
+      usedFileOriname: "Nothing",
       image: "",
-      productFileList: "",
-      // productName: "",
+      UsedproductFileTblList: "",
     },
   ]);
 
-  //서버로부터 상품 내용 받아오기
+  //서버로부터 중고 상품 내용 받아오기
   useEffect(() => {
     axios
-      .get("/getproduct", { params: { productCode: pc } })
+      .get("/getusedproduct", { params: { usedCode: uc } })
       .then((res) => {
-        setProductRegistered(res.data);
+        setUsedRegistered(res.data);
         console.log(res.data);
 
-        const bfList = res.data.productFileList;
+        const bfList = res.data.UsedproductFileTblList;
         console.log(bfList);
 
-        //파일 목록 처리 (res.data에서 파일목록을 꺼내서 flist로 처리)
+        //파일 목록 처리 (res.data에서 파일목록 꺼내서 flist로 처리)
         if (bfList.length > 0) {
           console.log("bfList.length : ", bfList.length);
           let newFileList = [];
-          for (let i = 0; i < bfList.length; i++) { 
+          for (let i = 0; i < bfList.length; i++) {
             const newFile = {
               ...bfList[i],
-              image: "../../upload/" + bfList[i].productFileSysname,
+              image: "../../usupload/" + bfList[i].usedFileSysname,
             };
             newFileList.push(newFile); // 배열에 추가
           }
@@ -58,30 +55,29 @@ const ProductView = () => {
       })
       .catch((err) => console.log(err));
   }, []);
-
   const viewFList = flist.map((v) => {
     return (
       <div className="Down">
         {v.image && <img src={v.image} alt="preview-img" />}
-        {v.productFileOriname}
+        {v.usedFileOriname}
       </div>
     );
   });
 
-  //boardDelete
-  const deleteProduct = useCallback(() => {
-    let conf = window.confirm("삭제하시겠습니까?");
+  //usedboardDelete
+  const deleteusedProduct = useCallback(() => {
+    let conf = window.confirm("상품을 삭제하시겠습니까?");
     if (!conf) {
       //취소 버튼이 눌리면 삭제 종료
       return;
     }
 
     axios
-      .post("/boardDelete", null, { params: { productCode: pc } })
+      .post("/deleteusedProduct", null, { params: { usedCode: uc } })
       .then((res) => {
         if (res.data.res === "ok") {
-          alert("삭제완료");
-          nav("/mypage/ProductRegistered");
+          alert("삭제 완료");
+          nav("/mypage/usedRegistered");
         } else {
           alert("삭제 실패");
         }
@@ -89,62 +85,56 @@ const ProductView = () => {
       .catch((err) => console.log(err));
   }, []);
 
-  const updateProduct = () => {
-    nav("pdUpdate", { state: { productCode: pc } });
-  };
   return (
     <div className="Main">
       <div className="Content">
-        <h1>{ProductRegistered.productName}</h1>
+        <h1>{UsedRegistered.usedName}</h1>
         <div className="DataArea">
           <div className="Box">
             <div className="Title">번호</div>
-            <div className="Data">{ProductRegistered.productCode}</div>
+            <div className="Data">{UsedRegistered.usedCode}</div>
           </div>
           <div className="Box">
             <div className="Title">종류</div>
-            <div className="Data">{ProductRegistered.categoryCode}</div>
+            <div className="Data">{UsedRegistered.usedcategoryCode}</div>
           </div>
           <div className="Box">
             <div className="Title">판매자</div>
-            <div className="Data">{ProductRegistered.sellerId}</div>
+            <div className="Data">{UsedRegistered.usedsellerId}</div>
           </div>
           <div className="Box">
             <div className="Title">판매가격</div>
-            <div className="Data">{ProductRegistered.sellerPayment}</div>
+            <div className="Data">{UsedRegistered.usedSeller}</div>
           </div>
           <div className="Box">
-            <div className="Title">구매제한</div>
-            <div className="Data">{ProductRegistered.productLimit}</div>
+            <div className="Title">구매 제한</div>
+            <div className="Data">{UsedRegistered.usedLimit}</div>
           </div>
           <div className="Box">
             <div className="Title">수량</div>
-            <div className="Data">{ProductRegistered.productStock}</div>
+            <div className="Data">{UsedRegistered.usedStock}</div>
           </div>
           <div className="Box">
             <div className="Title">등록일</div>
-            <div className="Data">{df(ProductRegistered.productDate)}</div>
+            <div className="Data">{df(UsedRegistered.usedDate)}</div>
           </div>
           <div className="Box">
             <div className="FileTitle">파일</div>
             <div className="FileData">{viewFList}</div>
           </div>
-          <div className="Cont">{ProductRegistered.productDetail}</div>
+          <div className="Cont">{UsedRegistered.usedDetail}</div>
         </div>
         <div className="Buttons">
           <Button
             wsize="s-10"
             color="gray"
-            onClick={() => nav("/mypage/productRegistered")}
+            onClick={() => nav("/mypage/usedRegistered")}
           >
             뒤로가기
           </Button>
-          {sellerId === ProductRegistered.sellerId ? (
+          {usedsellerId === UsedRegistered.usedsellerId ? (
             <>
-              <Button wsize="s-10" color="red" onClick={updateProduct}>
-                수정
-              </Button>
-              <Button wsize="s-10" color="red" onClick={deleteProduct}>
+              <Button wsize="s-10" color="red" onClick={deleteusedProduct}>
                 삭제
               </Button>
             </>
@@ -157,4 +147,4 @@ const ProductView = () => {
   );
 };
 
-export default ProductView;
+export default UsedView;

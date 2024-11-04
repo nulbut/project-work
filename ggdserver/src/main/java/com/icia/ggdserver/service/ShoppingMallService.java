@@ -99,7 +99,7 @@ public class ShoppingMallService {
         Pageable pb = PageRequest.of((pageNum - 1), listCnt,
                 Sort.Direction.DESC, "productCode");
 
-        Page<ProductTbl> result = pdtRepo.findByProductCodeGreaterThanAndSellerId(0L, sellerId, pb);
+        Page<ProductTbl> result = pdtRepo.  findByProductCodeGreaterThanAndSellerId(0L, sellerId, pb);
 
         List<ProductTbl> bList = result.getContent();
 
