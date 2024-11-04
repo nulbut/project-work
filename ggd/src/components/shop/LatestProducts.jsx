@@ -7,7 +7,7 @@ import moment from "moment";
 import TableRow from "./TableRow";
 import TableColumn from "./TableColumn";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBagShopping } from "@fortawesome/free-solid-svg-icons";
+import { faBagShopping, faHeart } from "@fortawesome/free-solid-svg-icons";
 
 const df = (date) => moment(date).format("YYYY-MM-DD HH:mm:ss");
 
@@ -116,14 +116,15 @@ const LatestProducts = () => {
   const cartList = (pc) => {
     console.log(pc);
     const nid = sessionStorage.getItem("nid");
-    const quantity = 1;
     let conf = window.confirm("장바구니에 추가할까요?");
     if (!conf) {
       return;
     }
 
     axios
-      .get("/setcart", { params: { cnid: nid, productCode: pc, quantity } })
+      .get("/setcart", {
+        params: { cnid: nid, productCode: pc },
+      })
       .then((res) => {
         console.log(res);
         if (res.data == "ok") {
@@ -134,6 +135,32 @@ const LatestProducts = () => {
       })
       .catch((err) => {
         alert("돌아가");
+        console.log(err);
+      });
+  };
+
+  const dibsList = (pc) => {
+    console.log(pc);
+    const nid = sessionStorage.getItem("nid");
+    let conf = window.confirm("찜목록에 추가할까요?");
+    if (!conf) {
+      return;
+    }
+
+    axios
+      .get("/setDibs", {
+        params: { dnid: nid, productCode: pc },
+      })
+      .then((res) => {
+        console.log(res);
+        if (res.data == "ok") {
+          alert("성공");
+        } else {
+          alert("실패");
+        }
+      })
+      .catch((err) => {
+        alert("돌아가렴");
         console.log(err);
       });
   };
@@ -161,6 +188,9 @@ const LatestProducts = () => {
                 icon={faBagShopping}
                 style={{ color: "#000000" }}
               />
+            </button>
+            <button onClick={() => dibsList(item.productCode)}>
+              <FontAwesomeIcon icon={faHeart} style={{ color: "#000000" }} />
             </button>
           </div>
         ))}

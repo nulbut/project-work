@@ -45,7 +45,6 @@ public class BoardService {
                 Sort.Direction.DESC,"BoardCode");
         //PageRequest.of(페이지번호, 페이지당 문의게시글 개수, 정렬방식, 컬럼명)
 
-        //Page<BoardTbl> result = bRepo.findByBoardCodeGreaterThan(0L, pb);
         Page<BoardTbl> result = bRepo.findByBoardCodeGreaterThanAndBnid(0L, bnid, pb);
         //page 객체를 list 로 변환 후 전송.
         List<BoardTbl> Blist = result.getContent();//page에서 문의게시글을 꺼내서

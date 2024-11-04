@@ -49,19 +49,6 @@ const Cart = () => {
     pnum !== null ? getCartList(pnum) : getCartList(1);
   }, []);
 
-  const removeFromCart = useCallback(
-    (cartCode) => {
-      axios
-        .delete(`/api/cart/${cartCode}`)
-        .then(() => {
-          alert("상품이 장바구니에서 제거되었습니다.");
-          getCartList(page.pageNum);
-        })
-        .catch((err) => console.error("장바구니 상품 제거 오류:", err));
-    },
-    [getCartList, page.pageNum]
-  );
-
   //출력할 장바구니 목록 작성
   let cartList = null;
   if (citem.length === 0) {
@@ -75,20 +62,14 @@ const Cart = () => {
       <TableRow key={item.cartCode}>
         <TableColumn wd="10">{item.productCode}</TableColumn>
         <TableColumn wd="30">
-          {/* <img
-            src={citem.productImage}
-            alt={citem.productName}
-            style={{ width: "50px", height: "50px" }}
-          /> */}
+          <div onClick={() => getCart(item.productCode)}></div>
           {item.productName}
         </TableColumn>
         <TableColumn wd="15">{item.quantity}</TableColumn>
-        {/* <TableColumn wd="20">₩{citem.price.toLocaleString()}</TableColumn>
+        <TableColumn wd="20">₩{item.sellerPayment}</TableColumn>
         <TableColumn wd="10">
-          <Button size="small" onClick={() => removeFromCart(citem.cartCode)}>
-            삭제
-          </Button>
-        </TableColumn> */}
+          <Button size="small">삭제</Button>
+        </TableColumn>
       </TableRow>
     ));
   }

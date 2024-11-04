@@ -3,6 +3,7 @@ package com.icia.ggdserver.controller;
 import com.icia.ggdserver.entity.CartTbl;
 import com.icia.ggdserver.entity.ProductTbl;
 import com.icia.ggdserver.service.CartService;
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -27,8 +28,9 @@ public class CartController {
 
     @GetMapping("setcart")
     public String setcart(@RequestParam String cnid,
-                            @RequestParam long productCode,
-                            @RequestParam int quantity) {
-        return cServ.getCart(cnid, productCode, quantity);
+                          @RequestParam long productCode) {
+        return cServ.getCart(cnid, productCode);
     }
+
+
 }

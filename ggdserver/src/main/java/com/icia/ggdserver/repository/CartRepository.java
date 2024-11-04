@@ -6,5 +6,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;
 
 public interface CartRepository extends CrudRepository<CartTbl, Long> {
+
     Page<CartTbl> findByCartCodeGreaterThanAndCnid(long CartCode, String cnid, Pageable pb);
 }
