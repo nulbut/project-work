@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -28,5 +29,16 @@ public class DibsController {
     public String setDibs(@RequestParam String dnid,
                           @RequestParam long productCode) {
         return dServ.getDibs(dnid,productCode);
+    }
+
+    @PostMapping("deleteDibs")
+    public String deleteDibs(@RequestBody List<Long> dibsCodes){
+        try {
+            dServ.deletMultioleDibss(dibsCodes);
+            return "ok";
+        } catch (Exception e){
+            e.printStackTrace();
+            return "error";
+        }
     }
 }

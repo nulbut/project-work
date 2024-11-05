@@ -65,4 +65,9 @@ public class DibsService {
     }
 
 
+    public void deletMultioleDibss(List<Long> dibsCodes) {
+        if(dibsCodes != null && !dibsCodes.isEmpty()) {
+            dRepo.deleteAllById(dibsCodes);
+        }
+    }
 }

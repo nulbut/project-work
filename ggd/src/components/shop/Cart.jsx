@@ -116,7 +116,7 @@ const Cart = () => {
           </div>
         </TableColumn>
         <TableColumn wd="15">{item.quantity}</TableColumn>
-        <TableColumn wd="20">₩{item.productin.sellerPayment}</TableColumn>
+        <TableColumn wd="20">{item.productin.sellerPayment}₩</TableColumn>
         <TableColumn wd="20">{df(item.cartDate)}</TableColumn>
         <TableColumn wd="10">
           <Button wsize="s-40">구매</Button>

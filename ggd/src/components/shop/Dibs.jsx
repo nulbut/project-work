@@ -75,7 +75,7 @@ const Dibs = () => {
 
     //서버로 선택된 항목 삭제 요청
     axios
-      .post("/delereDids", selectedItems, {
+      .post("/deleteDibs", selectedItems, {
         headers: {
           "Content-Type": "application/json", // Content-Type을 json으로 설정
         },
@@ -134,7 +134,7 @@ const Dibs = () => {
     <div className="Main">
       <div className="Content">
         <h1>찜목록</h1>
-        <DibsBoard dName={["번호", "상품", "가격", "등록일", "여부"]}>
+        <DibsBoard dName={["선택", "번호", "상품", "가격", "등록일"]}>
           {dibsList}
         </DibsBoard>
         <Button size="large" wsize="s-50" onClick={deleteSelectedItems}>
