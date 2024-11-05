@@ -54,7 +54,7 @@ function App() {
     loginid: "",
     loginnick: "",
     mlink: "/login",
-  }); //로그인 전 상태
+  }); //로그인 전 상태`
 
   //로그아웃 함수
   const onLogout = () => {
@@ -87,6 +87,7 @@ function App() {
       const newState = {
         loginid: nid,
         loginnick: nick,
+
         mlink: "/mypage",
       };
       setLoginState(newState);

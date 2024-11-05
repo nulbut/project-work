@@ -18,7 +18,7 @@ const MyResponsiveLine = ({ data /* see data tab */ }) => {
           type: "linear",
           min: "auto",
           max: "auto",
-          stacked: true,
+          stacked: false,
           reverse: false,
         }}
         yFormat=" >-.2f"
@@ -28,7 +28,7 @@ const MyResponsiveLine = ({ data /* see data tab */ }) => {
           tickSize: 5,
           tickPadding: 5,
           tickRotation: 0,
-          legend: "transportation",
+          legend: "날짜",
           legendOffset: 36,
           legendPosition: "middle",
           truncateTickAt: 0,
@@ -37,7 +37,7 @@ const MyResponsiveLine = ({ data /* see data tab */ }) => {
           tickSize: 5,
           tickPadding: 5,
           tickRotation: 0,
-          legend: "count",
+          legend: "명(횟수)",
           legendOffset: -40,
           legendPosition: "middle",
           truncateTickAt: 0,

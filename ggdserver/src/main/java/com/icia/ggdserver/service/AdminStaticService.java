@@ -1,8 +1,8 @@
 package com.icia.ggdserver.service;
 
 import com.icia.ggdserver.dto.IwcCategoryCntDto;
-import com.icia.ggdserver.repository.IwcContentsRepository;
-import com.icia.ggdserver.repository.IwcTblRepository;
+import com.icia.ggdserver.entity.NoticeTbl;
+import com.icia.ggdserver.repository.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +24,15 @@ public class AdminStaticService {
     @Autowired
     private IwcContentsRepository conRepo;
 
+    @Autowired
+    private NMemberRepository nmRepo;
+
+    @Autowired
+    private BMemberRepository bmRepo;
+
+    @Autowired
+    private NoticeRepository noRepo;
+
     Timestamp timestamp = new Timestamp(System.currentTimeMillis());
     SimpleDateFormat sdf = new SimpleDateFormat ("yyyy-MM-dd");
 
@@ -32,19 +41,45 @@ public class AdminStaticService {
 
         long cupTotalCnt;
         long cupTodayCnt;
+        long nmemberTotalCnt;
+        long nmemberTodayCnt;
+        long bmemberTotalCnt;
+        long bmemberTodayCnt;
 
         cupTotalCnt = iwcRepo.count();
         cupTodayCnt = iwcRepo.countCupToday(sdf.format(timestamp));
-        log.info(cupTotalCnt + " cup total");
-        log.info(cupTodayCnt + " cup today");
+
+        nmemberTotalCnt = nmRepo.count();
+        nmemberTodayCnt = nmRepo.countMemberToday(sdf.format(timestamp));
+        List<Object[]> nmemberPeriodCnt = nmRepo.countMemberPeriod();
+
+        bmemberTotalCnt = bmRepo.count();
+        bmemberTodayCnt = bmRepo.countMemberToday(sdf.format(timestamp));
+
+
+
         List<Object[]> results = conRepo.categoryCnt();
+        List<Object[]> period = iwcRepo.periodMakeCupCnt();
+//        List<Object[]> periodplay = iwcRepo.periodPlayCupCnt();
+
+        List<NoticeTbl> pinnedNotice = noRepo.findAllByIsPinned(1);
+
 
 
 
 
         res.put("cupTotalCnt", cupTotalCnt);
         res.put("cupTodayCnt", cupTodayCnt);
+//        res.put("periodPlay", periodplay);
         res.put("cCnt", results);
+        res.put("periodMakeCup", period);
+        res.put("nmemberTotalCnt", nmemberTotalCnt);
+        res.put("nmemberTodayCnt", nmemberTodayCnt);
+        res.put("nmemberPeriodCnt",nmemberPeriodCnt);
+        res.put("bmemberTotalCnt", bmemberTotalCnt);
+        res.put("bmemberTodayCnt", bmemberTodayCnt);
+
+        res.put("pinnedNotice", pinnedNotice);
 
         return res;
     }
