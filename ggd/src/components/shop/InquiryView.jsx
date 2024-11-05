@@ -12,9 +12,7 @@ const InquiryView = () => {
   //게시글 번호 받기
   const { state } = useLocation();
   const { bc } = state; //게시글 번호를 꺼냈다.
-  // const nmnum = sessionStorage.getItem("nmnum");
   const nid = sessionStorage.getItem("nid");
-  // const bnphonenum = sessionStorage.getItem("nphonenum");
 
   const [inquiry, setInquiry] = useState({});
   console.log(inquiry);

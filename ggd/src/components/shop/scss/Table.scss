@@ -33,6 +33,9 @@
   .TableColumn {
     padding: 10px 5px;
 
+    &.w-5 {
+      width: 5%;
+    }
     &.w-10 {
       width: 10%;
     }

@@ -2,7 +2,9 @@ package com.icia.ggdserver.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Entity
@@ -21,6 +23,16 @@ public class CartTbl {
 
     @Column(nullable = false, length = 10)
     private int quantity; // 장바구니 상품 개수
+
+    @Column(nullable = false)
+    private int productStock; // 해당 상품의 재고 수량
+
+    @CreationTimestamp
+    @Column
+    private Timestamp cartData;//문의 게시글 등록일
+
+    @Transient
+    private ProductTbl productin;
 
 
 //    // 기본 생성자

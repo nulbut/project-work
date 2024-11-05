@@ -128,6 +128,7 @@ public ProductTbl getProduct(long productCode){
     return product;
 }
 
+//상품삭제
 @Transactional
 public Map<String, String> boardDelete(long productCode,
                                        HttpSession session) {

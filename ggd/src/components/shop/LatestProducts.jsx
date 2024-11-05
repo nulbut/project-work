@@ -3,7 +3,6 @@ import "./scss/InfiniteScroll.scss";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import moment from "moment";
-// import Button from "./Button";
 import TableRow from "./TableRow";
 import TableColumn from "./TableColumn";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -22,11 +21,14 @@ const LatestProducts = () => {
   const [hasNextPage, setHasNextPage] = useState(true);
   const [pageParams, setPageParams] = useState([]);
   const observerRef = useRef();
+  const [quantities, setQuantities] = useState({}); // 각 상품에 대한 수량을 상태로 관리
 
   const sellerId = "sellerId";
   const nav = useNavigate();
   console.log("페이지", page);
   console.log("상품", products);
+
+  //상품 목록을 가져오는 함수
   const fetchProducts = async (inpage) => {
     //중복 호출 제거
     if (pageParams.includes(inpage.pageNum)) return;
@@ -48,11 +50,6 @@ const LatestProducts = () => {
       setLoading(false);
     }
   };
-
-  const options = [
-    { value: "productName", label: "상품이름" },
-    { value: "productDetail", label: "내용" },
-  ];
 
   useEffect(() => {
     fetchProducts(page);
@@ -86,34 +83,8 @@ const LatestProducts = () => {
     };
   }, []);
 
-  //출력할 상품 목록
-  let list = null;
-  if (products.length === 0) {
-    list = (
-      <TableRow key={0}>
-        <TableColumn span={4}>상품이 없습니다.</TableColumn>
-      </TableRow>
-    );
-  } else {
-    list = Object.values(products).map((item) => (
-      <TableRow key={item.productCode}>
-        <TableColumn wd="w-10">{item.productCode}</TableColumn>
-        <TableColumn wd="w-40">
-          <div onClick={() => getBoard(item.productCode)}>
-            {item.productName}
-          </div>
-        </TableColumn>
-        <TableColumn wd="w-20">{item.sellerId}</TableColumn>
-        <TableColumn wd="w-30">{df(item.productDate)}</TableColumn>
-      </TableRow>
-    ));
-  }
-
-  const getBoard = (code) => {
-    nav("/ShoppingMall", { state: { productCode: code } });
-  };
-
-  const cartList = (pc) => {
+  // 장바구니에 상품을 추가하는 함수
+  const cartList = (pc, quantity) => {
     console.log(pc);
     const nid = sessionStorage.getItem("nid");
     let conf = window.confirm("장바구니에 추가할까요?");
@@ -123,14 +94,14 @@ const LatestProducts = () => {
 
     axios
       .get("/setcart", {
-        params: { cnid: nid, productCode: pc },
+        params: { cnid: nid, productCode: pc, quantity },
       })
       .then((res) => {
         console.log(res);
-        if (res.data == "ok") {
-          alert("성공");
+        if (res.data === "ok") {
+          alert("추가되었습니다.");
         } else {
-          alert("이건뭐니");
+          alert("수량을 초과 하였습니다.");
         }
       })
       .catch((err) => {
@@ -139,6 +110,7 @@ const LatestProducts = () => {
       });
   };
 
+  // 찜목록에 상품을 추가하는 함수
   const dibsList = (pc) => {
     console.log(pc);
     const nid = sessionStorage.getItem("nid");
@@ -153,7 +125,7 @@ const LatestProducts = () => {
       })
       .then((res) => {
         console.log(res);
-        if (res.data == "ok") {
+        if (res.data === "ok") {
           alert("성공");
         } else {
           alert("실패");
@@ -165,35 +137,64 @@ const LatestProducts = () => {
       });
   };
 
+  const handleQuantityChange = (productCode, value) => {
+    setQuantities((prevQuantities) => ({
+      ...prevQuantities,
+      [productCode]: value,
+    }));
+  };
+
   return (
     <div className="product-list">
       <h2 className="section-title">
         <span>최신</span>상품
       </h2>
       <div className="product-grid">
-        {products.map((item, index) => (
-          <div key={index} className="product-card">
-            <div className="product-image-placeholder">
-              <img
-                src={`upload/${item.productFileSysname}`}
-                alt={`상품 이미지 ${item.productCode}`}
-                className="product-image"
-              />
+        {products.map((item, index) => {
+          const quantity = quantities[item.productCode] || 1; // 각 상품의 수량 관리
+
+          return (
+            <div key={index} className="product-card">
+              <div className="product-image-placeholder">
+                <img
+                  src={`upload/${item.productFileSysname}`}
+                  alt={`상품 이미지 ${item.productCode}`}
+                  className="product-image"
+                />
+              </div>
+              <h3 className="product-title">상품명 : {item.productName} </h3>
+              <p className="product-price">₩{item.sellerPayment}</p>
+              <p className="product-body">{item.productDetail}</p>
+              <div className="quantity-container">
+                <label>개수: </label>
+                <input
+                  type="number"
+                  min="1"
+                  value={quantity} // 상태값을 input 값으로 설정
+                  onChange={(e) =>
+                    handleQuantityChange(
+                      item.productCode,
+                      parseInt(e.target.value) || 1
+                    )
+                  } // 수량 변경 시 상태 업데이트
+                />
+              </div>
+              <button
+                onClick={() => {
+                  cartList(item.productCode, quantity); // 클릭 시 수량 전달
+                }}
+              >
+                <FontAwesomeIcon
+                  icon={faBagShopping}
+                  style={{ color: "#000000" }}
+                />
+              </button>
+              <button onClick={() => dibsList(item.productCode)}>
+                <FontAwesomeIcon icon={faHeart} style={{ color: "#000000" }} />
+              </button>
             </div>
-            <h3 className="product-title">상품명 : {item.productName} </h3>
-            <p className="product-price">₩{item.sellerPayment}</p>
-            <p className="product-body">{item.productDetail}</p>
-            <button onClick={() => cartList(item.productCode)}>
-              <FontAwesomeIcon
-                icon={faBagShopping}
-                style={{ color: "#000000" }}
-              />
-            </button>
-            <button onClick={() => dibsList(item.productCode)}>
-              <FontAwesomeIcon icon={faHeart} style={{ color: "#000000" }} />
-            </button>
-          </div>
-        ))}
+          );
+        })}
       </div>
       {hasNextPage && (
         <div ref={observerRef} className="loading-indicator">

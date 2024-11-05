@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import moment from "moment";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import "./scss/Main.scss";
 import axios from "axios";
 import TableRow from "./TableRow";
@@ -15,8 +15,8 @@ const Cart = () => {
   const nav = useNavigate();
   const cnid = sessionStorage.getItem("nid");
   const pnum = sessionStorage.getItem("pageName");
-  const [citem, setCitem] = useState({});
-  console.log(citem);
+  const [citem, setCitem] = useState([]);
+  const [selectedItems, setSelectedItems] = useState([]); // 선택된 항목들
   const [page, setPage] = useState({
     totalPage: 0,
     pageNum: 1,
@@ -27,20 +27,15 @@ const Cart = () => {
     axios
       .get("/cartlist", { params: { pageNum: pnum, cnid: cnid } })
       .then((res) => {
-        const { Clist, totalPage, pageNum, cnid } = res.data;
-        console.log(totalPage);
+        const { Clist, totalPage, pageNum } = res.data;
         setPage({ totalPage: totalPage, pageNum: pageNum });
-        console.log(page);
-        setCitem(Clist);
-        console.log(Clist);
-        sessionStorage.getItem("pageNum", pageNum);
+        setCitem(Clist); // 장바구니 항목 업데이트
+        sessionStorage.setItem("pageNum", pageNum);
       })
       .catch((err) => console.log(err));
   };
 
-  //Cart 컴포넌트가 화면에 보일 떄 서버로부터 문의게시글 목록을 가져온다.
   useEffect(() => {
-    console.log(cnid);
     if (cnid === null) {
       alert("로그인이 필요합니다.");
       nav("/login", { replace: true });
@@ -49,41 +44,131 @@ const Cart = () => {
     pnum !== null ? getCartList(pnum) : getCartList(1);
   }, []);
 
-  //출력할 장바구니 목록 작성
+  // 체크박스 선택 상태 업데이트
+  const handleCheckboxChange = (cartCode) => {
+    setSelectedItems((prevSelectedItems) => {
+      if (prevSelectedItems.includes(cartCode)) {
+        // 이미 선택된 항목이면 제거
+        return prevSelectedItems.filter((item) => item !== cartCode);
+      } else {
+        // 선택되지 않은 항목이면 추가
+        return [...prevSelectedItems, cartCode];
+      }
+    });
+  };
+
+  // 선택된 항목 삭제
+  const deleteSelectedItems = () => {
+    if (selectedItems.length === 0) {
+      alert("삭제할 항목을 선택해주세요.");
+      return;
+    }
+
+    let conf = window.confirm("선택한 항목을 삭제할까요?");
+    if (!conf) {
+      return;
+    }
+
+    // 서버로 선택된 항목 삭제 요청
+    axios
+      .post("/deleteCart", selectedItems, {
+        headers: {
+          "Content-Type": "application/json", // Content-Type을 json으로 설정
+        },
+      })
+      .then((res) => {
+        if (res.data === "ok") {
+          alert("선택된 항목을 삭제했습니다.");
+          // 장바구니 목록을 새로 고침
+          getCartList(1);
+        } else {
+          alert("삭제 실패");
+        }
+      })
+      .catch((err) => {
+        alert("오류가 발생했습니다.");
+        console.log(err);
+      });
+  };
+
+  // 출력할 장바구니 목록 작성
   let cartList = null;
   if (citem.length === 0) {
     cartList = (
       <TableRow key={0}>
-        <TableColumn span={5}>장바구니 목록이 없습니다.</TableColumn>
+        <TableColumn span={7}>장바구니 목록이 없습니다.</TableColumn>
       </TableRow>
     );
   } else {
-    cartList = Object.values(citem).map((item) => (
+    cartList = citem.map((item, index) => (
       <TableRow key={item.cartCode}>
-        <TableColumn wd="10">{item.productCode}</TableColumn>
+        <TableColumn wd="5">
+          <input
+            type="checkbox"
+            onChange={() => handleCheckboxChange(item.cartCode)} // 체크박스 클릭 시 상태 업데이트
+            checked={selectedItems.includes(item.cartCode)} // 선택 여부에 따른 체크 상태
+          />
+        </TableColumn>
+        <TableColumn wd="20">{item.cartCode}</TableColumn>
         <TableColumn wd="30">
-          <div onClick={() => getCart(item.productCode)}></div>
-          {item.productName}
+          <div onClick={() => getCart(item.productCode)}>
+            {item.productin.productName}
+          </div>
         </TableColumn>
         <TableColumn wd="15">{item.quantity}</TableColumn>
-        <TableColumn wd="20">₩{item.sellerPayment}</TableColumn>
+        <TableColumn wd="20">₩{item.productin.sellerPayment}</TableColumn>
+        <TableColumn wd="20">{df(item.cartDate)}</TableColumn>
         <TableColumn wd="10">
-          <Button size="small">삭제</Button>
+          <Button wsize="s-40">구매</Button>
         </TableColumn>
       </TableRow>
     ));
   }
 
   const getCart = (cnid) => {
-    nav("", { state: { bc: cnid } });
+    nav("", { state: { dc: cnid } });
   };
+
+  // // 장바구니 항목 삭제
+  // const deleteCart = useCallback(
+  //   (cartCode, index) => {
+  //     let conf = window.confirm("취소 할까요?");
+  //     if (!conf) {
+  //       return;
+  //     }
+
+  //     axios
+  //       .post("/cart/deleteCart", { cartCode })
+  //       .then((res) => {
+  //         if (res.status === 200) {
+  //           alert("취소 성공");
+  //           const newCitem = [...citem];
+  //           newCitem.splice(index, 1);
+  //           setCitem(newCitem);
+  //         } else {
+  //           alert("취소 실패");
+  //         }
+  //       })
+  //       .catch((err) => {
+  //         alert("오류가 발생했습니다.");
+  //         console.log(err);
+  //       });
+  //   },
+  //   [citem]
+  // );
+
   return (
     <div className="Main">
       <div className="Content">
         <h1>장바구니</h1>
-        <CartBoard cName={["번호", "상품", "수량", "가격", "관리"]}>
+        <CartBoard
+          cName={["선택", "번호", "상품", "수량", "가격", "등록일", "여부"]}
+        >
           {cartList}
         </CartBoard>
+        <Button size="large" wsize="s-50" onClick={deleteSelectedItems}>
+          선택된 항목 삭제
+        </Button>
         <Paging page={page} getList={getCartList} />
         <Button size="large" wsize="s-50" onClick={() => nav("/shoppingMall")}>
           홈으로
