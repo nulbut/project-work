@@ -37,7 +37,7 @@ const UsedRegistered = () => {
             .catch((err) => console.log(err));
         };
 
-        //UsedRegistered 컴포넌트가 화면에 보일 때 서버로부터 중고상품 목로을 가져옴
+        //UsedRegistered 컴포넌트가 화면에 보일 때 서버로부터 중고상품 목록을 가져옴
         useEffect(() => {
             console.log(usedsellerId);
             if (usedsellerId === null) {

@@ -45,7 +45,7 @@ const UsedView = () => {
           for (let i = 0; i < bfList.length; i++) {
             const newFile = {
               ...bfList[i],
-              image: "../../usupload/" + bfList[i].usedFileSysname,
+              image: "../../../usupload/" + bfList[i].usedFileSysname,
             };
             newFileList.push(newFile); // 배열에 추가
           }

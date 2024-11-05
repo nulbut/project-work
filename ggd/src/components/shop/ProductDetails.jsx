@@ -15,17 +15,17 @@ const ProductDetails = () => {
 
   //페이지 데이터 가져오기
   useEffect(() => {
-    const fetchProductDetails = async () => {
-      try {
-        const response = await axios.get(`/getusedproduct`, {
-          params: { usedCode },
-        });
-        setProduct(response.data);
-      } catch (error) {
-        console.log("데이터 로딩 실패", error);
-      }
-    };
-    if (usedCode) fetchProductDetails();
+      const fetchProductDetails = async () => {
+        try {
+          const response = await axios.get(`/getusedproduct`, {
+              params: { usedCode },
+          });
+          setProduct(response.data);
+        } catch (error) {
+          console.log("데이터 로딩 실패", error);
+        }
+      };
+      if (usedCode) fetchProductDetails();
   }, [usedCode]);
   console.log("데이터 로딩 실패");
 
@@ -33,21 +33,21 @@ const ProductDetails = () => {
     return <div>상품 정보를 불러오는 중 입니다.</div>;
   }
 
-  const handlePurchase = () => {
+    const handlePurchase = () => {
     alert("구매 페이지로 이동합니다.");
     navigate("/", { state: { usedCode: product.usedCode } });
   };
 
-  const handleAddToCart = () => {
+    const handleAddToCart = () => {
     alert("장바구니에 추가되었습니다.");
     //장바구니 추가 구현
   };
   const handleReport = () => {
     alert("신고페이지로 이동합니다.");
     navigate("/");
-  };
+ };
 
-  console.log(product);
+ console.log(product);
   return (
     <div className="product-detail">
       <h2 className="product-detail-title">{product.usedName}</h2>
@@ -77,7 +77,7 @@ const ProductDetails = () => {
             <strong>제품 상세 설명 :</strong> {product.usedDetail}
           </p>
           <div className="product-detail-actions">
-            <button
+            <button 
               className="purchase-button"
               onClick={handlePurchase}
             ></button>

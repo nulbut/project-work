@@ -22,7 +22,7 @@ const UsedProduct = () => {
   const [pageParams, setPageParams] = useState([]);
   const observerRef = useRef();
 
-  const usedsellerId = "nid"
+  const usedsellerId = "usedsellerId"
   const nav = useNavigate();
   console.log("페이지", page);
   console.log("중고상품", useds);
