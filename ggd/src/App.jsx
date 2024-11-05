@@ -156,13 +156,17 @@ function App() {
           <Route path="/bmypage" element={<BMypage onLogout={onLogout}/>}>
             <Route path="bp0" element={<BMypageView />} />
             <Route path="bp1" element={<BproductRegisterd />} />
-            <Route path="bmemberview" element={<BMemberView />} />
+            
+            
           </Route>
           
           <Route path="/bproductw" element={<BproductWirte />} />
           <Route path="/bproductview" element={<BproductView />} />
           <Route path="/bproductupdata" element={<BproductUpdata />} />
+          <Route path="/bmemberview" element={<BMemberView />} />
           <Route path="/bmemberpasswordcheck" element={<BMemberPasswordCheck />} />
+          
+          
         </Route>
 
         <Route
