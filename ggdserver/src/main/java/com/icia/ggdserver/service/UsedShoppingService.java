@@ -32,6 +32,8 @@ public class UsedShoppingService {
 
 
 
+
+
     public String insertUsed(UsedProductTbl upt,
                              List<MultipartFile> files,
                              HttpSession session) {
@@ -87,8 +89,6 @@ public class UsedShoppingService {
             usfRepo.save(upf);
         }
     }
-
-
 
 
     @Transactional
@@ -153,8 +153,7 @@ public class UsedShoppingService {
 //    }
 
 
-
-    public UsedProductTbl getUsedBoard(long usedFileNum) {
+    public UsedProductTbl getUsedProduct(long usedFileNum) {
         log.info("getusedBoard()");
 
         // 중고상품 가져오기
@@ -181,7 +180,7 @@ public class UsedShoppingService {
 
         Page<UsedProductTbl> result = ustRepo.findByUsedCodeGreaterThanAndUsedsellerId(0L, usedsellerId, pb);
 
-        List <UsedProductTbl> uList = result.getContent();
+        List<UsedProductTbl> uList = result.getContent();
 
         int totalPage = result.getTotalPages();
 
@@ -197,7 +196,7 @@ public class UsedShoppingService {
     public Map<String, Object> getusedList(Integer pageNum) {
         log.info("getusedBoardList()");
 
-        if (pageNum == null){
+        if (pageNum == null) {
             pageNum = 1;
         }
 
@@ -214,13 +213,13 @@ public class UsedShoppingService {
         //page 객체를 list로 변환 후 전송
         List<UsedProductTbl> uList = result.getContent();//page에서 게시글 목록 꺼내오기
         //uList에 저장
-        int totalPage = result.getTotalPages();// 전체 페이지 수
+        int totalPage = result.getTotalPages();// 전체 페이지
 
-        Map<String, Object> res = new HashMap<>();
-        res.put("uList", uList);
-        res.put("totalPage", totalPage);
-        res.put("pageNum", pageNum);
+            Map<String, Object> res = new HashMap<>();
+            res.put("uList", uList);
+            res.put("totalPage", totalPage);
+            res.put("pageNum", pageNum);
 
-        return res;
+            return res;
+        }
     }
-}

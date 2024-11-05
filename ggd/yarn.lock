@@ -2316,6 +2316,11 @@
   resolved "https://registry.npmjs.org/@tootallnate/once/-/once-2.0.0.tgz"
   integrity sha512-XCuKFP5PS55gnMVu3dty8KPatLqUoy/ZYzDzAGCQ8JNFCkLXzmI7vNHCR+XpbZaMWQK/vQubr7PkYq8g470J/A==
 
+"@tosspayments/tosspayments-sdk@^2.3.2":
+  version "2.3.2"
+  resolved "https://registry.npmjs.org/@tosspayments/tosspayments-sdk/-/tosspayments-sdk-2.3.2.tgz"
+  integrity sha512-8Sq1cMc4HrxF4zaL213D51epQM7P5p7Tq/iLARooX8SMSY/16MVs8NUuIcmO1dbfpcBaX10wLwYSOZcL4ZGRtw==
+
 "@trysound/sax@0.2.0":
   version "0.2.0"
   resolved "https://registry.npmjs.org/@trysound/sax/-/sax-0.2.0.tgz"
@@ -4092,7 +4097,7 @@ cross-spawn@^7.0.0, cross-spawn@^7.0.2, cross-spawn@^7.0.3:
 
 crypto-js@^4.2.0:
   version "4.2.0"
-  resolved "https://registry.yarnpkg.com/crypto-js/-/crypto-js-4.2.0.tgz#4d931639ecdfd12ff80e8186dba6af2c2e856631"
+  resolved "https://registry.npmjs.org/crypto-js/-/crypto-js-4.2.0.tgz"
   integrity sha512-KALDyEYgpY+Rlob/iriUtjV6d5Eq+Y191A5g4UqLAi8CyGP9N1+FdVbkc1SxKc2r4YAYqG8JzO2KGL+AizD70Q==
 
 crypto-random-string@^2.0.0:
@@ -4433,7 +4438,7 @@ data-view-byte-offset@^1.0.0:
 
 datatables.net-dt@^2, datatables.net-dt@^2.1.8:
   version "2.1.8"
-  resolved "https://registry.yarnpkg.com/datatables.net-dt/-/datatables.net-dt-2.1.8.tgz#ef4ada436411bff6c68ee02213222d8caefa7af9"
+  resolved "https://registry.npmjs.org/datatables.net-dt/-/datatables.net-dt-2.1.8.tgz"
   integrity sha512-/ScKmyKIpKXzjOJrnJLOWMf2jOQfrYjayNMhUyeMzf3jKhNevHNvImU9MQ/Bab9yheKLjHLL24IgnshAvRFrng==
   dependencies:
     datatables.net "2.1.8"
@@ -4441,12 +4446,12 @@ datatables.net-dt@^2, datatables.net-dt@^2.1.8:
 
 datatables.net-react@^1.0.0:
   version "1.0.0"
-  resolved "https://registry.yarnpkg.com/datatables.net-react/-/datatables.net-react-1.0.0.tgz#c1d499f997609922895785b19f24cfb4af00caf9"
+  resolved "https://registry.npmjs.org/datatables.net-react/-/datatables.net-react-1.0.0.tgz"
   integrity sha512-Rhuxu5KEnEHC8rCbXhwcLZ+tbjWkCiI7X8nj5p6+6UT5RHqJpKYjDxLQZnva0sLLOCSvmjHS+3TatzckTAk+Pw==
 
 datatables.net-responsive-dt@^3.0.3:
   version "3.0.3"
-  resolved "https://registry.yarnpkg.com/datatables.net-responsive-dt/-/datatables.net-responsive-dt-3.0.3.tgz#fed064e589406df7b700c9d5dc03b38c6af3cb4e"
+  resolved "https://registry.npmjs.org/datatables.net-responsive-dt/-/datatables.net-responsive-dt-3.0.3.tgz"
   integrity sha512-9Q3Ka8JFzLWfzAVpEePkIehQqjo0JkZiqh8r63wGzmnd/H10LmMNsTQIL5CxoKHFVMuUiWHSW3TS4Xga5E4bOg==
   dependencies:
     datatables.net-dt "^2"
@@ -4463,7 +4468,7 @@ datatables.net-responsive@3.0.3:
 
 datatables.net-select-dt@^2.1.0:
   version "2.1.0"
-  resolved "https://registry.yarnpkg.com/datatables.net-select-dt/-/datatables.net-select-dt-2.1.0.tgz#6dc55250f8e8ce42eb6c3325c46835f0538c1ed0"
+  resolved "https://registry.npmjs.org/datatables.net-select-dt/-/datatables.net-select-dt-2.1.0.tgz"
   integrity sha512-vYnYpD2Zy7UsuQ8RIoiEfehSuXYEZDAIOs4rvG6KLiBEnyfob9nyAE8TP361rH4bK8evecNufK7YuhYQPI4gvA==
   dependencies:
     datatables.net-dt "^2"
@@ -4472,7 +4477,7 @@ datatables.net-select-dt@^2.1.0:
 
 datatables.net-select@2.1.0:
   version "2.1.0"
-  resolved "https://registry.yarnpkg.com/datatables.net-select/-/datatables.net-select-2.1.0.tgz#d50f13cd4c18d50c06b24efd8ca5371ed0bbe59d"
+  resolved "https://registry.npmjs.org/datatables.net-select/-/datatables.net-select-2.1.0.tgz"
   integrity sha512-6B1sI5pfvBen+8kySl1T0hkGoUmrw+5YGqaW4NCg+1srMw+48YV5SdWPiyCQDoev2ajBdKzHuG/wzD2INMbmJw==
   dependencies:
     datatables.net "^2"

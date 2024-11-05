@@ -18,7 +18,7 @@ const UsedWrite = () => {
     usedStock: "",
     usedDetail: "",
     usedDate: "",
-    // usedFileOriname: "",
+    usedFileSysname: "",
   });
 
   const {
@@ -29,7 +29,6 @@ const UsedWrite = () => {
     usedStock,
     usedDetail,
     usedDate,
-    // usedFileOriname,
   } = data;
   const [fileName, setFileName] = useState("선택된 이미지 파일이 없습니다.");
   const nav = useNavigate();
@@ -90,7 +89,7 @@ const UsedWrite = () => {
         })
         .catch((err) => {
           alert("전송 실패");
-          console.log(err);
+          console.log(err); 
         });
     },
     [data]

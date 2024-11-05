@@ -43,6 +43,16 @@ import UsedWrite from "./components/shop/UsedWrite";
 import ProductDetails from "./components/shop/ProductDetails";
 import UsedRegistered from "./components/shop/UsedRegistered";
 import UsedView from "./components/shop/UsedView";
+import ProductPurchase from "./components/shop/ProductPurchase";
+// import { BrandpayCheckoutPage } from "./components/toss/brandpay/BrandpayCheckout";
+// import { FailPage } from "./components/toss/fail";
+// import { PaymentBillingPage } from "./components/toss/payment/PaymentBilling";
+// import { PaymentCheckoutPage } from "./components/toss/payment/PaymentCheckout";
+// import { PaymentSuccessPage } from "./components/toss/payment/PaymentSuccess";
+// import { BrandpaySuccessPage } from "./components/toss/brandpay/BrandpaySuccess";
+// import { WidgetCheckoutPage } from "./components/toss/widget/WidgetCheckout";
+// import { WidgetSuccessPage } from "./components/toss/widget/WidgetSuccess";
+
 
 function App() {
   const nav = useNavigate();
@@ -159,6 +169,7 @@ function App() {
           {/* <Route path="/bp1" element={<BproductRegisterd />} /> */}
           <Route path="/bproductw" element={<BproductWirte />} />
           <Route path="/pddetails?" element={<ProductDetails />} />
+          <Route path="/pdpurchase" element={<ProductPurchase />} />
         </Route>
 
         <Route

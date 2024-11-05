@@ -113,7 +113,7 @@ private void uploadFile(List<MultipartFile> files,
         return res;
     }
 
-public ProductTbl getBoard(long productFileNum){
+public ProductTbl getProduct(long productFileNum){
     log.info("getBoard()");
     //상품 가져오기
     ProductTbl productTbl = pdtRepo.findById(productFileNum).get();
@@ -213,6 +213,8 @@ public ProductTbl getBoard(long productFileNum){
         List<ProductTbl> bList = result.getContent();//page에서 게시글목록을 꺼내와서
         //bList에 저장.
         int totalPage = result.getTotalPages();//전체 페이지 개수
+
+
 
         Map<String, Object> res = new HashMap<>();
         res.put("bList", bList);

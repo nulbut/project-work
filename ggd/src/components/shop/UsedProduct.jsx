@@ -34,6 +34,7 @@ const UsedProduct = () => {
       axios
       .get("usedList", { params: { pageNum: inpage.pageNum } })
       .then((res) => {
+        console.log("API 응답 데이터:", res.data);
         const { uList, totalPage, pageNum } = res.data;
         setPage({ totalPage: totalPage, pageNum:pageNum });
         setUsed((preUsed) => [...preUsed, ...uList]);
@@ -121,12 +122,23 @@ const UsedProduct = () => {
         {useds.map((item, index) => (
           <div key={index} className="product-card">
             <div className="product-image-placeholder">
-              <img
-                src={`usupload/${item.usedFileSysname}`}
+            {item.usedFileSysname ? (
+            <img
+              src={`/usupload/${item.usedFileSysname}`}
+              alt={`상품 이미지 ${item.usedFileCode}`}
+              className="product-image"
+            />
+            ) : (
+            <div>이미지를 불러올 수 없습니다.</div>
+            )}
+            {item.usedFileSysname}
+            </div>
+              {/* <img
+                src={`/usupload/${item.usedFileSysname}`}
                 alt={`상품 이미지${item.usedCode}`}
                 className="product-image"
               />
-            </div>
+            </div> */}
             <h3 className="product-title">상품명 : {item.usedName}</h3>
             <p className="product-price">₩{item.usedSeller}</p>
             <p className="product-body">{item.usedDetail}</p>
@@ -140,7 +152,7 @@ const UsedProduct = () => {
                 code: item.usedCode,
                 name: item.usedName,
                 sellerId:item.usedsellerId,
-                detail: item.usedDetail,
+                detail: item.usedDetail,  
                 seller: item.usedSeller,
                 imageNum: item.usedFileSysname,
               }}

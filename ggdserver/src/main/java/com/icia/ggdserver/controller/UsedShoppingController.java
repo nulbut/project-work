@@ -17,6 +17,9 @@ public class UsedShoppingController {
     @Autowired
     private UsedShoppingService uptServ;
 
+    @Autowired
+    private UsedShoppingService sServ;
+
     @PostMapping("usedwriteProc")
     public String usedwriteProc(@RequestPart(value = "data", required = true) UsedProductTbl upt,
                                 @RequestPart(value = "files", required = false) List<MultipartFile> files,
@@ -48,17 +51,17 @@ public class UsedShoppingController {
     }
 
 
-    @GetMapping("getusedBoard")
-    public UsedProductTbl getusedBoard(@RequestParam long usedCode) {
-        log.info("getusedBoard()");
-        return uptServ.getUsedBoard(usedCode);
-    }
+//    @GetMapping("getusedBoard")
+//    public UsedProductTbl getusedBoard(@RequestParam long usedCode) {
+//        log.info("getusedBoard()");
+//        return uptServ.getUsedBoard(usedCode);
+//    }
 
     //중고상품등록 글 받기
     @GetMapping("getusedproduct")
     public UsedProductTbl getusedproduct(@RequestParam long usedCode) {
         log.info("getusedproduct()");
-        return uptServ.getUsedBoard(usedCode);
+        return uptServ.getUsedProduct(usedCode);
     }
 
     //중고상품등록 글 삭제

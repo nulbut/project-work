@@ -8,7 +8,7 @@ import java.util.List;
 public interface ProductRegistrationRepository extends CrudRepository<ProductFileTbl, Long> {
     List<ProductFileTbl> findByproductFileNum(long productFileNum);
 
-    List<ProductFileTbl> findByproductFileNum(long productCode);
+//    List<ProductFileTbl> findByproductFileNum(long productCode);
 
     void deleteByproductFileNum(long productCode);
 }
