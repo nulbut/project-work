@@ -158,7 +158,7 @@ const BproductView = () => {
           <Button
             wsize="s-10"
             color="gray"
-            onClick={() => nav("/mypage/productRegistered")}
+            onClick={() => nav("/bmypage/bp1", {state : { bpnum : bpnum }})}
           >
             뒤로가기
           </Button>
