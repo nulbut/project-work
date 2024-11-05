@@ -19,6 +19,8 @@ const MyResponsivePie = ({ data /* see data tab */ }) => {
         cornerRadius={3}
         activeOuterRadiusOffset={8}
         borderWidth={1}
+        sortByValue={true}
+        colors={{ scheme: "tableau10" }}
         borderColor={{
           from: "color",
           modifiers: [["darker", 0.2]],
@@ -104,12 +106,12 @@ const MyResponsivePie = ({ data /* see data tab */ }) => {
         ]}
         legends={[
           {
-            anchor: "bottom",
-            direction: "row",
+            anchor: "top-left",
+            direction: "column",
             justify: false,
             translateX: 0,
             translateY: 56,
-            itemsSpacing: 0,
+            itemsSpacing: 8,
             itemWidth: 100,
             itemHeight: 18,
             itemTextColor: "#999",

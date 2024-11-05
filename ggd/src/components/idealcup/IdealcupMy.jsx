@@ -22,6 +22,7 @@ import {
   faCircleExclamation,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import ShareButton from "./ShareButton";
 
 const df = (date) => moment(date).format("YYYY-MM-DD HH:mm:ss");
 
@@ -141,29 +142,35 @@ const IdealcupMy = () => {
   }, []);
 
   //출력할 게시글 목록 작성
-  let list = null;
-  if (games.length === 0) {
-    list = (
-      <TableRow key={0}>
-        <TableColumn span={4}>게시글이 없습니다.</TableColumn>
-      </TableRow>
-    );
-  } else {
-    list = Object.values(games).map((item) => (
-      <TableRow key={item.iwcCode}>
-        <TableColumn wd="w-10">{item.iwcCode}</TableColumn>
-        <TableColumn wd="w-40">
-          <div onClick={() => getBoard(item.iwcCode)}>{item.iwcName}</div>
-        </TableColumn>
-        <TableColumn wd="w-20">{item.iwcAuthor}</TableColumn>
-        <TableColumn wd="w-30">{df(item.iwcDate)}</TableColumn>
-      </TableRow>
-    ));
-  }
 
-  const getBoard = (code) => {
-    nav("/game", { state: { iwcCode: code } }); //'/board?bn=1'
+  const getUpdateBoard = (item, e) => {
+    e.preventDefault();
+    nav("/make", { state: { iwcInfo: item } }); //'/board?bn=1'
   }; //상세보기 화면으로 전환될 때 게시글 번호를 보낸다.
+
+  const deleteBoard = useCallback(
+    (item, index) => {
+      let conf = window.confirm("삭제하시겠습니까?");
+      if (!conf) {
+        //취소 버튼이 눌리면 삭제 종료
+        return;
+      }
+
+      axios
+        .post("/deleteCup", null, { params: { iwccode: item.iwcCode } })
+        .then((res) => {
+          if (res.data.res === "ok") {
+            alert("삭제 완료");
+            games.splice(index, 1);
+            setGames([...games]);
+          } else {
+            alert("삭제 실패");
+          }
+        })
+        .catch((err) => console.log(err));
+    },
+    [games]
+  );
 
   return (
     <div className="idealmain">
@@ -174,16 +181,22 @@ const IdealcupMy = () => {
         {games.map((item, index) => (
           <div key={index} className="product-card">
             <div className="vs-imgset">
-              <img
-                src={`upload/${item.iwcFirstImage}`}
-                alt={`상품 이미지 ${item.iwcCode}`}
-                className="product-image"
-              />
-              <img
-                src={`upload/${item.iwcSecondImage}`}
-                alt={`상품 이미지 ${item.iwcCode}`}
-                className="product-image"
-              />
+              <div>
+                <img
+                  src={`upload/${item.iwcFirstImage}`}
+                  alt={`상품 이미지 ${item.iwcCode}`}
+                  className="product-image"
+                />
+                {item.iwcFirstName}
+              </div>
+              <div>
+                <img
+                  src={`upload/${item.iwcSecondImage}`}
+                  alt={`상품 이미지 ${item.iwcCode}`}
+                  className="product-image"
+                />
+                {item.iwcSecondName}
+              </div>
             </div>
 
             <div className="product-title">
@@ -198,25 +211,29 @@ const IdealcupMy = () => {
                 <div>{item.iwcName}</div>
               </Link>
               <div className="title-btn">
+                <div>조회수 : {item.iwcViews}</div>
+              </div>
+            </div>
+
+            <p className="product-body">{item.iwcExplanation}</p>
+            <p className="product-sub">{item.iwcAuthor}</p>
+            <p className="product-body">
+              {df(item.iwcDate)}
+              <h3>
                 <div>
                   <FontAwesomeIcon icon={faHeart} />
                 </div>
                 <div>
                   <FontAwesomeIcon icon={faCircleExclamation} />
                 </div>
-                <div>{item.iwcViews}</div>
-              </div>
-            </div>
-
-            <p className="product-body">{item.iwcExplanation}</p>
-            <p className="product-sub">{item.iwcAuthor}</p>
-            <p className="product-body">{df(item.iwcDate)}</p>
+              </h3>
+            </p>
             <div className="btn-set">
               {/* <button>시작</button>
               <button>랭킹</button>
               <button>공유</button> */}
               <Link
-                to={`/game?${item.iwcCode}`}
+                to={`/game`}
                 state={{
                   code: item.iwcCode,
                   name: item.iwcName,
@@ -228,11 +245,29 @@ const IdealcupMy = () => {
               <Link>
                 <Button wsize="s-25">랭킹</Button>
               </Link>
+              <ShareButton
+                code={item.iwcCode}
+                name={item.iwcName}
+                expl={item.iwcExplanation}
+              />
+              <div />
               <Link>
-                <Button wsize="s-25">공유</Button>
+                <Button
+                  wsize="s-25"
+                  outline
+                  onClick={(e) => getUpdateBoard(item, e)}
+                >
+                  수정
+                </Button>
               </Link>
               <Link>
-                <Button wsize="s-25">수정</Button>
+                <Button
+                  wsize="s-25"
+                  outline
+                  onClick={(e) => deleteBoard(item, index)}
+                >
+                  삭제
+                </Button>
               </Link>
             </div>
           </div>

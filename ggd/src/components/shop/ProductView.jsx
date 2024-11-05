@@ -19,14 +19,13 @@ const ProductView = () => {
   const [flist, setFlist] = useState([
     {
       // productCode: "",
-      // sellerId: 0,
+      // sellerId: "",
       productFileCode: "",
-      productFileNum: 0,
+      // productFileNum: "",
       productFileSysname: "",
       productFileOriname: "Nothing",
       image: "",
-      productFileList: "",
-      // productName: "",
+      productName: "",
     },
   ]);
 

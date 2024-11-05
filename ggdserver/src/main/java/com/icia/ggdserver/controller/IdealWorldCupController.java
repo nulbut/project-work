@@ -1,6 +1,7 @@
 package com.icia.ggdserver.controller;
 
 
+import com.icia.ggdserver.dto.GameVsDto;
 import com.icia.ggdserver.entity.IwcContentsTbl;
 import com.icia.ggdserver.entity.IwcTbl;
 import com.icia.ggdserver.service.IdealWorldCupService;
@@ -56,11 +57,32 @@ public class IdealWorldCupController {
 
     @PostMapping("/updateGameData")
     public void updateGameData(@RequestBody ArrayList<IwcContentsTbl> table){
-        for(IwcContentsTbl iwc : table){
-            log.info(String.valueOf(iwc.getIwcContentsIwcCode()));
-            log.info(iwc.getIwcContentsName());
-        }
+//        for(IwcContentsTbl iwc : table){
+//            log.info(String.valueOf(iwc.getIwcContentsIwcCode()));
+//            log.info(iwc.getIwcContentsName());
+//        }
         iwcServ.updateGameContent(table);
 
+    }
+
+    @PostMapping("/updateDeleteGameData")
+    public void updateDeleteGameData(@RequestBody ArrayList<IwcContentsTbl> deleteGoods){
+        for(IwcContentsTbl iwc : deleteGoods){
+            log.info("iwc: {}", iwc.getIwcContentsCode());
+        }
+        iwcServ.updateDeleteGameContent(deleteGoods);
+
+    }
+
+    @GetMapping("/updateGameVs")
+    public void updateGameVs( GameVsDto request){
+        iwcServ.updateGameVs(request);
+    }
+
+    @PostMapping("deleteCup")
+    public Map<String, String> deleteBoard(@RequestParam long iwccode,
+                                           HttpSession session){
+        log.info("deleteCup()");
+        return iwcServ.deleteCup(iwccode, session);
     }
 }

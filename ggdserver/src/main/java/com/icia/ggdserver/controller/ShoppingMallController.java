@@ -26,11 +26,12 @@ public class ShoppingMallController {
         return result;
     }
 
-    @GetMapping("getBoard")
-    public ProductTbl getBoard(@RequestParam long productCode){
-        log.info("getBoard()");
-        return spmServ.getBoard(productCode);
-    }
+//    @GetMapping("getproduct")
+//    public ProductTbl getBoard(@RequestParam long productCode,
+//                               @RequestParam long productFileNum) {
+//        log.info("getproduct()");
+//        return spmServ.getBoard(productCode, productFileNum);
+//    }
 
     @PostMapping("boardDelete")
     public Map<String, String> boardDelete(@RequestParam long productCode,
@@ -68,7 +69,7 @@ public class ShoppingMallController {
     @GetMapping("getproduct")
     public ProductTbl getproduct(@RequestParam long productCode){
         log.info("getproduct()");
-        return spmServ.getBoard(productCode);
+        return spmServ.getProduct(productCode);
     }
     //상품등록글 삭제
     @PostMapping("deleteProduct")
