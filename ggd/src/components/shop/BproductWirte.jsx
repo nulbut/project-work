@@ -120,6 +120,7 @@ const BproductWirte = () => {
     },
     [data, files]
   );
+
   console.log("현재값", data);
   console.log(files);
 
@@ -316,13 +317,15 @@ const BproductWirte = () => {
         </div>
         <p>상품 이미지</p>
         <div className="FileInput">
-          <input id="upload" type="file" multiple onChange={onBFileChange} />
-          <label className="FileLabel" htmlFor="upload">
-            파일선택
-          </label>
-
-          <span className="FileSpan">{fileName}</span>
-          {/* <p>미리보기들어갈것</p> */}
+          <div className="FileUpload">
+            <input id="upload" type="file" multiple onChange={onBFileChange} />
+            <label className="FileLabel" htmlFor="upload">
+              파일선택
+            </label>
+            <span className="FileSpan">{fileName}</span>
+          </div>
+          {/* <p>미리보기</p> */}
+          {/* <div>{}</div> */}
         </div>
         <div>
           <Button type="submit">등록</Button>

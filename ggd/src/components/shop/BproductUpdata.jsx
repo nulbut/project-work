@@ -19,6 +19,7 @@ const BproductUpdata = () => {
 
   //토글용 state (on,off)
   const [isOpen, setIsOpen] = useState(true);
+  const [files, setFiles] = useState([]);
 
   const toggleHandler = () => {
     setIsOpen(!isOpen);
@@ -50,6 +51,7 @@ const BproductUpdata = () => {
       image: "",
     },
   ]);
+
   const {
     bpname,
     bpprice,
@@ -110,7 +112,7 @@ const BproductUpdata = () => {
   const onBFileChange = useCallback((e) => {
     const bfiles = e.target.files;
     let bfnames = ""; //span에 출력할 파일명 목록
-    setFirst(e.target.files);
+    setFiles(e.target.files);
 
     for (let i = 0; i < bfiles.length; i++) {
       bfnames += bfiles[i].name + " ";
@@ -120,15 +122,15 @@ const BproductUpdata = () => {
     }
     setFileName(bfnames);
   }, []);
-
+  console.log(data);
   const bonWrite = useCallback(
     (e) => {
       e.preventDefault(); //페이지 변환을 방지하는 함수
 
       const bformData = new FormData();
 
-      for (let i = 0; i < first.length; i++) {
-        bformData.append("first", first[i]);
+      for (let i = 0; i < files.length; i++) {
+        bformData.append("files", files[i]);
       }
 
       //전송 시 파일 이외의 데이터를 폼 데이터에 추가
@@ -137,8 +139,12 @@ const BproductUpdata = () => {
         new Blob([JSON.stringify(data)], { type: "application/json" })
       );
 
+      for (let key of bformData.keys()) {
+        console.log(key);
+      }
+
       axios
-        .post("/bpdwriteProc", bformData, {
+        .post("/bproductupdate", bformData, {
           headers: { "Content-Type": "multipart/form-data" },
         })
         .then((res) => {
@@ -154,7 +160,7 @@ const BproductUpdata = () => {
           console.log(err);
         });
     },
-    [data, first]
+    [data, files]
   );
   console.log("현재값", data);
   console.log(first);
@@ -356,7 +362,7 @@ const BproductUpdata = () => {
           <label className="FileLabel" htmlFor="upload">
             파일선택
           </label>
-
+          {/* <Button onClick={deleteImag}>기존 이미지 삭제</Button> */}
           <span className="FileSpan">{fileName}</span>
           {/* <p>미리보기들어갈것</p> */}
         </div>

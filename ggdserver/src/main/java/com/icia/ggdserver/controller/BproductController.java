@@ -1,14 +1,18 @@
 package com.icia.ggdserver.controller;
 
+import com.icia.ggdserver.entity.BproductFileTbl;
 import com.icia.ggdserver.entity.BproductTbl;
+import com.icia.ggdserver.entity.IwcContentsTbl;
 import com.icia.ggdserver.service.BproductService;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -24,11 +28,23 @@ public class BproductController {
     public String bpdwriteProc (@RequestPart(value = "data", required = true) BproductTbl bproductTbl,
                                 @RequestPart(value = "files", required = false) List<MultipartFile> bfiles,
                                 HttpSession session) {
-        log.info("bpdwriteProc()");
+        log.info("bpdwriteProc()",bfiles);
         String bresult = bpServ.insertBproduct(bproductTbl, bfiles, session);
 
         return bresult;
     } //bpdwriteProc end
+
+    //상품 수정
+    @PostMapping("bproductupdate")
+    public String bproductupdate (@RequestPart(value = "data", required = true) BproductTbl bproductTbl,
+                                  @RequestPart(value = "files", required = false) List<MultipartFile> bupdatefiles,
+                                  HttpSession session){
+        log.info("bproductupdate()",bupdatefiles);
+        String updatesult = bpServ.updateBproduct(bproductTbl, bupdatefiles, session);
+
+        return updatesult;
+    }
+
 
     //상품 불러오기
     @GetMapping("getBproduct")
@@ -52,7 +68,10 @@ public class BproductController {
                                          HttpSession session) throws Exception {
         log.info("bpdDelete()");
         return bpServ.bpdDelete(bpnum, session);
-    }//bpdDelete
+    }//bpdDelete end
+
+
+
 
 
     //마이페이지 등록한 상품
@@ -63,6 +82,7 @@ public class BproductController {
         Map<String, Object> res = bpServ.getBproductList(bpageNum, bsellerId);
         return res;
     }
+
 
 
 }

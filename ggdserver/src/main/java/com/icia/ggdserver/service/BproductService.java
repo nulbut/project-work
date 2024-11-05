@@ -1,3 +1,4 @@
+
 package com.icia.ggdserver.service;
 
 import com.icia.ggdserver.entity.BproductFileTbl;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.Mapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -59,7 +61,7 @@ public class BproductService {
 
     // 파일 업로드
     private void buploadFile(List<MultipartFile> files,
-                            HttpSession session,
+                             HttpSession session,
                              BproductTbl bproductTbl) throws Exception{
         log.info("buploadFile");
 
@@ -138,7 +140,7 @@ public class BproductService {
         }
         return brsMap;
     }
-    
+
     //체크 삭제
     private void bfileDelete(List<BproductFileTbl> bfileTblList,
                              HttpSession session)
@@ -214,4 +216,35 @@ public class BproductService {
             }
         }
     }
+
+    //상품 수정
+    @Transactional
+    public String updateBproduct(BproductTbl bproductTbl,
+                                 List<MultipartFile> bupdatefiles,
+                                 HttpSession session) {
+        log.info("updateBproduct()");
+        String bresult = null;
+
+        try {
+
+            List<Long> deleimg = new ArrayList<>();
+            deleimg.add( bproductTbl.getBpnum());
+            List<String> deleimgList = bpfRepo.selectBproductfilesysnames(deleimg);
+            deleteFileList(deleimgList,session);
+            bpfRepo.deleteAllByBproductfilenums(deleimg);
+
+            if (bupdatefiles != null && !bupdatefiles.isEmpty()){
+                buploadFile(bupdatefiles, session, bproductTbl);
+            }
+
+            bpdRepo.save(bproductTbl);
+            log.info("bnum : {} ", bproductTbl.getBpnum());
+
+            bresult = "ok";
+        } catch (Exception e) {
+            e.printStackTrace();
+            bresult = "fail";
+        }
+        return bresult;
+    }// updateBproduct end
 }//class end
