@@ -135,7 +135,7 @@ const Nwrite = (props) => {
           <Button type="button" size="small" w-size="s-50" onClick={viewChange}>
             취소
           </Button>
-          <Button type="button" size="small" wsize="s-50" onClick={onPinCk}>
+          <Button type="button" size="small" wsize="s-50" color="red" onClick={onPinCk}>
             상단고정
           </Button>
           <Button type="submit" size="small" wsize="s-50">

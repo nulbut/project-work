@@ -81,25 +81,18 @@ const NotieView = ({ nnum }) => {
   return (
     <div className="Main">
       <div className="Content">
-        <h1>{notice.ntitle}</h1>
-
-        <div className="DataArea">
-          <div className="Box">
-            <div className="Title">날짜</div>
-            <div className="Data">{df(notice.rdate)}</div>
-          </div>
-          <div className="Cont">{notice.ncontent}</div>
-          <div className="Box">
-            <div className="FileTitle">File</div>
-            <div className="FileData">{viewFlist}</div>
-          </div>
-        </div>
+        <div className="Title">{notice.ntitle} {df(notice.rdate)}</div>
+        {/* <div className="Data">{df(notice.rdate)}</div> */}
+        {/* <div className="DataArea"> */}
+        <div className="Cont">{notice.ncontent}</div>
+        <div className="FileData">{viewFlist}</div>
+        {/* </div> */}
 
         <div className="Buttons">
-          <Button wsize="s-10" onClick={viewChange}>
+          <Button wsize="s-10" color="black" onClick={viewChange}>
             뒤로가기
           </Button>
-          <Button wsize="s-10" color="red" onClick={updateBoard}>
+          <Button wsize="s-10" onClick={updateBoard}>
             수정
           </Button>
           <Button wsize="s-10" color="red" onClick={deleteNotice}>

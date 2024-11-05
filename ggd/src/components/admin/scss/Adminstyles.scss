@@ -334,7 +334,12 @@ figure {
   margin: 0 0 1rem;
 }
 
-img,
+img {
+  vertical-align: middle;
+  width: 250px;
+  height: 200px;
+}
+
 svg {
   vertical-align: middle;
 }
