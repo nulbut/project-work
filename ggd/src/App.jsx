@@ -50,7 +50,7 @@ import ProductPurchase from "./components/shop/ProductPurchase";
 // import { PaymentCheckoutPage } from "./components/toss/payment/PaymentCheckout";
 // import { PaymentSuccessPage } from "./components/toss/payment/PaymentSuccess";
 // import { BrandpaySuccessPage } from "./components/toss/brandpay/BrandpaySuccess";
-// import { WidgetCheckoutPage } from "./components/toss/widget/WidgetCheckout";
+import { WidgetCheckoutPage } from "./components/toss/widget/WidgetCheckout";
 // import { WidgetSuccessPage } from "./components/toss/widget/WidgetSuccess";
 
 
@@ -170,6 +170,7 @@ function App() {
           <Route path="/bproductw" element={<BproductWirte />} />
           <Route path="/pddetails?" element={<ProductDetails />} />
           <Route path="/pdpurchase" element={<ProductPurchase />} />
+          <Route path="/widgetcheckout" element={<WidgetCheckoutPage />} />
         </Route>
 
         <Route
