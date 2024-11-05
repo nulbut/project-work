@@ -56,6 +56,11 @@ public interface IwcTblRepository extends CrudRepository<IwcTbl, Long> {
             "from iwc_tbl where iwc_date like concat( :date , '%') " ,nativeQuery = true)
     Long countCupToday(@Param(value = "date") String date );
 
+
+    @Query(value = "SELECT DATE(iwc_date), COUNT(*) FROM iwc_tbl " +
+            "GROUP BY DATE(iwc_date) limit 15;" ,nativeQuery = true)
+    List<Object[]> periodMakeCupCnt();
+
 //    Long countByIwcDateStartingWith(Timestamp iwcDate);
 }
 

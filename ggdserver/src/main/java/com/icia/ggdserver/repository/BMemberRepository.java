@@ -26,4 +26,8 @@ public interface BMemberRepository extends CrudRepository<BmemberTbl, String> {
     @Query(value = "select m.bemail from BmemberTbl as m where m.bid=:bid")
     String selectMail(@Param("bid") String bid);
 
+    @Query(value = "select count(*) " +
+            "from bmember_tbl where n_signdt like concat( :date , '%') " ,nativeQuery = true)
+    Long countMemberToday(@Param(value = "date") String date );
+
 }

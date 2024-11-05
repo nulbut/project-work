@@ -55,4 +55,8 @@ public interface NMemberRepository extends CrudRepository<NmemberTbl, String> {
     Page<NmemberTbl> searchByNsigndt(@Param(value = "sdate") String startDate,
                                      @Param(value = "edate") String endDate,
                                      Pageable pb);
+
+    @Query(value = "select count(*) " +
+            "from nmember_tbl where n_signdt like concat( :date , '%') " ,nativeQuery = true)
+    Long countMemberToday(@Param(value = "date") String date );
 }
