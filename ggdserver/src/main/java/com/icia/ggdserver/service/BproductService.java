@@ -227,7 +227,7 @@ public class BproductService {
 
         try {
 
-            if(bresult != null) {
+            if (bupdatefiles != null && !bupdatefiles.isEmpty()) {
                 List<Long> deleimg = new ArrayList<>();
                 deleimg.add( bproductTbl.getBpnum());
                 List<String> deleimgList = bpfRepo.selectBproductfilesysnames(deleimg);
@@ -236,12 +236,11 @@ public class BproductService {
             }
 
 
-
-
-
             if (bupdatefiles != null && !bupdatefiles.isEmpty()){
                 buploadFile(bupdatefiles, session, bproductTbl);
             }
+
+
 
             bpdRepo.save(bproductTbl);
             log.info("bnum : {} ", bproductTbl.getBpnum());
