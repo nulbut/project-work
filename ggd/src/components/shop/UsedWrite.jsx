@@ -8,27 +8,27 @@ import "./scss/UsedfileInput.scss";
 import "./scss/UsedWrite.scss";
 
 const UsedWrite = () => {
-  const id = sessionStorage.getItem("sellerId");
+  const usedsellerId = sessionStorage.getItem("nid");
   const [data, setData] = useState({
-    productName: "",
-    sellerId: id,
-    categoryCode: "",
-    sellerPayment: "",
-    productlimit: "",
-    productStock: "",
-    productDetail: "",
-    productDate: "",
+    usedName: "",
+    usedsellerId: usedsellerId,
+    usedcategoryCode: "",
+    usedSeller: "",
+    usedLimit: "",
+    usedStock: "",
+    usedDetail: "",
+    usedDate: "",
+    usedFileSysname: "",
   });
 
   const {
-    productName,
-    sellerId,
-    categoryCode,
-    sellerPayment,
-    productlimit,
-    productStock,
-    productDetail,
-    productDate,
+    usedName,
+    usedcategoryCode,
+    usedSeller,
+    usedLimit,
+    usedStock,
+    usedDetail,
+    usedDate,
   } = data;
   const [fileName, setFileName] = useState("선택된 이미지 파일이 없습니다.");
   const nav = useNavigate();
@@ -76,7 +76,7 @@ const UsedWrite = () => {
       );
       console.log(formData)
       axios
-        .post("/pdwriteProc", formData, {
+        .post("/usedwriteProc", formData, {
           headers: { "Content-Type": "multipart/form-data" },
         })
         .then((res) => {
@@ -89,7 +89,7 @@ const UsedWrite = () => {
         })
         .catch((err) => {
           alert("전송 실패");
-          console.log(err);
+          console.log(err); 
         });
     },
     [data]
@@ -103,8 +103,8 @@ const UsedWrite = () => {
         <h1>중고 상품 등록</h1>
         <input
           className="UsedInput"
-          name="productName"
-          value={productName}
+          name="usedName"
+          value={usedName}
           placeholder="제품명"
           onChange={onch}
           autoFocus
@@ -112,8 +112,8 @@ const UsedWrite = () => {
         />
         <input
           className="UsedInput"
-          name="sellerId"
-          value={sellerId}
+          name="usedsellerId"
+          value={usedsellerId}
           placeholder="판매자"
           onChange={onch}
           autoFocus
@@ -121,8 +121,8 @@ const UsedWrite = () => {
         />
         <input
           className="UsedInput"
-          name="categoryCode"
-          value={categoryCode}
+          name="usedcategoryCode"
+          value={usedcategoryCode}
           placeholder="카테고리"
           onChange={onch}
           autoFocus
@@ -130,8 +130,8 @@ const UsedWrite = () => {
         />
         <input
           className="UsedInput"
-          name="sellerPayment"
-          value={sellerPayment}
+          name="usedSeller"
+          value={usedSeller}
           placeholder="판매가"
           onChange={onch}
           autoFocus
@@ -139,8 +139,8 @@ const UsedWrite = () => {
         />
         <input
           className="UsedInput"
-          name="productlimit"
-          value={productlimit}
+          name="usedLimit"
+          value={usedLimit}
           placeholder="구매제한"
           onChange={onch}
           autoFocus
@@ -148,8 +148,8 @@ const UsedWrite = () => {
         />
         <input
           className="UsedInput"
-          name="productStock"
-          value={productStock}
+          name="usedStock"
+          value={usedStock}
           placeholder="수량"
           onChange={onch}
           autoFocus
@@ -157,8 +157,8 @@ const UsedWrite = () => {
         />
         <input
           className="UsedInput"
-          name="productDate"
-          value={productDate}
+          name="usedDate"
+          value={usedDate}
           placeholder="등록일"
           onChange={onch}
           autoFocus
@@ -166,11 +166,11 @@ const UsedWrite = () => {
         />
         <textarea
           className="UsedtextArea"
-          name="productDetail"
+          name="usedDetail"
           onChange={onch}
           placeholder=" 모델명, 구매 시기, 하자 유무 등 상품 설명을 최대한 자세히 적어주세요.
           전화번호, SNS 계정 등 개인정보 입력은 제한이 될 수 있습니다."
-          value={productDetail}
+          value={usedDetail}
         ></textarea>
         <div className="UsedfileInput">
           <input id="upload"
@@ -178,16 +178,14 @@ const UsedWrite = () => {
             multiple 
             onChange={onFileChange} 
          />
-
           <label className="UsedfileLabel" htmlFor="upload">
             파일선택
           </label>
-
           <span className="UsedfileSpan">
             {fileName} 
           </span>
         </div>
-        <div className="Buttons">
+        <div className="Button">
           <UsedButton
             type="button"
             size="large"
@@ -201,7 +199,6 @@ const UsedWrite = () => {
           <UsedButton 
           type="submit" 
           size="large" 
-          color="blue" 
           wsize="s-30"
           >
             등록

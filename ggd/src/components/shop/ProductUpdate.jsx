@@ -8,23 +8,17 @@ const ProductUpdate = () => {
 
     const { state } = useLocation();
     const { productCode } = state;
-    const { productName } = state;
-    const { sellerPayment } = state;
-    const { productlimit } = state;
-    const { productStock } = state;
-    const { productDate } = state;
 
-    const sellerId = sessionStorage.getItem("sellerId");
+    const sellerId = sessionStorage.getItem("nid");
 
     const [data, setData] = useState ({
-        productName: productName,
+        productName: "",
         sellerId: 0,
         categoryCode: "",
         sellerPayment: "",
-        productlimit: "",
+        productLimit: "",
         productStock: "",
         productDetail: "",
-        productDate: "",
     });
 
     const [flist, setFlist] = useState([
@@ -37,7 +31,13 @@ const ProductUpdate = () => {
         },
     ]);
 
-    const { categoryCode, productDetail } = data;
+    const { categoryCode, 
+            productDetail, 
+            productName, 
+            sellerPayment,
+            productLimit,
+            productStock,
+         } = data;
     //서버로부터 상품정보 받아오기
     useEffect(() => {
         axios
@@ -45,7 +45,7 @@ const ProductUpdate = () => {
         .then((res) => {
             setData(res.data);
 
-            const bfList = res.data.productFileTblList;
+            const bfList = res.data.productFileList;
             console.log(bfList);
 
             //파일 목록 처리(res.data)에서 파일 목록을 꺼내서 flist로 처리
@@ -55,9 +55,9 @@ const ProductUpdate = () => {
                 for (let i = 0; i < bfList.length; i++) {
                     const newFile = {
                         ...bfList[i],
-                        image: "../../upload/" + bfList[i].productFileSysname,
+                        image: "../../../upload/" + bfList[i].productFileSysname,
                     };
-                    newFileList.pust(newFile); //배열에 추가
+                    newFileList.push(newFile); //배열에 추가
                 }
                 console.log(newFileList);
                 setFlist(newFileList);
@@ -65,6 +65,14 @@ const ProductUpdate = () => {
         })
         .catch((err) => console.log(err));
     }, []);
+    
+    const viewFlist = flist.map((v, i) => {
+      return (
+        <div className="Down" key={i}>
+          {v.image && <img src={v.image} alt="preview-img"/>}
+        </div>
+      );
+    });
 
     const [fileName, setFileName] = useState("선택한 파일이 없습니다.");
 
@@ -85,7 +93,7 @@ const ProductUpdate = () => {
             }
             setFileName(fnames);
         },
-        [formData]
+        [data]
     );
     const onch = useCallback(
         (e) => {
@@ -113,14 +121,14 @@ const ProductUpdate = () => {
             })
             .then((res) => {
                 if (res.data === "ok") {
-                    alert("수성 성공");
-                    nav("/main");
+                    alert("수정 성공");
+                    nav("/mypage/productRegistered");
                 } else {
-                    alert("수성 실패");
+                    alert("수정 실패");
                 }
             })
             .catch((err) => {
-                alert("수송 실패");
+                alert("수정 실패");
                 console.log(err);
             });
         },
@@ -128,7 +136,7 @@ const ProductUpdate = () => {
     );
     return (
         <div className="update">
-            <form className="Content" onSubmit={onWrite}>
+            <div className="Content" onSubmit={onWrite}>
             <h1>상품 등록</h1>
         <input
           className="Input"
@@ -168,8 +176,8 @@ const ProductUpdate = () => {
         />
         <input
           className="Input"
-          name="productlimit"
-          value={productlimit}
+          name="productLimit"
+          value={productLimit}
           placeholder="구매제한"
           onChange={onch}
           autoFocus
@@ -184,15 +192,6 @@ const ProductUpdate = () => {
           autoFocus
           required
         />
-        <input
-          className="Input"
-          name="productDate"
-          value={productDate}
-          placeholder="등록일"
-          onChange={onch}
-          autoFocus
-          required
-        />
         <textarea
           className="Textarea"
           name="productDetail"
@@ -200,44 +199,34 @@ const ProductUpdate = () => {
           placeholder="상품 정보를 입력하세요."
           value={productDetail}
         ></textarea>
+        <div className="Box">
+          <div className="FileTitle">File</div>
+          <div className="FileData">{viewFlist}</div>
+        </div>
         <div className="FileInput">
-          <input id="upload"
-           type="file"
-            multiple 
-            onChange={onFileChange} 
-         />
-
-          <label className="FileLabel" htmlFor="upload">
+          <input id="update" type="file" multiple onChange={onFileChange} />
+          <label className="FileLabel" htmlFor="../../upload">
             파일선택
           </label>
-
-          <span className="FileSpan">
-            {fileName} 
-          </span>
+          <span className="FileSpan">{fileName}</span>
         </div>
-        <div className="Buttons">
+        <div>
           <Button
             type="button"
             size="large"
             color="gray"
             wsize="s-10"
             outline
-            onClick={() => nav("/mypage")}
+            onClick={() => nav("/mypage/productRegistered")}
           >
             목록으로
           </Button>
-          <Button 
-          type="submit" 
-          size="large" 
-          color="blue" 
-          wsize="s-30"
-          >
-            등록 
+          <Button type="submit" size="large" wsize="s-30">
+            등록
           </Button>
         </div>
-      </form>
-    </div> 
-    )
-}
-
+      </div>
+    </div>
+  );
+};
 export default ProductUpdate;

@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Button from "./Button";
 import axios from "axios";
 
-const df = (date) => moment(date).format("YYYY-MM-DD HH:mm:ss ");
+const df = (date) => moment(date).format("YYYY-MM-DD");
 
 const ProductView = () => {
   const nav = useNavigate();
@@ -25,7 +25,7 @@ const ProductView = () => {
       productFileSysname: "",
       productFileOriname: "Nothing",
       image: "",
-      // productName: "",
+      productName: "",
     },
   ]);
 
@@ -41,7 +41,7 @@ const ProductView = () => {
         console.log(bfList);
 
         //파일 목록 처리 (res.data에서 파일목록을 꺼내서 flist로 처리)
-        if (bfList > 0) {
+        if (bfList.length > 0) {
           console.log("bfList.length : ", bfList.length);
           let newFileList = [];
           for (let i = 0; i < bfList.length; i++) {
@@ -58,7 +58,7 @@ const ProductView = () => {
       .catch((err) => console.log(err));
   }, []);
 
-  const viewFlist = flist.map((v) => {
+  const viewFList = flist.map((v) => {
     return (
       <div className="Down">
         {v.image && <img src={v.image} alt="preview-img" />}
@@ -66,6 +66,7 @@ const ProductView = () => {
       </div>
     );
   });
+
   //boardDelete
   const deleteProduct = useCallback(() => {
     let conf = window.confirm("삭제하시겠습니까?");
@@ -75,7 +76,7 @@ const ProductView = () => {
     }
 
     axios
-      .post("/delectProduct", null, { params: { productCode: pc } })
+      .post("/boardDelete", null, { params: { productCode: pc } })
       .then((res) => {
         if (res.data.res === "ok") {
           alert("삭제완료");
@@ -113,7 +114,7 @@ const ProductView = () => {
           </div>
           <div className="Box">
             <div className="Title">구매제한</div>
-            <div className="Data">{ProductRegistered.productlimit}</div>
+            <div className="Data">{ProductRegistered.productLimit}</div>
           </div>
           <div className="Box">
             <div className="Title">수량</div>
@@ -125,7 +126,7 @@ const ProductView = () => {
           </div>
           <div className="Box">
             <div className="FileTitle">파일</div>
-            <div className="FileData">{viewFlist}</div>
+            <div className="FileData">{viewFList}</div>
           </div>
           <div className="Cont">{ProductRegistered.productDetail}</div>
         </div>

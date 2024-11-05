@@ -8,7 +8,7 @@ import TableColumn from "./TableColumn";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBagShopping, faHeart } from "@fortawesome/free-solid-svg-icons";
 
-const df = (date) => moment(date).format("YYYY-MM-DD HH:mm:ss");
+const df = (date) => moment(date).format("YYYY-MM-DD");
 
 const LatestProducts = () => {
   const [products, setProducts] = useState([]);
