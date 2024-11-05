@@ -1,16 +1,18 @@
 package com.icia.ggdserver.controller;
 
 import com.icia.ggdserver.dto.DateDto;
+
+import com.icia.ggdserver.service.AdminStaticService;
 import com.icia.ggdserver.entity.*;
 import com.icia.ggdserver.service.AdminService;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 

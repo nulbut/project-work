@@ -10,4 +10,6 @@ import lombok.Setter;
 public class GameVsDto {
     private Long win;
     private Long lose;
+    private Long iwcCode;
+
 }

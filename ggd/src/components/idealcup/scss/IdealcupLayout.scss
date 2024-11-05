@@ -17,8 +17,8 @@
 }
 
 .product-card {
-  width: 290px;
-  height: 300px;
+  width: 420px;
+  height: 500px;
   border: 1px solid #e0e0e0;
   border-radius: 8px;
   padding: 16px;
@@ -32,7 +32,19 @@
 
   .vs-imgset {
     width: 100%;
-    height: 100%;
+    height: 250px;
+    display: flex;
+    flex-direction: row;
+    div {
+      height: 100%;
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+    }
+    img {
+      width: 100%;
+      height: 100%;
+    }
   }
   .btn-set {
     width: 100%;
@@ -70,8 +82,15 @@
   }
 
   .product-body {
+    width: 100%;
     font-size: 0.9rem;
     color: #555;
     margin: 5px 0;
+    display: flex;
+    justify-content: space-between;
+    h3 {
+      display: flex;
+      gap: 10px;
+    }
   }
 }
