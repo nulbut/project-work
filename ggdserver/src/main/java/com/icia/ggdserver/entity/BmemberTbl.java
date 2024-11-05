@@ -72,7 +72,10 @@ public class BmemberTbl { //사업자 회원 테이블
     private String bmemail; //담당자 이메일
 
     @CreationTimestamp
-    @Column(name = "n_signdt")
-    private Timestamp nsigndt; //가입날짜
+    @Column(name = "b_signdt")
+    private Timestamp bsigndt; //가입날짜
+
+    @Column(name = "b_status")
+    private String bstatus; // 회원 상태 ( 1 = (기본) 정상 , 2 = 정지 , 3 = 차단)
 
 }

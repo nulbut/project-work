@@ -59,4 +59,5 @@ public interface NMemberRepository extends CrudRepository<NmemberTbl, String> {
     @Query(value = "select count(*) " +
             "from nmember_tbl where n_signdt like concat( :date , '%') " ,nativeQuery = true)
     Long countMemberToday(@Param(value = "date") String date );
+
 }

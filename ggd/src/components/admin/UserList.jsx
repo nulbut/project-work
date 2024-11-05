@@ -8,6 +8,7 @@ import moment from "moment";
 import Table from "./Table";
 import "./scss/Table.scss";
 import "./scss/Admin.scss";
+import "./scss/AdminMain.scss";
 import BuserList from "./BuserList";
 import NuserList from "./NuserList";
 
@@ -33,7 +34,8 @@ const UserList = ({ props, user }) => {
   };
 
   return (
-    <div className="menu">
+    <div className="admin-menu">
+      <h2>회원 목록</h2>
       <div className="change">
         <h3 onClick={() => uhandleClick(1)} style={{ cursor: "pointer" }}>
           일반
