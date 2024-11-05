@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import toggleoff from "../images/toggleoff.png";
 import toggleon from "../images/toggleon.png";
 import { useNavigate } from "react-router-dom";
@@ -50,9 +50,6 @@ const BproductWirte = () => {
 
   const [fileName, setFileName] = useState("선택된 파일이 없습니다.");
   const nav = useNavigate();
-
-  //전송 데이터와 파일을 담을 멀티 파트 폼 생성
-  //let bformData = new FormData();
 
   const bonch = useCallback(
     (e) => {
@@ -258,15 +255,6 @@ const BproductWirte = () => {
             autoFocus
             required
           />
-          {/* <p>상품 이미지</p> */}
-          <div>
-            {/* <input type="file" id="upload" multiple onChange={onBFileChange} />
-            <label className="FileLabel" htmlFor="upload">
-              업로드
-            </label> */}
-            {/* <span className="FileSpan">{fileName}</span> */}
-            {/* <p>미리보기들어갈것 </p> */}
-          </div>
         </div>
         <div>
           <p className="title">상품상세정보</p>
@@ -318,14 +306,19 @@ const BproductWirte = () => {
         <p>상품 이미지</p>
         <div className="FileInput">
           <div className="FileUpload">
-            <input id="upload" type="file" multiple onChange={onBFileChange} />
+            <input
+              id="upload"
+              type="file"
+              accept="image/*"
+              multiple
+              onChange={onBFileChange}
+            />
             <label className="FileLabel" htmlFor="upload">
               파일선택
             </label>
             <span className="FileSpan">{fileName}</span>
           </div>
           {/* <p>미리보기</p> */}
-          {/* <div>{}</div> */}
         </div>
         <div>
           <Button type="submit">등록</Button>

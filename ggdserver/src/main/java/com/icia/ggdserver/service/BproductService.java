@@ -227,11 +227,17 @@ public class BproductService {
 
         try {
 
-            List<Long> deleimg = new ArrayList<>();
-            deleimg.add( bproductTbl.getBpnum());
-            List<String> deleimgList = bpfRepo.selectBproductfilesysnames(deleimg);
-            deleteFileList(deleimgList,session);
-            bpfRepo.deleteAllByBproductfilenums(deleimg);
+            if(bresult != null) {
+                List<Long> deleimg = new ArrayList<>();
+                deleimg.add( bproductTbl.getBpnum());
+                List<String> deleimgList = bpfRepo.selectBproductfilesysnames(deleimg);
+                deleteFileList(deleimgList,session);
+                bpfRepo.deleteAllByBproductfilenums(deleimg);
+            }
+
+
+
+
 
             if (bupdatefiles != null && !bupdatefiles.isEmpty()){
                 buploadFile(bupdatefiles, session, bproductTbl);

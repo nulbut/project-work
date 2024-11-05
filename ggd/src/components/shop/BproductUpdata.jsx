@@ -96,6 +96,16 @@ const BproductUpdata = () => {
     getProduct();
   }, []);
 
+  //미리보기 생성
+  const viewFlist = first.map((v, i) => {
+    return (
+      <div key={i}>
+        {v.image && <img src={v.image} alt="preview-img" />}
+        {v.bproductfileoriname}
+      </div>
+    );
+  });
+
   const bonch = useCallback(
     (e) => {
       const bdataObj = {
@@ -358,13 +368,18 @@ const BproductUpdata = () => {
         </div>
         <p>상품 이미지</p>
         <div className="FileInput">
-          <input id="upload" type="file" multiple onChange={onBFileChange} />
-          <label className="FileLabel" htmlFor="upload">
-            파일선택
-          </label>
-          {/* <Button onClick={deleteImag}>기존 이미지 삭제</Button> */}
-          <span className="FileSpan">{fileName}</span>
-          {/* <p>미리보기들어갈것</p> */}
+          <div className="FileUpload">
+            <input id="upload" type="file" multiple onChange={onBFileChange} />
+            <label className="FileLabel" htmlFor="upload">
+              파일선택
+            </label>
+            <span className="FileSpan">{fileName}</span>
+          </div>
+          <div className="FileView">
+            {/* <p>미리보기</p> */}
+            <div>이전 이미지{viewFlist}</div>
+            {/* <div>수정 이미지{viewFile}</div> */}
+          </div>
         </div>
         <div>
           <Button type="submit">수정</Button>
