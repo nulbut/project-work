@@ -60,4 +60,22 @@ public interface NMemberRepository extends CrudRepository<NmemberTbl, String> {
             "from nmember_tbl where n_signdt like concat( :date , '%') " ,nativeQuery = true)
     Long countMemberToday(@Param(value = "date") String date );
 
+@Query(value = "SELECT \n" +
+        "    dates.date,\n" +
+        "    IFNULL(count(t.n_signdt), 0) AS amount\n" +
+        "FROM (\n" +
+        "    SELECT CURDATE() - INTERVAL a DAY AS date\n" +
+        "    FROM (\n" +
+        "        SELECT 0 AS a UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL\n" +
+        "        SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL\n" +
+        "        SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL\n" +
+        "        SELECT 9 UNION ALL SELECT 10 UNION ALL SELECT 11 UNION ALL\n" +
+        "        SELECT 12 UNION ALL SELECT 13 UNION ALL SELECT 14\n" +
+        "    ) AS days\n" +
+        ") AS dates\n" +
+        "LEFT JOIN nmember_tbl t\n" +
+        "    ON dates.date = date(t.n_signdt)\n" +
+        "    GROUP BY dates.date\n" +
+        "ORDER BY dates.date ASC; " ,nativeQuery = true)
+    List<Object[]> countMemberPeriod();
 }

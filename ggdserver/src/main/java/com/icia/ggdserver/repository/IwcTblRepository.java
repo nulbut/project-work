@@ -57,9 +57,29 @@ public interface IwcTblRepository extends CrudRepository<IwcTbl, Long> {
     Long countCupToday(@Param(value = "date") String date );
 
 
-    @Query(value = "SELECT DATE(iwc_date), COUNT(*) FROM iwc_tbl " +
-            "GROUP BY DATE(iwc_date) limit 15;" ,nativeQuery = true)
+    @Query(value = "SELECT \n" +
+            "    dates.date,\n" +
+            "    IFNULL(count(t.iwc_date), 0) AS amount\n" +
+            "FROM (\n" +
+            "    SELECT CURDATE() - INTERVAL a DAY AS date\n" +
+            "    FROM (\n" +
+            "        SELECT 0 AS a UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL\n" +
+            "        SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL\n" +
+            "        SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL\n" +
+            "        SELECT 9 UNION ALL SELECT 10 UNION ALL SELECT 11 UNION ALL\n" +
+            "        SELECT 12 UNION ALL SELECT 13 UNION ALL SELECT 14\n" +
+            "    ) AS days\n" +
+            ") AS dates\n" +
+            "LEFT JOIN iwc_tbl t\n" +
+            "    ON dates.date = date(t.iwc_date)\n" +
+            "    GROUP BY dates.date\n" +
+            "ORDER BY dates.date ASC;" ,nativeQuery = true)
     List<Object[]> periodMakeCupCnt();
+
+//    @Query(value = "select DATE(iwc_date),sum(iwc_complete) " +
+//            "from iwc_tbl it  GROUP BY DATE(iwc_date) limit 15;" ,nativeQuery = true)
+//    List<Object[]> periodPlayCupCnt();
+
 
 //    Long countByIwcDateStartingWith(Timestamp iwcDate);
 }

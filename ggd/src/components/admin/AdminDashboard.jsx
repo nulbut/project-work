@@ -12,6 +12,7 @@ const AdminDashboard = () => {
     cupTotalCnt: "",
     cupTodayCnt: "",
     cCnt: "",
+    pinnedNotice: [{}, {}],
   });
   const [dateChoose, setDateChoose] = useState();
   useEffect(() => {
@@ -43,24 +44,34 @@ const AdminDashboard = () => {
           const newPeriodDatas = [];
           for (let i = 0; i < res.data.periodMakeCup.length; i++) {
             const newPeriodData = {
-              x: res.data.periodMakeCup[i][0],
+              x: res.data.periodMakeCup[i][0].slice(-5),
               y: res.data.periodMakeCup[i][1],
             };
             newPeriodDatas.push(newPeriodData);
           }
+
+          const newPeriodNmember = [];
+          for (let i = 0; i < res.data.nmemberPeriodCnt.length; i++) {
+            const newPeriodData = {
+              x: res.data.nmemberPeriodCnt[i][0].slice(-5),
+              y: res.data.nmemberPeriodCnt[i][1],
+            };
+            newPeriodNmember.push(newPeriodData);
+          }
+
           setDataLine([
             {
-              id: "일간 회원 가입 수",
+              id: "일간 월드컵 작성 수",
               data: newPeriodDatas,
             },
             {
-              id: "월간 회원 가입 수",
-              data: newPeriodDatas,
+              id: "일반 회원 가입 수",
+              data: newPeriodNmember,
             },
-            {
-              id: "연간 회원 가입 수",
-              data: newPeriodDatas,
-            },
+            // {
+            //   id: "연간 회원 가입 수",
+            //   data: newPeriodDatas,
+            // },
           ]);
 
           console.log(newPeriodDatas);
@@ -94,10 +105,12 @@ const AdminDashboard = () => {
         </div>
         <div className="col-xl-3 col-md-6">
           <div className="card bg-success text-white mb-4">
-            <div className="card-body">공지사항</div>
+            <div className="card-body">상단 고정 공지사항</div>
             <div className="card-footer d-flex align-items-center justify-content-between">
               <a className="small text-white stretched-link" href="#">
-                View Details
+                {dashParams.pinnedNotice.map((v, i) => (
+                  <div> {v.ntitle}</div>
+                ))}
               </a>
               <div className="small text-white">
                 <i className="fas fa-angle-right"></i>
@@ -221,7 +234,7 @@ const AdminDashboard = () => {
           <div className="card mb-4">
             <div className="card-header">
               <FontAwesomeIcon icon={faChartBar} />
-              기간 별 데이터 모음
+              15일 간 데이터 모음
             </div>
             <div className="card-body">
               <MyResponsiveLine data={dataLine} />
