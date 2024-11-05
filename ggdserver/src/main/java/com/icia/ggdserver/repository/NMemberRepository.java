@@ -55,4 +55,5 @@ public interface NMemberRepository extends CrudRepository<NmemberTbl, String> {
     Page<NmemberTbl> searchByNsigndt(@Param(value = "sdate") String startDate,
                                      @Param(value = "edate") String endDate,
                                      Pageable pb);
+
 }
