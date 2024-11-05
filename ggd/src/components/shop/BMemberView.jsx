@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import Button from "../idealcup/Button";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import "./scss/BmemberView.scss";
 
 const BMemberView = () => {
+    const nav = useNavigate();
     const bnick = sessionStorage.getItem("nnickname");
     const id = sessionStorage.getItem("bid");
     const [bmemberInfo , setBmemberInfo] = useState({
@@ -41,6 +42,11 @@ const BMemberView = () => {
             })
             .catch((err) => console.log(err));
     },[]);
+
+    //회원수정으로 이동
+    const updatego = () => {
+        nav("/bmemberupdate", {state :{ bid : id}});
+    }
     
     return (
         <div className='Mypage'>
@@ -51,7 +57,7 @@ const BMemberView = () => {
             <div className='Titlesvr'>
                 <p>아이디 {id}</p>
                 <p>사업자번호 {bcnum}</p>
-                <p className='button'>회원정보 변경 <Button>변경</Button></p>
+                <p className='button'>회원정보 변경 <Button onClick={updatego}>변경</Button></p>
             </div>
             <div className='content1'>
                 <p>상호 {bnick}</p>

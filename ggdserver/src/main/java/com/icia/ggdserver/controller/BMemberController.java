@@ -6,6 +6,7 @@ import com.icia.ggdserver.entity.NmemberTbl;
 import com.icia.ggdserver.service.BMemberSevrvice;
 import com.icia.ggdserver.service.NMemberService;
 import jakarta.mail.MessagingException;
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -52,6 +53,15 @@ public class BMemberController {
         return bmServ.getBMemeber(bid);
     }
 
+    //회원정보 수정 입력하기
+    @PostMapping("bmemberwriteProc")
+    public String bmemberwriteProc (@RequestPart(value = "bmemberInfo", required = true) BmemberTbl bmemberTbl,
+                                    HttpSession session){
+        log.info("bmemberwriteProc()");
+        String result = bmServ.insertBmember(bmemberTbl, session);
+        return result;
+    }
+
     //회원가입 이메일 인증
     @GetMapping("bmailconfirm")
     public String bmailconfirm (@RequestParam String bemail)
@@ -84,6 +94,9 @@ public class BMemberController {
 
         return bersMap;
     }
+
+    //회원정보 불러오기
+
 
 
 }//class end
