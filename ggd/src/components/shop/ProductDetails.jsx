@@ -36,7 +36,7 @@ const ProductDetails = () => {
 
   const handlePurchase = () => {
     alert("구매 페이지로 이동합니다.");
-    navigate("/widgetcheckout", { state: { usedCode: useds.usedCode } });
+    navigate("/widget", { state: { usedCode: useds.usedCode } });
   };
 
   const handleAddToCart = () => {

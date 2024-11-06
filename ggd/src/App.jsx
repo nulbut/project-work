@@ -47,11 +47,11 @@ import ProductPurchase from "./components/shop/ProductPurchase";
 // import { BrandpayCheckoutPage } from "./components/toss/brandpay/BrandpayCheckout";
 // import { FailPage } from "./components/toss/fail";
 // import { PaymentBillingPage } from "./components/toss/payment/PaymentBilling";
-// import { PaymentCheckoutPage } from "./components/toss/payment/PaymentCheckout";
-// import { PaymentSuccessPage } from "./components/toss/payment/PaymentSuccess";
+import { PaymentCheckoutPage } from "./components/toss/payment/PaymentCheckout";
+import { PaymentSuccessPage } from "./components/toss/payment/PaymentSuccess";
 // import { BrandpaySuccessPage } from "./components/toss/brandpay/BrandpaySuccess";
 import { WidgetCheckoutPage } from "./components/toss/widget/WidgetCheckout";
-// import { WidgetSuccessPage } from "./components/toss/widget/WidgetSuccess";
+import { WidgetSuccessPage } from "./components/toss/widget/WidgetSuccess";
 
 
 function App() {
@@ -160,7 +160,10 @@ function App() {
               element={<ProductUpdate />}
             />
             <Route path="usedRegistered" element={<UsedRegistered />} />
-            <Route path="usedRegistered/usView" element={<UsedView />} /> 
+            <Route path="usedRegistered/usView" element={<UsedView />} />
+            <Route path="widget/widsuccess" element={<WidgetSuccessPage /> } /> 
+            <Route path="widget/success" element={<PaymentSuccessPage />} />
+            <Route path="widget/payment" element={<PaymentCheckoutPage />} />
           </Route>
           <Route path="usedWrite" element={<UsedWrite />} />
           <Route path="/bmypage" element={<BMypage />}>
@@ -170,7 +173,9 @@ function App() {
           <Route path="/bproductw" element={<BproductWirte />} />
           <Route path="/pddetails?" element={<ProductDetails />} />
           <Route path="/pdpurchase" element={<ProductPurchase />} />
-          <Route path="/widgetcheckout" element={<WidgetCheckoutPage />} />
+          <Route path="/widget" element={<WidgetCheckoutPage />} />
+          {/* <Route path="/payment" element={<PaymentCheckoutPage />} /> */}
+        
         </Route>
 
         <Route

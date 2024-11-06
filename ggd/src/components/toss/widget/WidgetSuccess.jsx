@@ -55,7 +55,7 @@ export function WidgetSuccessPage() {
         </div>
         <div className="p-grid typography--p" style={{ marginTop: "10px" }}>
           <div className="p-grid-col text--left">
-            <b>주문번호</b>
+            <b>주문번호</b> 
           </div>
           <div className="p-grid-col text--right" id="orderId">
             {`${searchParams.get("orderId")}`}
