@@ -22,7 +22,7 @@ const Directmessage = () => {
     pageSt.setViewPage(<DmList />);
   };
 
-  return <div className="Main">{pageSt.ViewPage}</div>;
+  return <div className="Main">{pageSt.viewPage}</div>;
 };
 
 export default Directmessage;

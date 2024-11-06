@@ -45,21 +45,22 @@ const ReportView = ({ rnum }) => {
     pageSt.setViewPage(<ReportList />);
   };
 
-  const updateReport = () => {};
+  const updateReport = () => {
+    console.log("ReportView viewchange");
+    pageSt.setViewPage(<ReportList />);
+  };
 
   return (
     <div className="Main">
       <div className="Content">
         <h1>신고함</h1>
-        <div className="DataArea">
-          <div className="Box">
-            {/* <div className="Data">{report.rnum}</div> */}
-            <div className="Title">{report.rtitle}</div>
-            <div className="Text">{report.rcontent}</div>
-            <div className="ID">{report.ruid}</div>
-            <div className="Text">{df(report.rdate)}</div>
-          </div>
-        </div>
+
+        {/* <div className="Data">{report.rnum}</div> */}
+        <div className="Title">{report.rtitle}</div>
+        <div className="Text">{df(report.rdate)}</div>
+        <div className="ID">{report.ruid}</div>
+        <div className="Text">{report.rcontent}</div>
+
         <div className="Buttons">
           <Button wsize="s-10" onClick={viewChange}>
             뒤로가기

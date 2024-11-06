@@ -4,6 +4,7 @@ import React, { useCallback, useContext, useEffect, useState } from "react";
 import NoticeList from "./NoticeList";
 import { AdminPageContextStore } from "./AdminPageStatus";
 import Button from "../idealcup/Button";
+import Nupdate from "./Nupdate";
 
 const df = (date) => moment(date).format("YYYY-MM-DD");
 
@@ -67,7 +68,10 @@ const NotieView = ({ nnum }) => {
     pageSt.setViewPage(<NoticeList />);
   };
 
-  const updateBoard = () => {};
+  const updateBoard = () => {
+    console.log("nupdate viewchange");
+    pageSt.setViewPage(<Nupdate nnum={nnum}/>);
+  };
 
   const viewFlist = filst.map((v, i) => {
     return (

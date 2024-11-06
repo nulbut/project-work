@@ -1,13 +1,17 @@
 import axios from "axios";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Button from "../idealcup/Button";
+import NoticeList from "./NoticeList";
+import { AdminPageContextStore } from "./AdminPageStatus";
 
-const Nupdate = () => {
-  const nav = useNavigate();
+const Nupdate = ({ nnum }) => {
+  const pageSt = useContext(AdminPageContextStore);
 
-  const { state } = useLocation();
-  const { nnum } = state;
+  // const [data, setData] = useState({
+  //   ntitle: "",
+  //   ncontent: "",
+  // });
 
   const id = sessionStorage.getItem("nid");
 
@@ -18,21 +22,24 @@ const Nupdate = () => {
     bcontent: "",
   });
 
+  const { ntitle, ncontent } = data;
+
   const [nflist, setnFlist] = useState([
     {
       nfnum: 0,
       nfaid: 0,
       nfsysnsme: "Nothing",
-      Image: "",
+      image: "",
     },
   ]);
 
-  const { ntitle, ncontent } = data;
+  // const { ntitle, ncontent } = data;
 
   useEffect(() => {
     axios
-      .get("/getNotice", { params: { nnum: nnum } })
+      .get("/admin/getNotice", { params: { nnum: nnum } })
       .then((res) => {
+        console.log(res.data);
         setData(res.data);
 
         if (res.data.nflist.length > 0) {
@@ -97,17 +104,17 @@ const Nupdate = () => {
 
       formData.append(
         "data",
-        newBlob([JSON.stringify(data)], { type: "appliscation/json" })
+        new Blob([JSON.stringify(data)], { type: "application/json" })
       );
 
       axios
-        .post("/writeProc", formData, {
+        .post("/admin/writeProc", formData, {
           headers: { "Content-Type": "multipart/form-data" },
         })
         .then((res) => {
           if (res.data === "ok") {
             alert("수정 완료");
-            nav("/notice");
+            viewChange();
           } else {
             alert("수정 실패");
           }
@@ -119,6 +126,11 @@ const Nupdate = () => {
     },
     [data]
   );
+
+  const viewChange = () => {
+    console.log("nwrite viewchange");
+    pageSt.setViewPage(<NoticeList />);
+  };
 
   return (
     <div className="Main">
@@ -159,7 +171,7 @@ const Nupdate = () => {
             size="small"
             w-size="s-20"
             outline
-            onClick={() => nav("/notice", { state: { nn: data.nnum } })}
+            onClick={viewChange}
           >
             뒤로 가기
           </Button>

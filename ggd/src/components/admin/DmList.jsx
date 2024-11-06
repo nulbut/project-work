@@ -5,6 +5,8 @@ import TableRow from "./TableRow";
 import TableColumn from "./TableColumn";
 import DmView from "./DmView";
 import moment from "moment";
+import Paging from "./Paging";
+import Table from "./Table";
 
 const df = (date) => moment(date).format("YYYY-MM-DD");
 
@@ -46,7 +48,7 @@ const DmList = () => {
         </TableColumn>
         <TableColumn wd="30">{item.duid}</TableColumn>
         <TableColumn wd="40">{df(item.rdate)}</TableColumn>
-        <TableColumn wd="50">{data}</TableColumn>
+        <TableColumn wd="50">{}</TableColumn>
       </TableRow>
     ));
   }
