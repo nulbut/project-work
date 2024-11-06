@@ -29,6 +29,7 @@ const BproductWirte = () => {
     bpprice: "",
     bpprestriction: "",
     bpwarestock: "",
+    bpwarestocklimt: "",
     bpexplanation: "",
     bpdate: "",
     bpsize: "",
@@ -44,6 +45,7 @@ const BproductWirte = () => {
     bpprice,
     bpprestriction,
     bpwarestock,
+    bpwarestocklimt,
     bpexplanation,
     bpdate,
   } = data;
@@ -240,6 +242,16 @@ const BproductWirte = () => {
             name="bpwarestock"
             value={bpwarestock}
             placeholder="창고재고 수"
+            onChange={bonch}
+            autoFocus
+            required
+          />
+          <p>통보재고</p>
+          <input
+            className="Input"
+            name="bpwarestocklimt"
+            value={bpwarestocklimt}
+            placeholder="입력한 재고수 이하 떨어질경우 재입고안내"
             onChange={bonch}
             autoFocus
             required

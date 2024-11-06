@@ -18,8 +18,6 @@ const BProductStock = () => {
   const bsellerId = sessionStorage.getItem("nnickname");
   const bbpNum = 1;
 
-  //상품번호 받기
-
   const [bbitem, setBbitem] = useState([]);
 
   const [stockdata, setStockdata] = useState({
@@ -70,49 +68,6 @@ const BProductStock = () => {
     bbpNum !== null ? getBproduct(bbpNum) : getBproduct(1);
   }, []);
 
-  const onch = useCallback(
-    (e) => {
-      const stockObj = {
-        ...stockdata,
-        [e.target.name]: e.target.value,
-      };
-      setStockdata(stockObj);
-    },
-    [stockdata]
-  );
-
-  //수정완료 버튼 (재고상품 입력해서 창고재고 변경하기, 통보재고 DB입력하기)
-  const onUpdata = useCallback(
-    (e) => {
-      e.preventDefault(); //페이지 변환을 방지하는 함수
-
-      const sformData = new FormData();
-
-      sformData.append(
-        "stockdata",
-        new Blob([JSON.stringify(stockdata)], { type: "application/json" })
-      );
-
-      axios
-        .post("/bproductstockupdate", sformData)
-        .then((res) => {
-          if (res.data === "ok") {
-            alert("수정 성공");
-            nav("/bproductstock", { state: { id: id } });
-          } else {
-            alert("수정 실패");
-          }
-        })
-        .catch((err) => {
-          alert("전송 실패");
-          console.log(err);
-        });
-    },
-    [stockdata]
-  );
-
-  console.log("재고값", stockdata);
-
   //등록 상품 목록 작성
   let BproductList = null;
   if (bbitem.length === 0) {
@@ -137,32 +92,8 @@ const BProductStock = () => {
         <TableColumn wd={"w-10"}>{bn(bbitem.bpwarestock)}</TableColumn>
         <TableColumn wd={"w-10"}>주문재고 불러올 예정</TableColumn>
         <TableColumn wd={"w-10"}>가재고 불러올 예정</TableColumn>
-        <TableColumn wd={"w-10"}>
-          <br></br>
-          <div>
-            <input
-              className="Input"
-              type="text"
-              name="bpwarestock"
-              value={bpwarestock}
-              onChange={onch}
-              autoFocus
-            />
-          </div>
-        </TableColumn>
-        <TableColumn wd={"w-10"}>
-          <div>{bbitem.bpwarestocklimt}</div>
-          <div>
-            <input
-              className="Input"
-              type="text"
-              name="bpwarestocklimt"
-              value={bpwarestocklimt}
-              onChange={onch}
-              autoFocus
-            />
-          </div>
-        </TableColumn>
+        <TableColumn wd={"w-10"}>{bbitem.bpwarestocklimt}</TableColumn>
+        <TableColumn wd={"w-10"}></TableColumn>
       </TableRow>
     ));
   }
@@ -172,54 +103,49 @@ const BProductStock = () => {
 
   return (
     <div>
-      <form className="Contetnt" onSubmit={onUpdata}>
-        <div className="Title">
-          <h3>상품 재고관리</h3>
-          <hr />
-        </div>
-        <div className="Titlesv">
-          <select>
-            <option>상품명</option>
-            <option>상품코드</option>
-          </select>
-          <div className="input-group">
-            <input
-              className="form-control"
-              type="text"
-              placeholder="Search for..."
-              aria-label="Search for..."
-              aria-describedby="btnNavbarSearch"
-            />
-            <button
-              className="btn btn-primary"
-              id="btnNavbarSearch"
-              type="button"
-            >
-              <FontAwesomeIcon icon={faMagnifyingGlass} />
-            </button>
-          </div>
-          <Button>상품 옵션 관리</Button>
-        </div>
-        <div className="Table">
-          <BproductStockTable
-            hname={[
-              "상품코드",
-              "상품명",
-              "창고재고",
-              "주문대기",
-              "가재고",
-              "재고수정",
-              "통보수량",
-            ]}
+      <div className="Title">
+        <h3>상품 재고관리</h3>
+        <hr />
+      </div>
+      <div className="Titlesv">
+        <select>
+          <option>상품명</option>
+          <option>상품코드</option>
+        </select>
+        <div className="input-group">
+          <input
+            className="form-control"
+            type="text"
+            placeholder="Search for..."
+            aria-label="Search for..."
+            aria-describedby="btnNavbarSearch"
+          />
+          <button
+            className="btn btn-primary"
+            id="btnNavbarSearch"
+            type="button"
           >
-            {BproductList}
-          </BproductStockTable>
+            <FontAwesomeIcon icon={faMagnifyingGlass} />
+          </button>
         </div>
-        {/* <Paging page={page} getList={getBproduct} /> */}
-        <div className="Buttons">
-          <Button type="submit">수정완료</Button>
-        </div>
-      </form>
+        <Button>상품 옵션 관리</Button>
+      </div>
+      <div className="Table">
+        <BproductStockTable
+          hname={[
+            "상품코드",
+            "상품명",
+            "창고재고",
+            "주문대기",
+            "가재고",
+            "통보수량",
+            "상태",
+          ]}
+        >
+          {BproductList}
+        </BproductStockTable>
+      </div>
+      {/* <Paging page={page} getList={getBproduct} /> */}
     </div>
   );
 };
