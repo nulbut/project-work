@@ -44,14 +44,6 @@ public class CartController {
     }
 
 
-//    // 장바구니 항목 삭제
-//    @PostMapping("deleteCart")
-//    public void deleteCart(@RequestBody Map<String, Long> request) {
-//        long cartCode = request.get("cartCode");
-//
-//        // 장바구니 삭제 서비스 호출
-//        cServ.deleteCart(cartCode);
-//    }
     // 여러 장바구니 항목 삭제
     @PostMapping("deleteCart")
     public String deleteCart(@RequestBody List<Long> cartCodes) {
@@ -63,8 +55,32 @@ public class CartController {
             e.printStackTrace();
             return "error"; // 오류 발생 시
         }
-}
+    }
 
+    @GetMapping("setusedcart")
+    public String setusedcart(@RequestParam String cnid,
+                          @RequestParam long usedCode,
+                          @RequestParam int quantity) {
+        // 상품의 재고 수량을 서버에서 조회
+        int usedStock = cServ.getUsedStockByCode(usedCode);
+
+        // 재고 수량보다 많은 수량을 요청하는 경우
+        if (quantity > usedStock) {
+            return "error: 수량이 재고를 초과합니다.";
+        }
+
+        // 장바구니에 담기 로직
+        return cServ.getusedCart(cnid, usedCode, usedStock, quantity);
+    }
+
+    //    // 장바구니 항목 삭제
+//    @PostMapping("deleteCart")
+//    public void deleteCart(@RequestBody Map<String, Long> request) {
+//        long cartCode = request.get("cartCode");
+//
+//        // 장바구니 삭제 서비스 호출
+//        cServ.deleteCart(cartCode);
+//    }
 
 }
 

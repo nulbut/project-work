@@ -21,6 +21,9 @@ public class CartTbl {
     @Column(nullable = false)
     private long productCode; //상품 코드번호
 
+    @Column(nullable = false)
+    private long usedCode; //중고상품 코드 번호
+
     @Column(nullable = false, length = 10)
     private int quantity; // 장바구니 상품 개수
 
@@ -33,6 +36,11 @@ public class CartTbl {
 
     @Transient
     private ProductTbl productin;
+
+    @Transient
+    private UsedProductTbl usedin;
+
+
 
 
 //    // 기본 생성자

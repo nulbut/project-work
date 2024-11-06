@@ -111,7 +111,7 @@ const Cart = () => {
         </TableColumn>
         <TableColumn wd="20">{item.cartCode}</TableColumn>
         <TableColumn wd="30">
-          <div onClick={() => getCart(item.productCode)}>
+          <div onClick={() => getCart(item.productCode, item.usedCoed)}>
             {item.productin.productName}
           </div>
         </TableColumn>

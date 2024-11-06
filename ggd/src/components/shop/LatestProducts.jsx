@@ -7,6 +7,7 @@ import TableRow from "./TableRow";
 import TableColumn from "./TableColumn";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBagShopping, faHeart } from "@fortawesome/free-solid-svg-icons";
+import Button from "./Button";
 
 const df = (date) => moment(date).format("YYYY-MM-DD");
 
@@ -126,7 +127,7 @@ const LatestProducts = () => {
       .then((res) => {
         console.log(res);
         if (res.data === "ok") {
-          alert("성공");
+          alert("찜목록에 추가되었습니다.");
         } else {
           alert("실패");
         }
@@ -165,7 +166,7 @@ const LatestProducts = () => {
               <h3 className="product-title">상품명 : {item.productName} </h3>
               <p className="product-price">₩{item.sellerPayment}</p>
               <p className="product-body">{item.productDetail}</p>
-              <div className="quantity-container">
+              <div className="product-body">
                 <label>개수: </label>
                 <input
                   type="number"
@@ -179,19 +180,29 @@ const LatestProducts = () => {
                   } // 수량 변경 시 상태 업데이트
                 />
               </div>
-              <button
-                onClick={() => {
-                  cartList(item.productCode, quantity); // 클릭 시 수량 전달
-                }}
-              >
-                <FontAwesomeIcon
-                  icon={faBagShopping}
-                  style={{ color: "#000000" }}
-                />
-              </button>
-              <button onClick={() => dibsList(item.productCode)}>
-                <FontAwesomeIcon icon={faHeart} style={{ color: "#000000" }} />
-              </button>
+              <div>
+                <Button
+                  wsize="s-10"
+                  onClick={() => {
+                    cartList(item.productCode, quantity); // 클릭 시 수량 전달
+                  }}
+                >
+                  <FontAwesomeIcon
+                    icon={faBagShopping}
+                    style={{ color: "#000000", fontSize: "1.5em" }}
+                  />
+                </Button>
+                <Button
+                  wsize="s-10"
+                  color="black"
+                  onClick={() => dibsList(item.productCode)}
+                >
+                  <FontAwesomeIcon
+                    icon={faHeart}
+                    style={{ color: "#ff0000", fontSize: "1.5em" }}
+                  />
+                </Button>
+              </div>
             </div>
           );
         })}

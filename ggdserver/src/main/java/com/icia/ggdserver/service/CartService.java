@@ -3,10 +3,8 @@ package com.icia.ggdserver.service;
 import com.icia.ggdserver.entity.CartTbl;
 import com.icia.ggdserver.entity.ProductFileTbl;
 import com.icia.ggdserver.entity.ProductTbl;
-import com.icia.ggdserver.repository.BoardFileRepository;
-import com.icia.ggdserver.repository.CartRepository;
-import com.icia.ggdserver.repository.ProductRegistrationRepository;
-import com.icia.ggdserver.repository.ProductTblRepository;
+import com.icia.ggdserver.entity.UsedProductTbl;
+import com.icia.ggdserver.repository.*;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +33,10 @@ public class CartService {
     private ProductTblRepository pdRepo;
 
     @Autowired
-    private ProductRegistrationRepository pdrRepo;
+    private UsedTblRepository udRepo;
 
+    @Autowired
+    private UsedShoppingService usServ;
 
     public Map<String, Object> getCartList(Integer pageNum, String cnid) {
         log.info("getCartList() cnid: {}", cnid);
@@ -55,9 +55,22 @@ public class CartService {
 
         int totalPage = result.getTotalPages();
 
-        for (CartTbl cartTbl : Clist ){
-            cartTbl.setProductin(sServ.getProduct(cartTbl.getProductCode()));
+        for (CartTbl cartTbl : Clist) {
+            ProductTbl product = sServ.getProduct(cartTbl.getProductCode());
+            if (product != null) {
+                cartTbl.setProductin(product);
+            } else {
+                cartTbl.setProductin(null); // Product가 없는 경우 처리
+            }
+
+            UsedProductTbl usedProduct = usServ.getUsedProduct(cartTbl.getUsedCode());
+            if (usedProduct != null) {
+                cartTbl.setUsedin(usedProduct);
+            } else {
+                cartTbl.setUsedin(null); // UsedProduct가 없는 경우 처리
+            }
         }
+
 
         Map<String, Object> res = new HashMap<>();
         res.put("totalPage", totalPage);
@@ -81,7 +94,7 @@ public class CartService {
 
         CartTbl cartItem = new CartTbl();
         cartItem.setQuantity(quantity);
-        cartItem.setProductCode(productStock);
+//        cartItem.setProductCode(productStock);
         cartItem.setCnid(cnid);
         cartItem.setProductCode(productCode);
         cRepo.save(cartItem);
@@ -99,5 +112,25 @@ public class CartService {
         if (cartCodes != null && !cartCodes.isEmpty()) {
             cRepo.deleteAllById(cartCodes);  // Repository에서 제공하는 메서드를 사용해 삭제
         }
+    }
+
+    public int getUsedStockByCode(long usedCode) {
+        // 예시: usedCode로 상품을 조회하고, 해당 상품의 stock을 반환
+        UsedProductTbl used = udRepo.findById(usedCode).orElse(null);
+        return (used != null) ? used.getUsedStock() : 0;
+    }
+
+    public String getusedCart(String cnid, long usedCode, int usedStock, int quantity) {
+        if (quantity > usedStock) {
+            return "상품 수량이 부족합니다.";
+        }
+
+        CartTbl cartItem = new CartTbl();
+        cartItem.setQuantity(quantity);
+//        cartItem.setUsedCode(usedStock);
+        cartItem.setCnid(cnid);
+        cartItem.setUsedCode(usedCode);
+        cRepo.save(cartItem);
+        return "ok"; // 성공적으로 추가
     }
 }

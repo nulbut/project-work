@@ -43,4 +43,6 @@ public class UsedProductTbl {
 
     @Transient
     private List<UsedproductFileTbl> UsedproductFileTblList; // 첨부파일
+
+
 }
