@@ -9,4 +9,8 @@ public interface DibsRepository extends CrudRepository<DibsTbl,Long> {
 
 
     Page<DibsTbl> findBydibsCodeGreaterThanAndDnid(long dibcCode, String dnid, Pageable pb);
+
+    DibsTbl findByDnidAndProductCode(String dnid, long productCode);
+
+    DibsTbl findByDnidAndUsedCode(String dnid, Long usedCode);
 }

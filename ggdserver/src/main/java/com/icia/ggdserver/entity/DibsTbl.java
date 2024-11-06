@@ -21,11 +21,17 @@ public class DibsTbl {
     @Column(nullable = false)
     private long productCode; // 상품고유 번호
 
+    @Column(nullable = false)
+    private long usedCode;
+
     @CreationTimestamp
     @Column(nullable = false)
     private Timestamp dibsDate; // 찜 등록일
 
     @Transient
     private ProductTbl productinfo;
+
+    @Transient
+    private UsedProductTbl usedinfo;
 
 }

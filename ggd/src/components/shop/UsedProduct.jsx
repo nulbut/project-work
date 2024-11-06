@@ -54,7 +54,7 @@ const UsedProduct = () => {
   useEffect(() => {
     if (usedsellerId === null) {
       nav("/", { replace: true });
-      return; // Redirect to homepage if not logged in
+      return;
     }
 
     const observer = new IntersectionObserver((entries) => {
@@ -104,6 +104,39 @@ const UsedProduct = () => {
       [usedCode]: value,
     }));
   };
+
+  // 찜목록에 상품을 추가하는 함수
+  const dibsList = (ud) => {
+    console.log(ud);
+    const nid = sessionStorage.getItem("nid");
+    let conf = window.confirm("찜목록에 추가할까요?");
+    if (!conf) {
+      return;
+    }
+
+    axios
+      .get("/setDibs", {
+        params: {
+          dnid: nid,
+          usedCode: ud, // 중고상품에 대해서만 usedCode 전달
+        },
+      })
+      .then((res) => {
+        console.log(res);
+        if (res.data === "ok") {
+          alert("찜목록에 추가되었습니다.");
+        } else if (res.data === "already exists") {
+          alert("이미 찜한 상품입니다.");
+        } else {
+          alert("실패: " + res.data); // 서버에서 반환한 에러 메시지 표시
+        }
+      })
+      .catch((err) => {
+        alert("서버 오류 발생. 잠시 후 다시 시도해주세요.");
+        console.log(err);
+      });
+  };
+
   return (
     <div className="product-list">
       <h2 className="section-title">
@@ -168,6 +201,16 @@ const UsedProduct = () => {
                   <FontAwesomeIcon
                     icon={faBagShopping}
                     style={{ color: "#000000", fontSize: "1.5em" }}
+                  />
+                </Button>
+                <Button
+                  wsize="s-10"
+                  color="black"
+                  onClick={() => dibsList(item.usedCode)}
+                >
+                  <FontAwesomeIcon
+                    icon={faHeart}
+                    style={{ color: "#ff0000", fontSize: "1.5em" }}
                   />
                 </Button>
               </div>

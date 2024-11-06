@@ -111,12 +111,34 @@ const Cart = () => {
         </TableColumn>
         <TableColumn wd="20">{item.cartCode}</TableColumn>
         <TableColumn wd="30">
-          <div onClick={() => getCart(item.productCode, item.usedCoed)}>
-            {item.productin.productName}
+          {/* 상품 정보 표시 */}
+          <div onClick={() => getCart(item.productCode)}>
+            {/* 신상품이 있는 경우 */}
+            {item.productin ? (
+              <div>
+                <div>{item.productin.productName}</div>
+                {/* <div>{item.productin.sellerPayment}₩</div> */}
+              </div>
+            ) : // 중고상품이 있는 경우
+            item.usedin ? (
+              <div>
+                <div>{item.usedin.usedName}</div>
+                {/* <div>{item.usedin.sellerPayment}₩</div> */}
+              </div>
+            ) : (
+              "상품 정보 없음"
+            )}
           </div>
         </TableColumn>
         <TableColumn wd="15">{item.quantity}</TableColumn>
-        <TableColumn wd="20">{item.productin.sellerPayment}₩</TableColumn>
+        <TableColumn wd="20">
+          {" "}
+          {item.productin || item.usedin
+            ? item.productin
+              ? item.productin.sellerPayment + "₩"
+              : item.usedin.usedSeller + "₩"
+            : "가격 정보 없음"}
+        </TableColumn>
         <TableColumn wd="20">{df(item.cartDate)}</TableColumn>
         <TableColumn wd="10">
           <Button wsize="s-40">구매</Button>
@@ -124,7 +146,6 @@ const Cart = () => {
       </TableRow>
     ));
   }
-
   const getCart = (cnid) => {
     nav("", { state: { dc: cnid } });
   };

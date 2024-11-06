@@ -27,9 +27,23 @@ public class DibsController {
     }
     @GetMapping("setDibs")
     public String setDibs(@RequestParam String dnid,
-                          @RequestParam long productCode) {
-        return dServ.getDibs(dnid,productCode);
+                          @RequestParam(required = false) Long usedCode) {
+        try {
+            log.info("setDibs 호출: dnid = {}, usedCode = {}", dnid, usedCode);
+
+            // 파라미터가 없으면 에러 처리
+            if (usedCode == null) {
+                return "error: Missing required parameter (usedCode)"; // 필수 파라미터가 없을 경우 에러 메시지 반환
+            }
+
+            // 찜에 상품 추가 처리
+            return dServ.getDibs(dnid, usedCode); // productCode는 null로 전달
+        } catch (Exception e) {
+            log.error("Error while adding dibs: {}", e.getMessage());
+            return "error: An error occurred while adding the dibs item.";
+        }
     }
+
 
     @PostMapping("deleteDibs")
     public String deleteDibs(@RequestBody List<Long> dibsCodes){

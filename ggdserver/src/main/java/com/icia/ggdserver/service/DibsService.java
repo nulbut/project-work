@@ -1,7 +1,12 @@
 package com.icia.ggdserver.service;
 
+import com.icia.ggdserver.entity.CartTbl;
 import com.icia.ggdserver.entity.DibsTbl;
+import com.icia.ggdserver.entity.ProductTbl;
+import com.icia.ggdserver.entity.UsedProductTbl;
 import com.icia.ggdserver.repository.DibsRepository;
+import com.icia.ggdserver.repository.ProductTblRepository;
+import com.icia.ggdserver.repository.UsedTblRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -25,6 +30,12 @@ public class DibsService {
     @Autowired
     private ShoppingMallService sServ;
 
+    @Autowired
+    private UsedTblRepository udRepo;
+
+    @Autowired
+    private ProductTblRepository pdRepo;
+
 
     public Map<String, Object> getDibsList(Integer pageNum, String dnid) {
         log.info("getDibsList() dnid: {} ", dnid);
@@ -33,19 +44,33 @@ public class DibsService {
             pageNum = 1;
         }
         int limitCnt = 5;
+        Pageable pb = PageRequest.of((pageNum - 1), limitCnt, Sort.Direction.DESC,"dibsCode");
 
-        Pageable pb = PageRequest.of((pageNum - 1), limitCnt,
-                Sort.Direction.DESC,"dibsCode");
-
+        // 찜 데이터 가져오기
         Page<DibsTbl> result = dRepo.findBydibsCodeGreaterThanAndDnid(0L, dnid, pb);
         List<DibsTbl> Dlist = result.getContent();
-
         int totalPage = result.getTotalPages();
 
-
-        for (DibsTbl dibsTbl : Dlist) {
-            dibsTbl.setProductinfo(sServ.getProduct(dibsTbl.getProductCode()));
+        for (DibsTbl dibsItem : Dlist) {
+            if (dibsItem != null) {
+                // Null이 아니면 처리
+                if (dibsItem.getUsedCode() != 0L) {
+                    UsedProductTbl usedProduct = udRepo.findById(dibsItem.getUsedCode()).orElse(null);
+                    if (usedProduct != null) {
+                        dibsItem.setUsedinfo(usedProduct); // 중고 상품 데이터 세팅
+                    }
+                }
+                // 중고 상품 코드가 없고, 상품 코드가 있을 경우
+                else if (dibsItem.getProductCode() != 0) {
+                    ProductTbl product = pdRepo.findById(dibsItem.getProductCode()).orElse(null);
+                    if (product != null) {
+                        dibsItem.setProductinfo(product); // 상품 데이터 세팅
+                    }
+                }
+            }
         }
+
+        //결과 반환
         Map<String, Object> res = new HashMap<>();
         res.put("totalPage", totalPage);
         res.put("Dlist", Dlist);
@@ -54,15 +79,29 @@ public class DibsService {
 
         return res;
     }
+    public String getDibs(String dnid, Long usedCode) {
+        try {
+            if (usedCode == null || dnid == null) {
+                return "error: Missing required parameter"; // 필수 파라미터가 없는 경우
+            }
 
-    public String getDibs(String dnid, long productCode) {
+            // 중고 상품에 대한 찜 처리
+            DibsTbl existingDibs = dRepo.findByDnidAndUsedCode(dnid, usedCode);
+            if (existingDibs != null) {
+                return "already exists"; // 이미 찜한 중고 상품
+            }
 
-        DibsTbl dibsItem = new DibsTbl();
-        dibsItem.setDnid(dnid);
-        dibsItem.setProductCode(productCode);
-        dRepo.save(dibsItem);
-        return "ok";
+            DibsTbl dibsItem = new DibsTbl();
+            dibsItem.setDnid(dnid);
+            dibsItem.setUsedCode(usedCode); // 중고 상품 코드 설정
+            dRepo.save(dibsItem);
+            return "ok"; // 중고 상품 찜 성공
+        } catch (Exception e) {
+            log.error("Error while adding dibs for dnid {} and usedCode {}: {}", dnid, usedCode, e.getMessage());
+            return "error: An error occurred while adding the dibs item.";
+        }
     }
+
 
 
     public void deletMultioleDibss(List<Long> dibsCodes) {

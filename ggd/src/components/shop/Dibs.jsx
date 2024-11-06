@@ -14,47 +14,40 @@ const df = (data) => moment(data).format("YYYY-MM-DD");
 const Dibs = () => {
   const nav = useNavigate();
   const dnid = sessionStorage.getItem("nid");
-  const pnum = sessionStorage.getItem("pageNum");
+  const pnum = sessionStorage.getItem("pageNum") || 1; // pageNum 기본값 설정
   const [selectedItems, setSelectedItems] = useState([]); // 선택된 항목들
-  const [ditem, setDitem] = useState({});
-  console.log(ditem);
+  const [ditem, setDitem] = useState([]);
   const [page, setPage] = useState({
-    //페이징 관련 정보 저장 state
     totalPage: 0,
-    pageNum: 1,
+    pageNum: pnum,
   });
 
-  //서버로부터 찜목록 가져오는 함수
+  // 서버로부터 찜목록 가져오는 함수
   const getDibsList = (pnum) => {
     axios
       .get("/dibslist", { params: { pageNum: pnum, dnid: dnid } })
       .then((res) => {
         const { Dlist, totalPage, pageNum, dnid } = res.data;
-        console.log(totalPage);
         setPage({ totalPage: totalPage, pageNum: pageNum });
-        console.log(page);
         setDitem(Dlist);
-        console.log(Dlist);
-        sessionStorage.getItem("pageNum", pageNum);
+        sessionStorage.setItem("pageNum", pageNum); // sessionStorage에 pageNum 저장
       })
       .catch((err) => console.log(err));
   };
 
   useEffect(() => {
-    console.log(dnid);
     if (dnid === null) {
       alert("로그인이 필요합니다.");
       nav("/login", { replace: true });
       return;
     }
-    pnum !== null ? getDibsList(pnum) : getDibsList(1);
-  }, []);
+    getDibsList(pnum);
+  }, [dnid, pnum, nav]);
 
-  //체크박스 선택 상태 업데이트
+  // 체크박스 선택 상태 업데이트
   const handleCheckboxChange = (dibsCode) => {
     setSelectedItems((prevSelectedItems) => {
       if (prevSelectedItems.includes(dibsCode)) {
-        //이미 선택된 항목이면 제거
         return prevSelectedItems.filter((item) => item !== dibsCode);
       } else {
         return [...prevSelectedItems, dibsCode];
@@ -64,27 +57,23 @@ const Dibs = () => {
 
   // 선택된 항목 삭제
   const deleteSelectedItems = () => {
-    if (selectedItems.length == 0) {
+    if (selectedItems.length === 0) {
       alert("삭제할 항목을 선택해주세요.");
       return;
     }
     let conf = window.confirm("선택한 항목을 삭제할까요?");
-    if (!conf) {
-      return;
-    }
+    if (!conf) return;
 
-    //서버로 선택된 항목 삭제 요청
     axios
       .post("/deleteDibs", selectedItems, {
         headers: {
-          "Content-Type": "application/json", // Content-Type을 json으로 설정
+          "Content-Type": "application/json",
         },
       })
       .then((res) => {
         if (res.data === "ok") {
           alert("선택된 항목을 삭제했습니다.");
-          // 찜 목록을 새로 고침
-          getDibsList(1);
+          getDibsList(1); // 찜 목록을 새로 고침
         } else {
           alert("삭제 실패");
         }
@@ -95,7 +84,7 @@ const Dibs = () => {
       });
   };
 
-  //출력할 찜목록 작성
+  // 출력할 찜목록 작성
   let dibsList = null;
   if (ditem.length === 0) {
     dibsList = (
@@ -104,32 +93,49 @@ const Dibs = () => {
       </TableRow>
     );
   } else {
-    dibsList = Object.values(ditem).map((item) => (
+    dibsList = ditem.map((item) => (
       <TableRow key={item.dibsCode}>
         <TableColumn wd="5">
           <input
             type="checkbox"
-            onChange={() => handleCheckboxChange(item.dibsCode)} //체크박스 클릭 시 상태 업데이트
+            onChange={() => handleCheckboxChange(item.dibsCode)} // 체크박스 클릭 시 상태 업데이트
             checked={selectedItems.includes(item.dibsCode)} // 선택 여부에 따른 체크 상태
           />
         </TableColumn>
         <TableColumn wd="10">{item.dibsCode}</TableColumn>
         <TableColumn wd="40">
           <div onClick={() => getDibs(item.productCode)}>
-            {/* <img
-              src={`../upload/${item.productinfo?.productFileList[0]?.productFileSysname}`}
-            /> */}
-            {item.productinfo.productName}
+            {/* 신상품이 있는 경우 */}
+            {item.productinfo ? (
+              <div>
+                <div>{item.productinfo.productName}</div>
+              </div>
+            ) : // 중고상품이 있는 경우
+            item.usedinfo ? (
+              <div>
+                <div>{item.usedinfo.usedName}</div>
+              </div>
+            ) : (
+              "상품 정보 없음"
+            )}
           </div>
         </TableColumn>
-        <TableColumn wd="30">{item.productinfo.sellerPayment}₩</TableColumn>
+        <TableColumn wd="30">
+          {item.productinfo || item.usedinfo
+            ? item.productinfo
+              ? item.productinfo.sellerPayment + "₩"
+              : item.usedinfo.usedSeller + "₩"
+            : "가격 정보 없음"}
+        </TableColumn>
         <TableColumn wd="20">{df(item.dibsDate)}</TableColumn>
       </TableRow>
     ));
   }
-  const getDibs = (dnid) => {
-    nav("", { state: { dc: dnid } });
+
+  const getDibs = (usedCode) => {
+    nav("/pddetails", { state: { usedCode: usedCode } }); // 상품 상세 페이지로 이동
   };
+
   return (
     <div className="Main">
       <div className="Content">
