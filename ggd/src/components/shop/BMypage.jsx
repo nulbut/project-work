@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import inquiryicon from "../images/inquiryicon.png";
 
 const BMypage = (props) => {
+  // console.log(props.onLogout);
   //...님에 상호 불러오게 하기
   const bcname = sessionStorage.getItem("nnickname");
   //아이디 불러오기
@@ -67,50 +68,13 @@ const BMypage = (props) => {
             );
           })}
           <div className="btn">
-            <Button size="large" color="black" onLogout={props.onLogout}>
+            <Button size="large" color="black" onClick={props.onLogout}>
               로그아웃
             </Button>
           </div>
         </div>
       </div>
       <div className="desc">
-        {/* <div className="oder">
-          <Button>주문완료</Button>
-          <div className="count">건</div>
-        </div>
-        <div className="delivery">
-          <Button>배송준비</Button>
-          <div className="count">건</div>
-          <Button>배송중</Button>
-          <div className="count">건</div>
-        </div>
-        <div className="cancellation">
-          <Button>취소요청</Button>
-          <div className="count">건</div>
-          <Button>반품요청</Button>
-          <div className="count">건</div>
-          <Button>교환요청</Button>
-          <div className="count">건</div>
-        </div>
-        <div className="revenue">
-          <Button>오늘 매출액</Button>
-          <div className="count">건</div>
-        </div>
-        <div className="inquiry">
-          <img src={inquiryicon} alt="" />
-        </div>
-        <div className="stockstatus">
-          <table>
-            <tr>재고상황</tr>
-            <td>
-              <Button>품절</Button>
-            </td>
-            <td>
-              <Button>통보수량초과</Button>
-            </td>
-          </table>
-        </div>
-        <div>공지사항</div> */}
         <Outlet />
       </div>
     </div>
