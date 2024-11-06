@@ -89,6 +89,11 @@ const BproductRegisterd = () => {
 
   //체크한 상품 삭제 함수
   const checkDelete = () => {
+    let conf = window.confirm("삭제하시겠습니까?");
+    if (!conf) {
+      //취소 버튼 눌리면 삭제 종료
+      return;
+    }
     let checkItems = [];
     for (let bitem of bbitem) {
       if (bitem.checked) {
