@@ -22,9 +22,11 @@ const BproductRegisterd = () => {
   const bproductwirtego = () => {
     nav("/bproductw");
   };
-
+  const id = window.sessionStorage.getItem("bid");
   const bsellerId = sessionStorage.getItem("nnickname");
   const bbpNum = 1;
+
+  console.log(id);
 
   const [bbitem, setBbitem] = useState([]);
 

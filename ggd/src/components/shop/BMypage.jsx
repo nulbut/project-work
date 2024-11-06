@@ -7,10 +7,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import inquiryicon from "../images/inquiryicon.png";
 
 const BMypage = (props) => {
-  
   //...님에 상호 불러오게 하기
   const bcname = sessionStorage.getItem("nnickname");
-
 
   const menuArr = [
     {
@@ -35,7 +33,7 @@ const BMypage = (props) => {
     },
     {
       name: "사업자 정보 변경",
-      path: "/bmemberpasswordcheck",
+      path: "bmemberpasswordcheck",
     },
   ];
 
@@ -65,7 +63,7 @@ const BMypage = (props) => {
             );
           })}
           <div className="btn">
-            <Button  size="large" color="black" onLogout={props.onLogout}>
+            <Button size="large" color="black" onLogout={props.onLogout}>
               로그아웃
             </Button>
           </div>
