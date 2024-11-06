@@ -90,15 +90,15 @@ public interface IwcTblRepository extends CrudRepository<IwcTbl, Long> {
             "    OR (:timeRange = 'weekly' AND iwc_date >= CURDATE() - INTERVAL 7 DAY)\n" +
             "    OR (:timeRange = 'monthly' AND iwc_date >= CURDATE() - INTERVAL 1 MONTH)\n" +
             "    OR (:timeRange = 'entire')\n" +
-            "    OR (1=1)\n" +
             "  )\n" +
             "ORDER BY \n" +
             "  CASE \n" +
             "    WHEN :sortBy = 'views' THEN iwc_views\n" +
             "    WHEN :sortBy = 'popularity' THEN iwc_like \n" +
             "    WHEN :sortBy = 'new' THEN iwc_date \n" +
-            "    else iwc_views\n" +
-            "   end desc" ,nativeQuery = true)
+            "    ELSE iwc_views\n" +
+            "   END DESC" ,nativeQuery = true)
+    @Transactional
     Page<IwcTbl> getListFilterSearch(@Param("searchKeyword") String searchKeyword,
                                      @Param("timeRange") String timeRange,
                                      @Param("sortBy") String sortBy,

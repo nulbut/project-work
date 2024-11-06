@@ -74,7 +74,7 @@ const IdealcupMain = () => {
   useEffect(() => {
     console.log("useEffect triggered", page, timeRange, sortBy, searchKeyword);
     fetchGoods(page);
-  }, [page, timeRange, sortBy, searchKeyword]);
+  }, [page, timeRange, sortBy]);
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
@@ -99,26 +99,34 @@ const IdealcupMain = () => {
 
   // 검색어 입력 핸들러
   const handleSearchChange = (e) => {
-    setPageParams([]);
     setSearchKeyword(e.target.value);
+  }; //onch는 문제가 있어보임
+
+  const handleSearch = () => {
+    setGames([]); // 게임 목록 초기화
+    setPageParams([]); // 페이지 파라미터 초기화
+    setPage((prev) => ({ ...prev, pageNum: 1 })); // 페이지를 첫 번째 페이지로 리셋
   };
 
   // 정렬 기준 변경 핸들러
   const handleSortChange = (value) => {
+    setGames([]);
     setPageParams([]);
     setSortBy(value);
+    setPage((prev) => ({ ...prev, pageNum: 1 }));
   };
 
   // 시간 범위 변경 핸들러
   const handleTimeRangeChange = (value) => {
+    setGames([]);
     setPageParams([]);
     setTimeRange(value);
+    setPage((prev) => ({ ...prev, pageNum: 1 }));
   };
   console.log(sortBy, timeRange, searchKeyword);
   console.log(games);
   return (
     <div className="idealmain">
-      {/* 검색창 */}
       <div className="search-filter-container">
         {/* 필터 버튼들 */}
         <div className="filter-buttons">
@@ -169,13 +177,19 @@ const IdealcupMain = () => {
             </button>
           </div>
         </div>
-        <input
-          type="text"
-          placeholder="검색어를 입력하세요"
-          value={searchKeyword}
-          onChange={handleSearchChange}
-          className="search-input"
-        />
+        <div>
+          <input
+            type="text"
+            placeholder="월드컵 제목 또는 월드컵 설명으로 검색하세요"
+            value={searchKeyword}
+            onChange={handleSearchChange}
+            onKeyDown={handleSearch}
+            className="search-input"
+          />
+          <button className="search-button" onClick={handleSearch}>
+            검색
+          </button>
+        </div>
       </div>
 
       {/* 게임 목록 */}
