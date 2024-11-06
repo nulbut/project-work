@@ -39,7 +39,7 @@ const IdealcupSidebar = () => {
     },
     {
       name: "문의",
-      path: "/",
+      path: "/idleinquiry",
       icon: <FontAwesomeIcon icon={faCommentDots} />,
     },
   ];

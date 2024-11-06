@@ -1,4 +1,4 @@
-.container {
+.containerHome {
   font-size: 4em;
   position: fixed;
   display: flex;
@@ -13,9 +13,7 @@
     height: 100%;
     left: 0;
     background-color: rgb(237, 253, 144);
-    transition-property: all;
-    transition-duration: 1.5s;
-    transition-timing-function: ease;
+    transition: all 1.5s ease;
   }
 
   .left-content {

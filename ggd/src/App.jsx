@@ -40,6 +40,7 @@ import BproductWirte from "./components/shop/BproductWirte";
 import AdminLogin from "./components/admin/AdminLogin";
 import ProductUpdate from "./components/shop/ProductUpdate";
 import UsedWrite from "./components/shop/UsedWrite";
+import InquiryForm from "./components/idealcup/InquiryForm";
 
 function App() {
   const nav = useNavigate();
@@ -163,6 +164,7 @@ function App() {
           <Route path="/game?" element={<Game />} />
           <Route path="/make" element={<IdealCupMaker />} />
           <Route path="/mycup" element={<IdealcupMy />} />
+          <Route path="/idleinquiry" element={<InquiryForm />} />
         </Route>
         <Route path="/admin" element={<Admin />} />
         <Route path="/adminex" element={<AdminEx />} />
