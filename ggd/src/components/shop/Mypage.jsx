@@ -3,7 +3,7 @@ import "./scss/Mypage.scss";
 import Button from "../idealcup/Button";
 import logo from "../images/logo.svg";
 
-const Mypage = () => {
+const Mypage = (props) => {
   //...님에 상호 불러오게 하기
   const nickname = sessionStorage.getItem("nnickname");
 
@@ -60,7 +60,7 @@ const Mypage = () => {
             );
           })}
           <div className="btn">
-            <Button type="submit" size="large" color="black">
+            <Button size="large" color="black" onClick={props.onLogout}>
               로그아웃
             </Button>
           </div>

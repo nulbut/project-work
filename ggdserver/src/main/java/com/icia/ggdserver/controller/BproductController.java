@@ -45,6 +45,16 @@ public class BproductController {
         return updatesult;
     }
 
+    //상품 재고 수정
+    @PostMapping("bproductstockupdate")
+    public String bproductstockupdate (@RequestPart(value = "stockdata", required = true) BproductTbl bproductTbl,
+                                       HttpSession session){
+        log.info("bproductstockupdate()");
+        String updatesult = bpServ.updateBproductStock(bproductTbl, session);
+
+        return updatesult;
+    }
+
 
     //상품 불러오기
     @GetMapping("getBproduct")

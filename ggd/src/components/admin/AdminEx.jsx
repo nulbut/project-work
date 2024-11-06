@@ -17,6 +17,8 @@ import ManageUserGrade from "./manageuser/ManageUserGrade";
 import ManagePoint from "./manageuser/ManagePoint";
 import ManageAllPoint from "./manageuser/ManageAllPoint";
 import ManageCupList from "./manageidealcup/ManageCupList";
+import Notice from "./Notice";
+import Report from "./Report";
 
 const AdminEx = ({ data }) => {
   const [viewName, setViewName] = useState(<AdminDashboard />);
@@ -31,11 +33,11 @@ const AdminEx = ({ data }) => {
           target: "UserBoard",
           content2: [{ name: "일반 회원" }, { name: "사업자 회원" }],
         },
-        {
-          name: "포인트 관리",
-          target: "pointBoard",
-          content2: [{ name: "포인트 내역" }, { name: "포인트 일괄 제공" }],
-        },
+        // {
+        //   name: "포인트 관리",
+        //   target: "pointBoard",
+        //   content2: [{ name: "포인트 내역" }, { name: "포인트 일괄 제공" }],
+        // },
         { name: "회원 등급 관리" },
       ],
       // path: "/UserListPage",
@@ -126,6 +128,12 @@ const AdminEx = ({ data }) => {
 
       case "월드컵 리스트":
         setViewName(<ManageCupList />);
+        break;
+      case "공지사항":
+        setViewName(<Notice />);
+        break;
+      case "신고함":
+        setViewName(<Report />);
         break;
     }
     //console.log("뷰네임", viewName);

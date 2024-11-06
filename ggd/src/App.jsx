@@ -55,7 +55,7 @@ function App() {
     loginid: "",
     loginnick: "",
     mlink: "/login",
-  }); //로그인 전 상태
+  }); //로그인 전 상태`
 
   //로그아웃 함수
   const onLogout = () => {
@@ -88,6 +88,7 @@ function App() {
       const newState = {
         loginid: nid,
         loginnick: nick,
+
         mlink: "/mypage",
       };
       setLoginState(newState);
@@ -138,7 +139,7 @@ function App() {
           <Route path="/joinchoice" element={<JoinChoice />} />
           <Route path="/join_n" element={<JoinN />} />
           <Route path="/join_b" element={<JoinB />} />
-          <Route path="/mypage" element={<Mypage />}>
+          <Route path="/mypage" element={<Mypage onLogout={onLogout} />}>
             <Route path="orderDelivery" element={<OrderDelivery />} />
             <Route path="productRegistered" element={<ProductRegistered />} />
             <Route path="productWrite" element={<ProductWrite />} />
@@ -154,13 +155,16 @@ function App() {
             />
           </Route>
           <Route path="usedWrite" element={<UsedWrite />} />
-          <Route path="/bmypage" element={<BMypage onLogout={onLogout}/>}>
+          <Route path="bmypage" element={<BMypage onLogout={onLogout} />}>
             <Route path="bp0" element={<BMypageView />} />
             <Route path="bp1" element={<BproductRegisterd />} />
-            
-            
+            <Route path="bproductstock" element={<BProductStock />} />
+            <Route
+              path="bmemberpasswordcheck"
+              element={<BMemberPasswordCheck />}
+            />
           </Route>
-          
+
           <Route path="/bproductw" element={<BproductWirte />} />
           <Route path="/bproductview" element={<BproductView />} />
           <Route path="/bproductupdata" element={<BproductUpdata />} />

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import Paging from "./Paging";
 import TableRow from "./TableRow";
 import TableColumn from "./TableColumn";
@@ -8,13 +8,17 @@ import moment from "moment";
 import Table from "./Table";
 import "./scss/Table.scss";
 import "./scss/Admin.scss";
+import { AdminPageContextStore } from "./AdminPageStatus";
 
 const df = (date) => moment(date).format("YYYY-MM-DD");
 
 const BuserList = () => {
   const nav = useNavigate();
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
+
+  const pageSt = useContext(AdminPageContextStore);
+
+  // const [startDate, setStartDate] = useState("");
+  // const [endDate, setEndDate] = useState("");
   const [page, setPage] = useState({
     //페이징 관련 정보 저장 state
     totalPage: 0,
@@ -27,9 +31,19 @@ const BuserList = () => {
   const pnum = sessionStorage.getItem("pageNum");
 
   const getBuserList = (pnum) => {
+
+    const pm = {
+      pageNum: pnum,
+      startDate: pageSt.startDate,
+      endDate: pageSt.endDate,
+      searchColumn: pageSt.searchColumn,
+      searchKeyword: pageSt.searchKeyword,
+    };
+    console.log(pm);
+
     axios
       .get("/admin/blist", {
-        params: { pageNum: pnum, startDate: startDate, endDate: endDate },
+        params: pm,
       })
       .then((res) => {
         console.log(res.data);
@@ -78,10 +92,14 @@ const BuserList = () => {
     ));
   }
 
-  const onSearch = (e) => {
-    e.preventDefualt();
+  const onSearch = useCallback (() => {
     getBuserList(1);
-  };
+  }, [
+    pageSt.searchColumn,
+    pageSt.searchKeyword,
+    pageSt.startDate,
+    pageSt.endDate,
+  ]); 
 
   return (
     <>
@@ -99,8 +117,8 @@ const BuserList = () => {
           <label>시작 날짜:</label>
           <input
             type="date"
-            value={startDate}
-            onChange={(e) => setStartDate(e.target.value)}
+            value={pageSt.startDate}
+            onChange={(e) => pageSt.setStartDate(e.target.value)}
             required
           />
         </div>
@@ -108,8 +126,8 @@ const BuserList = () => {
           <label>종료 날짜:</label>
           <input
             type="date"
-            value={endDate}
-            onChange={(e) => setEndDate(e.target.value)}
+            value={pageSt.endDate}
+            onChange={(e) => pageSt.setEndDate(e.target.value)}
             required
           />
         </div>
