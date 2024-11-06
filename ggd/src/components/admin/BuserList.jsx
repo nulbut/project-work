@@ -31,7 +31,6 @@ const BuserList = () => {
   const pnum = sessionStorage.getItem("pageNum");
 
   const getBuserList = (pnum) => {
-
     const pm = {
       pageNum: pnum,
       startDate: pageSt.startDate,
@@ -92,47 +91,50 @@ const BuserList = () => {
     ));
   }
 
-  const onSearch = useCallback (() => {
+  const onSearch = useCallback(() => {
     getBuserList(1);
   }, [
     pageSt.searchColumn,
     pageSt.searchKeyword,
     pageSt.startDate,
     pageSt.endDate,
-  ]); 
+  ]);
 
   return (
     <>
-      <h3>기간별 사업자회원 가입일자 조회</h3>
-      <form onSubmit={onSearch}>
-        <div search>
-          <select id="Id" name="ID">
-            <option value="ID">ID</option>
-            <option value="이름">이름</option>
-          </select>
-          <input placeholder="이름" />
-          <button>검색</button>
-        </div>
-        <div>
-          <label>시작 날짜:</label>
-          <input
-            type="date"
-            value={pageSt.startDate}
-            onChange={(e) => pageSt.setStartDate(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label>종료 날짜:</label>
-          <input
-            type="date"
-            value={pageSt.endDate}
-            onChange={(e) => pageSt.setEndDate(e.target.value)}
-            required
-          />
-        </div>
-        <button type="submit">조회</button>
-      </form>
+      <div className="search-form">
+        <h3>기간별 사업자회원 가입일자 조회</h3>
+        <form onSubmit={onSearch}>
+          <div search>
+            <select id="Id" name="ID">
+              <option value="ID">ID</option>
+              <option value="이름">이름</option>
+            </select>
+            <input placeholder="이름" />
+            <button>검색</button>
+          </div>
+          <div>
+            <label>시작 날짜:</label>
+            <input
+              type="date"
+              value={pageSt.startDate}
+              onChange={(e) => pageSt.setStartDate(e.target.value)}
+              required
+            />
+          </div>
+          <div>
+            <label>종료 날짜:</label>
+            <input
+              type="date"
+              value={pageSt.endDate}
+              onChange={(e) => pageSt.setEndDate(e.target.value)}
+              required
+            />
+          </div>
+          <button type="submit">조회</button>
+        </form>
+      </div>
+
       <Table hName={["ID", "이름", "연락처", "이메일", "가입날짜", "비고"]}>
         {buserList}
       </Table>

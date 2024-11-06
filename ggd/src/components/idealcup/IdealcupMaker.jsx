@@ -89,7 +89,7 @@ const IdealCupMaker = () => {
           </li>
         ))}
       </div>
-      <div className="desc">
+      <div>
         <p>{menuArr[currentTab].content}</p>
       </div>
     </div>

@@ -6,7 +6,7 @@ import "./Home.scss";
 
 const Home = () => {
   return (
-    <div className="container">
+    <div className="containerHome">
       <Link className="left-content" to="/idlecup">
         {/* <div className="select-logo">
           <img src={game} />

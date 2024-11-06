@@ -42,17 +42,27 @@ const NoticeList = () => {
       </TableRow>
     );
   } else {
-    list = Object.values(aitem).map((item) => (
-      <TableRow key={item.nnum}>
-        <TableColumn wd="w-10">
-          <div onClick={() => getNotice(item.nnum)}>{item.ntitle}</div>
-        </TableColumn>
-        <TableColumn wd="w-20">{df(item.rdate)}</TableColumn>
-      </TableRow>
-    ));
+    list = Object.values(aitem).map((item) =>
+      item.isPinned ? (
+        <TableRow key={item.nnum} bg="pinned">
+          <TableColumn wd="w-10">
+            <div onClick={() => getNotice(item.nnum)}>{item.ntitle}</div>
+          </TableColumn>
+          <TableColumn wd="w-20">{df(item.rdate)}</TableColumn>
+        </TableRow>
+      ) : (
+        <TableRow key={item.nnum}>
+          <TableColumn wd="w-10">
+            <div onClick={() => getNotice(item.nnum)}>{item.ntitle}</div>
+          </TableColumn>
+          <TableColumn wd="w-20">{df(item.rdate)}</TableColumn>
+        </TableRow>
+      )
+    );
   }
+  console.log(aitem);
   const getNotice = useCallback((nnum) => {
-    pageSt.setViewPage(<NotieView nnum={nnum}/>);
+    pageSt.setViewPage(<NotieView nnum={nnum} />);
   });
 
   useEffect(() => {
@@ -67,7 +77,6 @@ const NoticeList = () => {
     console.log("moveMenu()");
     pageSt.setViewPage(<Nwrite />);
   };
-
 
   return (
     <div className="Content">
