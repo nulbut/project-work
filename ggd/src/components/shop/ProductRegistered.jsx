@@ -90,11 +90,12 @@ const ProductRegistered = () => {
       >
         상품등록
       </Button>
+      <dr />
       <Button
         size="large"
         wsize="s-50"
         onClick={() => {
-          nav("/mypage/usedRegistered")
+          nav("/mypage/usedRegistered");
         }}
       >
         중고등록한상품
