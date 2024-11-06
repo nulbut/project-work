@@ -115,7 +115,7 @@ const BproductRegisterd = () => {
   //BProductRegistered 컴포넌트가 화면에 보일 때 서버로부터 등록상품 목록을 가져옴
   useEffect(() => {
     // console.log(bsellerId);
-    if (bsellerId === null) {
+    if (id === null) {
       nav("/", { replace: true });
       return;
     }
@@ -141,7 +141,7 @@ const BproductRegisterd = () => {
           />
         </TableColumn>
         <TableColumn wd={"w-10"}>{bbitem.bpnum}</TableColumn>
-        <TableColumn wd={"w-10"}>
+        <TableColumn wd={"w-20"}>
           <img
             className="img"
             src={"../productupload/" + bbitem.bproductFileSysnameM}
@@ -151,10 +151,7 @@ const BproductRegisterd = () => {
           <div onClick={() => getBboard(bbitem.bpnum)}>{bbitem.bpname}</div>
         </TableColumn>
         <TableColumn wd={"w-10"}>{bn(bbitem.bpprice)}</TableColumn>
-        <TableColumn wd={"w-10"}>{bbitem.bpwarestock}</TableColumn>
-        <TableColumn wd={"w-10"}>
-          <input className="Input" type="checkbox" />
-        </TableColumn>
+        <TableColumn wd={"w-10"}>{bn(bbitem.bpwarestock)}</TableColumn>
         <TableColumn wd={"w-10"}>
           <input className="Input" type="checkbox" />
         </TableColumn>
@@ -203,7 +200,6 @@ const BproductRegisterd = () => {
             "상품명",
             "가격",
             "재고",
-            "판매",
             "품절",
             "등록일",
             "관리",

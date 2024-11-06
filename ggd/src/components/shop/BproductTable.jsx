@@ -19,15 +19,6 @@ const BproductTable = ({ hname, children }) => {
             <th className="TableHeader" rowspan="2">
               {hname[8]}
             </th>
-            <th className="TableHeader" rowspan="2">
-              {hname[9]}
-            </th>
-            {/* <th className="TableHeader" rowspan="2">
-              {hname[10]}
-            </th> */}
-            {/* <th className="TableHeader" rowspan="2">
-              {hname[11]}
-            </th> */}
           </tr>
           <tr>
             <th className="TableHeader">{hname[2]}</th>

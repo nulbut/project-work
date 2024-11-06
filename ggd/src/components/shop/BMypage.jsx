@@ -9,6 +9,10 @@ import inquiryicon from "../images/inquiryicon.png";
 const BMypage = (props) => {
   //...님에 상호 불러오게 하기
   const bcname = sessionStorage.getItem("nnickname");
+  //아이디 불러오기
+  const id = sessionStorage.getItem("bid");
+
+  console.log(id);
 
   const menuArr = [
     {
@@ -25,7 +29,7 @@ const BMypage = (props) => {
     },
     {
       name: "재고관리",
-      path: "/",
+      path: "bproductstock",
     },
     {
       name: "문의사항 관리",

@@ -252,4 +252,23 @@ public class BproductService {
         }
         return bresult;
     }// updateBproduct end
+
+    //재고수정
+    @Transactional
+    public String updateBproductStock(BproductTbl bproductTbl,
+                                      HttpSession session) {
+        log.info("updateBproductStock()");
+        String stockresult = null;
+
+        try {
+            bpdRepo.save(bproductTbl);
+            log.info("bnum : {}", bproductTbl.getBpnum());
+
+            stockresult = "ok";
+        } catch (Exception e) {
+            e.printStackTrace();
+            stockresult = "fail";
+        }
+        return stockresult;
+    }//updateBproductStock end
 }//class end

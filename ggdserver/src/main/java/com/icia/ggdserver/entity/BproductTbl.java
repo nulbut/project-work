@@ -35,6 +35,9 @@ public class BproductTbl { // 사업자 상품 테이블
     @Column(nullable = false, length = 100)
     private int bpwarestock; //창고재고
 
+    @Column(length = 100)
+    private int bpwarestocklimt; //통보재고
+
     @Column(nullable = false, length = 10)
     private String bpdate; //출시일
 

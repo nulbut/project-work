@@ -43,6 +43,8 @@ const BMemberView = () => {
     bmemail,
   } = bmemberInfo;
 
+  console.log(bid);
+
   const [code, setCode] = useState("");
   const [buserCode, setBuserCode] = useState("");
 
