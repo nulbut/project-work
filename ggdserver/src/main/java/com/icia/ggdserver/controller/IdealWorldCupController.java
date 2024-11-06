@@ -31,10 +31,13 @@ public class IdealWorldCupController {
     }
 
     @GetMapping("list")
-    public Map<String, Object> getList(Integer pageNum){
+    public Map<String, Object> getList( @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
+                                        @RequestParam(value = "searchKeyword", defaultValue = "") String searchKeyword,
+                                        @RequestParam(value = "timeRange", defaultValue = "") String timeRange,
+                                        @RequestParam(value = "sortBy", defaultValue = "") String sortBy){
         log.info("getList() - {}", pageNum);
 
-        Map<String, Object> res = iwcServ.getBoardList(pageNum);
+        Map<String, Object> res = iwcServ.getBoardList(pageNum, searchKeyword, timeRange, sortBy);
 
         return res;
     }

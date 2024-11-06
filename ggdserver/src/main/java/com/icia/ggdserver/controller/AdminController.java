@@ -5,6 +5,7 @@ import com.icia.ggdserver.dto.DateDto;
 import com.icia.ggdserver.service.AdminStaticService;
 import com.icia.ggdserver.entity.*;
 import com.icia.ggdserver.service.AdminService;
+import com.icia.ggdserver.service.IdealWorldCupService;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ public class AdminController {
 
     @Autowired
     private AdminService aServ;
+
 
     @PostMapping("adminLoginProc")
     public Map<String, String> loginProc(@RequestBody Member member){
@@ -112,7 +114,6 @@ public class AdminController {
         log.info("getReport()");
         return aServ.getReport(rNum);
     }
-
 
 
 }

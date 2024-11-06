@@ -25,4 +25,13 @@ public class AdminStaticController {
 
         return res;
     }
+
+    @GetMapping("/idlecuplist")
+    public Map<String, Object> getList(Integer pageNum){
+        log.info("getList() - {}", pageNum);
+
+        Map<String, Object> res = atServ.getIdealBoardList(pageNum);
+
+        return res;
+    }
 }

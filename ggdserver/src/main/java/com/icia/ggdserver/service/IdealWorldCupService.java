@@ -112,8 +112,8 @@ public class IdealWorldCupService {
         }
     }
 
-    public Map<String, Object> getBoardList(Integer pNum){
-        log.info("getBoardList()");
+    public Map<String, Object> getBoardList(Integer pNum, String searchKeyword, String timeRange, String sortBy){
+        log.info("getBoardList(){} {} {} {}",pNum,searchKeyword,timeRange,sortBy);
 
         if(pNum == null){
             pNum = 1;
@@ -123,12 +123,13 @@ public class IdealWorldCupService {
         int listCnt = 16;
 
         //페이징 조건 처리 객체 생성(Pageable)
-        Pageable pb = PageRequest.of((pNum - 1), listCnt,
-                Sort.Direction.DESC, "iwcCode");
+        Pageable pb = PageRequest.of((pNum - 1), listCnt);
         //PageRequest.of(페이지번호, 페이지당 게시글 개수, 정렬방식, 컬럼명)
 
         Page<IwcTbl> result = null;
-        result = iwcRepo.findByIwcCodeGreaterThanAndIwcPublicEquals(0L,1L, pb);
+        result = iwcRepo.getListFilterSearch(searchKeyword,timeRange, sortBy,pb);
+//        result = iwcRepo.findByIwcCodeGreaterThanAndIwcPublicEquals(0L,1L, pb);
+
 //        if(pNum.getKeyword() == ""){
 //            result = bRepo.findByBnumGreaterThan(0L, pb);
 //        }
