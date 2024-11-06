@@ -53,16 +53,17 @@ import ProductPurchase from "./components/shop/ProductPurchase";
 import { WidgetCheckoutPage } from "./components/toss/widget/WidgetCheckout";
 // import { WidgetSuccessPage } from "./components/toss/widget/WidgetSuccess";
 
+import InquiryForm from "./components/idealcup/InquiryForm";
 
 function App() {
   const nav = useNavigate();
 
   //로그인 상태 저장
-  const [loginState, setLoginState] = useState({  
+  const [loginState, setLoginState] = useState({
     loginid: "",
     loginnick: "",
     mlink: "/login",
-  }); //로그인 전 상태
+  }); //로그인 전 상태`
 
   //로그아웃 함수
   const onLogout = () => {
@@ -95,6 +96,7 @@ function App() {
       const newState = {
         loginid: nid,
         loginnick: nick,
+
         mlink: "/mypage",
       };
       setLoginState(newState);
@@ -160,7 +162,7 @@ function App() {
               element={<ProductUpdate />}
             />
             <Route path="usedRegistered" element={<UsedRegistered />} />
-            <Route path="usedRegistered/usView" element={<UsedView />} /> 
+            <Route path="usedRegistered/usView" element={<UsedView />} />
           </Route>
           <Route path="usedWrite" element={<UsedWrite />} />
           <Route path="/bmypage" element={<BMypage />}>
@@ -180,6 +182,7 @@ function App() {
           <Route path="/game?" element={<Game />} />
           <Route path="/make" element={<IdealCupMaker />} />
           <Route path="/mycup" element={<IdealcupMy />} />
+          <Route path="/idleinquiry" element={<InquiryForm />} />
         </Route>
         <Route path="/admin" element={<Admin />} />
         <Route path="/adminex" element={<AdminEx />} />

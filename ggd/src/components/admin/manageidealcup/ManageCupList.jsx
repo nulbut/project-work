@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import TableRow from "../TableRow";
 import TableColumn from "../TableColumn";
+import "../scss/ManageCupList.scss";
 import {
   faCircleExclamation,
   faHeart,
@@ -73,10 +74,16 @@ const ManageCupList = () => {
   return (
     <div className="idealmain">
       <h1>월드컵 리스트</h1>
-      <Table hName={["번호", "이름", "작성자", "작성일", "가입날짜", "비고"]}>
-        {list}
-      </Table>
-      <Paging page={page} getList={fetchGoods} />
+
+      <div className="table-wrapper">
+        <Table hName={["번호", "이름", "작성자", "작성일", "가입날짜", "비고"]}>
+          {list}
+        </Table>
+      </div>
+
+      <div className="paging-wrapper">
+        <Paging page={page} getList={fetchGoods} />
+      </div>
     </div>
   );
 };

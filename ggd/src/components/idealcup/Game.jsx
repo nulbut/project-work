@@ -218,6 +218,7 @@ const Game = () => {
                     left: "50%",
                   }}
                 />
+
                 <div className="name">{d.iwcContentsName}</div>
               </div>
             ) : (

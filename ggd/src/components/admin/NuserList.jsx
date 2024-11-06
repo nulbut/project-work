@@ -131,55 +131,50 @@ const NuserList = () => {
 
   return (
     <>
-      <h3>기간별 일반회원 가입일자 조회</h3>
-      {/* <form onSubmit={onSearch}> */}
-      <form>
-        <div search>
-          <select id="Id" name="ID" onChange={onSearchChange}>
-            <option
-              value="ID"
-              selected={pageSt.searchColumn == "ID" ? true : false}
-            >
-              ID
-            </option>
-            <option
-              value="이름"
-              selected={pageSt.searchColumn == "이름" ? true : false}
-            >
-              이름
-            </option>
-          </select>
-          <input
-            placeholder="이름"
-            value={pageSt.searchKeyword}
-            onChange={onKeywordChange}
-          />
+      <div className="search-form">
+        <h3>기간별 일반회원 가입일자 조회</h3>
+        <form>
+          <div className="search">
+            <select id="Id" name="ID" onChange={onSearchChange}>
+              <option value="ID" selected={pageSt.searchColumn === "ID"}>
+                ID
+              </option>
+              <option value="이름" selected={pageSt.searchColumn === "이름"}>
+                이름
+              </option>
+            </select>
+            <input
+              placeholder="이름"
+              value={pageSt.searchKeyword}
+              onChange={onKeywordChange}
+            />
+            <button type="button" onClick={onSearch}>
+              검색
+            </button>
+          </div>
+          <div>
+            <label>시작 날짜:</label>
+            <input
+              type="date"
+              value={pageSt.startDate}
+              onChange={onStartChange}
+              required
+            />
+          </div>
+          <div>
+            <label>종료 날짜:</label>
+            <input
+              type="date"
+              value={pageSt.endDate}
+              onChange={onEndChange}
+              required
+            />
+          </div>
           <button type="button" onClick={onSearch}>
-            검색
+            조회
           </button>
-        </div>
-        <div>
-          <label>시작 날짜:</label>
-          <input
-            type="date"
-            value={pageSt.startDate}
-            onChange={onStartChange}
-            required
-          />
-        </div>
-        <div>
-          <label>종료 날짜:</label>
-          <input
-            type="date"
-            value={pageSt.endDate}
-            onChange={onEndChange}
-            required
-          />
-        </div>
-        <button type="button" onClick={onSearch}>
-          조회
-        </button>
-      </form>
+        </form>
+      </div>
       <Table hName={["ID", "이름", "연락처", "이메일", "가입날짜", "비고"]}>
         {userList}
       </Table>

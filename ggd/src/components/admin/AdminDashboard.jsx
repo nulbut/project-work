@@ -5,351 +5,17 @@ import { faChartBar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 
-const AdminDashboard = () => {
+const AdminDashboard = ({ setDashview }) => {
   const [dataPie, setDataPie] = useState([]);
-  const [dataLine, setDataLine] = useState();
+  const [dataLine, setDataLine] = useState([]);
   const [dashParams, setDashParams] = useState({
     cupTotalCnt: "",
     cupTodayCnt: "",
     cCnt: "",
+    pinnedNotice: [{}, {}],
   });
   useEffect(() => {
     getIdealCnt();
-    // setDataPie([
-    //   {
-    //     id: "php",
-    //     label: "php",
-    //     value: 502,
-    //     color: "hsl(151, 70%, 50%)",
-    //   },
-    //   {
-    //     id: "erlang",
-    //     label: "erlang",
-    //     value: 103,
-    //     color: "hsl(280, 70%, 50%)",
-    //   },
-    //   {
-    //     id: "stylus",
-    //     label: "stylus",
-    //     value: 216,
-    //     color: "hsl(218, 70%, 50%)",
-    //   },
-    //   {
-    //     id: "scala",
-    //     label: "scala",
-    //     value: 148,
-    //     color: "hsl(194, 70%, 50%)",
-    //   },
-    //   {
-    //     id: "hack",
-    //     label: "hack",
-    //     value: 60,
-    //     color: "hsl(109, 70%, 50%)",
-    //   },
-    //   {
-    //     id: "hack5",
-    //     label: "hack5",
-    //     value: 60,
-    //     color: "hsl(109, 70%, 50%)",
-    //   },
-    //   {
-    //     id: "hack4",
-    //     label: "hack4",
-    //     value: 60,
-    //     color: "hsl(103, 70%, 50%)",
-    //   },
-    //   {
-    //     id: "hack3",
-    //     label: "hack3",
-    //     value: 60,
-    //     color: "hsl(109, 70%, 50%)",
-    //   },
-    //   {
-    //     id: "hack1",
-    //     label: "hack1",
-    //     value: 60,
-    //     color: "hsl(109, 70%, 50%)",
-    //   },
-    //   {
-    //     id: "hack2",
-    //     label: "hack2",
-    //     value: 60,
-    //     color: "hsl(109, 70%, 50%)",
-    //   },
-    // ]);
-
-    setDataLine([
-      {
-        id: "japan",
-        color: "hsl(55, 70%, 50%)",
-        data: [
-          {
-            x: "plane",
-            y: 1,
-          },
-          {
-            x: "helicopter",
-            y: 102,
-          },
-          {
-            x: "boat",
-            y: 192,
-          },
-          {
-            x: "train",
-            y: 290,
-          },
-          {
-            x: "subway",
-            y: 153,
-          },
-          {
-            x: "bus",
-            y: 286,
-          },
-          {
-            x: "car",
-            y: 69,
-          },
-          {
-            x: "moto",
-            y: 261,
-          },
-          {
-            x: "bicycle",
-            y: 222,
-          },
-          {
-            x: "horse",
-            y: 120,
-          },
-          {
-            x: "skateboard",
-            y: 50,
-          },
-          {
-            x: "others",
-            y: 64,
-          },
-        ],
-      },
-      {
-        id: "france",
-        color: "hsl(297, 70%, 50%)",
-        data: [
-          {
-            x: "plane",
-            y: 86,
-          },
-          {
-            x: "helicopter",
-            y: 104,
-          },
-          {
-            x: "boat",
-            y: 278,
-          },
-          {
-            x: "train",
-            y: 223,
-          },
-          {
-            x: "subway",
-            y: 241,
-          },
-          {
-            x: "bus",
-            y: 118,
-          },
-          {
-            x: "car",
-            y: 252,
-          },
-          {
-            x: "moto",
-            y: 65,
-          },
-          {
-            x: "bicycle",
-            y: 75,
-          },
-          {
-            x: "horse",
-            y: 71,
-          },
-          {
-            x: "skateboard",
-            y: 234,
-          },
-          {
-            x: "others",
-            y: 294,
-          },
-        ],
-      },
-      {
-        id: "us",
-        color: "hsl(165, 70%, 50%)",
-        data: [
-          {
-            x: "plane",
-            y: 66,
-          },
-          {
-            x: "helicopter",
-            y: 142,
-          },
-          {
-            x: "boat",
-            y: 184,
-          },
-          {
-            x: "train",
-            y: 81,
-          },
-          {
-            x: "subway",
-            y: 23,
-          },
-          {
-            x: "bus",
-            y: 172,
-          },
-          {
-            x: "car",
-            y: 105,
-          },
-          {
-            x: "moto",
-            y: 217,
-          },
-          {
-            x: "bicycle",
-            y: 163,
-          },
-          {
-            x: "horse",
-            y: 37,
-          },
-          {
-            x: "skateboard",
-            y: 202,
-          },
-          {
-            x: "others",
-            y: 68,
-          },
-        ],
-      },
-      {
-        id: "germany",
-        color: "hsl(295, 70%, 50%)",
-        data: [
-          {
-            x: "plane",
-            y: 6,
-          },
-          {
-            x: "helicopter",
-            y: 100,
-          },
-          {
-            x: "boat",
-            y: 67,
-          },
-          {
-            x: "train",
-            y: 5,
-          },
-          {
-            x: "subway",
-            y: 212,
-          },
-          {
-            x: "bus",
-            y: 282,
-          },
-          {
-            x: "car",
-            y: 88,
-          },
-          {
-            x: "moto",
-            y: 230,
-          },
-          {
-            x: "bicycle",
-            y: 58,
-          },
-          {
-            x: "horse",
-            y: 169,
-          },
-          {
-            x: "skateboard",
-            y: 211,
-          },
-          {
-            x: "others",
-            y: 122,
-          },
-        ],
-      },
-      {
-        id: "norway",
-        color: "hsl(174, 70%, 50%)",
-        data: [
-          {
-            x: "plane",
-            y: 156,
-          },
-          {
-            x: "helicopter",
-            y: 46,
-          },
-          {
-            x: "boat",
-            y: 90,
-          },
-          {
-            x: "train",
-            y: 156,
-          },
-          {
-            x: "subway",
-            y: 118,
-          },
-          {
-            x: "bus",
-            y: 52,
-          },
-          {
-            x: "car",
-            y: 80,
-          },
-          {
-            x: "moto",
-            y: 172,
-          },
-          {
-            x: "bicycle",
-            y: 261,
-          },
-          {
-            x: "horse",
-            y: 237,
-          },
-          {
-            x: "skateboard",
-            y: 215,
-          },
-          {
-            x: "others",
-            y: 266,
-          },
-        ],
-      },
-    ]);
   }, []);
 
   const getIdealCnt = async () => {
@@ -358,7 +24,7 @@ const AdminDashboard = () => {
         .get("/getDashBoard")
         .then((res) => {
           setDashParams(res.data);
-
+          const newData = [];
           for (let i = 0; i < res.data.cCnt.length; i++) {
             console.log(res.data.cCnt[i][0]);
             console.log(res.data.cCnt[i][1]);
@@ -368,14 +34,53 @@ const AdminDashboard = () => {
               value: res.data.cCnt[i][1],
               color: "hsl(151, 70%, 50%)",
             };
-            setDataPie((prev) => [...prev, newPie]);
+
+            newData.push(newPie);
+            // setDataPie((prev) => [...prev, newPie]);
           }
+          setDataPie(newData);
+
+          const newPeriodDatas = [];
+          for (let i = 0; i < res.data.periodMakeCup.length; i++) {
+            const newPeriodData = {
+              x: res.data.periodMakeCup[i][0].slice(-5),
+              y: res.data.periodMakeCup[i][1],
+            };
+            newPeriodDatas.push(newPeriodData);
+          }
+
+          const newPeriodNmember = [];
+          for (let i = 0; i < res.data.nmemberPeriodCnt.length; i++) {
+            const newPeriodData = {
+              x: res.data.nmemberPeriodCnt[i][0].slice(-5),
+              y: res.data.nmemberPeriodCnt[i][1],
+            };
+            newPeriodNmember.push(newPeriodData);
+          }
+
+          setDataLine([
+            {
+              id: "일간 월드컵 작성 수",
+              data: newPeriodDatas,
+            },
+            {
+              id: "일반 회원 가입 수",
+              data: newPeriodNmember,
+            },
+            // {
+            //   id: "연간 회원 가입 수",
+            //   data: newPeriodDatas,
+            // },
+          ]);
+
+          console.log(newPeriodDatas);
         })
         .catch((err) => console.log(err));
     } catch (error) {
       console.log("error", error);
     }
   };
+  console.log(dataLine);
   console.log(dashParams);
   return (
     <div className="container-fluid px-4">
@@ -398,11 +103,16 @@ const AdminDashboard = () => {
           </div>
         </div>
         <div className="col-xl-3 col-md-6">
-          <div className="card bg-success text-white mb-4">
-            <div className="card-body">공지사항</div>
+          <div
+            className="card bg-success text-white mb-4"
+            onClick={() => setDashview("공지사항")}
+          >
+            <div className="card-body">상단 고정 공지사항</div>
             <div className="card-footer d-flex align-items-center justify-content-between">
               <a className="small text-white stretched-link" href="#">
-                View Details
+                {dashParams.pinnedNotice.map((v, i) => (
+                  <div> {v.ntitle}</div>
+                ))}
               </a>
               <div className="small text-white">
                 <i className="fas fa-angle-right"></i>
@@ -453,6 +163,63 @@ const AdminDashboard = () => {
             </div>
           </div>
         </div>
+        <div className="col-xl-3 col-md-6">
+          <div className="card bg-dark text-white mb-4">
+            <div className="card-body">등록된 회원 수</div>
+            <div className="card-footer d-flex align-items-center justify-content-between">
+              <div>
+                총 회원 수 :{" "}
+                {dashParams.bmemberTotalCnt + dashParams.nmemberTotalCnt}
+                <hr />
+                <div onClick={() => setDashview("일반 회원")}>
+                  일반 회원 : {dashParams.nmemberTotalCnt}
+                </div>
+                <div />
+                사업자 회원 : {dashParams.bmemberTotalCnt}
+                <hr />
+                오늘 등록된 회원 :{" "}
+                {dashParams.nmemberTodayCnt + dashParams.bmemberTodayCnt}
+                <hr />
+                일반 회원 : {dashParams.nmemberTodayCnt}
+                <div />
+                사업자 회원 : {dashParams.bmemberTodayCnt}
+                <div className="small text-white">
+                  <i className="fas fa-angle-right"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="col-xl-3 col-md-6">
+          <div className="card bg-dark text-white mb-4">
+            <div className="card-body">등록된 상품 수</div>
+            <div className="card-footer d-flex align-items-center justify-content-between">
+              <a className="small text-white stretched-link" href="#">
+                총 개수 : {dashParams.cupTotalCnt}
+                <hr />
+                오늘 등록된 개수 : {dashParams.cupTodayCnt}
+              </a>
+              <div className="small text-white">
+                <i className="fas fa-angle-right"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="col-xl-3 col-md-6">
+          <div className="card bg-dark text-white mb-4">
+            <div className="card-body">등록된 이상형 월드컵</div>
+            <div className="card-footer d-flex align-items-center justify-content-between">
+              <a className="small text-white stretched-link" href="#">
+                총 개수 : {dashParams.cupTotalCnt}
+                <hr />
+                오늘 등록된 개수 : {dashParams.cupTodayCnt}
+              </a>
+              <div className="small text-white">
+                <i className="fas fa-angle-right"></i>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div className="row">
@@ -471,7 +238,7 @@ const AdminDashboard = () => {
           <div className="card mb-4">
             <div className="card-header">
               <FontAwesomeIcon icon={faChartBar} />
-              Bar Chart Example
+              15일 간 데이터 모음
             </div>
             <div className="card-body">
               <MyResponsiveLine data={dataLine} />

@@ -49,7 +49,6 @@ public interface IwcContentsRepository extends CrudRepository<IwcContentsTbl, Lo
 
     @Query(value = "select iwc_contents_category,count(*) from iwc_contents_tbl where iwc_contents_category != '' group by " +
             "iwc_contents_category order by count(*) desc limit 10",nativeQuery = true)
-
     List<Object[]> categoryCnt();
 
 
