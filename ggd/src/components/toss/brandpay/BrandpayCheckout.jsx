@@ -40,7 +40,7 @@ export function BrandpayCheckoutPage() {
     // 결제를 요청하기 전에 orderId, amount를 서버에 저장하세요.
     // 결제 과정에서 악의적으로 결제 금액이 바뀌는 것을 확인하는 용도입니다.
     await brandpay.requestPayment({
-      amount: {
+        amount:     {
         currency: "KRW",
         value: 50000,
       },

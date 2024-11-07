@@ -11,7 +11,7 @@ const customerKey = generateRandomString();
 
 const amount = {
   currency: "KRW",
-  value: 50000, 
+  value: "usedSeller", 
 };
 
 export function PaymentCheckoutPage() {
@@ -130,37 +130,37 @@ export function PaymentCheckoutPage() {
           customerName: "김토스",
           customerMobilePhone: "01012341234",
         });
-      case "FOREIGN_EASY_PAY":
-        await payment.requestPayment({
-          method: "FOREIGN_EASY_PAY", // 해외 간편결제
-          amount: {
-            value: 100,
-            currency: "USD",
-          },
-          orderId: generateRandomString(),
-          orderName: "토스 티셔츠 외 2건",
-          successUrl: window.location.origin + "/payment/success",
-          failUrl: window.location.origin + "/fail",
-          customerEmail: "customer123@gmail.com",
-          customerName: "김토스",
-          customerMobilePhone: "01012341234",
-          foreignEasyPay: {
-            provider: "PAYPAL", // PayPal 결제
-            country: "KR",
-          },
-        });
+//       case "FOREIGN_EASY_PAY":
+//         await payment.requestPayment({
+//           method: "FOREIGN_EASY_PAY", // 해외 간편결제
+//           amount: {
+//             value: 100,
+//             currency: "USD",
+//           },
+//           orderId: generateRandomString(),
+//           orderName: "토스 티셔츠 외 2건",
+//           successUrl: window.location.origin + "/payment/success",
+//           failUrl: window.location.origin + "/fail",
+//           customerEmail: "customer123@gmail.com",
+//           customerName: "김토스",
+//           customerMobilePhone: "01012341234",
+//           foreignEasyPay: {
+//             provider: "PAYPAL", // PayPal 결제
+//             country: "KR",
+//           },
+//         });
     }
   }
 
-  async function requestBillingAuth() {
-    await payment.requestBillingAuth({
-      method: "CARD", // 자동결제(빌링)은 카드만 지원합니다
-      successUrl: window.location.origin + "/payment/billing", // 요청이 성공하면 리다이렉트되는 URL
-      failUrl: window.location.origin + "/fail", // 요청이 실패하면 리다이렉트되는 URL
-      customerEmail: "customer123@gmail.com",
-      customerName: "김토스",
-    });
-  }
+//   async function requestBillingAuth() {
+//     await payment.requestBillingAuth({
+//       method: "CARD", // 자동결제(빌링)은 카드만 지원합니다
+//       successUrl: window.location.origin + "/payment/billing", // 요청이 성공하면 리다이렉트되는 URL
+//       failUrl: window.location.origin + "/fail", // 요청이 실패하면 리다이렉트되는 URL
+//       customerEmail: "customer123@gmail.com",
+//       customerName: "김토스",
+//     });
+//   }
 
   return (
     <div className="wrapper">
@@ -186,20 +186,20 @@ export function PaymentCheckoutPage() {
           >
             문화상품권
           </button>
-          <button id="FOREIGN_EASY_PAY" className={`button2 ${selectedPaymentMethod === "FOREIGN_EASY_PAY" ? "active" : ""}`} onClick={() => selectPaymentMethod("FOREIGN_EASY_PAY")}>
+          {/* <button id="FOREIGN_EASY_PAY" className={`button2 ${selectedPaymentMethod === "FOREIGN_EASY_PAY" ? "active" : ""}`} onClick={() => selectPaymentMethod("FOREIGN_EASY_PAY")}>
             해외간편결제
-          </button>
+          </button> */}
         </div>
         <button className="button" onClick={() => requestPayment()}>
           결제하기
         </button>
       </div>
-      <div className="box_section">
+      {/* <div className="box_section">
         <h1>정기 결제</h1>
         <button className="button" onClick={() => requestBillingAuth()}>
           빌링키 발급하기
         </button>
-      </div>
+      </div> */}
     </div>
   );
 }

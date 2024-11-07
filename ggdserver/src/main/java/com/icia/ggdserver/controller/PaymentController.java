@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -33,7 +34,7 @@ public class PaymentController {
         try {
             // 클라이언트에서 받은 JSON 요청 바디입니다.
             JSONObject requestData = (JSONObject) parser.parse(jsonBody);
-            paymentKey = (String) requestData.get("paymentKey");
+            paymentKey = (String) requestData.get("aymentKey");
             orderId = (String) requestData.get("orderId");
             amount = (String) requestData.get("amount");
         } catch (ParseException e) {
@@ -73,5 +74,23 @@ public class PaymentController {
         responseStream.close();
 
         return ResponseEntity.status(code).body(jsonObject);
+    }
+
+    @RequestMapping(value = "/widget/widsuccess", method = RequestMethod.GET)
+    public String widSuccess(
+            @RequestParam("paymentType") String paymentType,
+            @RequestParam("orderId") String orderId,
+            @RequestParam("paymentKey") String paymentKey,
+            @RequestParam("amount") String amount,
+            Model model) {
+
+        // 성공 페이지에 필요한 데이터를 모델에 추가
+        model.addAttribute("paymentType", paymentType);
+        model.addAttribute(" orderId", orderId);
+        model.addAttribute("paymentKey", paymentKey);
+        model.addAttribute(" amount", amount);
+
+        // 성공 페이지를 반환
+        return "success"; // "success"는 보여줄 HTML 파일 이름입니다.
     }
 }

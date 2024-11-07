@@ -2,10 +2,7 @@ package com.icia.ggdserver.entity;
 
 import java.time.LocalDateTime;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
@@ -13,15 +10,14 @@ import lombok.Data;
 @Data
 public class PaymentTbl {
     @Id
-    // @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long payid;
 
-    private String oderId;
+    private String orderId;
 
     private String amount;
 
     private String paymentKey;
 
     private LocalDateTime paymentDate;
-
 }

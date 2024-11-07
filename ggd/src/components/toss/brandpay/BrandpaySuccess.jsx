@@ -9,8 +9,8 @@ export function BrandpaySuccessPage() {
   useEffect(() => {
     async function confirm() {
       const requestData = {
-        orderId: searchParams.get("orderId"),
-        amount: searchParams.get("amount"),
+        orderId: searchParams.get(" orderId"),
+        amount: searchParams.get(" amount"),
         paymentKey: searchParams.get("paymentKey"),
         customerKey: searchParams.get("customerKey"),
       };

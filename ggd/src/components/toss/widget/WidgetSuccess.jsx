@@ -14,7 +14,7 @@ export function WidgetSuccessPage() {
         paymentKey: searchParams.get("paymentKey"),
       };
 
-      const response = await fetch("/api/confirm/widget", {
+      const response = await fetch("/widsuccess", { // /success
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -36,6 +36,7 @@ export function WidgetSuccessPage() {
         setResponseData(data);
       })
       .catch((error) => {
+        console.error("Error during confirmation:", error);
         navigate(`/fail?code=${error.code}&message=${error.message}`);
       });
   }, [searchParams]);

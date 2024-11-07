@@ -9,8 +9,8 @@ export function PaymentSuccessPage() {
   useEffect(() => {
     async function confirm() {
       const requestData = {
-        orderId: searchParams.get("orderId"),
-        amount: searchParams.get("amount"),
+        payorderId: searchParams.get("orderId"),
+        payamount: searchParams.get("amount"),
         paymentKey: searchParams.get("paymentKey"),
       };
 
