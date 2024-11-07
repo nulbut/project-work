@@ -34,8 +34,9 @@ public class IdealWorldCupController {
     public Map<String, Object> getList( @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
                                         @RequestParam(value = "searchKeyword", defaultValue = "") String searchKeyword,
                                         @RequestParam(value = "timeRange", defaultValue = "") String timeRange,
-                                        @RequestParam(value = "sortBy", defaultValue = "") String sortBy){
-        log.info("getList() - {}", pageNum);
+                                        @RequestParam(value = "sortBy", defaultValue = "") String sortBy,
+                                        @RequestParam(value = "nid", defaultValue = "") String nid){
+        log.info("getList() - {} {}", pageNum,nid);
 
         Map<String, Object> res = iwcServ.getBoardList(pageNum, searchKeyword, timeRange, sortBy);
 

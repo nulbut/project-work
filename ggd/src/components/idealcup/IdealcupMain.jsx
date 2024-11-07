@@ -39,7 +39,7 @@ const IdealcupMain = () => {
   const [sortBy, setSortBy] = useState("popularity"); // 조회순, 최신순, 인기순
   const observerRef = useRef();
   const nav = useNavigate();
-
+  console.log(sessionStorage.getItem("nid"));
   const fetchGoods = async (inpage) => {
     console.log("패치굿즈");
     //중복호출 제거
@@ -52,6 +52,7 @@ const IdealcupMain = () => {
         searchKeyword: searchKeyword,
         timeRange: timeRange,
         sortBy: sortBy,
+        nid: sessionStorage.getItem("nid"),
       };
 
       axios
@@ -126,6 +127,23 @@ const IdealcupMain = () => {
   };
   console.log(sortBy, timeRange, searchKeyword);
   console.log(games);
+
+  const handleLikeClick = async (gameId, currentLikes) => {
+    try {
+      const res = await axios.get("/likeClicked", { gameId });
+      if (res.status === 200) {
+        setGames((prevGames) =>
+          prevGames.map((game) =>
+            game.iwcCode === gameId
+              ? { ...game, iwcLikes: currentLikes + 1 }
+              : game
+          )
+        );
+      }
+    } catch (error) {
+      console.error("Error updating like", error);
+    }
+  };
   return (
     <div className="idealmain">
       <div className="search-filter-container">
@@ -238,8 +256,10 @@ const IdealcupMain = () => {
             <p className="product-body">
               {df(item.iwcDate)}{" "}
               <h3>
-                <div>
-                  <FontAwesomeIcon icon={faHeart} />
+                <div
+                  onClick={() => handleLikeClick(item.iwcCode, item.iwcLikes)}
+                >
+                  <FontAwesomeIcon icon={faHeart} /> {item.iwcLikes}
                 </div>
                 <div>
                   <FontAwesomeIcon icon={faCircleExclamation} />

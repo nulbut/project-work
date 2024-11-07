@@ -5,6 +5,7 @@ import com.icia.ggdserver.dto.TurnImgDto;
 import com.icia.ggdserver.entity.IwcContentsTbl;
 import com.icia.ggdserver.entity.IwcTbl;
 import com.icia.ggdserver.repository.IwcContentsRepository;
+import com.icia.ggdserver.repository.IwcLikeRepository;
 import com.icia.ggdserver.repository.IwcTblRepository;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
@@ -30,6 +31,9 @@ public class IdealWorldCupService {
 
     @Autowired
     private IwcContentsRepository conRepo;
+
+    @Autowired
+    private IwcLikeRepository likeRepo;
 
     public String insertIwc(IwcTbl iwc,
                               List<MultipartFile> files,
