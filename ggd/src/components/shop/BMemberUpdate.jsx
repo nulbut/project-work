@@ -1,105 +1,112 @@
-import axios from 'axios';
+import axios from "axios";
 import Button from "./Button";
-import React, { useCallback, useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-
+import React, { useCallback, useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const BMemberUpdate = () => {
-    const nav = useNavigate();
-    //아이디 받아오기
-    const { state } = useLocation();
-    const { bid } = state;
+  const nav = useNavigate();
+  //아이디 받아오기
+  const { state } = useLocation();
+  const { bid } = state;
 
-    
+  console.log(bid);
 
-    console.log(bid);
-
-    const [bmemberInfo, setBmemberInfo] = useState({
-        bid : bid,
-        bcname: "",
-        bcnum : "",
-       bttype : "",
-       bbreality : "",
-       bbtype : "",
-       bemail : "",
+  const [bmemberInfo, setBmemberInfo] = useState({
+    bid: bid,
+    bcname: "",
+    bcnum: "",
+    bttype: "",
+    bbreality: "",
+    bbtype: "",
+    bemail: "",
     //    baddress : "",
-       bname : "",
-       bbday : "",
-       bphonenum : "",
-       bbanknum : "",
-       bbaccunt : "",
-       bmname : "",
-       bmphonenum : "",
-       bmemail : "",
-    });
+    bname: "",
+    bbday: "",
+    bphonenum: "",
+    bbanknum: "",
+    bbaccunt: "",
+    bmname: "",
+    bmphonenum: "",
+    bmemail: "",
+  });
 
-    const {
-        bcname,
-        bcnum,
-        bttype,
-        bbreality,
-        bbtype,
-        bemail,
-        // baddress,
-        bname,
-        bbday,
-        bphonenum,
-        bbanknum,
-        bbaccunt,
-        bmname,
-        bmphonenum,
-        bmemail,
+  const {
+    bcname,
+    bcnum,
+    bttype,
+    bbreality,
+    bbtype,
+    bemail,
+    // baddress,
+    bname,
+    bbday,
+    bphonenum,
+    bbanknum,
+    bbaccunt,
+    bmname,
+    bmphonenum,
+    bmemail,
+  } = bmemberInfo;
 
-    } = bmemberInfo;
+  //서버로부터 회원 정보 받아오기
+  useEffect(() => {
+    axios
+      .get("/getBMemeber", { params: { bid: bid } })
+      .then((res) => {
+        setBmemberInfo(res.data);
+        // console.log(res.data);
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
-    //서버로부터 회원 정보 받아오기 
-    useEffect(() => {
-        axios  
-            .get("/getBMemeber", { params : {bid : bid}})
-            .then((res) => {
-                setBmemberInfo(res.data);
-                console.log(res.data);
-            })
-            .catch((err) => console.log(err));
-    }, []);
+  const onch = useCallback(
+    (e) => {
+      const bmemberObj = {
+        ...bmemberInfo,
+        [e.target.name]: e.target.value,
+      };
+      setBmemberInfo(bmemberObj);
+    },
+    [bmemberInfo]
+  );
 
+  const onWrite = useCallback(
+    (e) => {
+      e.preventDefault(); //페이지 변환 방지하는 함수
 
-    const onch = useCallback(
-        (e) => {
-            const bmemberObj = {
-                ...bmemberInfo,
-                [e.target.name]: e.target.value,
-            };
-            setBmemberInfo(bmemberObj);
-        },
-        [bmemberInfo]
-    );
+      const bmemberformData = new FormData();
+      console.log(bmemberformData);
 
-    const onWrite = useCallback(
-        (e) => {
-            e.preventDefault();//페이지 변환 방지하는 함수 
+      bmemberformData.append(
+        "bmemberInfo",
+        new Blob([JSON.stringify(bmemberInfo)], { type: "application/json" })
+      );
 
-            axios
-                .post("/bmemberwriteProc",{param : {bid : bid}})
-                .then((res) => {
-                    if(res.data === "ok") {
-                        alert("회원정보 수정 성공");
-                        nav("/bmemberview",sessionStorage.setItem("bid",res.data.bid))
-                    } else {
-                        alert("수정 실패");
-                    }
-                })
-                .catch((err) => {
-                    alert("수정 에러");
-                    console.log(err);
-                });
-        },
-        [bmemberInfo]
-    );
+      for (let key of bmemberformData.keys()) {
+        console.log(key);
+      }
 
-    return (
-        <div>
-            <form className="content" onSubmit={onWrite}>
+      axios
+        .post("/bmemberwriteProc", bmemberformData)
+        .then((res) => {
+          if (res.data === "ok") {
+            alert("회원정보 수정 성공");
+            nav("/bmemberview", { state: { bid: bid } });
+          } else {
+            alert("수정 실패");
+          }
+        })
+        .catch((err) => {
+          alert("수정 에러");
+          console.log(err);
+        });
+    },
+    [bmemberInfo]
+  );
+
+  return (
+    <div>
+      <form className="content" onSubmit={onWrite}>
         <h1>JOIN</h1>
         <div className="essential">
           <p>* 표시 필수 입력</p>
@@ -109,7 +116,7 @@ const BMemberUpdate = () => {
           <input
             placeholder="사업자 상호 입력"
             className="input"
-            name='bcname'
+            name="bcname"
             value={bcname}
             onChange={onch}
             autoFocus
@@ -126,25 +133,24 @@ const BMemberUpdate = () => {
           <input
             placeholder="'000-00-00000'형식의 사업자등록번호를 입력해주세요."
             className="input"
-            name='bcnum'
+            name="bcnum"
             value={bcnum}
             onChange={onch}
             autoFocus
             required
-            
           />
         </div>
         <div className="taxationtype">
           <p>과세유형 *</p>
           <select
-            name='bttype'
+            name="bttype"
             value={bttype}
             onChange={onch}
             autoFocus
             required
           >
-            <option value={1}>일반 과세자</option>
-            <option value={2}>간이 과세자</option>
+            <option value={"일반 과세자"}>일반 과세자</option>
+            <option value={"간이 과세자"}>간이 과세자</option>
           </select>
         </div>
         <div className="breality">
@@ -152,20 +158,19 @@ const BMemberUpdate = () => {
           <input
             placeholder="업태 입력"
             className="input"
-            name='bbreality'
+            name="bbreality"
             value={bbreality}
             onChange={onch}
             autoFocus
             required
           />
-         
         </div>
         <div className="btype">
           <p>업종 *</p>
           <input
             placeholder="업종 입력"
             className="input"
-            name='bbtype'
+            name="bbtype"
             value={bbtype}
             onChange={onch}
             autoFocus
@@ -177,7 +182,7 @@ const BMemberUpdate = () => {
           <input
             placeholder="you@example.com"
             className="input"
-            name='bemail'
+            name="bemail"
             value={bemail}
             onChange={onch}
             autoFocus
@@ -214,7 +219,7 @@ const BMemberUpdate = () => {
           <input
             placeholder="대표자 이름"
             className="input"
-            name='bname'
+            name="bname"
             value={bname}
             onChange={onch}
             autoFocus
@@ -227,7 +232,7 @@ const BMemberUpdate = () => {
             type="date"
             className="input"
             placeholder="YYYY-MM-DD"
-            name='bbday'
+            name="bbday"
             value={bbday}
             onChange={onch}
             autoFocus
@@ -239,7 +244,7 @@ const BMemberUpdate = () => {
           <input
             className="input"
             placeholder="'010-1234-5678' 형식으로 입력 해주세요."
-            name='bphonenum'
+            name="bphonenum"
             value={bphonenum}
             onChange={onch}
             autoFocus
@@ -249,47 +254,47 @@ const BMemberUpdate = () => {
         <div className="banknum">
           <p>정산 입금계좌 *</p>
           <select
-            name='bbanknum'
+            name="bbanknum"
             value={bbanknum}
             onChange={onch}
             autoFocus
             required
           >
             <option value={""}>은행선택</option>
-            <option value={1}>KB국민은행</option>
-            <option value={2}>신한은행</option>
-            <option value={3}>우리은행</option>
-            <option value={4}>KEB하나은행</option>
-            <option value={5}>부산은행</option>
-            <option value={6}>경남은행</option>
-            <option value={7}>대구은행</option>
-            <option value={8}>광주은행</option>
-            <option value={9}>전북은행</option>
-            <option value={10}>제주은행</option>
-            <option value={11}>SC제일은행</option>
-            <option value={12}>씨티은행</option>
-            <option value={13}>토스뱅크</option>
-            <option value={14}>케이뱅크</option>
-            <option value={15}>카카오뱅크</option>
+            <option value={"KB국민은행"}>KB국민은행</option>
+            <option value={"신한은행"}>신한은행</option>
+            <option value={"우리은행"}>우리은행</option>
+            <option value={"KEB하나은행"}>KEB하나은행</option>
+            <option value={"부산은행"}>부산은행</option>
+            <option value={"경남은행"}>경남은행</option>
+            <option value={"대구은행"}>대구은행</option>
+            <option value={"광주은행"}>광주은행</option>
+            <option value={"전북은행"}>전북은행</option>
+            <option value={"제주은행"}>제주은행</option>
+            <option value={"SC제일은행"}>SC제일은행</option>
+            <option value={"씨티은행"}>씨티은행</option>
+            <option value={"토스뱅크"}>토스뱅크</option>
+            <option value={"케이뱅크"}>케이뱅크</option>
+            <option value={"카카오뱅크"}>카카오뱅크</option>
           </select>
           <p>
             <input
               placeholder='"-"제외 입력'
               className="input"
-              name='bbaccunt'
-            value={bbaccunt}
-            onChange={onch}
-            autoFocus
-            required
+              name="bbaccunt"
+              value={bbaccunt}
+              onChange={onch}
+              autoFocus
+              required
             />
           </p>
         </div>
         <div className="managername">
           <p>담당자 이름</p>
-          <input 
-          placeholder="담당자 이름"
-          className="input"
-              name='bmname'
+          <input
+            placeholder="담당자 이름"
+            className="input"
+            name="bmname"
             value={bmname}
             onChange={onch}
             autoFocus
@@ -301,7 +306,7 @@ const BMemberUpdate = () => {
           <input
             className="input"
             placeholder="'010-1234-5678' 형식으로 입력 해주세요."
-            name='bmphonenum'
+            name="bmphonenum"
             value={bmphonenum}
             onChange={onch}
             autoFocus
@@ -312,7 +317,7 @@ const BMemberUpdate = () => {
           <p>담당자 Email</p>
           <input
             placeholder="you@example.com"
-            name='bmemail'
+            name="bmemail"
             value={bmemail}
             onChange={onch}
             autoFocus
@@ -352,8 +357,8 @@ const BMemberUpdate = () => {
           <Button type="submit">회원정보 수정</Button>
         </div>
       </form>
-        </div>
-    );
+    </div>
+  );
 };
 
 export default BMemberUpdate;

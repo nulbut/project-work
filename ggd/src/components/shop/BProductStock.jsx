@@ -93,7 +93,7 @@ const BProductStock = () => {
     BproductList = Object.values(bbitem).map((bbitem) => (
       <TableRow key={bbitem.bpnum}>
         <TableColumn wd={"w-10"}>{bbitem.bpnum}</TableColumn>
-        <TableColumn wd={"w-40"}>
+        <TableColumn wd={"w-30"}>
           <div>
             <img
               className="img"
@@ -102,10 +102,11 @@ const BProductStock = () => {
             <div onClick={() => getBboard(bbitem.bpnum)}>{bbitem.bpname}</div>
           </div>
         </TableColumn>
-        <TableColumn wd={"w-20"}>{bn(bbitem.bpwarestock)}</TableColumn>
+        <TableColumn wd={"w-10"}>{bn(bbitem.bpwarestock)}</TableColumn>
         <TableColumn wd={"w-10"}>{testnum}</TableColumn>
         <TableColumn wd={"w-10"}>{bbitem.bpwarestock - testnum}</TableColumn>
         <TableColumn wd={"w-10"}>{bbitem.bpwarestocklimt}</TableColumn>
+        <TableColumn wd={"w-20"}>판매중 or 품절</TableColumn>
       </TableRow>
     ));
 
@@ -158,6 +159,7 @@ const BProductStock = () => {
             "주문대기",
             "가재고",
             "통보수량",
+            "상태",
           ]}
         >
           {BproductList}

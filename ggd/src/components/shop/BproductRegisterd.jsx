@@ -157,9 +157,7 @@ const BproductRegisterd = () => {
         </TableColumn>
         <TableColumn wd={"w-10"}>{bn(bbitem.bpprice)}</TableColumn>
         <TableColumn wd={"w-10"}>{bn(bbitem.bpwarestock)}</TableColumn>
-        <TableColumn wd={"w-10"}>
-          <input className="Input" type="checkbox" />
-        </TableColumn>
+        <TableColumn wd={"w-10"}>판매중 or 품절</TableColumn>
         <TableColumn wd={"w-20"}>{bf(bbitem.bpsigndt)}</TableColumn>
       </TableRow>
     ));
@@ -205,7 +203,7 @@ const BproductRegisterd = () => {
             "상품명",
             "가격",
             "재고",
-            "품절",
+            "상태",
             "등록일",
             "관리",
           ]}

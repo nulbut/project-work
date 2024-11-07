@@ -21,7 +21,8 @@ const BMemberPasswordCheck = () => {
       .post("/bloginproc", bform)
       .then((res2) => {
         if (res2.data.res2 === "ok") {
-          nav("/bmemberview", sessionStorage.setItem("bid", res2.data.id));
+          // sessionStorage.setItem("bid", res2.data.bid);
+          nav("/bmemberview");
         } else {
           alert("비밀번호 다시 확인해주세요.");
         }

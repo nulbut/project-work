@@ -175,7 +175,6 @@ const JoinB = () => {
     <div className="join">
       <form className="content" onSubmit={handleSubmit(onBSubmit)}>
         <input type="hidden" value={2} {...register("bmnum")} />
-        <input type="hidden" value={formattedDate} {...register("bsigndt")} />
         <input type="hidden" value={1} {...register("bstatus")} />
         <h1>JOIN</h1>
         <div className="essential">
@@ -229,8 +228,8 @@ const JoinB = () => {
               },
             })}
           >
-            <option value={1}>일반 과세자</option>
-            <option value={2}>간이 과세자</option>
+            <option value={"일반 과세자"}>일반 과세자</option>
+            <option value={"간이 과세자"}>간이 과세자</option>
           </select>
           <span className="error">{errors?.bttype?.message}</span>
         </div>
@@ -409,21 +408,21 @@ const JoinB = () => {
             })}
           >
             <option value={""}>은행선택</option>
-            <option value={1}>KB국민은행</option>
-            <option value={2}>신한은행</option>
-            <option value={3}>우리은행</option>
-            <option value={4}>KEB하나은행</option>
-            <option value={5}>부산은행</option>
-            <option value={6}>경남은행</option>
-            <option value={7}>대구은행</option>
-            <option value={8}>광주은행</option>
-            <option value={9}>전북은행</option>
-            <option value={10}>제주은행</option>
-            <option value={11}>SC제일은행</option>
-            <option value={12}>씨티은행</option>
-            <option value={13}>토스뱅크</option>
-            <option value={14}>케이뱅크</option>
-            <option value={15}>카카오뱅크</option>
+            <option value={"KB국민은행"}>KB국민은행</option>
+            <option value={"신한은행"}>신한은행</option>
+            <option value={"우리은행"}>우리은행</option>
+            <option value={"KEB하나은행"}>KEB하나은행</option>
+            <option value={"부산은행"}>부산은행</option>
+            <option value={"경남은행"}>경남은행</option>
+            <option value={"대구은행"}>대구은행</option>
+            <option value={"광주은행"}>광주은행</option>
+            <option value={"전북은행"}>전북은행</option>
+            <option value={"제주은행"}>제주은행</option>
+            <option value={"SC제일은행"}>SC제일은행</option>
+            <option value={"씨티은행"}>씨티은행</option>
+            <option value={"토스뱅크"}>토스뱅크</option>
+            <option value={"케이뱅크"}>케이뱅크</option>
+            <option value={"카카오뱅크"}>카카오뱅크</option>
           </select>
           <span className="error">{errors?.bbanknum?.message}</span>
           <p>
