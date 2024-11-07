@@ -22,7 +22,7 @@ const DmList = () => {
 
   const getdList = (pnum) => {
     axios
-      .get("admin/dm", { params: { pageNum: pnum } })
+      .get("/admin/dm", { params: { pageNum: pnum } })
       .then((res) => {
         const { dList, totalPage, pageNum } = res.data;
         setPage({ totalPage: totalPage, pageNum: pageNum });

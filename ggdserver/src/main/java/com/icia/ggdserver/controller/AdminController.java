@@ -113,6 +113,18 @@ public class AdminController {
         return aServ.getReport(rNum);
     }
 
+    @GetMapping("/dm")
+    public Map<String, Object> getDmList(@RequestParam Integer pageNum){
+        log.info("getDList()");
 
+        Map<String, Object> res = aServ.getDList(pageNum);
+        return res;
+    }
+
+    @GetMapping("/getDm")
+    public DmsgTbl getDm(@RequestParam long dnum){
+        log.info("getDm()");
+        return aServ.getDmList(dnum);
+    }
 
 }
