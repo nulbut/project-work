@@ -21,10 +21,9 @@ const Header = ({ lstate, onLogout }) => {
     //메뉴
     {
       name: (
-        <div>
+        <div className="logo">
           <h2>
-            GooseGoodsDuck's {"  "}
-            <img src={logo} />
+            GooseGoodsDuck's <img src={logo} />
           </h2>
         </div>
       ),
@@ -193,82 +192,64 @@ const Header = ({ lstate, onLogout }) => {
     },
   ];
 
-  // let Category = null;
-
-  // if (categoryitem.length === 0) {
-  //   Category = (
-  //     <ShopCategoryRow key={0}>
-  //       <ShopCategoryColum span={6}></ShopCategoryColum>
-  //     </ShopCategoryRow>
-  //   );
-  // } else {
-  //   Category = Object.values(categoryitem).map((item) =>(
-  //     <ShopCategoryRow key={item.CategoryCode}>
-  //       <ShopCategoryColum wd="w-10">{item.CategoryCode}</ShopCategoryColum>
-  //       <ShopCategoryColum wd="w-10">{item.CategoryCode}</ShopCategoryColum>
-  //       <ShopCategoryColum wd="w-10">{item.CategoryCode}</ShopCategoryColum>
-  //       <ShopCategoryColum wd="w-10">{item.CategoryCode}</ShopCategoryColum>
-  //       <ShopCategoryColum wd="w-10">{item.CategoryCode}</ShopCategoryColum>
-  //       <ShopCategoryColum wd="w-10">{item.CategoryCode}</ShopCategoryColum>
-  //     </ShopCategoryRow>
-  //   ))
-  // }
-
   return (
     <div className="Header">
-      {menus.map((menu, index) => {
-        return menu.sub == 0 ? (
-          <Link className="Content" to={menu.path} key={index}>
-            <div className="Icon">{menu.icon}</div>
-            {menu.name}
-          </Link>
-        ) : menu.sub == 2 ? (
-          <Link className="Content-sub" to={menu.path} key={index}>
-            <div className="Icon">{menu.icon}</div>
-            <div>
-              {Categotry.map((sub2, idx2) => {
-                return (
-                  <Link className="Sub" to={sub2.path} key={idx2}>
-                    {sub2.name}
-                  </Link>
-                );
-              })}
-            </div>
-          </Link>
-        ) : (
-          <Link className="Content-sub" to={menu.path} key={index}>
-            <div>
+      <div>
+        {menus.map((menu, index) => {
+          return menu.sub == 0 ? (
+            <Link className="Content" to={menu.path} key={index}>
+              <div className="Icon">{menu.icon}</div>
               {menu.name}
-              {submenus.map((sub, idx) => {
-                return (
-                  <Link className="Sub" to={sub.path} key={idx}>
-                    {sub.name}
-                  </Link>
-                );
-              })}
-            </div>
-          </Link>
-        );
-      })}
-
-      <div className="input">
-        <input type="text" placeholder="검색" />
-        <button>
-          <i>
-            <FontAwesomeIcon icon={faMagnifyingGlass} />
-          </i>
-        </button>
-      </div>
-
-      <div className="rightContent">
-        {menus2.map((menu2, index2) => {
-          return (
-            <Link className="Content2" to={menu2.path} key={index2}>
-              <div className="Icon2">{menu2.icon}</div>
-              {menu2.name}
+            </Link>
+          ) : menu.sub == 2 ? (
+            <Link className="Content-sub" to={menu.path} key={index}>
+              <div className="Icon">{menu.icon}</div>
+              <div>
+                {Categotry.map((sub2, idx2) => {
+                  return (
+                    <Link className="Sub" to={sub2.path} key={idx2}>
+                      {sub2.name}
+                    </Link>
+                  );
+                })}
+              </div>
+            </Link>
+          ) : (
+            <Link className="Content-sub" to={menu.path} key={index}>
+              <div>
+                {menu.name}
+                {submenus.map((sub, idx) => {
+                  return (
+                    <Link className="Sub" to={sub.path} key={idx}>
+                      {sub.name}
+                    </Link>
+                  );
+                })}
+              </div>
             </Link>
           );
         })}
+      </div>
+      <div className="rightHeader">
+        <div className="input">
+          <input type="text" placeholder="검색" />
+          <div className="button-header-icon">
+            <i>
+              <FontAwesomeIcon icon={faMagnifyingGlass} />
+            </i>
+          </div>
+        </div>
+
+        <div className="rightContent">
+          {menus2.map((menu2, index2) => {
+            return (
+              <Link className="Content2" to={menu2.path} key={index2}>
+                <div className="Icon2">{menu2.icon}</div>
+                {menu2.name}
+              </Link>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

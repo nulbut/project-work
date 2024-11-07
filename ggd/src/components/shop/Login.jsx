@@ -82,11 +82,11 @@ const Login = ({ sucLogin }) => {
 
   return (
     <div className="login">
-      <div className="head">
+      <div className="head-login">
         <h1>LOGIN</h1>
         <br />
       </div>
-      <form className="content" onSubmit={handleSubmit(sendLogin)}>
+      <form className="content-login" onSubmit={handleSubmit(sendLogin)}>
         <div className="id">
           <p>ID</p>
           <input

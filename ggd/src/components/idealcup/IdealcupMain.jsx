@@ -102,11 +102,12 @@ const IdealcupMain = () => {
     setSearchKeyword(e.target.value);
   }; //onch는 문제가 있어보임
 
-  const handleSearch = () => {
+  const handleSearch = useCallback((e) => {
+    e.preventDefault();
     setGames([]); // 게임 목록 초기화
     setPageParams([]); // 페이지 파라미터 초기화
     setPage((prev) => ({ ...prev, pageNum: 1 })); // 페이지를 첫 번째 페이지로 리셋
-  };
+  }, []);
 
   // 정렬 기준 변경 핸들러
   const handleSortChange = (value) => {
@@ -178,17 +179,18 @@ const IdealcupMain = () => {
           </div>
         </div>
         <div>
-          <input
-            type="text"
-            placeholder="월드컵 제목 또는 월드컵 설명으로 검색하세요"
-            value={searchKeyword}
-            onChange={handleSearchChange}
-            onKeyDown={handleSearch}
-            className="search-input"
-          />
-          <button className="search-button" onClick={handleSearch}>
-            검색
-          </button>
+          <form onSubmit={handleSearch}>
+            <input
+              type="text"
+              placeholder="월드컵 제목 또는 월드컵 설명으로 검색하세요"
+              value={searchKeyword}
+              onChange={handleSearchChange}
+              className="search-input"
+            />
+            <button type="submit" className="search-button">
+              검색
+            </button>
+          </form>
         </div>
       </div>
 
