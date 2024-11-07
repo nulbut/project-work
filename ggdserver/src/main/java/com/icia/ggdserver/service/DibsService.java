@@ -36,7 +36,7 @@ public class DibsService {
     @Autowired
     private ProductTblRepository pdRepo;
 
-
+    // 찜 한 데이터
     public Map<String, Object> getDibsList(Integer pageNum, String dnid) {
         log.info("getDibsList() dnid: {} ", dnid);
 
@@ -79,16 +79,43 @@ public class DibsService {
 
         return res;
     }
-    public String getDibs(String dnid, Long usedCode) {
+    // 상품 찜 하기
+    public String getDibs(String dnid, Long productCode) {
         try {
-            if (usedCode == null || dnid == null) {
-                return "error: Missing required parameter"; // 필수 파라미터가 없는 경우
+            if (productCode == null || dnid == null) {
+                return "error: 상품이나 아이디가 없습니다."; // 필수 파라미터가 없는 경우
             }
 
-            // 중고 상품에 대한 찜 처리
+            // 중고 상품에 대한 찜 중복 처리
+            DibsTbl existingDibs = dRepo.findByDnidAndUsedCode(dnid, productCode);
+            if (existingDibs != null) {
+                return "이미 찜한 상품입니다."; // 이미 찜한 중고 상품
+            }
+
+            DibsTbl dibsItem = new DibsTbl();
+            dibsItem.setDnid(dnid);
+            dibsItem.setProductCode(productCode); // 중고 상품 코드 설정
+            dRepo.save(dibsItem);
+            return "ok"; // 중고 상품 찜 성공
+        } catch (Exception e) {
+            log.error("Error while adding dibs for dnid {} and productCode {}: {}", dnid, productCode, e.getMessage());
+            return "error: 찜하기가 안됬습니다.";
+        }
+    }
+
+
+
+
+    public String getUsedDibs(String dnid, Long usedCode) {
+        try {
+            if (usedCode == null || dnid == null) {
+                return "error: 상품이나 아이디가 없습니다."; // 필수 파라미터가 없는 경우
+            }
+
+            // 중고 상품에 대한 찜 중복 처리
             DibsTbl existingDibs = dRepo.findByDnidAndUsedCode(dnid, usedCode);
             if (existingDibs != null) {
-                return "already exists"; // 이미 찜한 중고 상품
+                return "이미 찜한 상품입니다."; // 이미 찜한 중고 상품
             }
 
             DibsTbl dibsItem = new DibsTbl();
@@ -98,15 +125,14 @@ public class DibsService {
             return "ok"; // 중고 상품 찜 성공
         } catch (Exception e) {
             log.error("Error while adding dibs for dnid {} and usedCode {}: {}", dnid, usedCode, e.getMessage());
-            return "error: An error occurred while adding the dibs item.";
+            return "error: 찜하기가 안됬습니다.";
         }
     }
-
-
 
     public void deletMultioleDibss(List<Long> dibsCodes) {
         if(dibsCodes != null && !dibsCodes.isEmpty()) {
             dRepo.deleteAllById(dibsCodes);
         }
     }
+
 }

@@ -1,6 +1,9 @@
 package com.icia.ggdserver.controller;
 
+import com.icia.ggdserver.entity.CartTbl;
+import com.icia.ggdserver.repository.CartRepository;
 import com.icia.ggdserver.service.CartService;
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,12 +18,25 @@ public class CartController {
     @Autowired
     private CartService cServ;
 
+    @Autowired
+    private HttpSession session; // HttpSession을 주입받습니다.
+
     // 장바구니 목록 가져오기
     @GetMapping("cartlist")
     public Map<String, Object> getCartList(@RequestParam(required = false, defaultValue = "1") Integer pageNum,
                                            @RequestParam String cnid) {
         log.info("getCartList() - cnid: {}", cnid);
+
         Map<String, Object> res = cServ.getCartList(pageNum, cnid);
+
+        // 세션에서 Reloaded 플래그 확인
+        String reloadFlag = (String) session.getAttribute("Reloaded");
+        if ("true".equals(reloadFlag)) {
+            // 새로고침인 경우 서버에서 수량 초기화
+            cServ.resetCartQuantity(cnid);  // 수량 초기화 처리
+            session.removeAttribute("Reloaded");  // 초기화 후 세션에서 플래그 제거
+        }
+
         return res;
     }
 
@@ -69,4 +85,31 @@ public class CartController {
         // 장바구니에 중고 상품 추가
         return cServ.getUsedCart(cnid, usedCode, usedStock, quantity);
     }
+
+    // 장바구니 수량 저장
+    @PostMapping("updateCart")
+    public String updateCartQuantity(@RequestBody CartTbl cart) {
+        boolean isUpdated = cServ.updateCartQuantity(cart);
+        if (isUpdated) {
+            return "ok";
+        } else {
+            return "fail";
+        }
+    }
+
+    @PostMapping("resetCartQuantity")
+    public String resetCartQuantity(@RequestBody Map<String, String> requestBody) {
+        String cnid = requestBody.get("cnid");
+        log.info("resetCartQuantity() - cnid: {}", cnid);
+
+        // 수량 초기화 처리
+        cServ.resetCartQuantity(cnid);
+
+        // 수량 초기화 후 세션에 플래그 설정
+        session.setAttribute("Reloaded", "true");
+
+        return "ok"; // 초기화 성공
+    }
+
+
 }

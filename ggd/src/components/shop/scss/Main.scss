@@ -119,16 +119,18 @@
   }
 
   .Buttons {
-    width: 80%;
+    width: 50%;
     display: flex;
     justify-content: center;
+    border-radius: 6px;
+    font-size: 1.2em;
 
     div + & {
-      margin-top: 2rem;
+      margin-top: 1.5rem;
     }
 
     input + & {
-      margin-top: 2rem;
+      margin-top: 1.5rem;
     }
   }
 }

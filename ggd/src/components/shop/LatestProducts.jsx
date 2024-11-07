@@ -8,6 +8,7 @@ import TableColumn from "./TableColumn";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBagShopping, faHeart } from "@fortawesome/free-solid-svg-icons";
 import Button from "./Button";
+import { Link } from "react-router-dom";
 
 const df = (date) => moment(date).format("YYYY-MM-DD");
 
@@ -22,7 +23,6 @@ const LatestProducts = () => {
   const [hasNextPage, setHasNextPage] = useState(true);
   const [pageParams, setPageParams] = useState([]);
   const observerRef = useRef();
-  const [quantities, setQuantities] = useState({}); // 각 상품에 대한 수량을 상태로 관리
 
   const sellerId = "sellerId";
   const nav = useNavigate();
@@ -101,6 +101,8 @@ const LatestProducts = () => {
         console.log(res);
         if (res.data === "ok") {
           alert("추가되었습니다.");
+        } else if (res.data === "already exists") {
+          alert("이미 장바구니에 있습니다.");
         } else {
           alert("수량을 초과 하였습니다.");
         }
@@ -128,6 +130,8 @@ const LatestProducts = () => {
         console.log(res);
         if (res.data === "ok") {
           alert("찜목록에 추가되었습니다.");
+        } else if (res.data === "alreadt exists") {
+          alert("이미 찜한 상품입니다.");
         } else {
           alert("실패");
         }
@@ -138,13 +142,6 @@ const LatestProducts = () => {
       });
   };
 
-  const handleQuantityChange = (productCode, value) => {
-    setQuantities((prevQuantities) => ({
-      ...prevQuantities,
-      [productCode]: value,
-    }));
-  };
-
   return (
     <div className="product-list">
       <h2 className="section-title">
@@ -152,8 +149,6 @@ const LatestProducts = () => {
       </h2>
       <div className="product-grid">
         {products.map((item, index) => {
-          const quantity = quantities[item.productCode] || 1; // 각 상품의 수량 관리
-
           return (
             <div key={index} className="product-card">
               <div className="product-image-placeholder">
@@ -164,26 +159,42 @@ const LatestProducts = () => {
                 />
               </div>
               <h3 className="product-title">상품명 : {item.productName} </h3>
-              <p className="product-price">₩{item.sellerPayment}</p>
-              <p className="product-body">{item.productDetail}</p>
-              <div className="product-body">
-                <label>개수: </label>
-                <input
-                  type="number"
-                  min="1"
-                  value={quantity} // 상태값을 input 값으로 설정
-                  onChange={(e) =>
-                    handleQuantityChange(
-                      item.productCode,
-                      parseInt(e.target.value) || 1
-                    )
-                  } // 수량 변경 시 상태 업데이트
-                />
+              <div className="product-price">
+                <strong>가격: </strong>
+                {item.sellerPayment}₩
               </div>
-              <div>
+              <div className="product-quantity">
+                <strong>제품내용: </strong>
+                {item.productDetail}
+              </div>
+              {/* 총 재고 수량을 표시 */}
+              <div className="product-quantity">
+                <strong>총 수량:</strong> {item.productStock || "N/A"}
+              </div>
+              <div className="pruduct-quantity">
+                <strong>등록일: {df(item.productDate)}</strong>
+              </div>
+              <div className="btn-set">
+                <Link to={`/usedproductbuy/${item.usedCode}`}>
+                  <Button wsize="s-25">구매하기</Button>
+                </Link>
+                <Link
+                  to={`/pddetails`}
+                  state={{
+                    code: item.usedCode,
+                    name: item.usedName,
+                    sellerId: item.usedsellerId,
+                    detail: item.usedDetail,
+                    seller: item.usedSeller,
+                    imageNum: item.usedFileSysname,
+                  }}
+                >
+                  <Button wsize="s-25">제품 상세</Button>
+                </Link>
                 <Button
-                  wsize="s-10"
+                  wsize="s-25"
                   onClick={() => {
+                    const quantity = 1; // 예시로 1개를 기본 수량으로 설정
                     cartList(item.productCode, quantity); // 클릭 시 수량 전달
                   }}
                 >
@@ -192,11 +203,7 @@ const LatestProducts = () => {
                     style={{ color: "#000000", fontSize: "1.5em" }}
                   />
                 </Button>
-                <Button
-                  wsize="s-10"
-                  color="black"
-                  onClick={() => dibsList(item.productCode)}
-                >
+                <Button wsize="s-25" onClick={() => dibsList(item.productCode)}>
                   <FontAwesomeIcon
                     icon={faHeart}
                     style={{ color: "#ff0000", fontSize: "1.5em" }}

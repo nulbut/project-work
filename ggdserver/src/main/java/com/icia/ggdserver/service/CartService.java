@@ -8,6 +8,7 @@ import com.icia.ggdserver.repository.ProductTblRepository;
 import com.icia.ggdserver.repository.UsedTblRepository;
 import com.icia.ggdserver.service.ShoppingMallService;
 import com.icia.ggdserver.service.UsedShoppingService;
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -36,8 +37,6 @@ public class CartService {
     @Autowired
     private UsedTblRepository udRepo;
 
-    @Autowired
-    private UsedShoppingService usServ;
 
     // 장바구니 리스트 가져오기
     public Map<String, Object> getCartList(Integer pageNum, String cnid) {
@@ -55,9 +54,9 @@ public class CartService {
         List<CartTbl> Clist = result.getContent();
         int totalPage = result.getTotalPages();
 
+        // 장바구니 항목들에 대한 데이터 추가 처리
         for (CartTbl cartItem : Clist) {
             if (cartItem != null) {
-                // Null이 아니면 처리
                 if (cartItem.getUsedCode() != 0L) {
                     UsedProductTbl usedProduct = udRepo.findById(cartItem.getUsedCode()).orElse(null);
                     if (usedProduct != null) {
@@ -73,7 +72,6 @@ public class CartService {
                 }
             }
         }
-
 
         // 결과 반환
         Map<String, Object> res = new HashMap<>();
@@ -142,4 +140,33 @@ public class CartService {
             cRepo.deleteAllById(cartCodes);  // Repository에서 제공하는 메서드를 사용해 삭제
         }
     }
+
+    //장바구니 수량 업데이트
+    public boolean updateCartQuantity(CartTbl cart) {
+        // 예시: 수량이 1 이상인지 체크
+        if (cart.getQuantity() < 1) {
+            return false;
+        }
+
+        // 해당 cartCode의 장바구니 항목을 찾음
+        CartTbl existingCart = cRepo.findByCartCode(cart.getCartCode());
+        if (existingCart != null) {
+            // 수량 업데이트
+            existingCart.setQuantity(cart.getQuantity());
+            cRepo.save(existingCart);  // 변경된 수량을 DB에 저장
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void resetCartQuantity(String cnid) {
+        List<CartTbl> cartItems = cRepo.findByCnid(cnid);  // 사용자의 장바구니 항목 가져오기
+
+        for (CartTbl cartItem : cartItems) {
+            cartItem.setQuantity(1);  // 수량을 1로 초기화
+            cRepo.save(cartItem);     // 장바구니 항목 업데이트
+        }
+    }
+
 }

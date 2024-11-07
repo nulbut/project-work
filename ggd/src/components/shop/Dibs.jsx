@@ -8,6 +8,8 @@ import TableColumn from "./TableColumn";
 import DibsBoard from "./DibsBoard";
 import Button from "./Button";
 import Paging from "./Paging";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBagShopping } from "@fortawesome/free-solid-svg-icons";
 
 const df = (data) => moment(data).format("YYYY-MM-DD");
 
@@ -84,6 +86,33 @@ const Dibs = () => {
       });
   };
 
+  // 장바구니에 상품을 추가하는 함수
+  const cartList = (ud, quantity) => {
+    console.log(ud);
+    const nid = sessionStorage.getItem("nid");
+    let conf = window.confirm("장바구니에 추가할까요?");
+    if (!conf) {
+      return;
+    }
+
+    axios
+      .get("/setusedcart", {
+        params: { cnid: nid, usedCode: ud, quantity },
+      })
+      .then((res) => {
+        console.log(res);
+        if (res.data === "ok") {
+          alert("추가되었습니다.");
+        } else {
+          alert("수량을 초과 하였습니다.");
+        }
+      })
+      .catch((err) => {
+        alert("돌아가");
+        console.log(err);
+      });
+  };
+
   // 출력할 찜목록 작성
   let dibsList = null;
   if (ditem.length === 0) {
@@ -102,7 +131,15 @@ const Dibs = () => {
             checked={selectedItems.includes(item.dibsCode)} // 선택 여부에 따른 체크 상태
           />
         </TableColumn>
-        <TableColumn wd="10">{item.dibsCode}</TableColumn>
+        <TableColumn wd="10">
+          {item.productinfo ? (
+            <div>신상품</div>
+          ) : item.usedinfo ? (
+            <div>중고상품</div>
+          ) : (
+            ""
+          )}
+        </TableColumn>
         <TableColumn wd="40">
           <div onClick={() => getDibs(item.productCode)}>
             {/* 신상품이 있는 경우 */}
@@ -128,6 +165,20 @@ const Dibs = () => {
             : "가격 정보 없음"}
         </TableColumn>
         <TableColumn wd="20">{df(item.dibsDate)}</TableColumn>
+        <TableColumn wd="5">
+          <Button
+            wsize="s-20"
+            onClick={() => {
+              const quantity = 1; // 예시로 1개를 기본 수량으로 설정
+              cartList(item.usedCode, quantity); // 클릭 시 수량 전달
+            }}
+          >
+            <FontAwesomeIcon
+              icon={faBagShopping}
+              style={{ color: "#000000", fontSize: "1.5em" }}
+            />
+          </Button>
+        </TableColumn>
       </TableRow>
     ));
   }
@@ -140,7 +191,7 @@ const Dibs = () => {
     <div className="Main">
       <div className="Content">
         <h1>찜목록</h1>
-        <DibsBoard dName={["선택", "번호", "상품", "가격", "등록일"]}>
+        <DibsBoard dName={["선택", "구분", "상품", "가격", "등록일"]}>
           {dibsList}
         </DibsBoard>
         <Button size="large" wsize="s-50" onClick={deleteSelectedItems}>
