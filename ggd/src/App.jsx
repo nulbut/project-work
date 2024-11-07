@@ -136,7 +136,7 @@ function App() {
           <Route path="/login" element={<Login sucLogin={sucLogin} />} />
           <Route path="/idpwdfind" element={<IdPasswordFind />} />
           <Route path="/idpwdfind2" element={<IdPasswordFind2 />} />
-          <Route path="changepass" element={<ChangePass />} />
+          <Route path="/changepass" element={<ChangePass />} />
           <Route path="/joinchoice" element={<JoinChoice />} />
           <Route path="/join_n" element={<JoinN />} />
           <Route path="/join_b" element={<JoinB />} />
@@ -159,7 +159,7 @@ function App() {
           <Route path="bmypage" element={<BMypage onLogout={onLogout} />}>
             <Route path="bp0" element={<BMypageView />} />
             <Route path="bp1" element={<BproductRegisterd />} />
-            <Route path="bproductstock" element={<BProductStock/>} />
+            <Route path="bproductstock" element={<BProductStock />} />
             <Route
               path="bmemberpasswordcheck"
               element={<BMemberPasswordCheck />}
@@ -170,10 +170,11 @@ function App() {
           <Route path="/bproductview" element={<BproductView />} />
           <Route path="/bproductupdata" element={<BproductUpdata />} />
           <Route path="/bmemberview" element={<BMemberView />} />
-          <Route path="/bmemberpasswordcheck" element={<BMemberPasswordCheck />} />
+          <Route
+            path="/bmemberpasswordcheck"
+            element={<BMemberPasswordCheck />}
+          />
           <Route path="/bmemberupdate" element={<BMemberUpdate />} />
-          
-          
         </Route>
 
         <Route
