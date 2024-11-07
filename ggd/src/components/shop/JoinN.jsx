@@ -3,6 +3,7 @@ import { replace, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import Button from "./Button";
+import AddressInput from "../AddressInput";
 
 let ck = false; //아이디 중복 체크
 let nck = false;
@@ -120,7 +121,7 @@ const JoinN = () => {
       .then((res) => {
         if ((res.data = "ok")) {
           alert("가입 완료되었습니다.");
-          nav("/login"); //가입 성공 시 로그인 페이지로 이동.
+          // nav("/login"); //가입 성공 시 로그인 페이지로 이동.
         } else {
           alert("가입 실패. 관리자에게 문의해주세요.");
         }
@@ -401,16 +402,15 @@ const JoinN = () => {
           </p>
         </div>
         <div className="address">
-          <p>
-            <input placeholder="우편번호" />
-            <button>아이콘들어갈수있나?</button>
-          </p>
-          <div>
-            <input placeholder="주소 입력" />
-          </div>
-          <div>
-            <input placeholder="상세 주소 입력" />
-          </div>
+          <AddressInput
+            {...register("naddress", {
+              required: {
+                value: true,
+                message: "주소 필수 입력값입니다.",
+              },
+            })}
+          ></AddressInput>
+          <span className="error">{errors?.naddress?.message}</span>
         </div>
         <div className="joinbutton">
           <Button type="submit">가입하기</Button>

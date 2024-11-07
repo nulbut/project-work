@@ -42,7 +42,7 @@ public class NmemberTbl { //일반 회원 테이블
     @Column(name = "n_email", nullable = false, length = 100)
     private String nemail; //이메일
 
-    @Column(name = "n_address", length = 100)
+    @Column(name = "n_address", nullable = false, length = 200)
     private String naddress; //주소
 
     @CreationTimestamp

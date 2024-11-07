@@ -121,6 +121,7 @@ const Header = ({ lstate, onLogout }) => {
         </div>
       ),
       path: "/mypage",
+      //경로가 mypage라서 사업자의 경우 일반 회원 mypage로 들어가버림 해결필요
     },
     {
       path: "/",

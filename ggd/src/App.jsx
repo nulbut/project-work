@@ -99,7 +99,7 @@ function App() {
       const newState = {
         loginid: bid,
         loginnick: nick,
-        mlink: "/bmypage",
+        mlink: "bp0",
       };
       setLoginState(newState);
     }
@@ -111,7 +111,7 @@ function App() {
     if (cate == "n") {
       link = "/mypage";
     } else {
-      link = "/bmypage";
+      link = "bp0";
     }
     const newState = {
       loginid: nid,
@@ -156,8 +156,8 @@ function App() {
             />
           </Route>
           <Route path="usedWrite" element={<UsedWrite />} />
+
           <Route path="bmypage" element={<BMypage onLogout={onLogout} />}>
-            <Route path="bp0" element={<BMypageView />} />
             <Route path="bp1" element={<BproductRegisterd />} />
             <Route path="bproductstock" element={<BProductStock />} />
             <Route
@@ -165,6 +165,7 @@ function App() {
               element={<BMemberPasswordCheck />}
             />
           </Route>
+          <Route path="bp0" element={<BMypageView onLogout={onLogout} />} />
 
           <Route path="/bproductw" element={<BproductWirte />} />
           <Route path="/bproductview" element={<BproductView />} />

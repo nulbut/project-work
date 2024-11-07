@@ -18,7 +18,7 @@ const BMypage = (props) => {
   const menuArr = [
     {
       name: "마이페이지",
-      path: "bp0",
+      path: "/bp0",
     },
     {
       name: "등록한 상품",
