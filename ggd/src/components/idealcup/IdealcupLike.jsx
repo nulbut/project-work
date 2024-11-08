@@ -25,7 +25,7 @@ import ReportModal from "./ReportModal";
 
 const df = (date) => moment(date).format("YYYY-MM-DD");
 
-const IdealcupMain = () => {
+const IdealcupLike = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalItem, setModaItem] = useState({});
   const [games, setGames] = useState([]);
@@ -44,8 +44,10 @@ const IdealcupMain = () => {
   const nav = useNavigate();
   console.log(sessionStorage.getItem("nid"));
   const fetchGoods = async (inpage) => {
+    console.log("패치굿즈");
     //중복호출 제거
     if (pageParams.includes(inpage.pageNum)) return;
+    console.log("패치굿즈2");
     setLoading(true);
     try {
       const paramData = {
@@ -57,7 +59,7 @@ const IdealcupMain = () => {
       };
 
       axios
-        .get("/list", { params: paramData })
+        .get("/listLike", { params: paramData })
         .then((res) => {
           const { bList, totalPage, pageNum } = res.data;
           setPage({ totalPage: totalPage, pageNum: pageNum });
@@ -357,4 +359,4 @@ const IdealcupMain = () => {
   );
 };
 
-export default IdealcupMain;
+export default IdealcupLike;

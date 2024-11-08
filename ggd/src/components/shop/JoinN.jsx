@@ -3,6 +3,7 @@ import { replace, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import Button from "./Button";
+import "./scss/JoinN.scss";
 
 let ck = false; //아이디 중복 체크
 let nck = false;
@@ -216,23 +217,17 @@ const JoinN = () => {
   };
 
   return (
-    <div className="join">
-      <form className="content" onSubmit={handleSubmit(onSubmit)}>
+    <div className="join-n-form">
+      <form className="join-n-content" onSubmit={handleSubmit(onSubmit)}>
         <input type="hidden" value={1} {...register("nmnum")} />
-        {/* <input type="hidden" value={formattedDate} {...register("nsigndt")} /> */}
         <input type="hidden" value={1} {...register("nstatus")} />
         <h1>JOIN</h1>
-        <div className="id">
-          <p>
-            ID
-            <span className="error">{errors?.nid?.message}</span>
-            <Button type="button" onClick={nidCheck} outline>
-              ID 중복 확인
-            </Button>
-          </p>
+
+        <div className="join-id">
+          ID
           <input
             placeholder="영어/대소문자 4~12자"
-            className="input"
+            className="join-input"
             {...register("nid", {
               required: {
                 value: true,
@@ -240,17 +235,17 @@ const JoinN = () => {
               },
             })}
           />
+          <span className="join-error">{errors?.nid?.message}</span>
+          <Button type="button" onClick={nidCheck} outline>
+            ID 중복 확인
+          </Button>
         </div>
-        <div className="nickname">
-          <p>
-            닉네임
-            <Button type="button" onClick={nickCheck}>
-              닉네임 중복 확인
-            </Button>
-          </p>
+
+        <div className="join-nickname">
+          닉네임
           <input
             placeholder="영어/대소문자 4~12자"
-            className="input"
+            className="join-input"
             {...register("nnickname", {
               required: {
                 value: true,
@@ -258,13 +253,18 @@ const JoinN = () => {
               },
             })}
           />
-          <span className="error">{errors?.nnickname?.message}</span>
+          <Button type="button" onClick={nickCheck}>
+            닉네임 중복 확인
+          </Button>
+          <span className="join-error">{errors?.nnickname?.message}</span>
         </div>
-        <div className="password">
+
+        <div className="join-password">
           <p>Password</p>
           <input
             type="password"
             placeholder="영문,숫자,특수문자 중 2종류 이상을 조합하여 최소 8자리"
+            className="join-input"
             {...register("npw", {
               required: {
                 value: true,
@@ -273,11 +273,12 @@ const JoinN = () => {
               minLength: { value: 8, message: "최소 8자리 이상 입력해주세요." },
             })}
           />
-          <span className="error">{errors?.npw?.message}</span>
+          <span className="join-error">{errors?.npw?.message}</span>
           <p>비밀번호 확인</p>
           <input
             type="password"
             placeholder="영문,숫자,특수문자 중 2종류 이상을 조합하여 최소 8자리"
+            className="join-input"
             {...register("npwcheck", {
               required: {
                 value: true,
@@ -287,24 +288,26 @@ const JoinN = () => {
             })}
           />
           {errors?.npwcheck?.type === "required" && (
-            <span className="error">{errors?.npwcheck?.message}</span>
+            <span className="join-error">{errors?.npwcheck?.message}</span>
           )}
           {errors?.npwcheck?.type === "validate" && (
-            <span className="error">비밀번호가 일치하지 않습니다.</span>
+            <span className="join-error">비밀번호가 일치하지 않습니다.</span>
           )}
         </div>
-        <div className="name">
+
+        <div className="join-name">
           <p>이름</p>
           <input
-            className="input"
+            className="join-input"
             placeholder="이름"
             {...register("nname", {
               required: { value: true, message: "이름은 필수 입력값입니다." },
             })}
           />
-          <span className="error">{errors?.nname?.message}</span>
+          <span className="join-error">{errors?.nname?.message}</span>
         </div>
-        <div className="gender">
+
+        <div className="join-gender">
           <p>성별</p>
           <input
             type="radio"
@@ -329,12 +332,13 @@ const JoinN = () => {
           />
           여성
         </div>
-        <span className="error">{errors?.ngender?.message}</span>
-        <div className="birthday">
+        <span className="join-error">{errors?.ngender?.message}</span>
+
+        <div className="join-birthday">
           <p>생년월일</p>
           <input
             type="date"
-            className="input"
+            className="join-input"
             placeholder="YYYY-MM-DD"
             {...register("nbday", {
               required: {
@@ -343,16 +347,15 @@ const JoinN = () => {
               },
             })}
           />
-          <span className="error">{errors?.nbday?.message}</span>
+          <span className="join-error">{errors?.nbday?.message}</span>
         </div>
-        <div className="phonenum">
+
+        <div className="join-phonenumber">
           <p>전화 번호</p>
           <input
-            className="input"
+            className="join-input"
             name="numberValue"
             placeholder=" - 를 제외한 번호 입력"
-            // value={inputValue}
-            // onChange={autohyphen}
             {...register("nphonenum", {
               required: {
                 value: true,
@@ -364,14 +367,15 @@ const JoinN = () => {
               },
             })}
           />
-          <span className="error">{errors?.nphonenum?.message}</span>
+          <span className="join-error">{errors?.nphonenum?.message}</span>
         </div>
-        <div className="email">
+
+        <div className="join-email">
           <p>Email</p>
           <p>
             <input
               placeholder="you@example.com"
-              className="input"
+              className="join-input"
               onChange={onmailch}
               {...register("nemail", {
                 required: {
@@ -385,12 +389,12 @@ const JoinN = () => {
                 },
               })}
             />
-            <span className="error">{errors?.nemail?.message}</span>
+            <span className="join-error">{errors?.nemail?.message}</span>
             <Button type="button" outline onClick={mailCh}>
               E-mail전송
             </Button>
             <input
-              className="input"
+              className="join-input"
               placeholder="인증번호를 입력해주세요"
               onChange={onch}
               value={userCode}
@@ -400,7 +404,8 @@ const JoinN = () => {
             </Button>
           </p>
         </div>
-        <div className="address">
+
+        <div className="join-address">
           <p>
             <input placeholder="우편번호" />
             <button>아이콘들어갈수있나?</button>
@@ -412,7 +417,8 @@ const JoinN = () => {
             <input placeholder="상세 주소 입력" />
           </div>
         </div>
-        <div className="joinbutton">
+
+        <div className="join-submit">
           <Button type="submit">가입하기</Button>
         </div>
       </form>

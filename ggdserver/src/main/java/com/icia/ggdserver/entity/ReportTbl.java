@@ -3,6 +3,7 @@ package com.icia.ggdserver.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -19,17 +20,26 @@ public class ReportTbl {
     private String rUid;
 
     @Column
+    private String rReason;
+
+    @Column
     private String rContent;
 
     @Column
-    private String rTitle;
+    private String rFrom;
 
     @Column
-    private Timestamp rDate;
+    private long fromCode;
 
     @Column
     @ColumnDefault("'미처리'")
     private String rStatus = "미처리";
+
+    @CreationTimestamp
+    @Column
+    private Timestamp rDate;
+
+
 
 //    @Column
 //    @ColumnDefault("'미처리")

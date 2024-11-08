@@ -120,27 +120,50 @@ const BasicMaker = ({
             <td>공개여부</td>
             <td className="radio-box">
               <label>
-                <input
-                  type="radio"
-                  value="0"
-                  className="radio"
-                  name="iwcPublic"
-                  onChange={onch}
-                  defaultChecked
-                />
+                {iwcPublic == 1 ? (
+                  <input
+                    type="radio"
+                    value="0"
+                    className="radio"
+                    name="iwcPublic"
+                    onChange={onch}
+                    required
+                    defaultChecked
+                  />
+                ) : (
+                  <input
+                    type="radio"
+                    value="0"
+                    className="radio"
+                    name="iwcPublic"
+                    onChange={onch}
+                    required
+                  />
+                )}
                 비공개
               </label>
               <div className="radio-ex">
                 다른 사용자는 접근할 수 없습니다. 테스트 용으로 적합합니다.
               </div>
               <label>
-                <input
-                  type="radio"
-                  value="1"
-                  className="radio"
-                  name="iwcPublic"
-                  onChange={onch}
-                />
+                {iwcPublic == 1 ? (
+                  <input
+                    type="radio"
+                    value="1"
+                    className="radio"
+                    name="iwcPublic"
+                    onChange={onch}
+                    defaultChecked
+                  />
+                ) : (
+                  <input
+                    type="radio"
+                    value="1"
+                    className="radio"
+                    name="iwcPublic"
+                    onChange={onch}
+                  />
+                )}
                 공개
               </label>
               <div className="radio-ex">

@@ -14,7 +14,9 @@ const IdealcupHeader = ({ lstate, onLogout }) => {
       </div>
       <div className="ihc">
         <div className="Content2">
-          <Link to={mlink}>{loginid !== "" ? `${loginid}님` : "로그인"}</Link>
+          <Link to={mlink} state={{ where: "ideal" }}>
+            {loginid !== "" ? `${loginid}님` : "로그인"}
+          </Link>
 
           {loginid !== "" ? (
             <span onClick={onLogout}>로그아웃</span>

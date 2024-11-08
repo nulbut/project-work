@@ -1,30 +1,135 @@
 .login {
-  background-color: aqua;
-  flex: 1;
-  min-height: 300px;
-  width: 800px;
-  margin: 10px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f4f4f9;
 
-  .head {
-    background-color: blue;
+  .head-login {
+    h1 {
+      font-size: 2rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      color: #333;
+    }
+  }
+
+  .content-login {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
     align-items: center;
   }
-  .content {
-    background-color: chartreuse;
+
+  .id,
+  .password {
+    width: 100%;
+    margin-bottom: 20px;
+
+    p {
+      font-size: 1rem;
+      color: #555;
+      margin-bottom: 8px;
+    }
 
     .input {
-      background-color: darksalmon;
+      width: 100%;
+      padding: 12px;
+      font-size: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      outline: none;
+      margin-bottom: 8px;
+      transition: border-color 0.3s;
+
+      &:focus {
+        border-color: #007bff;
+      }
     }
+
     .error {
-      color: red;
-      height: 20px;
-      margin-bottom: 5px;
+      color: #e74c3c;
+      font-size: 0.875rem;
     }
-    .join {
-      background-color: fuchsia;
+  }
+
+  .loginbutton {
+    width: 100%;
+    margin-bottom: 20px;
+
+    .Button {
+      width: 100%;
+      padding: 12px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s;
+
+      &:hover {
+        background-color: #0056b3;
+      }
     }
-    button {
-      background-color: khaki;
+  }
+
+  .idpwdfind {
+    width: 100%;
+    margin-bottom: 20px;
+
+    .Button {
+      width: 100%;
+      padding: 12px;
+      background-color: #f1f1f1;
+      color: #333;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s;
+
+      &:hover {
+        background-color: #ddd;
+      }
+    }
+  }
+
+  .join {
+    margin-top: 15px;
+    text-align: center;
+
+    a {
+      color: #007bff;
+      text-decoration: none;
+      font-size: 0.875rem;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  button {
+    width: 100%;
+    padding: 12px;
+    background-color: #eee;
+    color: #333;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: #ddd;
     }
   }
 }
