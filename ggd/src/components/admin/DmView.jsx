@@ -4,6 +4,7 @@ import { AdminPageContextStore } from "./AdminPageStatus";
 import axios from "axios";
 import DmList from "./DmList";
 import Button from "../idealcup/Button";
+import "./scss/DmView.scss";
 
 const df = (date) => moment(date).format("YYYY-MM-DD");
 
@@ -11,15 +12,17 @@ const DmView = ({ dnum }) => {
   const pageSt = useContext(AdminPageContextStore);
 
   const [directmsg, setDirectmsg] = useState({});
+  const [drcomment, setDrcomment] = useState("");
 
   //const { dtitle, dcomment } = data;
 
   useEffect(() => {
     axios
-      .get("/admin/getDm", { params: { DNum: dnum } })
+      .get("/admin/getDm", { params: { dnum: dnum } })
       .then((res) => {
         console.log(res.data);
         setDirectmsg(res.data);
+        setDrcomment(res.data.dcomment);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -33,8 +36,9 @@ const DmView = ({ dnum }) => {
         [e.target.name]: e.target.value,
       };
       setDirectmsg(dataObj);
+      setDrcomment(e.target.value);
     },
-    [directmsg]
+    [directmsg, drcomment]
   );
 
   const viewChange = () => {
@@ -44,8 +48,9 @@ const DmView = ({ dnum }) => {
 
   const updateDm = (e) => {
     e.preventDefault();
+    console.log(directmsg);
     axios
-      .post("", directmsg)
+      .post("/admin/dComment", directmsg)
       .then((res) => {
         console.log(res.data);
         if (res.data == "ok") {
@@ -62,56 +67,43 @@ const DmView = ({ dnum }) => {
   };
 
   return (
-    <div className="Main">
-      <div className="Content">
-        <h1>1 : 1 문의</h1>
-        <form className="Box" onSubmit={updateDm}>
-          <div className="DataArea">
-            <div className="Input">
-              <input
-                type="text"
-                value={directmsg.dtitle}
-                readOnly
-                className="inputField"
-              />
-            </div>
-            <div className="Text">
-              <input
-                type="text"
-                value={df(directmsg.rdate)}
-                readOnly
-                className="inputField"
-              />
-            </div>
-            <div className="ID">
-              <input
-                type="text"
-                value={directmsg.duid}
-                readOnly
-                className="inputField"
-              />
-            </div>
-            <div className="Text">
-              <textarea readOnly className="inputField">
-                {directmsg.dcontent}
-              </textarea>
-            </div>
-
-            <textarea className="Textarea" name="dcomment" onChange={onCh}>
-              {directmsg.dcomment}
-            </textarea>
-          </div>
-          <div className="Buttons">
-            <Button wsize="s-10" onClick={viewChange}>
-              뒤로가기
-            </Button>
-            <Button type="submit" size="small" wsize="s-20">
-              답변 등록
-            </Button>
-          </div>
-        </form>
+    <form className="Content" onSubmit={updateDm}>
+      <h1>1 : 1 문의</h1>
+      <div className="DmInput">
+        <input
+          className="Input"
+          type="text"
+          value={directmsg.dtitle}
+          readOnly
+        />
+        <input
+          type="text"
+          value={df(directmsg.rDate)}
+          readOnly
+          className="Input"
+        />
+        <input className="Input" type="text" value={directmsg.duid} readOnly />
       </div>
-    </div>
+      <textarea
+        readOnly
+        className="Input"
+        value={directmsg.dcontent}
+      ></textarea>
+      <textarea
+        className="Textarea"
+        name="dcomment"
+        onChange={onCh}
+        value={drcomment}
+      ></textarea>
+      <div className="Buttons">
+        <Button wsize="s-10" onClick={viewChange}>
+          뒤로가기
+        </Button>
+        <Button type="submit" size="small" wsize="s-20">
+          답변 등록
+        </Button>
+      </div>
+    </form>
   );
 };
 

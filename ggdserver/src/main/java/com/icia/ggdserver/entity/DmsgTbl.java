@@ -8,6 +8,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
 @Table(name = "Dmsg_tbl")
@@ -41,4 +42,6 @@ public class DmsgTbl {
     @ColumnDefault("'답변 전'")
     private String dStatus = "답변 전";
 
+    @Transient
+    private List<DmFileTbl> dfList;
 }

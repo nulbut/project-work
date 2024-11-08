@@ -43,6 +43,9 @@ public class AdminService {
     @Autowired
     private DirectMessageRepository dmRepo;
 
+    @Autowired
+    private DmFileRepository dfRepo;
+
 
 
     @Autowired
@@ -426,11 +429,28 @@ public class AdminService {
         // 게시글 가져와서 담기
         DmsgTbl dm = dmRepo.findById(dnum).get();
         // 첨부파일 목록 가져와서 담기
-//        List<NoticeFileTbl> nfList = nfRepo.findAllByNfAid(nnum);
-//
-//        notice.setNfList(nfList); // 게시글에 첨부파일 목록 추가
-//
-//        return notice;
+        List<DmFileTbl> dfList = dfRepo.findByDfUid(dnum);
+
+        dm.setDfList(dfList); // 게시글에 첨부파일 목록 추가
+
+        return dm;
+    }
+
+    public String getComment(DmsgTbl directmsg) {
+        log.info("getComment()");
+        String result = null;
+
+        try {
+            directmsg.setDStatus("답변완료");// 예시: 상태를 "답변 완료"로 변경
+            dmRepo.save(directmsg);// 댓글 업데이트
+
+
+            result = "ok";  // 성공
+        } catch (Exception e) {
+            e.printStackTrace();
+            result = "fail";  // 실패
+        }
+        return result;
     }
 }
 

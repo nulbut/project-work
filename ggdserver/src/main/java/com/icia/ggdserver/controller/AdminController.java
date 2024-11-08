@@ -8,6 +8,7 @@ import com.icia.ggdserver.service.AdminService;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -127,4 +128,9 @@ public class AdminController {
         return aServ.getDmList(dnum);
     }
 
+    @PostMapping("/dComment")
+    public String getComment(@RequestBody DmsgTbl directmsg){
+        log.info("getComment()");
+        return aServ.getComment(directmsg);
+    }
 }

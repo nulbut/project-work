@@ -48,7 +48,7 @@ const DmList = () => {
         </TableColumn>
         <TableColumn wd="30">{item.duid}</TableColumn>
         <TableColumn wd="40">{df(item.rdate)}</TableColumn>
-        <TableColumn wd="50">{}</TableColumn>
+        <TableColumn wd="50">{item.dstatus}</TableColumn>
       </TableRow>
     ));
   }
