@@ -40,7 +40,7 @@ const InquiryUpdate = () => {
       .get("/getinquiry", { params: { boardCode: boardCode } })
       .then((res) => {
         setData(res.data);
-
+        console.log(res.data);
         const bfList = res.data.boardFileTblList;
         console.log(bfList);
 
@@ -92,6 +92,17 @@ const InquiryUpdate = () => {
     },
     [formData]
   );
+  // const onFileChange = useCallback((e) => {
+  //   const files = Array.from(e.target.files);
+  //   let fnames = "";
+
+  //   files.forEach((file) => {
+  //     formData.append("files", file);
+  //     fnames += file.name + " ";
+  //   });
+
+  //   setFileName(fnames || "선택한 파일이 없습니다.");
+  // }, []);
   const onch = useCallback(
     (e) => {
       const dataObj = {
@@ -135,7 +146,7 @@ const InquiryUpdate = () => {
   console.log(data);
   return (
     <div className="Update">
-      <div className="Content" onSubmit={onWrite}>
+      <form className="Content" onSubmit={onWrite}>
         <h1>1:1 문의 작성</h1>
         <input
           className="Input"
@@ -203,7 +214,7 @@ const InquiryUpdate = () => {
         </div>
         <div className="FileInput">
           <input id="update" type="file" multiple onChange={onFileChange} />
-          <label className="FileLabel" htmlFor="../../update/">
+          <label className="FileLabel" htmlFor="update">
             파일선택
           </label>
           <span className="FileSpan">{fileName}</span>
@@ -223,7 +234,7 @@ const InquiryUpdate = () => {
             작성하기
           </Button>
         </div>
-      </div>
+      </form>
     </div>
   );
 };

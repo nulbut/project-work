@@ -8,6 +8,9 @@ const AdminPageStatus = (props) => {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [pageNum, setPageNum] = useState(1);
+  const [pageNumNotice, setPageNumNotice] = useState(1);
+  const [pageNumReport, setPageNumReport] = useState(1);
+  const [viewPage, setViewPage] = useState();
 
   const pageStatus = {
     searchColumn,
@@ -20,6 +23,12 @@ const AdminPageStatus = (props) => {
     setEndDate,
     pageNum,
     setPageNum,
+    pageNumNotice,
+    setPageNumNotice,
+    pageNumReport,
+    setPageNumReport,
+    viewPage,
+    setViewPage,
   };
 
   return (

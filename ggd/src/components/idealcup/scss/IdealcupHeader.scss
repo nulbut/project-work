@@ -1,25 +1,50 @@
 header {
-  height: 8vh;
-  justify-content: space-between;
-  text-align: left;
+  height: 80px; /* 고정 높이로 설정 (여기서는 80px로 설정) */
   width: 100%;
-  background-color: #fef7ff;
 
+  background-color: #fef7ff;
   display: flex;
+  justify-content: space-between;
+  align-items: center; /* 수직 중앙 정렬 */
+  padding: 0 20px; /* 좌우 여백 추가 */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 살짝 그림자 추가 */
 }
 
 .header-content {
   padding-left: 6%;
+  display: flex;
+  align-items: center; /* 이미지와 텍스트가 수직 중앙에 위치하도록 */
   font-size: 2em;
+
   img {
-    height: 50px;
+    height: 40px; /* 로고 크기 조정 */
+    width: auto; /* 로고의 가로세로 비율을 유지 */
+    margin-right: 10px; /* 로고와 텍스트 간 여백 */
   }
 }
 
 .ihc {
+  display: flex;
+  align-items: center; /* 아이템들이 수직 중앙 정렬되도록 */
   margin-right: 5%;
-  * {
-    padding: 20px;
-    font-size: 20px;
+
+  a,
+  button {
+    padding: 10px 15px; /* 패딩 조정 */
+    font-size: 16px; /* 글자 크기 조정 */
+    color: #333; /* 기본 텍스트 색상 */
+    background: none;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: #f1e1ff; /* 호버 시 배경색 변경 */
+      border-color: #d1a9f7; /* 호버 시 테두리 색상 변경 */
+    }
+
+    &.active {
+      color: #007bff; /* 활성화된 버튼 색상 */
+    }
   }
 }

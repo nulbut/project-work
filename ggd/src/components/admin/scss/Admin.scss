@@ -6,7 +6,7 @@
 //   display: flex; /* Flexbox를 사용하여 사이드바와 메뉴를 나란히 배치 */
 // }
 
-.sideber {
+.side-ber {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -21,7 +21,7 @@
   background-color: white;
   position: relative;
 }
-.adminpage {
+.admin-page {
   font-size: 3em;
   float: left;
   background: #000;
@@ -32,7 +32,7 @@
     float: inline-start;
   }
 }
-.border-ber {
+.borderber {
   position: relative;
   background-color: aqua;
   border: 1px solid gray;
@@ -46,8 +46,8 @@
   padding-bottom: 8%;
   margin-top: 30%;
 
-  .sideber-menu {
-    background-color: orange;
+  .sidebermenu {
+    // background-color: orange;
     align-items: center;
     text-decoration: none;
     padding-bottom: 3%;
@@ -58,10 +58,46 @@
     background-color: hotpink;
   }
 }
-.desc {
+.admin-desc {
   display: inline-block;
   width: 100%;
 }
 .menu {
   flex-direction: column;
+}
+.Title {
+  font-size: large;
+  font-weight: bold;
+}
+// .a-img {
+//   width: 300px;
+//   height: 250px;
+// }
+.Input {
+  width: 80%;
+  height: 2.5rem;
+  font-size: 1.25rem;
+  line-height: 2.5rem;
+  border: none;
+  border-radius: 1.25rem;
+  background: rgb(230, 230, 230);
+  text-align: center;
+  font-family: "Noto Serif KR", serif;
+  font-weight: weight;
+  font-style: normal;
+
+  &::placeholder {
+      color: rgb(85, 84, 84);
+  }    
+}
+
+.Box {
+  width: 100%;
+  display: flex;
+  margin-bottom: 0.5rem;
+}
+
+.FileData{
+  display: flex;
+  
 }

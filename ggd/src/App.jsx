@@ -20,6 +20,7 @@ import IdealcupMain from "./components/idealcup/IdealcupMain";
 import Game from "./components/idealcup/Game";
 import IdealcupLayout from "./components/idealcup/IdealcupLayout";
 import IdealCupMaker from "./components/idealcup/IdealcupMaker";
+import IdealCupLike from "./components/idealcup/IdealcupLike";
 import JoinN from "./components/shop/JoinN";
 import JoinB from "./components/shop/JoinB";
 import IdPasswordFind from "./components/shop/IdPasswordFind";
@@ -57,11 +58,12 @@ function App() {
   const nav = useNavigate();
 
   //로그인 상태 저장
+  
   const [loginState, setLoginState] = useState({
     loginid: "",
     loginnick: "",
     mlink: "/login",
-  }); //로그인 전 상태
+  }); //로그인 전 상태`
 
   //로그아웃 함수
   const onLogout = () => {
@@ -94,6 +96,7 @@ function App() {
       const newState = {
         loginid: nid,
         loginnick: nick,
+
         mlink: "/mypage",
       };
       setLoginState(newState);
@@ -160,6 +163,7 @@ function App() {
             />
             <Route path="usedRegistered" element={<UsedRegistered />} />
             <Route path="usedRegistered/usView" element={<UsedView />} />
+
           </Route>
             <Route path="usedWrite" element={<UsedWrite />} />
             <Route path="/bmypage" element={<BMypage />}>
@@ -183,9 +187,11 @@ function App() {
           element={<IdealcupLayout lstate={loginState} onLogout={onLogout} />}
         >
           <Route path="/idlecup" element={<IdealcupMain />} />
+          <Route path="/iealecuplike" element={<IdealCupLike />} />
           <Route path="/game?" element={<Game />} />
           <Route path="/make" element={<IdealCupMaker />} />
           <Route path="/mycup" element={<IdealcupMy />} />
+          <Route path="/idleinquiry" element={<InquiryForm />} />
         </Route>
         <Route path="/admin" element={<Admin />} />
         <Route path="/adminex" element={<AdminEx />} />

@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useCallback, useEffect, useState } from "react";
-
+import "../scss/ManageUserGrade.scss";
 const ManageUserGrade = () => {
   const [formFields, setFormFields] = useState([
     { ugId: "1", ugName: "", ugDuration: "" },
@@ -77,51 +77,44 @@ const ManageUserGrade = () => {
   );
 
   return (
-    <form onSubmit={handleSubmit} style={{ padding: "2%" }}>
-      {formFields.map((field, index) => (
-        <div key={index} style={{ marginBottom: 5 }}>
-          <input
-            type="text"
-            placeholder="등급 명"
-            name="no"
-            value={field.ugId}
-            onChange={(e) => handleInputChange(index, e)}
-            style={{ marginRight: 10 }}
-          />
-          <input
-            type="text"
-            placeholder="등급 명"
-            name="name"
-            value={field.ugName}
-            onChange={(e) => handleInputChange(index, e)}
-            style={{ marginRight: 10 }}
-          />
-
-          <input
-            type="text"
-            placeholder="제한 일 수"
-            name="value"
-            value={field.ugDuration}
-            onChange={(e) => handleInputChange(index, e)}
-            style={{ marginRight: 10 }}
-          />
-
-          <button type="button" onClick={() => handleRemoveFields(index)}>
-            삭제
-          </button>
-        </div>
-      ))}
-
-      <button
-        type="button"
-        onClick={() => handleAddFields()}
-        style={{ marginTop: 10, marginRight: 10 }}
-      >
-        등급 추가
-      </button>
-
-      <button type="submit">저장</button>
-    </form>
+    <div className="form-container">
+      <form onSubmit={handleSubmit}>
+        {formFields.map((field, index) => (
+          <div key={index} className="form-field">
+            <input
+              type="text"
+              placeholder="등급 명"
+              name="no"
+              value={field.ugId}
+              onChange={(e) => handleInputChange(index, e)}
+            />
+            <input
+              type="text"
+              placeholder="등급 명"
+              name="name"
+              value={field.ugName}
+              onChange={(e) => handleInputChange(index, e)}
+            />
+            <input
+              type="text"
+              placeholder="제한 일 수"
+              name="value"
+              value={field.ugDuration}
+              onChange={(e) => handleInputChange(index, e)}
+            />
+            <button type="button" onClick={() => handleRemoveFields(index)}>
+              삭제
+            </button>
+          </div>
+        ))}
+        <button type="button" className="add-button" onClick={handleAddFields}>
+          등급 추가
+        </button>
+        <button type="submit" className="submit-button">
+          저장
+        </button>
+      </form>
+    </div>
   );
 };
 

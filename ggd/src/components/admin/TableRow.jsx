@@ -1,7 +1,8 @@
+import classNames from "classnames";
 import React from "react";
 
-const TableRow = ({ children }) => {
-  return <tr className="TableRow">{children}</tr>;
+const TableRow = ({ children, bg }) => {
+  return <tr className={classNames("TableRow", bg)}>{children}</tr>;
 };
 
 export default TableRow;

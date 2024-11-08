@@ -44,7 +44,7 @@ const ProductView = () => {
         if (bfList.length > 0) {
           console.log("bfList.length : ", bfList.length);
           let newFileList = [];
-          for (let i = 0; i < bfList.length; i++) { 
+          for (let i = 0; i < bfList.length; i++) {
             const newFile = {
               ...bfList[i],
               image: "../../upload/" + bfList[i].productFileSysname,

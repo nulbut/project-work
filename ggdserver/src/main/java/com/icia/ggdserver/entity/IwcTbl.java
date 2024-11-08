@@ -3,6 +3,7 @@ package com.icia.ggdserver.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -58,4 +59,7 @@ public class IwcTbl {
 
     @Transient
     private List<IwcContentsTbl> bfList;
+
+    @Transient
+    private boolean liked;
 }

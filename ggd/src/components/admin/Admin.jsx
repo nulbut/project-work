@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Link,
   Outlet,
@@ -13,6 +13,9 @@ import logo from "../images/logo.svg";
 import UserList from "./UserList";
 import Review from "./Review";
 import Paging from "./Paging";
+import Notice from "./Notice";
+import Report from "./Report";
+import Directmessage from "./DirectMessage";
 
 // function Admin() {
 //   const history = useHistory();
@@ -20,6 +23,16 @@ import Paging from "./Paging";
 //   const navigateToUserList = () => {
 //     history.push('/UserListPage');
 //   };
+
+// const pnum = sessionStorage.getItem("pageNum");
+
+// useEffect(() => {
+//   // if (!admin) {
+//   //     nav("/", { replace: true });
+//   //     return; // 로그인 안한 경우 첫 화면으로 이동
+//   // }
+//   pnum !== null ? Admin(pnum) : Admin(1);
+// }, []);
 
 const Admin = () => {
   const navigate = useNavigate();
@@ -65,21 +78,30 @@ const Admin = () => {
       case "후기 관리":
         setViewName(<Review />);
         break;
+      case "신고함":
+        setViewName(<Report />);
+        break;
+      case "공지사항":
+        setViewName(<Notice />);
+        break;
+      case "1 : 1 문의":
+        setViewName(<Directmessage />);
+        break;
     }
   };
   return (
     <div className="admin">
-      <div className="sideber">
-        <div className="adminpage">
+      <div className="side-ber">
+        <div className="admin-page">
           <p>
             admin
             <img src={logo} />
           </p>
         </div>
-        <div className="border-ber">
+        <div className="borderber">
           {buttons.map((butn, idx) => {
             return (
-              <Link className="sideber-menu" to={butn.path} key={idx}>
+              <Link className="sidebermenu" to={butn.path} key={idx}>
                 <Button
                   size="large"
                   color="black"
@@ -98,7 +120,7 @@ const Admin = () => {
         </div>
         <Outlet />
       </div>
-      <div className="desc">{viewName}</div>
+      <div className="admin-desc">{viewName}</div>
     </div>
   );
 };

@@ -1,57 +1,63 @@
 .Footer {
+  margin-top: 100px;
   width: 100%;
-  height: 80px;
-  border: 1px solid;
-  text-align: center;
-  // position: fixed;
-  bottom: 0;
+  height: 200px;
+  background-color: #333; /* 푸터 배경 색 */
+  color: white; /* 글자 색 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 10px;
+
+  /* 하단 고정된 푸터가 필요하다면, fixed position 사용 가능 */
+  /* position: fixed; */
+  /* bottom: 0; */
+  /* left: 0; */
+
   .icon {
-    position: absolute;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
 
     .text {
-      width: 43%;
-      position: relative;
+      font-size: 0.9rem;
+      margin-top: 5px;
+      line-height: 1.5;
+      max-width: 80%; /* 텍스트 너비 제한 */
+    }
+  }
+
+  /* 아이콘 스타일 */
+  .footer-icons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 10px;
+
+    i {
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: #ff6600; /* 호버 시 색상 변경 */
+      }
+    }
+  }
+
+  /* 반응형 디자인 */
+  @media (max-width: 768px) {
+    .icon {
+      .text {
+        font-size: 0.8rem; /* 작은 화면에서 텍스트 크기 조정 */
+      }
+    }
+    .footer-icons {
+      gap: 10px;
     }
   }
 }
-
-// wrap {
-//     min-height: 100vh;
-//     position: relative;
-//     width: 100%;
-//     background-color: #f2f2f2;
-//   }
-
-//   section {
-//     padding-bottom: 105px;
-//   }
-
-//   footer {
-//     width: 100%;
-//     height: 90px;
-//     bottom: 0px;
-//     position: absolute;
-//     border-top: 1px solid #c4c4c4;
-//     padding-top: 15px;
-//     color: #808080;
-//     font-size: 11px;
-//   }
-
-//   footer a {
-//     display: inline-block;
-//     margin: 0 20px 10px 20px;
-//     color: #808080; font-size: 11px;
-//   }
-
-//   footer a:visited {
-//     color: #808080;
-//   }
-
-//   footer p {
-//     margin-top: 0; margin-bottom: 0;
-//   }
-
-//   footer p span {
-//     display: inline-block;
-//     margin-left: 20px;
-//   }
