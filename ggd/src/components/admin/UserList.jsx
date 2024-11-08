@@ -44,7 +44,7 @@ const UserList = ({ props, user }) => {
           사업자
         </h3>
       </div>
-      <>{viewName}</>
+      <div className="view-name">{viewName}</div>
     </div>
   );
 };

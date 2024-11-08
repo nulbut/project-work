@@ -118,37 +118,38 @@ const DetailMaker = ({
       <table>
         <tr>
           <td>번호</td>
-          <td>이미지</td>
-          <td>이름</td>
-          <td>우승비율</td>
-          <td>승률</td>
-          <td>카테고리</td>
+          <td style={{ width: "200px" }}>이미지</td>
+          <td style={{ width: "300px" }}>이름</td>
+          <td style={{ width: "300px" }}>우승비율</td>
+          <td style={{ width: "300px" }}>승률</td>
+          <td style={{ width: "300px" }}>카테고리</td>
           <td>라인 삭제</td>
         </tr>
         {/* // {fileImage.map((e) => ( */}
         {goods.map((con, index) => (
           <tr>
             <td style={{ width: "100px" }}>{index + 1}</td>
-            <td style={{ width: "100px" }}>
-              <img style={{ width: "55px" }} src={con.src} />
+            <td style={{ width: "200px" }}>
+              <img src={con.src} />
             </td>
             <td style={{ width: "300px" }}>
               <input
+                style={{ width: "300px" }}
                 class="Input"
                 name="iwcName"
                 value={con.iwcContentsName}
-                placeholder="제목"
+                placeholder="이름"
                 onChange={(e) => onch(index, e)}
               />
             </td>
-            <td>
+            <td style={{ width: "300px" }}>
               {con.iwcContentFinalcount}/{data.iwcComplete}
               <progress
                 value={con.iwcContentFinalcount}
                 max={data.iwcComplete}
               ></progress>
             </td>
-            <td>
+            <td style={{ width: "300px" }}>
               {con.iwcContentWincount}/{con.iwcContentVscount}
               <progress
                 value={con.iwcContentWincount}
@@ -161,6 +162,7 @@ const DetailMaker = ({
                 name="Category"
                 value={con.iwcContentsCategory}
                 placeholder="카테고리"
+                style={{ width: "300px" }}
                 onChange={(e) => onch(index, e)}
               />
             </td>

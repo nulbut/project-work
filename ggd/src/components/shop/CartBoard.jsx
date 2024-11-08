@@ -12,6 +12,7 @@ const CartBoard = ({ cName, children }) => {
           <th className="TavleHeader w-10">{cName[3]}</th>
           <th className="TavleHeader w-10">{cName[4]}</th>
           <th className="TavleHeader w-10">{cName[5]}</th>
+          <th className="TavleHeader w-10">{cName[6]}</th>
         </tr>
       </thead>
       <tbody>{children}</tbody>

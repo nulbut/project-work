@@ -40,6 +40,12 @@ public class AdminService {
     @Autowired
     private ReportFileRepository rfRepo;
 
+    @Autowired
+    private DirectMessageRepository dmRepo;
+
+    @Autowired
+    private DmFileRepository dfRepo;
+
 
 
     @Autowired
@@ -83,7 +89,6 @@ public class AdminService {
         //페이징 조건 처리 객체 생성(Pageable)
         Pageable pb = PageRequest.of((dd.getPageNum() - 1), listCnt);
         //PageRequest.of(페이지번호, 페이지당 게시글 개수, 정렬방식, 컬럼명)
-
         Page<NmemberTbl> result = null;
 
         //검색과 조회가 없는 경우
@@ -190,7 +195,7 @@ public class AdminService {
 
 
     public Map<String, Object> getNoticeList(Integer pageNum) {
-        log.info("getNoticeList()");
+        log.info("getNoticeList() {}",pageNum);
 
         if (pageNum == null) {
             pageNum = 1;
@@ -201,7 +206,7 @@ public class AdminService {
         Pageable pb = PageRequest.of((pageNum -1), listCnt, Sort.Direction.DESC, "n_num");
 
         Page<NoticeTbl> result = nRepo.getNoticeTbl(pb);
-
+        log.info(result.getContent().toString());
         List<NoticeTbl> nList = result.getContent();
 
         int totalPage = result.getTotalPages();
@@ -387,43 +392,104 @@ public class AdminService {
 
         report.setRfList(rfList); // 게시글에 첨부파일 목록 추가
 
+
         return report;
 
     }
 
+    @Transactional
+    public String rpUpdate(long rNum) {
+        log.info("rpUpdate()");
+        String result = null;
 
-//    @Autowired
-//    private BMemberRepository abRepo;
-//
-//    public Map<String, Object> getBmemberList(DateDto dd) {
-//        log.info("getBoardList()");
-//
-//        //페이지 당 보여질 게시글 개수
-//        int listCnt = 10;
-//
-//        //페이징 조건 처리 객체 생성(Pageable)
-//        Pageable pb = PageRequest.of((dd.getPageNum() - 1), listCnt);
-//        //PageRequest.of(페이지번호, 페이지당 게시글 개수, 정렬방식, 컬럼명)
-//
-//        Page<BmemberTbl> result = null;
-//        if (dd.getStartDate() == null) {
-//            result = abRepo.findAll(pb);
-//        } else {
-//            //result = aRepo.findBySearch(dd.getStartDate(), dd.getEndDate(), pb);
-//        }
-//
-//        //page 객체를 list로 변환 후 전송.
-//        List<BmemberTbl> bList = result.getContent();//page에서 게시글목록을 꺼내와서
-//        //bList에 저장.
-//        int totalPage = result.getTotalPages();//전체 페이지 개수
-//
-//        Map<String, Object> res = new HashMap<>();
-//        res.put("blist", bList);
-//        res.put("totalPage", totalPage);
-//        res.put("pageNum", dd.getPageNum());
-//
-//        return res;
-//    }
+        try {
+            rRepo.updateByRNum(rNum);
 
+            result = "ok";
+        } catch (Exception e) {
+            e.printStackTrace();
+            result = "fail";
+        }
+        return result;
+    }
+
+
+    public Map<String, Object> getDList(Integer pageNum) {
+        log.info("getDList()");
+
+        if (pageNum == null){
+            pageNum = 1;
+        }
+
+        int listCnt = 10;
+
+        Pageable pb = PageRequest.of((pageNum -1), listCnt, Sort.Direction.DESC, "DNum");
+
+        Page<DmsgTbl> result = dmRepo.findByDNumGreaterThan(0L, pb);
+
+        List<DmsgTbl> dList = result.getContent();
+
+        int totalPage = result.getTotalPages();
+
+        Map<String, Object> res = new HashMap<>();
+        res.put("dList", dList);
+        res.put("totalPage", totalPage);
+        res.put("pageNum", pageNum);
+
+        return res;
+    }
+
+    public DmsgTbl getDmList(long dnum) {
+        log.info("getDmList()");
+
+        // 게시글 가져와서 담기
+        DmsgTbl dm = dmRepo.findById(dnum).get();
+        // 첨부파일 목록 가져와서 담기
+        List<DmFileTbl> dfList = dfRepo.findByDfUid(dnum);
+
+        dm.setDfList(dfList); // 게시글에 첨부파일 목록 추가
+
+        return dm;
+    }
+
+    public String getComment(DmsgTbl directmsg) {
+        log.info("getComment()");
+        String result = null;
+
+        try {
+            directmsg.setDStatus("답변완료");// 예시: 상태를 "답변 완료"로 변경
+            dmRepo.save(directmsg);// 댓글 업데이트
+
+
+            result = "ok";  // 성공
+        } catch (Exception e) {
+            e.printStackTrace();
+            result = "fail";  // 실패
+        }
+        return result;
+    }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

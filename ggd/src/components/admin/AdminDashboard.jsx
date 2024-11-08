@@ -5,7 +5,7 @@ import { faChartBar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 
-const AdminDashboard = () => {
+const AdminDashboard = ({ setDashview }) => {
   const [dataPie, setDataPie] = useState([]);
   const [dataLine, setDataLine] = useState([]);
   const [dashParams, setDashParams] = useState({
@@ -14,7 +14,6 @@ const AdminDashboard = () => {
     cCnt: "",
     pinnedNotice: [{}, {}],
   });
-  const [dateChoose, setDateChoose] = useState();
   useEffect(() => {
     getIdealCnt();
   }, []);
@@ -104,7 +103,10 @@ const AdminDashboard = () => {
           </div>
         </div>
         <div className="col-xl-3 col-md-6">
-          <div className="card bg-success text-white mb-4">
+          <div
+            className="card bg-success text-white mb-4"
+            onClick={() => setDashview("공지사항")}
+          >
             <div className="card-body">상단 고정 공지사항</div>
             <div className="card-footer d-flex align-items-center justify-content-between">
               <a className="small text-white stretched-link" href="#">
@@ -165,11 +167,13 @@ const AdminDashboard = () => {
           <div className="card bg-dark text-white mb-4">
             <div className="card-body">등록된 회원 수</div>
             <div className="card-footer d-flex align-items-center justify-content-between">
-              <a className="small text-white stretched-link" href="#">
+              <div>
                 총 회원 수 :{" "}
                 {dashParams.bmemberTotalCnt + dashParams.nmemberTotalCnt}
                 <hr />
-                일반 회원 : {dashParams.nmemberTotalCnt}
+                <div onClick={() => setDashview("일반 회원")}>
+                  일반 회원 : {dashParams.nmemberTotalCnt}
+                </div>
                 <div />
                 사업자 회원 : {dashParams.bmemberTotalCnt}
                 <hr />
@@ -179,9 +183,9 @@ const AdminDashboard = () => {
                 일반 회원 : {dashParams.nmemberTodayCnt}
                 <div />
                 사업자 회원 : {dashParams.bmemberTodayCnt}
-              </a>
-              <div className="small text-white">
-                <i className="fas fa-angle-right"></i>
+                <div className="small text-white">
+                  <i className="fas fa-angle-right"></i>
+                </div>
               </div>
             </div>
           </div>

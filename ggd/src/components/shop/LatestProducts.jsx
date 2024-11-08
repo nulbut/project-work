@@ -3,11 +3,14 @@ import "./scss/InfiniteScroll.scss";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import moment from "moment";
-// import Button from "./Button";
 import TableRow from "./TableRow";
 import TableColumn from "./TableColumn";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBagShopping, faHeart } from "@fortawesome/free-solid-svg-icons";
+import Button from "./Button";
+import { Link } from "react-router-dom";
 
-const df = (date) => moment(date).format("YYYY-MM-DD HH:mm:ss");
+const df = (date) => moment(date).format("YYYY-MM-DD");
 
 const LatestProducts = () => {
   const [products, setProducts] = useState([]);
@@ -20,20 +23,13 @@ const LatestProducts = () => {
   const [hasNextPage, setHasNextPage] = useState(true);
   const [pageParams, setPageParams] = useState([]);
   const observerRef = useRef();
-  const [flist, setFlist] = useState([
-    {
-      productCode: 0,
-      productName: 0,
-      productFileSysname: "",
-      productFileOriname: "Nothing",
-      image: "",
-    },
-  ]);
 
   const sellerId = "sellerId";
   const nav = useNavigate();
   console.log("페이지", page);
   console.log("상품", products);
+
+  //상품 목록을 가져오는 함수
   const fetchProducts = async (inpage) => {
     //중복 호출 제거
     if (pageParams.includes(inpage.pageNum)) return;
@@ -55,11 +51,6 @@ const LatestProducts = () => {
       setLoading(false);
     }
   };
-
-  const options = [
-    { value: "productName", label: "상품이름" },
-    { value: "productDetail", label: "내용" },
-  ];
 
   useEffect(() => {
     fetchProducts(page);
@@ -93,87 +84,135 @@ const LatestProducts = () => {
     };
   }, []);
 
-  //출력할 상품 목록
-  let list = null;
-  if (products.length === 0) {
-    list = (
-      <TableRow key={0}>
-        <TableColumn span={4}>상품이 없습니다.</TableColumn>
-      </TableRow>
-    );
-  } else {
-    list = Object.values(products).map((item) => (
-      <TableRow key={item.productCode}>
-        <TableColumn wd="w-10">{item.productCode}</TableColumn>
-        <TableColumn wd="w-40">
-          <div onClick={() => getBoard(item.productCode)}>
-            {item.productName}
-          </div>
-        </TableColumn>
-        <TableColumn wd="w-20">{item.sellerId}</TableColumn>
-        <TableColumn wd="w-30">{df(item.productDate)}</TableColumn>
-      </TableRow>
-    ));
-  }
+  // 장바구니에 상품을 추가하는 함수
+  const cartList = (pc, quantity) => {
+    console.log(pc);
+    const nid = sessionStorage.getItem("nid");
+    let conf = window.confirm("장바구니에 추가할까요?");
+    if (!conf) {
+      return;
+    }
 
-  const getBoard = (code) => {
-    nav("/ShoppingMall", { state: { productCode: code } });
-  };
-
-  const like = (code, name) => {
-    console.log(code + ":" + name);
-    console.log(sessionStorage.getItem("nid"));
-  };
-
-  useEffect(() => {
     axios
-      .post("getcart", products, { params: { sellerId: sellerId } })
+      .get("/setcart", {
+        params: { cnid: nid, productCode: pc, quantity },
+      })
       .then((res) => {
-        setProducts(res.data);
-        console.log(res.data);
-
-        const pfList = res.data.productFileList;
-        console.log(pfList);
-
-        if (pfList.length > 0) {
-          console.log("pfList.length : ", pfList.length);
-          let newFileList = [];
-          for (let i = 0; i < pfList.length; i++) {
-            const newFile = {
-              ...pfList[i],
-              image: "../../update" + pfList[i].productFileSysname,
-            };
-            newFileList.push(newFile);
-          }
-          console.log(newFileList);
-          setFlist(newFileList);
+        console.log(res);
+        if (res.data === "ok") {
+          alert("추가되었습니다.");
+        } else if (res.data === "already exists") {
+          alert("이미 장바구니에 있습니다.");
+        } else {
+          alert("수량을 초과 하였습니다.");
         }
       })
-      .catch((err) => console.log(err));
-  }, []);
+      .catch((err) => {
+        alert("돌아가");
+        console.log(err);
+      });
+  };
+
+  // 찜목록에 상품을 추가하는 함수
+  const dibsList = (pc) => {
+    console.log(pc);
+    const nid = sessionStorage.getItem("nid");
+    let conf = window.confirm("찜목록에 추가할까요?");
+    if (!conf) {
+      return;
+    }
+
+    axios
+      .get("/setDibs", {
+        params: { dnid: nid, productCode: pc },
+      })
+      .then((res) => {
+        console.log(res);
+        if (res.data === "ok") {
+          alert("찜목록에 추가되었습니다.");
+        } else if (res.data === "alreadt exists") {
+          alert("이미 찜한 상품입니다.");
+        } else {
+          alert("실패");
+        }
+      })
+      .catch((err) => {
+        alert("돌아가렴");
+        console.log(err);
+      });
+  };
+
   return (
     <div className="product-list">
       <h2 className="section-title">
         <span>최신</span>상품
       </h2>
       <div className="product-grid">
-        {products.map((item, index) => (
-          <div key={index} className="product-card">
-            <div className="product-image-placeholder">
-              <img
-                src={`upload/${item.productFileSysname}`}
-                alt={`상품 이미지 ${item.productCode}`}
-                className="product-image"
-              />
+        {products.map((item, index) => {
+          return (
+            <div key={index} className="product-card">
+              <div className="product-image-placeholder">
+                <img
+                  src={`upload/${item.productFileSysname}`}
+                  alt={`상품 이미지 ${item.productCode}`}
+                  className="product-image"
+                />
+              </div>
+              <h3 className="product-title">상품명 : {item.productName} </h3>
+              <div className="product-price">
+                <strong>가격: </strong>
+                {item.sellerPayment}₩
+              </div>
+              <div className="product-quantity">
+                <strong>제품내용: </strong>
+                {item.productDetail}
+              </div>
+              {/* 총 재고 수량을 표시 */}
+              <div className="product-quantity">
+                <strong>총 수량:</strong> {item.productStock || "N/A"}
+              </div>
+              <div className="pruduct-quantity">
+                <strong>등록일: {df(item.productDate)}</strong>
+              </div>
+              <div className="btn-set">
+                <Link to={`/usedproductbuy/${item.usedCode}`}>
+                  <Button wsize="s-25">구매하기</Button>
+                </Link>
+                <Link
+                  to={`/pddetails`}
+                  state={{
+                    code: item.productCode,
+                    name: item.productName,
+                    sellerId: item.sellerId,
+                    detail: item.productDetail,
+                    seller: item.sellerPayment,
+                    imageNum: item.prodctinfo,
+                  }}
+                >
+                  <Button wsize="s-25">제품 상세</Button>
+                </Link>
+                <Button
+                  wsize="s-25"
+                  onClick={() => {
+                    const quantity = 1; // 예시로 1개를 기본 수량으로 설정
+                    cartList(item.productCode, quantity); // 클릭 시 수량 전달
+                  }}
+                >
+                  <FontAwesomeIcon
+                    icon={faBagShopping}
+                    style={{ color: "#000000", fontSize: "1.5em" }}
+                  />
+                </Button>
+                <Button wsize="s-25" onClick={() => dibsList(item.productCode)}>
+                  <FontAwesomeIcon
+                    icon={faHeart}
+                    style={{ color: "#ff0000", fontSize: "1.5em" }}
+                  />
+                </Button>
+              </div>
             </div>
-            <h3 className="product-title">상품명 : {item.productName} </h3>
-            <p className="product-price">₩{item.sellerPayment}</p>
-            <p className="product-body">{item.productDetail}</p>
-            <button onClick={() => like(item.productCode, item.productName)}>
-              찜
-            </button>
-          </div>
-        ))}
+          );
+        })}
       </div>
       {hasNextPage && (
         <div ref={observerRef} className="loading-indicator">

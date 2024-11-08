@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { AdminPageContextStore } from "./AdminPageStatus";
 import ReportList from "./ReportList";
+import "./scss/Admin.scss";
 
 const Report = () => {
   const nav = useNavigate();
@@ -24,7 +25,7 @@ const Report = () => {
     pageSt.setViewPage(<ReportList />);
   };
 
-  return <div className="Main">{pageSt.viewPage}</div>;
+  return <div className="Main_Report">{pageSt.viewPage}</div>;
 };
 
 export default Report;

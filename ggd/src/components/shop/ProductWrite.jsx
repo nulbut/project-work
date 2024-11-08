@@ -8,13 +8,13 @@ import "./scss/FileInput.scss";
 import "./scss/Write.scss";
 
 const ProductWrite = () => {
-  const id = sessionStorage.getItem("sellerId");
+  const sellerId = sessionStorage.getItem("nid");
   const [data, setData] = useState({
     productName: "",
-    sellerId: id,
+    sellerId: sellerId,
     categoryCode: "",
     sellerPayment: "",
-    productlimit: "",
+    productLimit: "",
     productStock: "",
     productDetail: "",
     productDate: "",
@@ -22,10 +22,9 @@ const ProductWrite = () => {
 
   const {
     productName,
-    sellerId,
     categoryCode,
     sellerPayment,
-    productlimit,
+    productLimit,
     productStock,
     productDetail,
     productDate,
@@ -45,24 +44,26 @@ const ProductWrite = () => {
       setData(dataObj);
     },
     [data]
-  );  
+  );
 
   //파일 선택 시 폼데이터에 파일 목록 추가
   const onFileChange = useCallback(
     (e) => {
-    const files = e.target.files;
-    let fnames = ""; //span에 출력할 파일명 목록
+      const files = e.target.files;
+      let fnames = ""; //span에 출력할 파일명 목록
 
-    for (let i = 0; i < files.length; i++) {
-      formData.append("files", files[i]);
-      fnames += files[i].name + " ";
-    }
+      for (let i = 0; i < files.length; i++) {
+        formData.append("files", files[i]);
+        fnames += files[i].name + " ";
+      }
 
-    if (fnames === "") {
-      fnames = "선택한 파일이 없습니다.";
-    }
-    setFileName(fnames);
-  },[formData]);
+      if (fnames === "") {
+        fnames = "선택한 파일이 없습니다.";
+      }
+      setFileName(fnames);
+    },
+    [formData]
+  );
 
   //작성한 내용(제목, 글, 파일들) 전송 함수
   const onWrite = useCallback(
@@ -74,7 +75,7 @@ const ProductWrite = () => {
         "data",
         new Blob([JSON.stringify(data)], { type: "application/json" })
       );
-      console.log(formData)
+      console.log(formData);
       axios
         .post("/pdwriteProc", formData, {
           headers: { "Content-Type": "multipart/form-data" },
@@ -95,7 +96,6 @@ const ProductWrite = () => {
     [data]
   );
   console.log("현재값", data);
-  
 
   return (
     <div className="Write">
@@ -139,8 +139,8 @@ const ProductWrite = () => {
         />
         <input
           className="Input"
-          name="productlimit"
-          value={productlimit}
+          name="productLimit"
+          value={productLimit}
           placeholder="구매제한"
           onChange={onch}
           autoFocus
@@ -172,19 +172,12 @@ const ProductWrite = () => {
           value={productDetail}
         ></textarea>
         <div className="FileInput">
-          <input id="upload"
-           type="file"
-            multiple 
-            onChange={onFileChange} 
-         />
-
+          <input id="upload" type="file" multiple onChange={onFileChange} />
           <label className="FileLabel" htmlFor="upload">
             파일선택
           </label>
 
-          <span className="FileSpan">
-            {fileName} 
-          </span>
+          <span className="FileSpan">{fileName}</span>
         </div>
         <div className="Buttons">
           <Button
@@ -193,16 +186,11 @@ const ProductWrite = () => {
             color="gray"
             wsize="s-10"
             outline
-            onClick={() => nav("/mypage")}
+            onClick={() => nav("/mypage/productRegistered")}
           >
             목록으로
           </Button>
-          <Button 
-          type="submit" 
-          size="large" 
-          color="blue" 
-          wsize="s-30"
-          >
+          <Button type="submit" size="large" color="blue" wsize="s-30">
             등록
           </Button>
         </div>

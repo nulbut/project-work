@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import "./App.scss";
 import Home from "./components/Home";
@@ -20,6 +20,7 @@ import IdealcupMain from "./components/idealcup/IdealcupMain";
 import Game from "./components/idealcup/Game";
 import IdealcupLayout from "./components/idealcup/IdealcupLayout";
 import IdealCupMaker from "./components/idealcup/IdealcupMaker";
+import IdealCupLike from "./components/idealcup/IdealcupLike";
 import JoinN from "./components/shop/JoinN";
 import JoinB from "./components/shop/JoinB";
 import IdPasswordFind from "./components/shop/IdPasswordFind";
@@ -40,6 +41,19 @@ import BproductWirte from "./components/shop/BproductWirte";
 import AdminLogin from "./components/admin/AdminLogin";
 import ProductUpdate from "./components/shop/ProductUpdate";
 import UsedWrite from "./components/shop/UsedWrite";
+import ProductDetails from "./components/shop/ProductDetails";
+import UsedRegistered from "./components/shop/UsedRegistered";
+import UsedView from "./components/shop/UsedView";
+import ProductPurchase from "./components/shop/ProductPurchase";
+import { WidgetCheckoutPage } from "./components/toss/widget/WidgetCheckout";
+import { WidgetSuccessPage } from "./components/toss/widget/WidgetSuccess";
+import { PaymentCheckoutPage } from "./components/toss/payment/PaymentCheckout";
+import { PaymentSuccessPage } from "./components/toss/payment/PaymentSuccess";
+import { FailPage } from "./components/toss/Fail";
+import { BrandpayCheckoutPage } from "./components/toss/brandpay/BrandpayCheckout";
+import { BrandpaySuccessPage } from "./components/toss/brandpay/BrandpaySuccess";
+// import { PaymentBillingPage } from "./components/toss/payment/PaymentBilling";
+import InquiryForm from "./components/idealcup/InquiryForm";
 import BproductUpdata from "./components/shop/BproductUpdata";
 import BMypageView from "./components/shop/BMypageView";
 import BproductView from "./components/shop/BproductView";
@@ -54,6 +68,7 @@ function App() {
   const nav = useNavigate();
 
   //로그인 상태 저장
+
   const [loginState, setLoginState] = useState({
     loginid: "",
     loginnick: "",
@@ -156,11 +171,14 @@ function App() {
               path="productRegistered/pdview/pdUpdate"
               element={<ProductUpdate />}
             />
+            <Route path="usedRegistered" element={<UsedRegistered />} />
+            <Route path="usedRegistered/usView" element={<UsedView />} />
           </Route>
           <Route path="usedWrite" element={<UsedWrite />} />
 
           <Route path="bmypage" element={<BMypage onLogout={onLogout} />}>
             <Route path="bp1" element={<BproductRegisterd />} />
+            {/* <Route path="widget/widsuccess" element={<WidgetSuccessPage />} /> */}
 
             <Route path="bproductstock" element={<BProductStock />} />
             <Route path="binquiry" element={<BInquiry />} />
@@ -173,6 +191,15 @@ function App() {
           <Route path="bp0" element={<BMypageView onLogout={onLogout} />} />
 
           <Route path="/bproductw" element={<BproductWirte />} />
+          <Route path="/pddetails?" element={<ProductDetails />} />
+          <Route path="/pdpurchase" element={<ProductPurchase />} />
+          <Route path="/widsuccess" element={<WidgetSuccessPage />} />
+          <Route path="/widgetcheckout" element={<WidgetCheckoutPage />} />
+          <Route path="/fail" element={<FailPage />} />
+          <Route path="/payment" element={<PaymentCheckoutPage />} />
+          <Route path="/pmsuccess" element={<PaymentSuccessPage />} />
+          <Route path="/bpcheckout" element={<BrandpayCheckoutPage />} />
+          <Route path="/bpsuccess" element={<BrandpaySuccessPage />} />
           <Route path="/bproductview" element={<BproductView />} />
           <Route path="/bproductupdata" element={<BproductUpdata />} />
           <Route path="/bmemberview" element={<BMemberView />} />
@@ -188,9 +215,11 @@ function App() {
           element={<IdealcupLayout lstate={loginState} onLogout={onLogout} />}
         >
           <Route path="/idlecup" element={<IdealcupMain />} />
+          <Route path="/iealecuplike" element={<IdealCupLike />} />
           <Route path="/game?" element={<Game />} />
           <Route path="/make" element={<IdealCupMaker />} />
           <Route path="/mycup" element={<IdealcupMy />} />
+          <Route path="/idleinquiry" element={<InquiryForm />} />
         </Route>
         <Route path="/admin" element={<Admin />} />
         <Route path="/adminex" element={<AdminEx />} />

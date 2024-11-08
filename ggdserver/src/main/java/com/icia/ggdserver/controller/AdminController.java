@@ -5,9 +5,11 @@ import com.icia.ggdserver.dto.DateDto;
 import com.icia.ggdserver.service.AdminStaticService;
 import com.icia.ggdserver.entity.*;
 import com.icia.ggdserver.service.AdminService;
+import com.icia.ggdserver.service.IdealWorldCupService;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -23,6 +25,7 @@ public class AdminController {
 
     @Autowired
     private AdminService aServ;
+
 
     @PostMapping("adminLoginProc")
     public Map<String, String> loginProc(@RequestBody Member member){
@@ -113,6 +116,29 @@ public class AdminController {
         return aServ.getReport(rNum);
     }
 
+    @GetMapping("/rpUpdate")
+    public String rpUpdate(@RequestParam long rNum){
+        log.info("rpUpdate()");
+        return aServ.rpUpdate(rNum);
+    }
 
+    @GetMapping("/dm")
+    public Map<String, Object> getDmList(@RequestParam Integer pageNum){
+        log.info("getDList()");
 
+        Map<String, Object> res = aServ.getDList(pageNum);
+        return res;
+    }
+
+    @GetMapping("/getDm")
+    public DmsgTbl getDm(@RequestParam long dnum){
+        log.info("getDm()");
+        return aServ.getDmList(dnum);
+    }
+
+    @PostMapping("/dComment")
+    public String getComment(@RequestBody DmsgTbl directmsg){
+        log.info("getComment()");
+        return aServ.getComment(directmsg);
+    }
 }

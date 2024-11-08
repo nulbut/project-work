@@ -3,6 +3,7 @@ import React, { useCallback, useRef, useState } from "react";
 import { set, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import Button from "./Button";
+import "./scss/Main.scss";
 import AddressInput from "../AddressInput";
 
 let ck = false; //아이디 중복 체크
@@ -177,7 +178,7 @@ const JoinB = () => {
   }-${today.getDate()}`;
 
   return (
-    <div className="join">
+    <div className="Main">
       <form className="content" onSubmit={handleSubmit(onBSubmit)}>
         <input type="hidden" value={2} {...register("bmnum")} />
         <input type="hidden" value={1} {...register("bstatus")} />

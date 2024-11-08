@@ -21,7 +21,10 @@ import Notice from "./Notice";
 import Report from "./Report";
 
 const AdminEx = ({ data }) => {
-  const [viewName, setViewName] = useState(<AdminDashboard />);
+  const [dashview, setDashview] = useState("대시보드");
+  const [viewName, setViewName] = useState(
+    <AdminDashboard setDashview={setDashview} />
+  );
   const [state, setState] = useState(true);
 
   const buttons = [
@@ -99,7 +102,8 @@ const AdminEx = ({ data }) => {
   const moveMenu = (menu) => {
     switch (menu) {
       case "대쉬 보드":
-        setViewName(<AdminDashboard />);
+        setDashview("대쉬 보드");
+        setViewName(<AdminDashboard setDashview={setDashview} />);
         break;
       case "일반 회원":
         setViewName(<UserList user="일반 회원" />);
@@ -136,9 +140,14 @@ const AdminEx = ({ data }) => {
         setViewName(<Report />);
         break;
     }
-    //console.log("뷰네임", viewName);
+    console.log("뷰네임", viewName);
   };
-  useEffect(() => {}, [viewName]);
+  useEffect(() => {}, viewName);
+
+  useEffect(() => {
+    console.log(dashview);
+    moveMenu(dashview);
+  }, [dashview]);
 
   const sidebarClick = () => {
     state === true ? setState(false) : setState(true);
