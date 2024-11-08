@@ -1,8 +1,9 @@
 import axios from "axios";
 import React, { useCallback, useRef, useState } from "react";
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import Button from "./Button";
+import AddressInput from "../AddressInput";
 
 let ck = false; //아이디 중복 체크
 let cnumclick = false; //사업자등록번호 확인
@@ -15,6 +16,7 @@ const JoinB = () => {
   const bemail = sessionStorage.getItem("bemail");
   const [code, setCode] = useState("");
   const [userCode, setUserCode] = useState("");
+  const [addr, setAddr] = useState("");
 
   //입력값 유효성 체크를 위한 useForm 사용
   const {
@@ -88,8 +90,11 @@ const JoinB = () => {
     }
 
     //form 전송
+    // console.log(addr);
+    const sendForm = { ...form, baddress: addr };
+
     axios
-      .post("/bjoinproc", form)
+      .post("/bjoinproc", sendForm)
       .then((res) => {
         if ((res.data = "ok")) {
           alert("가입 완료되었습니다.");
@@ -294,16 +299,9 @@ const JoinB = () => {
         </div>
         <div className="address">
           <p>주소 *</p>
-          <p>
-            <input placeholder="우편번호" className="input" />
-            <button>아이콘 들어갈것</button>
-          </p>
-          <p>
-            <input placeholder="사업자 주소" />
-          </p>
-          <p>
-            <input placeholder="상세 주소" />
-          </p>
+          <div>
+            <AddressInput setAddr={setAddr} />
+          </div>
         </div>
         <div className="bid">
           <p>

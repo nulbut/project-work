@@ -35,7 +35,7 @@ public class BmemberTbl { //사업자 회원 테이블
     @Column(name = "b_email", nullable = false, length = 100)
     private String bemail; // 이메일
 
-    @Column(name = "b_address", length = 100)
+    @Column(name = "b_address", nullable = false, length = 100)
     private String baddress; //주소
 
     @Column(name = "b_name", nullable = false, length = 10)

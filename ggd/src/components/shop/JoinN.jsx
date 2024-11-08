@@ -10,12 +10,14 @@ let nck = false;
 let eck = false;
 let neck = false; //닉네임 중복 체크
 
-const JoinN = () => {
+const JoinN = (props) => {
   const nav = useNavigate();
 
   const nemail = sessionStorage.getItem("nemail");
   const [code, setCode] = useState("");
   const [userCode, setUserCode] = useState("");
+  const [addr, setAddr] = useState("");
+
   //   const [ckid, setCkid] = useState(false);
 
   //   console.log("체크", ck);
@@ -116,12 +118,16 @@ const JoinN = () => {
       alert("이미 가입된 이메일 입니다.");
     }
     //form 전송
+
+    console.log(addr);
+    const sendForm = { ...form, naddress: addr };
+    // console.log(sendForm);
     axios
-      .post("/joinproc", form)
+      .post("/joinproc", sendForm)
       .then((res) => {
         if ((res.data = "ok")) {
           alert("가입 완료되었습니다.");
-          // nav("/login"); //가입 성공 시 로그인 페이지로 이동.
+          nav("/login"); //가입 성공 시 로그인 페이지로 이동.
         } else {
           alert("가입 실패. 관리자에게 문의해주세요.");
         }
@@ -204,12 +210,12 @@ const JoinN = () => {
   // };
 
   //가입 날짜 가져오기
-  const today = new Date();
+  // const today = new Date();
 
   //날짜 형식 2024-01-01 형식으로 변경
-  const formattedDate = `${today.getFullYear()}-${
-    today.getMonth() + 1
-  }-${today.getDate()}`;
+  // const formattedDate = `${today.getFullYear()}-${
+  //   today.getMonth() + 1
+  // }-${today.getDate()}`;
 
   const onmailch = () => {
     const email = watch("nemail");
@@ -402,16 +408,10 @@ const JoinN = () => {
           </p>
         </div>
         <div className="address">
-          <AddressInput
-            {...register("naddress", {
-              required: {
-                value: true,
-                message: "주소 필수 입력값입니다.",
-              },
-            })}
-          ></AddressInput>
+          <AddressInput setAddr={setAddr} />
           <span className="error">{errors?.naddress?.message}</span>
         </div>
+
         <div className="joinbutton">
           <Button type="submit">가입하기</Button>
         </div>

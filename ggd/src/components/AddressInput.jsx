@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import DaumPostcode from "react-daum-postcode";
 import { useForm } from "react-hook-form";
 
-const AddressInput = () => {
+const AddressInput = ({ setAddr }) => {
   const [zonecode, setZonecode] = useState("");
   const [address, setAddress] = useState("");
   const [detailedAddress, setDetailedAddress] = useState("");
   const [isOpen, setIsOpen] = useState(false);
+  const [add, setAdd] = useState("");
 
   //입력값 유효성 체크를 위한 useForm 사용
   const {
@@ -31,6 +32,7 @@ const AddressInput = () => {
     width: "400px",
     height: "600px",
     border: "1.4px solid #333333",
+    margin: "0 auto",
   };
 
   const completeHandler = (data) => {
@@ -52,10 +54,19 @@ const AddressInput = () => {
 
   const inputChangeHandler = (event) => {
     setDetailedAddress(event.target.value);
+    const fulladdr = [address, detailedAddress].join(" ");
+    console.log(fulladdr);
+    setAddr(fulladdr);
   };
 
+  //주소 합치기
+
+  // const full = [address, detailedAddress].join(" ");
+
+  // console.log(full);
+
   return (
-    <div>
+    <div className="AddressInput">
       <div>
         <div>
           <div>우편번호</div>
@@ -67,7 +78,7 @@ const AddressInput = () => {
           </button>
         </div>
         {isOpen && (
-          <div>
+          <div className="DaumPostcode">
             <DaumPostcode
               theme={themeObj}
               style={style}
@@ -89,6 +100,7 @@ const AddressInput = () => {
           value={detailedAddress}
           onChange={inputChangeHandler}
         />
+        <div></div>
       </div>
     </div>
   );
