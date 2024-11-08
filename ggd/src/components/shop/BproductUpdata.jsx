@@ -321,15 +321,6 @@ const BproductUpdata = () => {
             autoFocus
             required
           />
-          {/* <p>상품 이미지</p> */}
-          <div>
-            {/* <input type="file" id="upload" multiple onChange={onBFileChange} />
-          <label className="FileLabel" htmlFor="upload">
-            업로드
-          </label> */}
-            {/* <span className="FileSpan">{fileName}</span> */}
-            {/* <p>미리보기들어갈것 </p> */}
-          </div>
         </div>
         <div>
           <p className="title">상품상세정보</p>
@@ -386,11 +377,6 @@ const BproductUpdata = () => {
               파일선택
             </label>
             <span className="FileSpan">{fileName}</span>
-          </div>
-          <div className="FileView">
-            {/* <p>미리보기</p> */}
-            <div>이전 이미지{viewFlist}</div>
-            {/* <div>수정 이미지{viewFile}</div> */}
           </div>
         </div>
         <div>

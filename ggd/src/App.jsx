@@ -48,6 +48,7 @@ import BMemberPasswordCheck from "./components/shop/BMemberPasswordCheck";
 import BMemberUpdate from "./components/shop/BMemberUpdate";
 import BProductStock from "./components/shop/BProductStock";
 import BInquiry from "./components/shop/BInquiry";
+import BOderHistory from "./components/shop/BOderHistory";
 
 function App() {
   const nav = useNavigate();
@@ -163,6 +164,7 @@ function App() {
 
             <Route path="bproductstock" element={<BProductStock />} />
             <Route path="binquiry" element={<BInquiry />} />
+            <Route path="boderhistory" element={<BOderHistory />} />
             <Route
               path="bmemberpasswordcheck"
               element={<BMemberPasswordCheck />}
@@ -174,6 +176,7 @@ function App() {
           <Route path="/bproductview" element={<BproductView />} />
           <Route path="/bproductupdata" element={<BproductUpdata />} />
           <Route path="/bmemberview" element={<BMemberView />} />
+
           <Route
             path="/bmemberpasswordcheck"
             element={<BMemberPasswordCheck />}

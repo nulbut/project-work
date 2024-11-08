@@ -5,6 +5,7 @@ import Button from "../idealcup/Button";
 import logo from "../images/logo.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import inquiryicon from "../images/inquiryicon.png";
+import "./scss/BmypageView.scss";
 
 const BMypageView = (props) => {
   // console.log(props.onLogout);
@@ -26,7 +27,7 @@ const BMypageView = (props) => {
     },
     {
       name: "주문내역/배송조회",
-      path: "/bmypage/",
+      path: "/bmypage/boderhistory",
     },
     {
       name: "재고관리",
@@ -111,7 +112,7 @@ const BMypageView = (props) => {
             </td>
           </table>
         </div>
-        <div>공지사항</div>
+        <div className="announcement">공지사항</div>
         <Outlet />
       </div>
     </div>

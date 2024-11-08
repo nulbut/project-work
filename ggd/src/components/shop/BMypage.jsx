@@ -26,7 +26,7 @@ const BMypage = (props) => {
     },
     {
       name: "주문내역/배송조회",
-      path: "/",
+      path: "boderhistory",
     },
     {
       name: "재고관리",

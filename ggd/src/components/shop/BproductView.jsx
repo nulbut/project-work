@@ -3,6 +3,7 @@ import Button from "./Button";
 import moment from "moment";
 import React, { useCallback, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import "./scss/BProductView.scss";
 
 const df = (date) => moment(date).format("YYYY-MM-DD HH:mm:ss");
 //const bn = (Number) => Number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -149,7 +150,7 @@ const BproductView = () => {
             <div className="Data">{df(BproductRegistered.bpdate)}</div>
           </div>
           <div className="Box">
-            <div className="FileTitle">파일</div>
+            <div className="FileTitle">이미지</div>
             <div className="FileData">{viewFilst}</div>
           </div>
           <div className="Cont">{BproductRegistered.bpexplanation}</div>
@@ -158,7 +159,7 @@ const BproductView = () => {
           <Button
             wsize="s-10"
             color="gray"
-            onClick={() => nav("/bmypage/bp1", {state : { bpnum : bpnum }})}
+            onClick={() => nav("/bmypage/bp1", { state: { bpnum: bpnum } })}
           >
             뒤로가기
           </Button>

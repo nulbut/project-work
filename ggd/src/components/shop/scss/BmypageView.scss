@@ -1,0 +1,70 @@
+.desc {
+  text-align: center;
+  .oder {
+    /* 주문현황 */
+
+    position: absolute;
+    width: 459px;
+    height: 118px;
+    left: 400px;
+    top: 231px;
+  }
+  .delivery {
+    /* 배송현황 */
+
+    position: absolute;
+    width: 459px;
+    height: 118px;
+    left: 400px;
+    top: 381px;
+  }
+  .cancellation {
+    /* 취소현황 */
+
+    position: absolute;
+    width: 459px;
+    height: 118px;
+    left: 400px;
+    top: 531px;
+  }
+  .revenue {
+    /* 정산금액 */
+
+    position: absolute;
+    width: 459px;
+    height: 118px;
+    left: 400px;
+    top: 741px;
+  }
+  .inquiry {
+    /* 상품문의사항 */
+
+    position: absolute;
+    width: 120px;
+    height: 160px;
+    left: 950px;
+    top: 228px;
+    img {
+      width: 150px;
+      left: 20px;
+    }
+  }
+  .stockstatus {
+    /* 재고상황 */
+
+    position: absolute;
+    width: 286px;
+    height: 218px;
+    left: 1230px;
+    top: 231px;
+  }
+  .announcement {
+    /* 공지사항 */
+
+    position: absolute;
+    width: 670.52px;
+    height: 359px;
+    left: 925.48px;
+    top: 500px;
+  }
+}
