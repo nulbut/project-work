@@ -65,8 +65,6 @@ public class ShoppingMallController {
         Map<String, Object> res = spmServ.getbpdList(pageNum);
         return res;
     }
-
-
     //상품등록글 받기
     @GetMapping("getproduct")
     public ProductTbl getproduct(@RequestParam long productCode){
@@ -81,3 +79,4 @@ public class ShoppingMallController {
         return spmServ.boardDelete(productCode, session);
     }
 }
+

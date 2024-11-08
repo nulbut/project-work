@@ -38,5 +38,8 @@ public class BoardTbl {
     private Timestamp boardDate;//문의 게시글 등록일
 
     @Transient
+    private String productName;
+
+    @Transient
     private List<BoardFileTbl> boardFileTblList;// 첨부파일
 }

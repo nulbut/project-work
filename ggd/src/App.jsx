@@ -41,6 +41,19 @@ import BproductWirte from "./components/shop/BproductWirte";
 import AdminLogin from "./components/admin/AdminLogin";
 import ProductUpdate from "./components/shop/ProductUpdate";
 import UsedWrite from "./components/shop/UsedWrite";
+import ProductDetails from "./components/shop/ProductDetails";
+import UsedRegistered from "./components/shop/UsedRegistered";
+import UsedView from "./components/shop/UsedView";
+import ProductPurchase from "./components/shop/ProductPurchase";
+// import { BrandpayCheckoutPage } from "./components/toss/brandpay/BrandpayCheckout";
+// import { FailPage } from "./components/toss/fail";
+// import { PaymentBillingPage } from "./components/toss/payment/PaymentBilling";
+// import { PaymentCheckoutPage } from "./components/toss/payment/PaymentCheckout";
+// import { PaymentSuccessPage } from "./components/toss/payment/PaymentSuccess";
+// import { BrandpaySuccessPage } from "./components/toss/brandpay/BrandpaySuccess";
+import { WidgetCheckoutPage } from "./components/toss/widget/WidgetCheckout";
+// import { WidgetSuccessPage } from "./components/toss/widget/WidgetSuccess";
+
 import InquiryForm from "./components/idealcup/InquiryForm";
 
 function App() {
@@ -149,6 +162,8 @@ function App() {
               path="productRegistered/pdview/pdUpdate"
               element={<ProductUpdate />}
             />
+            <Route path="usedRegistered" element={<UsedRegistered />} />
+            <Route path="usedRegistered/usView" element={<UsedView />} />
           </Route>
           <Route path="usedWrite" element={<UsedWrite />} />
           <Route path="/bmypage" element={<BMypage />}>
@@ -156,6 +171,9 @@ function App() {
           </Route>
           {/* <Route path="/bp1" element={<BproductRegisterd />} /> */}
           <Route path="/bproductw" element={<BproductWirte />} />
+          <Route path="/pddetails?" element={<ProductDetails />} />
+          <Route path="/pdpurchase" element={<ProductPurchase />} />
+          <Route path="/widgetcheckout" element={<WidgetCheckoutPage />} />
         </Route>
 
         <Route

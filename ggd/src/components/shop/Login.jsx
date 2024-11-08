@@ -21,6 +21,7 @@ const Login = ({ sucLogin }) => {
   } = useForm();
 
   const sendLogin = (form) => {
+    console.log(form);
     //넘어오는 값 확인용
     // console.log(form);
     const bform = {

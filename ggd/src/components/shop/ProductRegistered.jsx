@@ -56,9 +56,9 @@ const ProductRegistered = () => {
       </TableRow>
     );
   } else {
-    BoardList = Object.values(bitem).map((item) => (
+    BoardList = Object.values(bitem).map((item, index) => (
       <TableRow key={item.productCode}>
-        <TableColumn wd={"w-10"}>{item.productCode}</TableColumn>
+        <TableColumn wd={"w-10"}>{index + 1}</TableColumn>
         <TableColumn wd={"w-40"}>
           <div onClick={() => getBoard(item.productCode)}>
             {item.productName}
@@ -89,6 +89,16 @@ const ProductRegistered = () => {
         }}
       >
         상품등록
+      </Button>
+      <dr />
+      <Button
+        size="large"
+        wsize="s-50"
+        onClick={() => {
+          nav("/mypage/usedRegistered");
+        }}
+      >
+        중고등록한상품
       </Button>
     </div>
   );

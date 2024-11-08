@@ -3,6 +3,7 @@ import React, { useCallback, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import Button from "./Button";
+import "./scss/Main.scss";
 
 let ck = false; //아이디 중복 체크
 let cnumclick = false; //사업자등록번호 확인
@@ -172,7 +173,7 @@ const JoinB = () => {
   }-${today.getDate()}`;
 
   return (
-    <div className="join">
+    <div className="Main">
       <form className="content" onSubmit={handleSubmit(onBSubmit)}>
         <input type="hidden" value={2} {...register("bmnum")} />
         <input type="hidden" value={formattedDate} {...register("bsigndt")} />

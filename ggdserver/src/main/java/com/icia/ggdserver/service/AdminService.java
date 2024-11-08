@@ -89,7 +89,6 @@ public class AdminService {
         //페이징 조건 처리 객체 생성(Pageable)
         Pageable pb = PageRequest.of((dd.getPageNum() - 1), listCnt);
         //PageRequest.of(페이지번호, 페이지당 게시글 개수, 정렬방식, 컬럼명)
-
         Page<NmemberTbl> result = null;
 
         //검색과 조회가 없는 경우

@@ -140,9 +140,9 @@ const AdminEx = ({ data }) => {
         setViewName(<Report />);
         break;
     }
-    //console.log("뷰네임", viewName);
+    console.log("뷰네임", viewName);
   };
-  useEffect(() => {}, [viewName]);
+  useEffect(() => {}, viewName);
 
   useEffect(() => {
     console.log(dashview);
