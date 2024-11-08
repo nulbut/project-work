@@ -20,6 +20,7 @@ import IdealcupMain from "./components/idealcup/IdealcupMain";
 import Game from "./components/idealcup/Game";
 import IdealcupLayout from "./components/idealcup/IdealcupLayout";
 import IdealCupMaker from "./components/idealcup/IdealcupMaker";
+import IdealCupLike from "./components/idealcup/IdealcupLike";
 import JoinN from "./components/shop/JoinN";
 import JoinB from "./components/shop/JoinB";
 import IdPasswordFind from "./components/shop/IdPasswordFind";
@@ -179,6 +180,7 @@ function App() {
           element={<IdealcupLayout lstate={loginState} onLogout={onLogout} />}
         >
           <Route path="/idlecup" element={<IdealcupMain />} />
+          <Route path="/iealecuplike" element={<IdealCupLike />} />
           <Route path="/game?" element={<Game />} />
           <Route path="/make" element={<IdealCupMaker />} />
           <Route path="/mycup" element={<IdealcupMy />} />

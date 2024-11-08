@@ -3,8 +3,10 @@ package com.icia.ggdserver.service;
 import com.icia.ggdserver.dto.GameVsDto;
 import com.icia.ggdserver.dto.TurnImgDto;
 import com.icia.ggdserver.entity.IwcContentsTbl;
+import com.icia.ggdserver.entity.IwcLikeTbl;
 import com.icia.ggdserver.entity.IwcTbl;
 import com.icia.ggdserver.repository.IwcContentsRepository;
+import com.icia.ggdserver.repository.IwcLikeRepository;
 import com.icia.ggdserver.repository.IwcTblRepository;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +23,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -30,6 +33,9 @@ public class IdealWorldCupService {
 
     @Autowired
     private IwcContentsRepository conRepo;
+
+    @Autowired
+    private IwcLikeRepository likeRepo;
 
     public String insertIwc(IwcTbl iwc,
                               List<MultipartFile> files,
@@ -112,8 +118,8 @@ public class IdealWorldCupService {
         }
     }
 
-    public Map<String, Object> getBoardList(Integer pNum){
-        log.info("getBoardList()");
+    public Map<String, Object> getBoardList(Integer pNum, String searchKeyword, String timeRange, String sortBy,String nid){
+        log.info("getBoardList(){} {} {} {} {}",pNum,searchKeyword,timeRange,sortBy,nid);
 
         if(pNum == null){
             pNum = 1;
@@ -123,23 +129,29 @@ public class IdealWorldCupService {
         int listCnt = 16;
 
         //페이징 조건 처리 객체 생성(Pageable)
-        Pageable pb = PageRequest.of((pNum - 1), listCnt,
-                Sort.Direction.DESC, "iwcCode");
+        Pageable pb = PageRequest.of((pNum - 1), listCnt);
         //PageRequest.of(페이지번호, 페이지당 게시글 개수, 정렬방식, 컬럼명)
 
         Page<IwcTbl> result = null;
-        result = iwcRepo.findByIwcCodeGreaterThanAndIwcPublicEquals(0L,1L, pb);
-//        if(pNum.getKeyword() == ""){
-//            result = bRepo.findByBnumGreaterThan(0L, pb);
-//        }
-//        else {
-//            result = bRepo.findBySearch(0L, pNum.getColumn(), pNum.getKeyword(), pb);
-//        }
+        result = iwcRepo.getListFilterSearch(searchKeyword,timeRange, sortBy,pb);
 
         //page 객체를 list로 변환 후 전송.
         List<IwcTbl> bList = result.getContent();//page에서 게시글목록을 꺼내와서
+
         //bList에 저장.
         int totalPage = result.getTotalPages();//전체 페이지 개수
+
+        Map<Long, Boolean> likeStatusMap = new HashMap<>();
+        List<Long> iwcCodes = bList.stream().map(IwcTbl::getIwcCode).collect(Collectors.toList());
+        List<IwcLikeTbl> likeRecords = likeRepo.findByIwcCodeInAndLikeNid(iwcCodes, nid);
+
+        for (IwcLikeTbl like : likeRecords) {
+        likeStatusMap.put(like.getIwcCode(), true);  // 좋아요 눌렀으면 true로 설정
+        }
+
+        bList.forEach(board -> {
+            board.setLiked(likeStatusMap.getOrDefault(board.getIwcCode(), false));  // 기본값 false
+        });
 
         Map<String, Object> res = new HashMap<>();
         res.put("bList", bList);
@@ -150,7 +162,54 @@ public class IdealWorldCupService {
         return res;
     }
 
-    public Map<String, Object> getMyBoardList(Integer pNum, String id){
+    public Map<String, Object> getBoardListLike(Integer pNum, String searchKeyword, String timeRange, String sortBy,String nid){
+        log.info("getBoardList(){} {} {} {} {}",pNum,searchKeyword,timeRange,sortBy,nid);
+
+        if(pNum == null){
+            pNum = 1;
+        }
+
+        //페이지 당 보여질 게시글 개수
+        int listCnt = 16;
+
+        //페이징 조건 처리 객체 생성(Pageable)
+        Pageable pb = PageRequest.of((pNum - 1), listCnt);
+        //PageRequest.of(페이지번호, 페이지당 게시글 개수, 정렬방식, 컬럼명)
+        List<Long> userLikes = likeRepo.findIwcCodes(nid);
+
+        log.info("userLikes: {}", userLikes);
+        Page<IwcTbl> result = null;
+        result = iwcRepo.getListFilterSearchLike(searchKeyword,timeRange, sortBy,userLikes,pb);
+
+
+        //page 객체를 list로 변환 후 전송.
+        List<IwcTbl> bList = result.getContent();//page에서 게시글목록을 꺼내와서
+
+        //bList에 저장.
+        int totalPage = result.getTotalPages();//전체 페이지 개수
+
+        Map<Long, Boolean> likeStatusMap = new HashMap<>();
+        List<Long> iwcCodes = bList.stream().map(IwcTbl::getIwcCode).collect(Collectors.toList());
+        List<IwcLikeTbl> likeRecords = likeRepo.findByIwcCodeInAndLikeNid(iwcCodes, nid);
+
+        for (IwcLikeTbl like : likeRecords) {
+            likeStatusMap.put(like.getIwcCode(), true);  // 좋아요 눌렀으면 true로 설정
+        }
+
+        bList.forEach(board -> {
+            board.setLiked(likeStatusMap.getOrDefault(board.getIwcCode(), false));  // 기본값 false
+        });
+
+        Map<String, Object> res = new HashMap<>();
+        res.put("bList", bList);
+        res.put("totalPage", totalPage);
+        res.put("pageNum", pNum);
+
+
+        return res;
+    }
+
+    public Map<String, Object> getMyBoardList(Integer pNum, String searchKeyword, String timeRange, String sortBy,String nid){
         log.info("getBoardList()");
 
         if(pNum == null){
@@ -158,15 +217,14 @@ public class IdealWorldCupService {
         }
 
         //페이지 당 보여질 게시글 개수
-        int listCnt = 15;
+        int listCnt = 16;
 
         //페이징 조건 처리 객체 생성(Pageable)
-        Pageable pb = PageRequest.of((pNum - 1), listCnt,
-                Sort.Direction.DESC, "iwcCode");
+        Pageable pb = PageRequest.of((pNum - 1), listCnt);
         //PageRequest.of(페이지번호, 페이지당 게시글 개수, 정렬방식, 컬럼명)
 
         Page<IwcTbl> result = null;
-        result = iwcRepo.findByIwcCodeGreaterThanAndIwcAuthorEquals(0L,id,pb);
+        result = iwcRepo.getListFilterSearchMy(searchKeyword,timeRange, sortBy,nid,pb);
 //        if(pNum.getKeyword() == ""){
 //            result = bRepo.findByBnumGreaterThan(0L, pb);
 //        }
@@ -178,6 +236,17 @@ public class IdealWorldCupService {
         List<IwcTbl> bList = result.getContent();//page에서 게시글목록을 꺼내와서
         //bList에 저장.
         int totalPage = result.getTotalPages();//전체 페이지 개수
+        Map<Long, Boolean> likeStatusMap = new HashMap<>();
+        List<Long> iwcCodes = bList.stream().map(IwcTbl::getIwcCode).collect(Collectors.toList());
+        List<IwcLikeTbl> likeRecords = likeRepo.findByIwcCodeInAndLikeNid(iwcCodes, nid);
+
+        for (IwcLikeTbl like : likeRecords) {
+            likeStatusMap.put(like.getIwcCode(), true);  // 좋아요 눌렀으면 true로 설정
+        }
+
+        bList.forEach(board -> {
+            board.setLiked(likeStatusMap.getOrDefault(board.getIwcCode(), false));  // 기본값 false
+        });
 
         Map<String, Object> res = new HashMap<>();
         res.put("bList", bList);
@@ -279,6 +348,34 @@ public class IdealWorldCupService {
             if(file.exists()){//파일 존재 확인
                 file.delete();
             }
+        }
+    }
+
+    public void toggleLike(long iwcCode, String likeNid, boolean isLiked) {
+        try {
+            IwcTbl game = iwcRepo.findById(iwcCode)
+                    .orElseThrow(() -> new IllegalArgumentException("Game not found"));
+
+            if (isLiked) {
+                // 좋아요를 취소할 경우
+                likeRepo.deleteByIwcCodeAndLikeNid(iwcCode, likeNid);
+
+            } else {
+                // 좋아요를 추가할 경우
+                IwcLikeTbl iwcLike = new IwcLikeTbl();
+                iwcLike.setIwcCode(iwcCode);
+                iwcLike.setLikeNid(likeNid);
+                likeRepo.save(iwcLike);
+            }
+
+            long likeCount = likeRepo.countByIwcCode(iwcCode);
+            game.setIwcLike(likeCount);
+            iwcRepo.save(game);
+            // 해당 게임의 좋아요 개수 업데이트
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

@@ -13,7 +13,7 @@ import NotieView from "./NoticeView";
 const df = (date) => moment(date).format("YYYY-MM-DD");
 
 const NoticeList = () => {
-  const pnum = sessionStorage.getItem("pageNum");
+  const pnum = sessionStorage.getItem("pageNumNotice");
   const [aitem, setAitem] = useState({});
   const [page, setPage] = useState({
     totalPage: 0,
@@ -27,13 +27,13 @@ const NoticeList = () => {
       .get("/admin/notice", { params: { pageNum: pnum } })
       .then((res) => {
         const { nList, totalPage, pageNum } = res.data;
+        console.log(res.data);
         setPage({ totalPage: totalPage, pageNum: pageNum });
         setAitem(nList);
-        sessionStorage.setItem("pageNum", pageNum);
+        sessionStorage.setItem("pageNumNotice", pageNum);
       })
       .catch((err) => console.log(err));
   };
-
   let list = null;
   if (aitem.length === 0) {
     list = (

@@ -4,6 +4,7 @@ import React, { useCallback, useContext, useEffect, useState } from "react";
 import NoticeList from "./NoticeList";
 import { AdminPageContextStore } from "./AdminPageStatus";
 import Button from "../idealcup/Button";
+import Nupdate from "./Nupdate";
 
 const df = (date) => moment(date).format("YYYY-MM-DD");
 
@@ -67,12 +68,21 @@ const NotieView = ({ nnum }) => {
     pageSt.setViewPage(<NoticeList />);
   };
 
-  const updateBoard = () => {};
+  const updateBoard = () => {
+    console.log("nupdate viewchange");
+    pageSt.setViewPage(<Nupdate nnum={nnum}/>);
+  };
 
   const viewFlist = filst.map((v, i) => {
     return (
-      <div className="Down" key={i}>
-        {v.image && <img src={v.image} alt="preview-img" />}
+      <div className="a-img" key={i}>
+        {v.image && (
+          <img
+            src={v.image}
+            alt="preview-img"
+            style={{ maxWidth: "100%", height: "auto" }}
+          />
+        )}
         {v.nforiname}
       </div>
     );
@@ -81,7 +91,9 @@ const NotieView = ({ nnum }) => {
   return (
     <div className="Main">
       <div className="Content">
-        <div className="Title">{notice.ntitle} {df(notice.rdate)}</div>
+        <div className="Title">
+          {notice.ntitle} {df(notice.rdate)}
+        </div>
         {/* <div className="Data">{df(notice.rdate)}</div> */}
         {/* <div className="DataArea"> */}
         <div className="Cont">{notice.ncontent}</div>

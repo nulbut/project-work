@@ -24,11 +24,12 @@ const ManageCupList = () => {
     totalPage: 0,
     pageNum: 1,
   });
+  const [searchKeyword, setSearchKeyword] = useState("");
   const pnum = sessionStorage.getItem("pageNum");
   const nav = useNavigate();
   const fetchGoods = (pnum) => {
     axios
-      .get("/list", { params: { pageNum: pnum } })
+      .get("/idlecuplist", { params: { pageNum: pnum } })
       .then((res) => {
         const { bList, totalPage, pageNum } = res.data;
         setPage({ totalPage: totalPage, pageNum: pageNum });
@@ -71,10 +72,18 @@ const ManageCupList = () => {
     nav("/game", { state: { iwcCode: code } }); //'/board?bn=1'
   }; //상세보기 화면으로 전환될 때 게시글 번호를 보낸다.
 
+  const handleSearchChange = (e) => {
+    setSearchKeyword(e.target.value);
+  };
   return (
     <div className="idealmain">
       <h1>월드컵 리스트</h1>
-
+      <input
+        type="text"
+        placeholder="검색어를 입력하세요"
+        value={searchKeyword}
+        onChange={handleSearchChange}
+      />
       <div className="table-wrapper">
         <Table hName={["번호", "이름", "작성자", "작성일", "가입날짜", "비고"]}>
           {list}

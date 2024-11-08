@@ -1,14 +1,15 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Button from "./Button";
 import "./scss/Login.scss";
 import "./scss/Button.scss";
 
 const Login = ({ sucLogin }) => {
   const navigate = useNavigate();
-
+  const location = useLocation();
+  console.log(location, "location");
   // const [state, setState] = useState("");
   // console.log(state);
 
@@ -39,8 +40,11 @@ const Login = ({ sucLogin }) => {
             sucLogin(res1.data.nid, res1.data.nnickname, "n");
             sessionStorage.setItem("nid", res1.data.nid);
             sessionStorage.setItem("nnickname", res1.data.nnickname);
-
-            navigate("/shoppingmall");
+            if (location.state?.where == "ideal") {
+              navigate("/idlecup");
+            } else {
+              navigate("/shoppingmall");
+            }
           } else if (res1.data.res1 == "fail2") {
             //일반회원 회원정보 없음
             if (res2.data.res2 == "ok") {
@@ -83,11 +87,11 @@ const Login = ({ sucLogin }) => {
 
   return (
     <div className="login">
-      <div className="head">
+      <div className="head-login">
         <h1>LOGIN</h1>
         <br />
       </div>
-      <form className="content" onSubmit={handleSubmit(sendLogin)}>
+      <form className="content-login" onSubmit={handleSubmit(sendLogin)}>
         <div className="id">
           <p>ID</p>
           <input
