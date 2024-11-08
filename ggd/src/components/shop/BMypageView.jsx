@@ -78,25 +78,25 @@ const BMypageView = (props) => {
       <div className="desc">
         <div className="oder">
           <Button>주문완료</Button>
-          <div className="count">건</div>
+          <div className="count">{}건</div>
         </div>
         <div className="delivery">
           <Button>배송준비</Button>
-          <div className="count">건</div>
+          <div className="count">{}건</div>
           <Button>배송중</Button>
-          <div className="count">건</div>
+          <div className="count">{}건</div>
         </div>
         <div className="cancellation">
           <Button>취소요청</Button>
-          <div className="count">건</div>
+          <div className="count">{}건</div>
           <Button>반품요청</Button>
-          <div className="count">건</div>
+          <div className="count">{}건</div>
           <Button>교환요청</Button>
-          <div className="count">건</div>
+          <div className="count">{}건</div>
         </div>
         <div className="revenue">
           <Button>오늘 매출액</Button>
-          <div className="count">건</div>
+          <div className="count">{}건</div>
         </div>
         <div className="inquiry">
           <img src={inquiryicon} alt="" />
