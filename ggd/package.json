@@ -70,6 +70,8 @@
   "devDependencies": {
     "@vitejs/plugin-react-swc": "^3.7.1",
     "vite": "^5.4.10"
+  },
+  "devDependencies": {
     "sass": "^1.80.5"
   }
 }
