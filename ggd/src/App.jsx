@@ -1,4 +1,4 @@
-import React,{ useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import "./App.scss";
 import Home from "./components/Home";
@@ -45,20 +45,21 @@ import ProductDetails from "./components/shop/ProductDetails";
 import UsedRegistered from "./components/shop/UsedRegistered";
 import UsedView from "./components/shop/UsedView";
 import ProductPurchase from "./components/shop/ProductPurchase";
-import { WidgetCheckoutPage }  from "./components/toss/widget/WidgetCheckout";
-import { WidgetSuccessPage }  from "./components/toss/widget/WidgetSuccess";
+import { WidgetCheckoutPage } from "./components/toss/widget/WidgetCheckout";
+import { WidgetSuccessPage } from "./components/toss/widget/WidgetSuccess";
 import { PaymentCheckoutPage } from "./components/toss/payment/PaymentCheckout";
 import { PaymentSuccessPage } from "./components/toss/payment/PaymentSuccess";
 import { FailPage } from "./components/toss/Fail";
 import { BrandpayCheckoutPage } from "./components/toss/brandpay/BrandpayCheckout";
 import { BrandpaySuccessPage } from "./components/toss/brandpay/BrandpaySuccess";
 // import { PaymentBillingPage } from "./components/toss/payment/PaymentBilling";
+import InquiryForm from "./components/idealcup/InquiryForm";
 
 function App() {
   const nav = useNavigate();
 
   //로그인 상태 저장
-  
+
   const [loginState, setLoginState] = useState({
     loginid: "",
     loginnick: "",
@@ -163,26 +164,25 @@ function App() {
             />
             <Route path="usedRegistered" element={<UsedRegistered />} />
             <Route path="usedRegistered/usView" element={<UsedView />} />
-
           </Route>
-            <Route path="usedWrite" element={<UsedWrite />} />
-            <Route path="/bmypage" element={<BMypage />}>
+          <Route path="usedWrite" element={<UsedWrite />} />
+          <Route path="/bmypage" element={<BMypage />}>
             <Route path="bp1" element={<BproductRegisterd />} />
-            {/* <Route path="widget/widsuccess" element={<WidgetSuccessPage /> } /> */}
+            {/* <Route path="widget/widsuccess" element={<WidgetSuccessPage />} /> */}
           </Route>
           {/* <Route path="/bp1" element={<BproductRegisterd />} /> */}
           <Route path="/bproductw" element={<BproductWirte />} />
           <Route path="/pddetails?" element={<ProductDetails />} />
           <Route path="/pdpurchase" element={<ProductPurchase />} />
           <Route path="/widsuccess" element={<WidgetSuccessPage />} />
-          <Route path="/widget" element={<WidgetCheckoutPage />} /> 
+          <Route path="/widgetcheckout" element={<WidgetCheckoutPage />} />
           <Route path="/fail" element={<FailPage />} />
-           <Route path="/payment" element={<PaymentCheckoutPage />} /> 
-           <Route path="/pmsuccess" element={<PaymentSuccessPage />} />
-           <Route path="/bpcheckout" element={<BrandpayCheckoutPage />} />
-          <Route path="/bpsuccess" element={<BrandpaySuccessPage />} /> 
+          <Route path="/payment" element={<PaymentCheckoutPage />} />
+          <Route path="/pmsuccess" element={<PaymentSuccessPage />} />
+          <Route path="/bpcheckout" element={<BrandpayCheckoutPage />} />
+          <Route path="/bpsuccess" element={<BrandpaySuccessPage />} />
         </Route>
-            
+
         <Route
           element={<IdealcupLayout lstate={loginState} onLogout={onLogout} />}
         >
