@@ -4,7 +4,6 @@ import axios from "axios";
 import TableRow from "./TableRow";
 import TableColumn from "./TableColumn";
 import moment from "moment";
-import NotieView from "./NoticeView";
 import Table from "./Table";
 import Paging from "./Paging";
 import ReportView from "./ReportView";
@@ -71,12 +70,7 @@ const ReportList = () => {
         <TableColumn wd="w-40">{truncateContent(item.rcontent)}</TableColumn>
         <TableColumn wd="w-20">{item.ruid}</TableColumn>
         <TableColumn wd="w-10">{df(item.rdate)}</TableColumn>
-        <TableColumn wd="w-10">
-          <select>
-            <option selected={item.rState === "" ? true : false}></option>
-            <option selected={item.rState === "" ? true : false}></option>
-          </select>
-        </TableColumn>
+        <TableColumn wd="w-10">{item.rstatus}</TableColumn>
       </TableRow>
     ));
   }
@@ -94,7 +88,7 @@ const ReportList = () => {
   }, []);
 
   return (
-    <div>
+    <div className="Content">
       <h1>신고함</h1>
       <Table hName={["번호", "신고사유", "내용", "ID", "날짜", "처리"]}>
         {list}

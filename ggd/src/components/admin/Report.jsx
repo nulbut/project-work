@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { AdminPageContextStore } from "./AdminPageStatus";
 import ReportList from "./ReportList";
+import "./scss/Admin.scss";
 
 const Report = () => {
   const nav = useNavigate();

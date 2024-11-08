@@ -15,6 +15,7 @@ import Review from "./Review";
 import Paging from "./Paging";
 import Notice from "./Notice";
 import Report from "./Report";
+import Directmessage from "./DirectMessage";
 
 // function Admin() {
 //   const history = useHistory();
@@ -82,6 +83,9 @@ const Admin = () => {
         break;
       case "공지사항":
         setViewName(<Notice />);
+        break;
+      case "1 : 1 문의":
+        setViewName(<Directmessage />);
         break;
     }
   };

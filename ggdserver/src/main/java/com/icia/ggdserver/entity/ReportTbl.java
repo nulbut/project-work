@@ -32,7 +32,8 @@ public class ReportTbl {
     private long fromCode;
 
     @Column
-    private String rStatus;
+    @ColumnDefault("'미처리'")
+    private String rStatus = "미처리";
 
     @CreationTimestamp
     @Column
