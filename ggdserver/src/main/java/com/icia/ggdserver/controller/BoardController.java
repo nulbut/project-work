@@ -1,6 +1,8 @@
 package com.icia.ggdserver.controller;
 
 import com.icia.ggdserver.entity.BoardTbl;
+import com.icia.ggdserver.entity.ProductTbl;
+import com.icia.ggdserver.repository.ProductTblRepository;
 import com.icia.ggdserver.service.BoardService;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +20,9 @@ public class BoardController {
     @Autowired
     private BoardService bServ;
 
+    @Autowired
+    private ProductTblRepository pRepo;
+
     //문의 게시글 목록
     @GetMapping("boardlist")
     public Map<String, Object> getboardlist(@RequestParam Integer pageNum,
@@ -30,10 +35,11 @@ public class BoardController {
     }
     //문의 게시글 작성
     @PostMapping("boardWriteProc")
-    public String boardWriteProc(@RequestPart(value = "data", required = true)BoardTbl board,
-                                 @RequestPart(value = "files", required = false)List<MultipartFile> files,
+    public String boardWriteProc(@RequestPart(value = "data", required = true) BoardTbl board,
+                                 @RequestPart(value = "files", required = false) List<MultipartFile> files,
                                  HttpSession session) {
         log.info("boardWriteProc()");
+
         String result = bServ.insertinquiry(board, files, session);
         return result;
     }

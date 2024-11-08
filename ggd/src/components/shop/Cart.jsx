@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import moment from "moment";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./scss/Main.scss";
 import axios from "axios";
 import TableRow from "./TableRow";
@@ -21,6 +21,7 @@ const Cart = () => {
     totalPage: 0,
     pageNum: 1,
   });
+  const [selectAll, setSelectAll] = useState(false); // 전체 선택 상태 관리
 
   // 서버로부터 장바구니 가져오는 함수
   const getCartList = (pnum) => {
@@ -29,16 +30,13 @@ const Cart = () => {
       .then((res) => {
         const { Clist, totalPage, pageNum } = res.data;
         setPage({ totalPage: totalPage, pageNum: pageNum });
-        // 세션 저장소에 새로고침 여부를 체크
         const Reloaded = sessionStorage.getItem("Reloaded");
 
-        // 새로고침 시에만 수량을 1로 초기화
         let reCart = Clist;
         if (Reloaded === "true") {
           reCart = Clist.map((item) => {
             return { ...item, quantity: 1 }; // 수량을 1로 설정
           });
-          // 새로고침 여부 초기화 (세션에서 값을 삭제)
           sessionStorage.removeItem("Reloaded");
         }
 
@@ -54,9 +52,7 @@ const Cart = () => {
       nav("/login", { replace: true });
       return;
     }
-    // 새로고침 여부 체크
     if (!sessionStorage.getItem("Reloaded")) {
-      // 처음 로드되었을 때, 세션에 "isPageReloaded" 상태 저장
       sessionStorage.setItem("Reloaded", "true");
     }
     pnum !== null ? getCartList(pnum) : getCartList(1);
@@ -65,14 +61,24 @@ const Cart = () => {
   // 체크박스 선택 상태 업데이트
   const handleCheckboxChange = (cartCode) => {
     setSelectedItems((prevSelectedItems) => {
-      if (prevSelectedItems.includes(cartCode)) {
-        // 이미 선택된 항목이면 제거
-        return prevSelectedItems.filter((item) => item !== cartCode);
-      } else {
-        // 선택되지 않은 항목이면 추가
-        return [...prevSelectedItems, cartCode];
-      }
+      const newSelectedItems = prevSelectedItems.includes(cartCode)
+        ? prevSelectedItems.filter((item) => item !== cartCode)
+        : [...prevSelectedItems, cartCode];
+
+      // 전체 선택 상태 업데이트
+      setSelectAll(newSelectedItems.length === citem.length);
+      return newSelectedItems;
     });
+  };
+
+  // 전체 선택/해제 처리
+  const handleSelectAllChange = () => {
+    if (selectAll) {
+      setSelectedItems([]); // 전체 선택 해제
+    } else {
+      setSelectedItems(citem.map((item) => item.cartCode)); // 전체 선택
+    }
+    setSelectAll(!selectAll);
   };
 
   // 수량 변경 핸들러
@@ -82,7 +88,6 @@ const Cart = () => {
       return;
     }
 
-    // 장바구니 항목의 수량을 업데이트
     const updatedItems = citem.map((item) => {
       if (item.cartCode === cartCode) {
         return { ...item, quantity: newQuantity };
@@ -92,7 +97,6 @@ const Cart = () => {
 
     setCitem(updatedItems);
 
-    // 서버에 변경된 수량 전송
     axios
       .post("/updateCart", { cartCode, quantity: newQuantity })
       .then((res) => {
@@ -120,18 +124,16 @@ const Cart = () => {
       return;
     }
 
-    // 서버로 선택된 항목 삭제 요청
     axios
       .post("/deleteCart", selectedItems, {
         headers: {
-          "Content-Type": "application/json", // Content-Type을 json으로 설정
+          "Content-Type": "application/json",
         },
       })
       .then((res) => {
         if (res.data === "ok") {
           alert("선택된 항목을 삭제했습니다.");
-          // 장바구니 목록을 새로 고침
-          getCartList(1);
+          getCartList(1); // 장바구니 목록을 새로 고침
         } else {
           alert("삭제 실패");
         }
@@ -210,17 +212,17 @@ const Cart = () => {
         : item.usedin
         ? item.usedin.usedSeller
         : 0;
-      const totalPrice = price * item.quantity; // 수량에 따른 총 가격 계산
+      const totalPrice = price * item.quantity;
       return (
         <TableRow key={item.cartCode}>
-          <TableColumn wd="5">
+          <TableColumn wd="w-5">
             <input
               type="checkbox"
               onChange={() => handleCheckboxChange(item.cartCode)} // 체크박스 클릭 시 상태 업데이트
               checked={selectedItems.includes(item.cartCode)} // 선택 여부에 따른 체크 상태
             />
           </TableColumn>
-          <TableColumn wd="20">
+          <TableColumn wd="w-10">
             {item.productin ? (
               <div>신상품</div>
             ) : item.usedin ? (
@@ -229,7 +231,7 @@ const Cart = () => {
               ""
             )}
           </TableColumn>
-          <TableColumn wd="30">
+          <TableColumn wd="w-25">
             <div onClick={() => getCart(item.productCode)}>
               {item.productin ? (
                 <div>{item.productin.productName}</div>
@@ -240,7 +242,7 @@ const Cart = () => {
               )}
             </div>
           </TableColumn>
-          <TableColumn wd="5">
+          <TableColumn wd="w-10">
             <input
               type="number"
               value={item.quantity}
@@ -250,9 +252,9 @@ const Cart = () => {
               }
             />
           </TableColumn>
-          <TableColumn wd="20">{totalPrice}₩</TableColumn>
-          <TableColumn wd="20">{df(item.cartDate)}</TableColumn>
-          <TableColumn wd="10">
+          <TableColumn wd="w-20">{totalPrice}₩</TableColumn>
+          <TableColumn wd="w-20">{df(item.cartDate)}</TableColumn>
+          <TableColumn wd="w-10">
             <Button wsize="s-40" onClick={handlePurchase}>
               구매
             </Button>
@@ -271,14 +273,25 @@ const Cart = () => {
       <div className="Content">
         <h1>장바구니</h1>
         <CartBoard
-          cName={["선택", "구분", "상품", "수량", "가격", "등록일", "여부"]}
+          cName={[
+            <input
+              type="checkbox"
+              onChange={handleSelectAllChange}
+              checked={selectAll} // 전체 선택 여부
+            />,
+            "구분",
+            "상품",
+            "수량",
+            "가격",
+            "등록일",
+            "여부",
+          ]}
         >
           {cartList}
         </CartBoard>
         <Button size="large" wsize="s-30" onClick={deleteSelectedItems}>
           선택된 항목 삭제
         </Button>
-        <dr />
         <Button size="large" wsize="s-30" onClick={resetCartQuantity}>
           수량 초기화
         </Button>

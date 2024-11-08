@@ -58,9 +58,9 @@ const Inquiry = () => {
       </TableRow>
     );
   } else {
-    boardList = Object.values(iitem).map((column) => (
+    boardList = Object.values(iitem).map((column, index) => (
       <TableRow key={column.boardCode}>
-        <TableColumn wd="w-10">{column.boardCode}</TableColumn>
+        <TableColumn wd="w-10">{index + 1}</TableColumn>
         <TableColumn wd="w-40">
           <div onClick={() => getBoard(column.boardCode)}>
             {column.boardTitle}

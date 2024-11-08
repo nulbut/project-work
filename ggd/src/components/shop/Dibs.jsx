@@ -24,6 +24,8 @@ const Dibs = () => {
     pageNum: pnum,
   });
 
+  const [selectAll, setSelectAll] = useState(false); // 전체 선택 상태 관리
+
   // 서버로부터 찜목록 가져오는 함수
   const getDibsList = (pnum) => {
     axios
@@ -49,12 +51,24 @@ const Dibs = () => {
   // 체크박스 선택 상태 업데이트
   const handleCheckboxChange = (dibsCode) => {
     setSelectedItems((prevSelectedItems) => {
-      if (prevSelectedItems.includes(dibsCode)) {
-        return prevSelectedItems.filter((item) => item !== dibsCode);
-      } else {
-        return [...prevSelectedItems, dibsCode];
-      }
+      const newSelectedItems = prevSelectedItems.includes(dibsCode)
+        ? prevSelectedItems.filter((item) => item !== dibsCode)
+        : [...prevSelectedItems, dibsCode];
+
+      // 전체 선택 상태 업데이트
+      setSelectAll(newSelectedItems.length === ditem.length);
+      return newSelectedItems;
     });
+  };
+
+  // 전체 선택/해제 처리
+  const handleSelectAllChange = () => {
+    if (selectAll) {
+      setSelectedItems([]); // 전체 선택 해제
+    } else {
+      setSelectedItems(ditem.map((item) => item.dibsCode)); // 전체 선택
+    }
+    setSelectAll(!selectAll);
   };
 
   // 선택된 항목 삭제
@@ -140,7 +154,7 @@ const Dibs = () => {
             ""
           )}
         </TableColumn>
-        <TableColumn wd="40">
+        <TableColumn wd="w-25">
           <div onClick={() => getDibs(item.productCode)}>
             {/* 신상품이 있는 경우 */}
             {item.productinfo ? (
@@ -157,17 +171,17 @@ const Dibs = () => {
             )}
           </div>
         </TableColumn>
-        <TableColumn wd="30">
+        <TableColumn wd="w-20">
           {item.productinfo || item.usedinfo
             ? item.productinfo
               ? item.productinfo.sellerPayment + "₩"
               : item.usedinfo.usedSeller + "₩"
             : "가격 정보 없음"}
         </TableColumn>
-        <TableColumn wd="20">{df(item.dibsDate)}</TableColumn>
-        <TableColumn wd="5">
+        <TableColumn wd="w-10">{df(item.dibsDate)}</TableColumn>
+        <TableColumn wd="w-20">
           <Button
-            wsize="s-20"
+            wsize="s-50"
             onClick={() => {
               const quantity = 1; // 예시로 1개를 기본 수량으로 설정
               cartList(item.usedCode, quantity); // 클릭 시 수량 전달
@@ -191,7 +205,19 @@ const Dibs = () => {
     <div className="Main">
       <div className="Content">
         <h1>찜목록</h1>
-        <DibsBoard dName={["선택", "구분", "상품", "가격", "등록일"]}>
+        <DibsBoard
+          dName={[
+            <input
+              type="checkbox"
+              onChange={handleSelectAllChange}
+              checked={selectAll} // 전체 선택 여부
+            />,
+            "구분",
+            "상품",
+            "가격",
+            "등록일",
+          ]}
+        >
           {dibsList}
         </DibsBoard>
         <Button size="large" wsize="s-50" onClick={deleteSelectedItems}>

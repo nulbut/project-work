@@ -1,22 +1,23 @@
-  import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Button from "./Button";
 import moment from "moment";
 
+// 날짜 포맷 함수
 const bf = (date) => moment(date).format("YYYY-MM-DD");
 
 const InquiryView = () => {
   const nav = useNavigate();
 
-  //게시글 번호 받기
+  // 게시글 번호 받기
   const { state } = useLocation();
-  const { bc } = state; //게시글 번호를 꺼냈다.
+  const { bc } = state; // 게시글 번호를 꺼냈다.
   const nid = sessionStorage.getItem("nid");
-
-  const [inquiry, setInquiry] = useState({});
+  const [inquiry, setInquiry] = useState({}); // 게시글 데이터
   console.log(inquiry);
   const [flist, setFlist] = useState([
+    // 파일 목록 데이터
     {
       boardFileId: 0,
       boardFileNum: 0,
@@ -26,48 +27,47 @@ const InquiryView = () => {
     },
   ]);
 
-  //서버로부터 문의게시글 내용을 받아오기
+  // 서버로부터 문의 게시글 내용을 받아오기
   useEffect(() => {
     axios
       .get("/getinquiry", { params: { boardCode: bc } })
       .then((res) => {
-        setInquiry(res.data);
+        setInquiry(res.data); // inquiry 데이터 설정
         console.log(res.data);
 
-        const bfList = res.data.boardFileTblList;
+        const bfList = res.data.boardFileTblList; // 파일 목록 처리
         console.log(bfList);
 
-        //파일 목록 처리(res.date에서 파일 목록을 꺼내서 flist로 처리)
+        // 파일 목록 처리
         if (bfList.length > 0) {
-          console.log("bfList.length : ", bfList.length);
           let newFileList = [];
           for (let i = 0; i < bfList.length; i++) {
             const newFile = {
               ...bfList[i],
               image: "../../update/" + bfList[i].boardFileSysname,
             };
-            newFileList.push(newFile); //배열에 추가
+            newFileList.push(newFile);
           }
-          console.log(newFileList);
-          setFlist(newFileList);
+          setFlist(newFileList); // 파일 목록 상태 설정
         }
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [bc]);
 
+  // 파일 목록 출력
   const viewFlist = flist.map((v) => {
     return (
-      <div className="Down">
+      <div className="Down" key={v.boardFileId}>
         {v.image && <img src={v.image} alt="preview-img" />}
         {v.boardFileOriname}
       </div>
     );
   });
 
+  // 삭제 함수
   const deleteInquiry = useCallback(() => {
     let conf = window.confirm("삭제하시겠습니까?");
     if (!conf) {
-      //취소 버튼이 눌리면 삭제 종료
       return;
     }
 
@@ -82,18 +82,12 @@ const InquiryView = () => {
         }
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [bc, nav]);
 
+  // 수정 함수
   const updateInquiry = () => {
     nav("inUpdate", { state: { boardCode: bc } });
   };
-  // useEffect(() => {
-  //   console.log(nmnum);
-  //   if (nmnum === null) {
-  //     alert("관리자가 아닙니다.");
-  //     return;
-  //   }
-  // }, []);
 
   return (
     <div className="Main">
@@ -110,7 +104,8 @@ const InquiryView = () => {
           </div>
           <div className="Box">
             <div className="Title">주문 내역</div>
-            <div className="Data">{inquiry.productCode}</div>
+            {/* productName을 표시 */}
+            <div className="Data">{inquiry.productName}</div>
           </div>
           <div className="Box">
             <div className="Title">작성자</div>
@@ -139,7 +134,7 @@ const InquiryView = () => {
           >
             뒤로가기
           </Button>
-          {nid === inquiry.bnid ? (
+          {nid === inquiry.bnid && (
             <>
               <Button wsize="s-10" color="red" onClick={updateInquiry}>
                 수정
@@ -148,8 +143,6 @@ const InquiryView = () => {
                 삭제
               </Button>
             </>
-          ) : (
-            ""
           )}
         </div>
       </div>

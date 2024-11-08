@@ -181,12 +181,12 @@ const LatestProducts = () => {
                 <Link
                   to={`/pddetails`}
                   state={{
-                    code: item.usedCode,
-                    name: item.usedName,
-                    sellerId: item.usedsellerId,
-                    detail: item.usedDetail,
-                    seller: item.usedSeller,
-                    imageNum: item.usedFileSysname,
+                    code: item.productCode,
+                    name: item.productName,
+                    sellerId: item.sellerId,
+                    detail: item.productDetail,
+                    seller: item.sellerPayment,
+                    imageNum: item.prodctinfo,
                   }}
                 >
                   <Button wsize="s-25">제품 상세</Button>
