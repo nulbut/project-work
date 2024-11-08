@@ -21,3 +21,4 @@ public class PaymentTbl {
 
     private LocalDateTime paymentDate;
 }
+

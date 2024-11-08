@@ -34,7 +34,7 @@ public class PaymentController {
         try {
             // 클라이언트에서 받은 JSON 요청 바디입니다.
             JSONObject requestData = (JSONObject) parser.parse(jsonBody);
-            paymentKey = (String) requestData.get("aymentKey");
+            paymentKey = (String) requestData.get("paymentKey");
             orderId = (String) requestData.get("orderId");
             amount = (String) requestData.get("amount");
         } catch (ParseException e) {
@@ -76,8 +76,8 @@ public class PaymentController {
         return ResponseEntity.status(code).body(jsonObject);
     }
 
-    @RequestMapping(value = "/widget/widsuccess", method = RequestMethod.GET)
-    public String widSuccess(
+    @RequestMapping(value = "/widsuccess", method = RequestMethod.GET)
+    public String widsuccess(
             @RequestParam("paymentType") String paymentType,
             @RequestParam("orderId") String orderId,
             @RequestParam("paymentKey") String paymentKey,

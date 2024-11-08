@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import React,{ useCallback, useEffect, useState } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import "./App.scss";
 import Home from "./components/Home";
@@ -48,9 +48,9 @@ import { WidgetCheckoutPage }  from "./components/toss/widget/WidgetCheckout";
 import { WidgetSuccessPage }  from "./components/toss/widget/WidgetSuccess";
 import { PaymentCheckoutPage } from "./components/toss/payment/PaymentCheckout";
 import { PaymentSuccessPage } from "./components/toss/payment/PaymentSuccess";
-// import { fail }  from "./components/toss/fail";
-// import { BrandpayCheckoutPage } from "./components/toss/brandpay/BrandpayCheckout";
-// import { BrandpaySuccessPage } from "./components/toss/brandpay/BrandpaySuccess";
+import { FailPage } from "./components/toss/Fail";
+import { BrandpayCheckoutPage } from "./components/toss/brandpay/BrandpayCheckout";
+import { BrandpaySuccessPage } from "./components/toss/brandpay/BrandpaySuccess";
 // import { PaymentBillingPage } from "./components/toss/payment/PaymentBilling";
 
 function App() {
@@ -172,11 +172,11 @@ function App() {
           <Route path="/pdpurchase" element={<ProductPurchase />} />
           <Route path="/widsuccess" element={<WidgetSuccessPage />} />
           <Route path="/widget" element={<WidgetCheckoutPage />} /> 
-          {/* <Route path="/fail" element={<fail />} /> */}
-          {/* <Route path="/payment" element={<PaymentCheckoutPage />} /> */}
-          {/* <Route path="/pmsuccess" element={<PaymentSuccessPage />} /> */}
-          { /* <Route path="/bpcheckout" element={<BrandpayCheckoutPage />} />
-          <Route path="/bpsuccess" element={<BrandpaySuccessPage />} /> */}
+          <Route path="/fail" element={<FailPage />} />
+           <Route path="/payment" element={<PaymentCheckoutPage />} /> 
+           <Route path="/pmsuccess" element={<PaymentSuccessPage />} />
+           <Route path="/bpcheckout" element={<BrandpayCheckoutPage />} />
+          <Route path="/bpsuccess" element={<BrandpaySuccessPage />} /> 
         </Route>
             
         <Route
