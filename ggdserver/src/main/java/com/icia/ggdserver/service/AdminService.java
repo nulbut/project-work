@@ -393,8 +393,25 @@ public class AdminService {
 
         report.setRfList(rfList); // 게시글에 첨부파일 목록 추가
 
+
         return report;
 
+    }
+
+    @Transactional
+    public String rpUpdate(long rNum) {
+        log.info("rpUpdate()");
+        String result = null;
+
+        try {
+            rRepo.updateByRNum(rNum);
+
+            result = "ok";
+        } catch (Exception e) {
+            e.printStackTrace();
+            result = "fail";
+        }
+        return result;
     }
 
 
@@ -452,6 +469,7 @@ public class AdminService {
         }
         return result;
     }
+
 }
 
 

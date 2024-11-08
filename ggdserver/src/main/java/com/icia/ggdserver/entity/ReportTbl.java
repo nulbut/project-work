@@ -28,7 +28,8 @@ public class ReportTbl {
     private Timestamp rDate;
 
     @Column
-    private String rStatus;
+    @ColumnDefault("'미처리'")
+    private String rStatus = "미처리";
 
 //    @Column
 //    @ColumnDefault("'미처리")

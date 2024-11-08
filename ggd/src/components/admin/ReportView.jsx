@@ -38,14 +38,28 @@ const ReportView = ({ rnum }) => {
         }
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [report]);
 
-  const viewChange = () => {
-    console.log("ReportView viewchange");
+  const updateReport = (e) => {
+    e.preventDefault();
+    axios
+      .get("/admin/rpUpdate", { params: { rNum: rnum } })
+      .then((res) => {
+        if (res.data == "ok") {
+          alert("처리 완료");
+          viewChange();
+        } else {
+          alert("처리 실패");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        alert("전송 실패");
+      });
     pageSt.setViewPage(<ReportList />);
   };
 
-  const updateReport = () => {
+  const viewChange = () => {
     console.log("ReportView viewchange");
     pageSt.setViewPage(<ReportList />);
   };

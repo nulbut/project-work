@@ -48,7 +48,7 @@ const ReportList = () => {
         </TableColumn>
         <TableColumn wd="30">{item.ruid}</TableColumn>
         <TableColumn wd="40">{df(item.rdate)}</TableColumn>
-        <TableColumn wd="50"></TableColumn>
+        <TableColumn wd="50">{item.rstatus}</TableColumn>
       </TableRow>
     ));
   }

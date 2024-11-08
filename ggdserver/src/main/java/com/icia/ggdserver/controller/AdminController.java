@@ -114,6 +114,12 @@ public class AdminController {
         return aServ.getReport(rNum);
     }
 
+    @GetMapping("/rpUpdate")
+    public String rpUpdate(@RequestParam long rNum){
+        log.info("rpUpdate()");
+        return aServ.rpUpdate(rNum);
+    }
+
     @GetMapping("/dm")
     public Map<String, Object> getDmList(@RequestParam Integer pageNum){
         log.info("getDList()");
