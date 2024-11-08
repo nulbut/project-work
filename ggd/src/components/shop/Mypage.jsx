@@ -1,10 +1,12 @@
-import React, { useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 import "./scss/Mypage.scss";
 import Button from "../idealcup/Button";
 import logo from "../images/logo.svg";
 
-const Mypage = () => {
+const Mypage = (props) => {
+  //...님에 상호 불러오게 하기
+  const nickname = sessionStorage.getItem("nnickname");
+
   const menuArr = [
     {
       name: "포인트",
@@ -47,8 +49,7 @@ const Mypage = () => {
           </p>
         </div>
         <div className="border-ber">
-          ..님
-          <div>등급:</div>
+          {nickname}님<div>등급:</div>
           {menuArr.map((butn, idx) => {
             return (
               <Link className="sideber-menu" to={butn.path} key={idx}>
@@ -59,7 +60,7 @@ const Mypage = () => {
             );
           })}
           <div className="btn">
-            <Button type="submit" size="large" color="black">
+            <Button size="large" color="black" onClick={props.onLogout}>
               로그아웃
             </Button>
           </div>

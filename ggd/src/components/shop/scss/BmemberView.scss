@@ -1,0 +1,24 @@
+.Mypage {
+    flex: 1;
+  min-height: 250px;
+  width: 800px;
+  margin: 10px auto;
+
+  .Titlesvr {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+    background: white;
+    margin: 1.5rem auto;
+    border-radius: 5px;
+    padding-bottom: 2rem;
+
+    
+  }
+  .button {
+    background-color: bl;
+    right: 100%
+}
+}

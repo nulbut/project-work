@@ -49,11 +49,20 @@ import { WidgetCheckoutPage } from "./components/toss/widget/WidgetCheckout";
 import { WidgetSuccessPage } from "./components/toss/widget/WidgetSuccess";
 import { PaymentCheckoutPage } from "./components/toss/payment/PaymentCheckout";
 import { PaymentSuccessPage } from "./components/toss/payment/PaymentSuccess";
-import { FailPage } from "./components/toss/Fail";
+import { FailPage } from "./components/toss/fail";
 import { BrandpayCheckoutPage } from "./components/toss/brandpay/BrandpayCheckout";
 import { BrandpaySuccessPage } from "./components/toss/brandpay/BrandpaySuccess";
 // import { PaymentBillingPage } from "./components/toss/payment/PaymentBilling";
 import InquiryForm from "./components/idealcup/InquiryForm";
+import BproductUpdata from "./components/shop/BproductUpdata";
+import BMypageView from "./components/shop/BMypageView";
+import BproductView from "./components/shop/BproductView";
+import BMemberView from "./components/shop/BMemberView";
+import BMemberPasswordCheck from "./components/shop/BMemberPasswordCheck";
+import BMemberUpdate from "./components/shop/BMemberUpdate";
+import BProductStock from "./components/shop/BProductStock";
+import BInquiry from "./components/shop/BInquiry";
+import BOderHistory from "./components/shop/BOderHistory";
 
 function App() {
   const nav = useNavigate();
@@ -90,7 +99,7 @@ function App() {
   useEffect(() => {
     const nid = sessionStorage.getItem("nid");
     const bid = sessionStorage.getItem("bid");
-    console.log(nid, bid);
+    //console.log(nid, bid);
     const nick = sessionStorage.getItem("nnickname");
     if (nid !== null) {
       //로그인 상태
@@ -107,7 +116,7 @@ function App() {
       const newState = {
         loginid: bid,
         loginnick: nick,
-        mlink: "/bmypage",
+        mlink: "bp0",
       };
       setLoginState(newState);
     }
@@ -119,7 +128,7 @@ function App() {
     if (cate == "n") {
       link = "/mypage";
     } else {
-      link = "/bmypage";
+      link = "bp0";
     }
     const newState = {
       loginid: nid,
@@ -144,11 +153,11 @@ function App() {
           <Route path="/login" element={<Login sucLogin={sucLogin} />} />
           <Route path="/idpwdfind" element={<IdPasswordFind />} />
           <Route path="/idpwdfind2" element={<IdPasswordFind2 />} />
-          <Route path="changepass" element={<ChangePass />} />
+          <Route path="/changepass" element={<ChangePass />} />
           <Route path="/joinchoice" element={<JoinChoice />} />
           <Route path="/join_n" element={<JoinN />} />
           <Route path="/join_b" element={<JoinB />} />
-          <Route path="/mypage" element={<Mypage />}>
+          <Route path="/mypage" element={<Mypage onLogout={onLogout} />}>
             <Route path="orderDelivery" element={<OrderDelivery />} />
             <Route path="productRegistered" element={<ProductRegistered />} />
             <Route path="productWrite" element={<ProductWrite />} />
@@ -166,11 +175,21 @@ function App() {
             <Route path="usedRegistered/usView" element={<UsedView />} />
           </Route>
           <Route path="usedWrite" element={<UsedWrite />} />
-          <Route path="/bmypage" element={<BMypage />}>
+
+          <Route path="bmypage" element={<BMypage onLogout={onLogout} />}>
             <Route path="bp1" element={<BproductRegisterd />} />
             {/* <Route path="widget/widsuccess" element={<WidgetSuccessPage />} /> */}
+
+            <Route path="bproductstock" element={<BProductStock />} />
+            <Route path="binquiry" element={<BInquiry />} />
+            <Route path="boderhistory" element={<BOderHistory />} />
+            <Route
+              path="bmemberpasswordcheck"
+              element={<BMemberPasswordCheck />}
+            />
           </Route>
-          {/* <Route path="/bp1" element={<BproductRegisterd />} /> */}
+          <Route path="bp0" element={<BMypageView onLogout={onLogout} />} />
+
           <Route path="/bproductw" element={<BproductWirte />} />
           <Route path="/pddetails?" element={<ProductDetails />} />
           <Route path="/pdpurchase" element={<ProductPurchase />} />
@@ -181,6 +200,15 @@ function App() {
           <Route path="/pmsuccess" element={<PaymentSuccessPage />} />
           <Route path="/bpcheckout" element={<BrandpayCheckoutPage />} />
           <Route path="/bpsuccess" element={<BrandpaySuccessPage />} />
+          <Route path="/bproductview" element={<BproductView />} />
+          <Route path="/bproductupdata" element={<BproductUpdata />} />
+          <Route path="/bmemberview" element={<BMemberView />} />
+
+          <Route
+            path="/bmemberpasswordcheck"
+            element={<BMemberPasswordCheck />}
+          />
+          <Route path="/bmemberupdate" element={<BMemberUpdate />} />
         </Route>
 
         <Route

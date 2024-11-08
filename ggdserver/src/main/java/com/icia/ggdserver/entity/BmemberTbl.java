@@ -23,8 +23,8 @@ public class BmemberTbl { //사업자 회원 테이블
     @Column(name = "b_cnum",nullable = false, length = 50)
     private String bcnum; //사업자등록번호
 
-    @Column(name = "b_ttype", nullable = false, length = 1)
-    private int bttype; //과세유형
+    @Column(name = "b_ttype", nullable = false, length = 30)
+    private String bttype; //과세유형
 
     @Column(name = "b_breality", nullable = false, length = 10)
     private String bbreality; //업태
@@ -35,7 +35,7 @@ public class BmemberTbl { //사업자 회원 테이블
     @Column(name = "b_email", nullable = false, length = 100)
     private String bemail; // 이메일
 
-    @Column(name = "b_address", length = 100)
+    @Column(name = "b_address", nullable = false, length = 100)
     private String baddress; //주소
 
     @Column(name = "b_name", nullable = false, length = 10)
@@ -50,8 +50,8 @@ public class BmemberTbl { //사업자 회원 테이블
     @Column(name = "b_phonenum", nullable = false, length = 20)
     private String bphonenum; //대표자 전화번호
 
-    @Column(name = "b_banknum", nullable = false, length = 2)
-    private int bbanknum; //은행코드
+    @Column(name = "b_banknum", nullable = false, length = 50)
+    private String bbanknum; //은행코드
 
     @Column(name = "b_baccunt", nullable = false, length = 14)
     private String bbaccunt; //계좌번호

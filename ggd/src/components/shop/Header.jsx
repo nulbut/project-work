@@ -15,7 +15,7 @@ import "./scss/Header.scss";
 const Header = ({ lstate, onLogout }) => {
   const { loginid, mlink, loginnick } = lstate;
 
-  console.log(loginnick);
+  //console.log(loginnick);
   // const [categoryitem, setCategoryitem] = useState([]);//빈 객체로 초기화
   const menus = [
     //메뉴
@@ -120,6 +120,7 @@ const Header = ({ lstate, onLogout }) => {
         </div>
       ),
       path: "/mypage",
+      //경로가 mypage라서 사업자의 경우 일반 회원 mypage로 들어가버림 해결필요
     },
     {
       path: "/",

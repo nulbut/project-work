@@ -5,6 +5,7 @@ import com.icia.ggdserver.repository.BMemberRepository;
 import com.icia.ggdserver.repository.NMemberRepository;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -246,5 +248,22 @@ public class BMemberSevrvice {
             bersMap.put("msg","이미 가입된 이메일 입니다.");
         }
         return bersMap;
+    }
+
+    //회원정보 수정
+    public String insertBmember(BmemberTbl bmemberTbl,
+                                HttpSession session) {
+        log.info("insertBmember()");
+        String result = null;
+
+        try {
+            bmRepo.save(bmemberTbl);
+            log.info("bid : {}", bmemberTbl.getBid());
+            result = "ok";
+        } catch (Exception e) {
+            e.printStackTrace();
+            result = "fail";
+        }
+        return result;
     }
 }//class end

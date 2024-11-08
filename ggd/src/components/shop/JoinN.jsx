@@ -4,18 +4,21 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import Button from "./Button";
 import "./scss/JoinN.scss";
+import AddressInput from "../AddressInput";
 
 let ck = false; //아이디 중복 체크
 let nck = false;
 let eck = false;
 let neck = false; //닉네임 중복 체크
 
-const JoinN = () => {
+const JoinN = (props) => {
   const nav = useNavigate();
 
   const nemail = sessionStorage.getItem("nemail");
   const [code, setCode] = useState("");
   const [userCode, setUserCode] = useState("");
+  const [addr, setAddr] = useState("");
+
   //   const [ckid, setCkid] = useState(false);
 
   //   console.log("체크", ck);
@@ -116,8 +119,12 @@ const JoinN = () => {
       alert("이미 가입된 이메일 입니다.");
     }
     //form 전송
+
+    console.log(addr);
+    const sendForm = { ...form, naddress: addr };
+    // console.log(sendForm);
     axios
-      .post("/joinproc", form)
+      .post("/joinproc", sendForm)
       .then((res) => {
         if ((res.data = "ok")) {
           alert("가입 완료되었습니다.");
@@ -204,12 +211,12 @@ const JoinN = () => {
   // };
 
   //가입 날짜 가져오기
-  const today = new Date();
+  // const today = new Date();
 
   //날짜 형식 2024-01-01 형식으로 변경
-  const formattedDate = `${today.getFullYear()}-${
-    today.getMonth() + 1
-  }-${today.getDate()}`;
+  // const formattedDate = `${today.getFullYear()}-${
+  //   today.getMonth() + 1
+  // }-${today.getDate()}`;
 
   const onmailch = () => {
     const email = watch("nemail");
@@ -404,18 +411,9 @@ const JoinN = () => {
             </Button>
           </p>
         </div>
-
         <div className="join-address">
-          <p>
-            <input placeholder="우편번호" />
-            <button>아이콘들어갈수있나?</button>
-          </p>
-          <div>
-            <input placeholder="주소 입력" />
-          </div>
-          <div>
-            <input placeholder="상세 주소 입력" />
-          </div>
+          <AddressInput setAddr={setAddr} />
+          <span className="error">{errors?.naddress?.message}</span>
         </div>
 
         <div className="join-submit">

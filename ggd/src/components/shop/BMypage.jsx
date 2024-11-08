@@ -1,20 +1,24 @@
 import React, { useState } from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import "./scss/Bmypage.scss";
 import Button from "../idealcup/Button";
 import logo from "../images/logo.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import inquiryicon from "../images/inquiryicon.png";
 
-const BMypage = () => {
-  //   const { loginnick } = lstate;
+const BMypage = (props) => {
+  // console.log(props.onLogout);
+  //...님에 상호 불러오게 하기
+  const bcname = sessionStorage.getItem("nnickname");
+  //아이디 불러오기
+  const id = sessionStorage.getItem("bid");
 
-  //   console.log(loginnick);
+  console.log(id);
 
   const menuArr = [
     {
       name: "마이페이지",
-      path: "/bmypage",
+      path: "/bp0",
     },
     {
       name: "등록한 상품",
@@ -22,19 +26,19 @@ const BMypage = () => {
     },
     {
       name: "주문내역/배송조회",
-      path: "/",
+      path: "boderhistory",
     },
     {
       name: "재고관리",
-      path: "/",
+      path: "bproductstock",
     },
     {
       name: "문의사항 관리",
-      path: "/",
+      path: "binquiry",
     },
     {
       name: "사업자 정보 변경",
-      path: "/",
+      path: "bmemberpasswordcheck",
     },
   ];
 
@@ -53,8 +57,7 @@ const BMypage = () => {
           </p>
         </div>
         <div className="border-ber">
-          ...님
-          <div>등급:</div>
+          {bcname}님<div>등급:</div>
           {menuArr.map((butn, idx) => {
             return (
               <Link className="sideber-menu" to={butn.path} key={idx}>
@@ -65,50 +68,13 @@ const BMypage = () => {
             );
           })}
           <div className="btn">
-            <Button type="submit" size="large" color="black">
+            <Button size="large" color="black" onClick={props.onLogout}>
               로그아웃
             </Button>
           </div>
         </div>
       </div>
       <div className="desc">
-        {/* <div className="oder">
-          <Button>주문완료</Button>
-          <div className="count">건</div>
-        </div>
-        <div className="delivery">
-          <Button>배송준비</Button>
-          <div className="count">건</div>
-          <Button>배송중</Button>
-          <div className="count">건</div>
-        </div>
-        <div className="cancellation">
-          <Button>취소요청</Button>
-          <div className="count">건</div>
-          <Button>반품요청</Button>
-          <div className="count">건</div>
-          <Button>교환요청</Button>
-          <div className="count">건</div>
-        </div>
-        <div className="revenue">
-          <Button>오늘 매출액</Button>
-          <div className="count">건</div>
-        </div>
-        <div className="inquiry">
-          <img src={inquiryicon} alt="" />
-        </div>
-        <div className="stockstatus">
-          <table>
-            <tr>재고상황</tr>
-            <td>
-              <Button>품절</Button>
-            </td>
-            <td>
-              <Button>통보수량초과</Button>
-            </td>
-          </table>
-        </div>
-        <div>공지사항</div> */}
         <Outlet />
       </div>
     </div>

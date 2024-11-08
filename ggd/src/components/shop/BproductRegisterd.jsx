@@ -1,4 +1,4 @@
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { faL, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useCallback, useEffect, useState } from "react";
 import BproductTable from "./BproductTable";
@@ -9,6 +9,11 @@ import axios from "axios";
 import TableRow from "./TableRow";
 import TableColumn from "./TableColumn";
 import Paging from "./Paging";
+import "./scss/BproductRegisterd.scss";
+import CheckBox from "./checkbox/CheckBox";
+
+const bf = (date) => moment(date).format("YYYY-MM-DD");
+const bn = (Number) => Number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
 const BproductRegisterd = () => {
   const nav = useNavigate();
@@ -17,37 +22,111 @@ const BproductRegisterd = () => {
   const bproductwirtego = () => {
     nav("/bproductw");
   };
-  const bcname = sessionStorage.getItem("nnickname");
-  const bbpNum = 1;
+  const id = window.sessionStorage.getItem("bid");
+  const bsellerId = sessionStorage.getItem("nnickname");
+  const pageNum = sessionStorage.getItem("pageNum");
+
+  console.log(id);
+
   const [bbitem, setBbitem] = useState([]);
-  const [bpage, setBpage] = useState({
+
+  const [page, setPage] = useState({
     //페이징 관련 정보 저장
-    totalpage: 0,
+    totalPage: 0,
     pageNum: 1,
   });
 
   //서버로부터 등록한 상품 불러오는 함수
-  const getBproduct = (bbpNum) => {
+  const getBproduct = (pnum) => {
     axios
-      .get("/getBproduct", { params: { pageNum: bbpNum } })
+      .get("/BproductList", {
+        params: { pageNum: pnum, bsellerId: bsellerId },
+      })
       .then((res) => {
-        const { bbList, btotalPage, pageNum } = res.data;
-        setBpage({ btotalPage: btotalPage, pageNum: bbpNum });
-        setBbitem(bbList);
+        console.log(res.data);
+
+        const { bList, totalPage, pageNum } = res.data;
+        // console.log(totalPage);
+        setPage({ totalPage: totalPage, pageNum: pageNum });
+        // console.log(page);
+        let newBlist = [];
+        for (let bItem of bList) {
+          newBlist.push({ ...bItem, checked: false });
+        }
+        //setitem(bList);
+        setBbitem(newBlist);
+        //console.log(bList);
         sessionStorage.getItem("pageNum", pageNum);
       })
       .catch((err) => console.log(err));
   };
 
+  //일괄체크 함수
+  const allCheckedHandler = (e) => {
+    let tempList = [];
+    for (let bi of bbitem) {
+      bi.checked = e.target.checked;
+
+      tempList.push(bi);
+    }
+    console.log(tempList);
+    setBbitem(tempList);
+  };
+
+  //개별체크 함수
+  const checkItemHandler = (id, isChecked) => {
+    console.log(isChecked);
+    let tempList = [];
+    for (let bi of bbitem) {
+      if (bi.bpnum == id) {
+        bi.checked = isChecked;
+      }
+      tempList.push(bi);
+    }
+    setBbitem(tempList);
+    console.log(tempList);
+  };
+
+  //체크한 상품 삭제 함수
+  const checkDelete = () => {
+    let conf = window.confirm("삭제하시겠습니까?");
+    if (!conf) {
+      //취소 버튼 눌리면 삭제 종료
+      return;
+    }
+    let checkItems = [];
+    for (let bitem of bbitem) {
+      if (bitem.checked) {
+        checkItems.push(bitem.bpnum);
+      }
+    }
+    console.log(checkItems);
+
+    axios
+      .post("/bpdCheckedDelete", null, {
+        params: { ckList: checkItems.join(",") },
+      })
+      .then((res) => {
+        console.log(res.data);
+        if (res.data === "ok") getBproduct(1);
+        else alert("삭제 실패");
+      })
+      .catch((err) => {
+        console.log(err);
+        alert("삭제 실패");
+      });
+  };
+
   //BProductRegistered 컴포넌트가 화면에 보일 때 서버로부터 등록상품 목록을 가져옴
   useEffect(() => {
-    console.log(bcname);
-    if (bcname === null) {
+    // console.log(bsellerId);
+    if (id === null) {
       nav("/", { replace: true });
       return;
     }
-    bbpNum !== null ? getBproduct(bbpNum) : getBproduct(1);
+    pageNum !== null ? getBproduct(pageNum) : getBproduct(1);
   }, []);
+
   //등록상품 목록 작성
   let BproductList = null;
   if (bbitem.length === 0) {
@@ -59,22 +138,37 @@ const BproductRegisterd = () => {
   } else {
     BproductList = Object.values(bbitem).map((bbitem) => (
       <TableRow key={bbitem.bpnum}>
-        <TableColumn wd={"w-10"}>{bbitem.bpnum}</TableColumn>
-        <TableColumn wd={"w-40"}>
-          <div onClick={() => getBboard(bbitem.bpnum)}>{bbitem.bpnum}</div>
+        <TableColumn wd={"w-10"}>
+          <CheckBox
+            key={bbitem.bpnum}
+            itemid={bbitem.bpnum}
+            checkItemHandler={checkItemHandler}
+            checked={bbitem.checked}
+          />
         </TableColumn>
-        <TableColumn wd={"w-20"}>{bbitem.bpname}</TableColumn>
-        <TableColumn wd={"w-30"}>{bbitem.bpprice}</TableColumn>
+        <TableColumn wd={"w-10"}>{bbitem.bpnum}</TableColumn>
+        <TableColumn wd={"w-20"}>
+          <img
+            className="img"
+            src={"../productupload/" + bbitem.bproductFileSysnameM}
+          />
+        </TableColumn>
+        <TableColumn wd={"w-10"}>
+          <div onClick={() => getBboard(bbitem.bpnum)}>{bbitem.bpname}</div>
+        </TableColumn>
+        <TableColumn wd={"w-10"}>{bn(bbitem.bpprice)}</TableColumn>
+        <TableColumn wd={"w-10"}>{bn(bbitem.bpwarestock)}</TableColumn>
+        <TableColumn wd={"w-10"}>{bn(bbitem.bcondition)}</TableColumn>
+        <TableColumn wd={"w-20"}>{bf(bbitem.bpsigndt)}</TableColumn>
       </TableRow>
     ));
   }
-  console.log(bbitem);
-  const getBboard = useCallback((bpnum) => {
-    nav("", { state: { bpc: bpnum } });
-  });
+  const getBboard = (bpnum) => {
+    nav("/bproductview", { state: { bpnum: bpnum } });
+  };
 
   return (
-    <div>
+    <div style={{ width: "90%" }}>
       <h2>등록한 상품</h2>
       <hr />
       <div>
@@ -100,27 +194,28 @@ const BproductRegisterd = () => {
       <div>
         <BproductTable
           hname={[
-            "",
+            <label>
+              <input type="checkbox" onChange={allCheckedHandler} />
+            </label>,
+            //checkItems, 체크된 아이템 배열에 해당 id가 있으면 체크 없으면 해제
             "분류",
-            "상품코드,",
+            "상품코드",
             "이미지",
             "상품명",
             "가격",
             "재고",
-            "판매",
-            "품절",
-            "조회",
+            "상태",
             "등록일",
             "관리",
           ]}
         >
           {BproductList}
         </BproductTable>
+        <Paging page={page} getList={getBproduct} />
       </div>
-      {/* <Paging page={bpage} getList={getBproduct} /> */}
       <div>
         <Button onClick={bproductwirtego}>상품등록</Button>
-        <Button>상품삭제</Button>
+        <Button onClick={checkDelete}>상품삭제</Button>
       </div>
     </div>
   );

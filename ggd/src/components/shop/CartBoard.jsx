@@ -1,5 +1,5 @@
 import React from "react";
-import "./scss/Table.scss";
+import "./scss/MyTable.scss";
 
 const CartBoard = ({ cName, children }) => {
   return (
