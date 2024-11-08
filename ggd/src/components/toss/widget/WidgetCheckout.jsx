@@ -1,4 +1,4 @@
-import { loadTossPayments, ANONYMOUS } from "@tosspayments/tosspayments-sdk";
+import { loadTossPayments, ANONYMOUS, PaymentWidgetInstance } from "@tosspayments/tosspayments-sdk";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -14,7 +14,7 @@ export function WidgetCheckoutPage() {
 
   const [amount, setAmount] = useState({
     currency: "KRW",
-    value: 50000,
+    value: 30000 ,
   });
   const [ready, setReady] = useState(false);
   const [widgets, setWidgets] = useState(null);
@@ -50,12 +50,12 @@ export function WidgetCheckoutPage() {
       // ------  주문서의 결제 금액 설정 ------
       // TODO: 위젯의 결제금액을 결제하려는 금액으로 초기화하세요.
       // TODO: renderPaymentMethods, renderAgreement, requestPayment 보다 반드시 선행되어야 합니다.
-      // @docs https://docs.tosspayments.com/sdk/v2/js#widgetssetamount
+      // @docs https://docs.tosspayments.com/sdk/v2/js#widgetssetamount 
       await widgets.setAmount(amount);
 
       await Promise.all([
         // ------  결제 UI 렌더링 ------
-        // @docs https://docs.tosspayments.com/sdk/v2/js#widgetsrenderpaymentmethods
+        // @docs https://docs.tosspayments.com/sdk/v2/js#widgetsrenderpaymentmethods 
         widgets.renderPaymentMethods({
           selector: "#payment-method",
           // 렌더링하고 싶은 결제 UI의 variantKey
@@ -129,9 +129,9 @@ export function WidgetCheckoutPage() {
               // 결제를 요청하기 전에 orderId, amount를 서버에 저장하세요.
               // 결제 과정에서 악의적으로 결제 금액이 바뀌는 것을 확인하는 용도입니다.
               await widgets.requestPayment({
-                orderId: generateRandomString(), // 고유 주문 번호
+                orderId:  generateRandomString(), // 고유 주문 번호
                 orderName: "토스 티셔츠 외 2건",
-                successUrl: window.location.origin + "/widget/success", // 결제 요청이 성공하면 리다이렉트되는 URL
+                successUrl: window.location.origin + "/widsuccess", // 결제 요청이 성공하면 리다이렉트되는 URL
                 failUrl: window.location.origin + "/fail", // 결제 요청이 실패하면 리다이렉트되는 URL
                 customerEmail: "customer123@gmail.com",
                 customerName: "김토스",

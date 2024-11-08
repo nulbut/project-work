@@ -108,7 +108,7 @@ export function PaymentBillingPage() {
           <button
             className="button p-grid-col5"
             onClick={() => {
-              location.href = "https://discord.gg/A4fRFXQhRu";
+               location.href = "https://discord.gg/A4fRFXQhRu";
             }}
             style={{ backgroundColor: "#e8f3ff", color: "#1b64da" }}
           >

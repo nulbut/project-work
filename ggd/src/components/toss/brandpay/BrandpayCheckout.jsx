@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 // TODO: server.js 의 secretKey 또한 결제위젯 연동 키가 아닌 API 개별 연동 키의 시크릿 키로 변경해야 합니다.
 // TODO: 구매자의 고유 아이디를 불러와서 customerKey로 설정하세요. 이메일・전화번호와 같이 유추가 가능한 값은 안전하지 않습니다.
 // @docs https://docs.tosspayments.com/sdk/v2/js#토스페이먼츠-초기화
-const clientKey = "test_ck_D5GePWvyJnrK0W0k6q8gLzN97Eoq";
+const clientKey = "test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm";
 const customerKey = generateRandomString();
 
 export function BrandpayCheckoutPage() {
@@ -22,7 +22,7 @@ export function BrandpayCheckoutPage() {
         const brandpay = tossPayments.brandpay({
           customerKey,
           // TODO: 개발자센터의 브랜드페이 > Redirect URL 에 아래 URL 을 추가하세요.
-          redirectUrl: "http://localhost:3000/api/callback-auth",
+          redirectUrl: "http://localhost:8080/api/callback-auth",
         });
 
         setBrandpay(brandpay);
@@ -40,7 +40,7 @@ export function BrandpayCheckoutPage() {
     // 결제를 요청하기 전에 orderId, amount를 서버에 저장하세요.
     // 결제 과정에서 악의적으로 결제 금액이 바뀌는 것을 확인하는 용도입니다.
     await brandpay.requestPayment({
-      amount: {
+        amount:     {
         currency: "KRW",
         value: 50000,
       },
