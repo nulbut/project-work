@@ -104,6 +104,63 @@ public interface IwcTblRepository extends CrudRepository<IwcTbl, Long> {
                                      @Param("sortBy") String sortBy,
                                      Pageable pageable);
 
+    @Query(value = "SELECT *\n" +
+            "FROM iwc_tbl \n" +
+            "WHERE iwc_public = 1\n" +
+            "  AND (\n" +
+            "  \tiwc_name LIKE CONCAT('%', :searchKeyword, '%') \n" +
+            "  \tOR iwc_Explanation LIKE CONCAT('%', :searchKeyword, '%')\n" +
+            "  \t)\n" +
+            "  AND (\n" +
+            "    (:timeRange = 'daily' AND iwc_date >= CURDATE() - INTERVAL 1 day)\n" +
+            "    OR (:timeRange = 'weekly' AND iwc_date >= CURDATE() - INTERVAL 7 DAY)\n" +
+            "    OR (:timeRange = 'monthly' AND iwc_date >= CURDATE() - INTERVAL 1 MONTH)\n" +
+            "    OR (:timeRange = 'entire')\n" +
+            "  )\n" +
+            "  AND (\n"+
+            " iwc_code in (:userLikes)\n"+
+            "  )\n" +
+            "ORDER BY \n" +
+            "  CASE \n" +
+            "    WHEN :sortBy = 'views' THEN iwc_views\n" +
+            "    WHEN :sortBy = 'popularity' THEN iwc_like \n" +
+            "    WHEN :sortBy = 'new' THEN iwc_date \n" +
+            "    ELSE iwc_views\n" +
+            "   END DESC" ,nativeQuery = true)
+    @Transactional
+    Page<IwcTbl> getListFilterSearchLike(@Param("searchKeyword") String searchKeyword,
+                                     @Param("timeRange") String timeRange,
+                                     @Param("sortBy") String sortBy,
+                                     @Param("userLikes") List<Long> userLikes,
+                                     Pageable pageable);
+
+    @Query(value = "SELECT *\n" +
+            "FROM iwc_tbl \n" +
+            "WHERE iwc_author = :nid \n" +
+            "  AND (\n" +
+            "  \tiwc_name LIKE CONCAT('%', :searchKeyword, '%') \n" +
+            "  \tOR iwc_Explanation LIKE CONCAT('%', :searchKeyword, '%')\n" +
+            "  \t)\n" +
+            "  AND (\n" +
+            "    (:timeRange = 'daily' AND iwc_date >= CURDATE() - INTERVAL 1 day)\n" +
+            "    OR (:timeRange = 'weekly' AND iwc_date >= CURDATE() - INTERVAL 7 DAY)\n" +
+            "    OR (:timeRange = 'monthly' AND iwc_date >= CURDATE() - INTERVAL 1 MONTH)\n" +
+            "    OR (:timeRange = 'entire')\n" +
+            "  )\n" +
+            "ORDER BY \n" +
+            "  CASE \n" +
+            "    WHEN :sortBy = 'views' THEN iwc_views\n" +
+            "    WHEN :sortBy = 'popularity' THEN iwc_like \n" +
+            "    WHEN :sortBy = 'new' THEN iwc_date \n" +
+            "    ELSE iwc_views\n" +
+            "   END DESC" ,nativeQuery = true)
+    @Transactional
+    Page<IwcTbl> getListFilterSearchMy(@Param("searchKeyword") String searchKeyword,
+                                         @Param("timeRange") String timeRange,
+                                         @Param("sortBy") String sortBy,
+                                         @Param("nid") String nid,
+                                         Pageable pageable);
+
 //    Page<IwcTbl> findByIwcCodeGreaterThanAndIwcPublicEquals(long pNum, long ispub, Pageable pageable);
 
 

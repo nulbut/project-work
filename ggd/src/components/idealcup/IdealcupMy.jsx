@@ -29,6 +29,9 @@ const df = (date) => moment(date).format("YYYY-MM-DD HH:mm:ss");
 const IdealcupMy = () => {
   const id = sessionStorage.getItem("nid");
   const [games, setGames] = useState([]);
+  const [searchKeyword, setSearchKeyword] = useState("");
+  const [timeRange, setTimeRange] = useState("entire"); // 월간, 주간, 일간
+  const [sortBy, setSortBy] = useState("popularity"); // 조회순, 최신순, 인기순
   const [page, setPage] = useState({
     //페이징 관련 정보 저장 state
     totalPage: 0,
@@ -48,14 +51,15 @@ const IdealcupMy = () => {
     if (pageParams.includes(inpage.pageNum) || id == null) return;
     setLoading(true);
     try {
-      // const paramData = {
-      //   column: ps.searchColumn,
-      //   keyword: ps.searchKeyword,
-      // };
-      // .get("/list", { params: { ...paramData, pageNum: page } })
-
+      const paramData = {
+        pageNum: inpage.pageNum,
+        searchKeyword: searchKeyword,
+        timeRange: timeRange,
+        sortBy: sortBy,
+        nid: sessionStorage.getItem("nid"),
+      };
       axios
-        .get("/myGameList", { params: { pageNum: inpage.pageNum, id: id } })
+        .get("/myGameList", { params: paramData })
         .then((res) => {
           const { bList, totalPage, pageNum } = res.data;
           setPage({ totalPage: totalPage, pageNum: pageNum });
@@ -72,44 +76,9 @@ const IdealcupMy = () => {
     }
   };
 
-  // const ps = useContext(PageContextStore);
-  //console.log(ps);
-
-  const options = [
-    { value: "iwcName", label: "제목" },
-    { value: "iwcExplanation", label: "내용" },
-  ];
-
-  // const [bitem, setBitem] = useState({}); //빈 객체로 초기화(한 게시글 정보를 저장)
-
-  // //서버로부터 게시글 목록을 가져오는 함수
-  // const getList = (page) => {
-  //   // const paramData = {
-  //   //   column: ps.searchColumn,
-  //   //   keyword: ps.searchKeyword,
-  //   // };
-  //   // .get("/list", { params: { ...paramData, pageNum: page } })
-  //   axios
-  //     .get("/list", { params: { pageNum: page } })
-  //     .then((res) => {
-  //       const { bList, totalPage, pageNum } = res.data;
-  //       setPage({ totalPage: totalPage, pageNum: pageNum });
-  //       setBitem(bList);
-  //       // ps.setPageNum(pageNum);
-  //     })
-  //     .catch((err) => console.log(err));
-  // };
-
   useEffect(() => {
     fetchGoods(page);
-  }, [page]);
-
-  // useEffect(() => {
-
-  //   // fetchGoods(page);
-  //   // ps.pageNum !== null ? getList(ps.pageNum) : getList(1);
-  //   // getList(1);
-  // }, []);
+  }, [page, timeRange, sortBy]);
 
   useEffect(() => {
     if (id === null) {
@@ -171,12 +140,135 @@ const IdealcupMy = () => {
     },
     [games]
   );
+  // 검색어 입력 핸들러
+  const handleSearchChange = (e) => {
+    setSearchKeyword(e.target.value);
+  }; //onch는 문제가 있어보임
 
+  const handleSearch = useCallback((e) => {
+    e.preventDefault();
+    setGames([]); // 게임 목록 초기화
+    setPageParams([]); // 페이지 파라미터 초기화
+    setPage((prev) => ({ ...prev, pageNum: 1 })); // 페이지를 첫 번째 페이지로 리셋
+  }, []);
+
+  // 정렬 기준 변경 핸들러
+  const handleSortChange = (value) => {
+    setGames([]);
+    setPageParams([]);
+    setSortBy(value);
+    setPage((prev) => ({ ...prev, pageNum: 1 }));
+  };
+
+  // 시간 범위 변경 핸들러
+  const handleTimeRangeChange = (value) => {
+    setGames([]);
+    setPageParams([]);
+    setTimeRange(value);
+    setPage((prev) => ({ ...prev, pageNum: 1 }));
+  };
+  console.log(sortBy, timeRange, searchKeyword);
+  console.log(games);
+
+  const handleLikeClick = async (gameId, currentLikes, isLiked) => {
+    try {
+      axios
+        .post("/likeClicked", {
+          iwcCode: gameId,
+          likeNid: sessionStorage.getItem("nid"),
+          liked: isLiked, // 현재 상태
+        })
+        .then((res) => {
+          if (res.status === 200) {
+            // 클라이언트에서 바로 UI 반영
+            setGames((prevGames) =>
+              prevGames.map((game) =>
+                game.iwcCode === gameId
+                  ? {
+                      ...game,
+                      iwcLike: isLiked ? currentLikes - 1 : currentLikes + 1, // 좋아요 수 증가/감소
+                      liked: !isLiked, // 좋아요 상태 토글
+                    }
+                  : game
+              )
+            );
+          }
+        })
+        .catch((err) => console.log(err));
+    } catch (error) {
+      console.error("Error updating like", error);
+    }
+  };
   return (
     <div className="idealmain">
       {/* <GameViewLayout hName={["NO", "Title", "Writer", "Date"]}>
         {list}
       </GameViewLayout> */}
+      <div className="search-filter-container">
+        {/* 필터 버튼들 */}
+        <div className="filter-buttons">
+          <div className="sort-filters">
+            <button
+              className={sortBy === "popularity" ? "active" : ""}
+              onClick={() => handleSortChange("popularity")}
+            >
+              인기순
+            </button>
+            <button
+              className={sortBy === "views" ? "active" : ""}
+              onClick={() => handleSortChange("views")}
+            >
+              조회순
+            </button>
+            <button
+              className={sortBy === "new" ? "active" : ""}
+              onClick={() => handleSortChange("new")}
+            >
+              최신순
+            </button>
+          </div>
+          <div className="time-filters">
+            <button
+              className={timeRange === "entire" ? "active" : ""}
+              onClick={() => handleTimeRangeChange("entire")}
+            >
+              전체
+            </button>
+            <button
+              className={timeRange === "monthly" ? "active" : ""}
+              onClick={() => handleTimeRangeChange("monthly")}
+            >
+              월간
+            </button>
+            <button
+              className={timeRange === "weekly" ? "active" : ""}
+              onClick={() => handleTimeRangeChange("weekly")}
+            >
+              주간
+            </button>
+            <button
+              className={timeRange === "daily" ? "active" : ""}
+              onClick={() => handleTimeRangeChange("daily")}
+            >
+              일간
+            </button>
+          </div>
+        </div>
+        <div>
+          <form onSubmit={handleSearch}>
+            <input
+              type="text"
+              placeholder="월드컵 제목 또는 월드컵 설명으로 검색하세요"
+              value={searchKeyword}
+              onChange={handleSearchChange}
+              className="search-input"
+            />
+            <button type="submit" className="search-button">
+              검색
+            </button>
+          </form>
+        </div>
+      </div>
       <div className="product-grid">
         {games.map((item, index) => (
           <div key={index} className="product-card">

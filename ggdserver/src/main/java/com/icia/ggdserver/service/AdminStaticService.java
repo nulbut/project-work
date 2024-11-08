@@ -3,6 +3,7 @@ package com.icia.ggdserver.service;
 import com.icia.ggdserver.dto.IwcCategoryCntDto;
 import com.icia.ggdserver.entity.IwcTbl;
 import com.icia.ggdserver.entity.NoticeTbl;
+import com.icia.ggdserver.entity.ReportTbl;
 import com.icia.ggdserver.repository.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,9 @@ public class AdminStaticService {
 
     @Autowired
     private NoticeRepository noRepo;
+
+    @Autowired
+    private ReportRepository repRepo;
 
     Timestamp timestamp = new Timestamp(System.currentTimeMillis());
     SimpleDateFormat sdf = new SimpleDateFormat ("yyyy-MM-dd");
@@ -125,5 +129,16 @@ public class AdminStaticService {
 
 
         return res;
+    }
+
+    public void reportProc(String reason, String description, String where, String id, Long code) {
+        ReportTbl report = new ReportTbl();
+        report.setRReason(reason);
+        report.setRContent(description);
+        report.setRFrom(where);
+        report.setRUid(id);
+        report.setFromCode(code);
+
+        repRepo.save(report);
     }
 }

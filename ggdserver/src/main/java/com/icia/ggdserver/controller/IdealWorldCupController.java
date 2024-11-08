@@ -2,6 +2,7 @@ package com.icia.ggdserver.controller;
 
 
 import com.icia.ggdserver.dto.GameVsDto;
+import com.icia.ggdserver.dto.LikeRequest;
 import com.icia.ggdserver.entity.IwcContentsTbl;
 import com.icia.ggdserver.entity.IwcTbl;
 import com.icia.ggdserver.service.IdealWorldCupService;
@@ -38,16 +39,32 @@ public class IdealWorldCupController {
                                         @RequestParam(value = "nid", defaultValue = "") String nid){
         log.info("getList() - {} {}", pageNum,nid);
 
-        Map<String, Object> res = iwcServ.getBoardList(pageNum, searchKeyword, timeRange, sortBy);
+        Map<String, Object> res = iwcServ.getBoardList(pageNum, searchKeyword, timeRange, sortBy,nid);
+
+        return res;
+    }
+    @GetMapping("listLike")
+    public Map<String, Object> getListLike( @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
+                                        @RequestParam(value = "searchKeyword", defaultValue = "") String searchKeyword,
+                                        @RequestParam(value = "timeRange", defaultValue = "") String timeRange,
+                                        @RequestParam(value = "sortBy", defaultValue = "") String sortBy,
+                                        @RequestParam(value = "nid", defaultValue = "") String nid){
+        log.info("getList() - {} {}", pageNum,nid);
+
+        Map<String, Object> res = iwcServ.getBoardListLike(pageNum, searchKeyword, timeRange, sortBy,nid);
 
         return res;
     }
 
     @GetMapping("myGameList")
-    public Map<String, Object> getMyGameList(Integer pageNum, String id){
+    public Map<String, Object> getMyGameList(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
+                                             @RequestParam(value = "searchKeyword", defaultValue = "") String searchKeyword,
+                                             @RequestParam(value = "timeRange", defaultValue = "") String timeRange,
+                                             @RequestParam(value = "sortBy", defaultValue = "") String sortBy,
+                                             @RequestParam(value = "nid", defaultValue = "") String nid){
         log.info("getList() - {}", pageNum);
 
-        Map<String, Object> res = iwcServ.getMyBoardList(pageNum,id);
+        Map<String, Object> res = iwcServ.getMyBoardList(pageNum, searchKeyword, timeRange, sortBy,nid);
 
         return res;
     }
@@ -88,5 +105,19 @@ public class IdealWorldCupController {
                                            HttpSession session){
         log.info("deleteCup()");
         return iwcServ.deleteCup(iwccode, session);
+    }
+
+    @PostMapping("likeClicked")
+    public void toggleLike(@RequestBody LikeRequest likeRequest) {
+        // 클라이언트로부터 받은 데이터
+        long iwcCode = likeRequest.getIwcCode();
+        String likeNid = likeRequest.getLikeNid();
+        boolean isLiked = likeRequest.isLiked(); // 현재 좋아요 상태)
+
+        log.info("iwcCode: {}", iwcCode);
+        log.info("likeNid: {}", likeNid);
+        log.info("isLiked: {}", isLiked);
+
+        iwcServ.toggleLike(iwcCode,likeNid,isLiked);
     }
 }

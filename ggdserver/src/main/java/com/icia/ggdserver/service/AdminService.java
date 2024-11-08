@@ -190,7 +190,7 @@ public class AdminService {
 
 
     public Map<String, Object> getNoticeList(Integer pageNum) {
-        log.info("getNoticeList()");
+        log.info("getNoticeList() {}",pageNum);
 
         if (pageNum == null) {
             pageNum = 1;
@@ -201,7 +201,7 @@ public class AdminService {
         Pageable pb = PageRequest.of((pageNum -1), listCnt, Sort.Direction.DESC, "n_num");
 
         Page<NoticeTbl> result = nRepo.getNoticeTbl(pb);
-
+        log.info(result.getContent().toString());
         List<NoticeTbl> nList = result.getContent();
 
         int totalPage = result.getTotalPages();

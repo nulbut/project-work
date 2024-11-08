@@ -59,4 +59,7 @@ public class IwcTbl {
 
     @Transient
     private List<IwcContentsTbl> bfList;
+
+    @Transient
+    private boolean liked;
 }
