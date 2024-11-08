@@ -34,6 +34,7 @@ const BproductWirte = () => {
     bpdate: "",
     bpsize: "",
     bpmaterial: "",
+    bcondition: "판매중",
   });
 
   const {
@@ -48,6 +49,7 @@ const BproductWirte = () => {
     bpwarestocklimt,
     bpexplanation,
     bpdate,
+    bcondition,
   } = data;
 
   const [fileName, setFileName] = useState("선택된 파일이 없습니다.");
@@ -129,6 +131,7 @@ const BproductWirte = () => {
         <h3>상품등록</h3>
         <hr />
         <input type="hidden" value={bprobid} />
+        <input type="hidden" value={bcondition} />
         <div>
           <p className="title">카테고리</p>
           <p>대분류</p>

@@ -1,14 +1,14 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "./Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import BproductStockTable from "./BproductStockTable";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import TableRow from "./TableRow";
 import TableColumn from "./TableColumn";
-import { data } from "jquery";
-import "./scss/MyTable.scss";
+import "./scss/BProductStock.scss";
+import Paging from "./Paging";
 
 const bn = (Number) => Number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
@@ -17,11 +17,10 @@ const BProductStock = () => {
 
   const id = sessionStorage.getItem("bid");
   const bsellerId = sessionStorage.getItem("nnickname");
-  const bbpNum = 1;
+  const pageNum = sessionStorage.getItem("pageNum");
 
   //임시 테스트용
-  let testnum = 240;
-  let ck = null;
+  let testnum = 245;
 
   const [bbitem, setBbitem] = useState([]);
 
@@ -32,9 +31,9 @@ const BProductStock = () => {
     bpwarestocklimt: "",
   });
 
-  const [page, setpage] = useState({
+  const [page, setPage] = useState({
     //페이징 관련 정보 저장
-    totalpage: 0,
+    totalPage: 0,
     pageNum: 1,
   });
 
@@ -42,18 +41,18 @@ const BProductStock = () => {
   const getBproduct = (pnum) => {
     axios
       .get("/BproductList", {
-        params: { bpageNum: pnum, bsellerId: bsellerId },
+        params: { pageNum: pnum, bsellerId: bsellerId },
       })
       .then((res) => {
         console.log(res.data);
 
         const { bList, totalPage, pageNum } = res.data;
         // console.log(totalPage);
-        setpage({ totalpage: totalPage, pageNum: pageNum });
+        setPage({ totalPage: totalPage, pageNum: pageNum });
         // console.log(page);
         let newBlist = [];
         for (let bItem of bList) {
-          newBlist.push({ ...bItem, checked: "재입고필요" });
+          newBlist.push({ ...bItem });
         }
         setBbitem(newBlist);
         sessionStorage.getItem("pageNum", pageNum);
@@ -63,23 +62,15 @@ const BProductStock = () => {
 
   //BProductStock 컴포넌트가 화면에 보일때 서버로 부터 등록상품 목록을 가져오기
   useEffect(() => {
-    console.log(id);
+    // console.log(id);
     if (id === null) {
       nav("/", { replace: true });
       return;
     }
-    bbpNum !== null ? getBproduct(bbpNum) : getBproduct(1);
+    pageNum !== null ? getBproduct(pageNum) : getBproduct(1);
   }, []);
 
   console.log(bbitem);
-
-  //품절임박 상태여부 확인 함수
-  // const soldoutcheck = () => {
-  //   if()
-  // }
-
-  // 가재고 < 통보재고 일 경우 "재입고 필요" 띄우기
-  // 가재고 > 통보재고 일 경우 "정상" 띄우기
 
   //등록 상품 목록 작성
   let BproductList = null;
@@ -104,15 +95,12 @@ const BProductStock = () => {
         </TableColumn>
         <TableColumn wd={"w-10"}>{bn(bbitem.bpwarestock)}</TableColumn>
         <TableColumn wd={"w-10"}>{testnum}</TableColumn>
-        <TableColumn wd={"w-10"}>{bbitem.bpwarestock - testnum}</TableColumn>
+        <TableColumn wd={"w-10"}>{bbitem.bfackstock}</TableColumn>
         <TableColumn wd={"w-10"}>{bbitem.bpwarestocklimt}</TableColumn>
-        <TableColumn wd={"w-20"}>판매중 or 품절</TableColumn>
+        <TableColumn wd={"w-10"}>{bbitem.brestock}</TableColumn>
+        <TableColumn wd={"w-10"}>{bbitem.bcondition}</TableColumn>
       </TableRow>
     ));
-
-    if (bbitem.bpwarestock - testnum >= bbitem.bpwarestocklimt) {
-      ck = "입고확인필요";
-    }
   }
   const getBboard = (bpnum) => {
     nav("/bproductview", { state: { bpnum: bpnum } });
@@ -147,9 +135,6 @@ const BProductStock = () => {
         </div>
         <Button>상품 옵션 관리</Button>
       </div>
-      <div>
-        <p>통보 수량이 더 큰 경우 재입고 필요</p>
-      </div>
       <div className="Table">
         <BproductStockTable
           hname={[
@@ -159,6 +144,7 @@ const BProductStock = () => {
             "주문대기",
             "가재고",
             "통보수량",
+            "재입고 알림",
             "상태",
           ]}
         >
@@ -168,7 +154,7 @@ const BProductStock = () => {
       <div>
         <p>{}</p>
       </div>
-      {/* <Paging page={page} getList={getBproduct} /> */}
+      <Paging page={page} getList={getBproduct} />
     </div>
   );
 };

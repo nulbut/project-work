@@ -38,6 +38,16 @@ public class BproductTbl { // 사업자 상품 테이블
     @Column(length = 100)
     private int bpwarestocklimt; //통보재고
 
+    @Column(nullable = false, length = 4)
+    private String bcondition; // 상품 상태 (기본값 "정상", 창고재고 0일 경우 "품절")
+
+    @Column(length = 100)
+    private int bfackstock; //가재고
+
+    @Column(length = 10)
+    private String brestock; // 재입고 알림 (평소에는 null 이었다가 가재고가 통보재고보다 더 적은경우 "재입고 필요"로 변경)
+
+
     @Column(nullable = false, length = 10)
     private String bpdate; //출시일
 

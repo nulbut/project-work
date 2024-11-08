@@ -26,7 +26,7 @@ const BMypageView = (props) => {
     },
     {
       name: "주문내역/배송조회",
-      path: "/",
+      path: "/bmypage/",
     },
     {
       name: "재고관리",
@@ -34,7 +34,7 @@ const BMypageView = (props) => {
     },
     {
       name: "문의사항 관리",
-      path: "/",
+      path: "/bmypage/binquiry",
     },
     {
       name: "사업자 정보 변경",

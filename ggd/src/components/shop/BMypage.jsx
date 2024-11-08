@@ -34,7 +34,7 @@ const BMypage = (props) => {
     },
     {
       name: "문의사항 관리",
-      path: "/",
+      path: "binquiry",
     },
     {
       name: "사업자 정보 변경",

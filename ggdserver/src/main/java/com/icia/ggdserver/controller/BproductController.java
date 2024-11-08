@@ -86,10 +86,10 @@ public class BproductController {
 
     //마이페이지 등록한 상품
     @GetMapping("BproductList")
-    public Map<String, Object> getBproductList(@RequestParam Integer bpageNum,
+    public Map<String, Object> getBproductList(@RequestParam Integer pageNum,
                                             @RequestParam String bsellerId){
-        log.info("BproductList() - {}", bpageNum);
-        Map<String, Object> res = bpServ.getBproductList(bpageNum, bsellerId);
+        log.info("BproductList() - {}", pageNum);
+        Map<String, Object> res = bpServ.getBproductList(pageNum, bsellerId);
         return res;
     }
 

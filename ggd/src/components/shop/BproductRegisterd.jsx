@@ -24,15 +24,15 @@ const BproductRegisterd = () => {
   };
   const id = window.sessionStorage.getItem("bid");
   const bsellerId = sessionStorage.getItem("nnickname");
-  const bbpNum = 1;
+  const pageNum = sessionStorage.getItem("pageNum");
 
   console.log(id);
 
   const [bbitem, setBbitem] = useState([]);
 
-  const [page, setpage] = useState({
+  const [page, setPage] = useState({
     //페이징 관련 정보 저장
-    totalpage: 0,
+    totalPage: 0,
     pageNum: 1,
   });
 
@@ -40,14 +40,14 @@ const BproductRegisterd = () => {
   const getBproduct = (pnum) => {
     axios
       .get("/BproductList", {
-        params: { bpageNum: pnum, bsellerId: bsellerId },
+        params: { pageNum: pnum, bsellerId: bsellerId },
       })
       .then((res) => {
         console.log(res.data);
 
         const { bList, totalPage, pageNum } = res.data;
         // console.log(totalPage);
-        setpage({ totalPage: totalPage, pageNum: pageNum });
+        setPage({ totalPage: totalPage, pageNum: pageNum });
         // console.log(page);
         let newBlist = [];
         for (let bItem of bList) {
@@ -124,8 +124,9 @@ const BproductRegisterd = () => {
       nav("/", { replace: true });
       return;
     }
-    bbpNum !== null ? getBproduct(bbpNum) : getBproduct(1);
+    pageNum !== null ? getBproduct(pageNum) : getBproduct(1);
   }, []);
+
   //등록상품 목록 작성
   let BproductList = null;
   if (bbitem.length === 0) {
@@ -157,7 +158,7 @@ const BproductRegisterd = () => {
         </TableColumn>
         <TableColumn wd={"w-10"}>{bn(bbitem.bpprice)}</TableColumn>
         <TableColumn wd={"w-10"}>{bn(bbitem.bpwarestock)}</TableColumn>
-        <TableColumn wd={"w-10"}>판매중 or 품절</TableColumn>
+        <TableColumn wd={"w-10"}>{bn(bbitem.bcondition)}</TableColumn>
         <TableColumn wd={"w-20"}>{bf(bbitem.bpsigndt)}</TableColumn>
       </TableRow>
     ));
@@ -210,7 +211,7 @@ const BproductRegisterd = () => {
         >
           {BproductList}
         </BproductTable>
-        {/* <Paging page={page} getList={getBproduct} /> */}
+        <Paging page={page} getList={getBproduct} />
       </div>
       <div>
         <Button onClick={bproductwirtego}>상품등록</Button>

@@ -47,6 +47,7 @@ import BMemberView from "./components/shop/BMemberView";
 import BMemberPasswordCheck from "./components/shop/BMemberPasswordCheck";
 import BMemberUpdate from "./components/shop/BMemberUpdate";
 import BProductStock from "./components/shop/BProductStock";
+import BInquiry from "./components/shop/BInquiry";
 
 function App() {
   const nav = useNavigate();
@@ -159,7 +160,9 @@ function App() {
 
           <Route path="bmypage" element={<BMypage onLogout={onLogout} />}>
             <Route path="bp1" element={<BproductRegisterd />} />
+
             <Route path="bproductstock" element={<BProductStock />} />
+            <Route path="binquiry" element={<BInquiry />} />
             <Route
               path="bmemberpasswordcheck"
               element={<BMemberPasswordCheck />}

@@ -1,5 +1,5 @@
 import React from "react";
-import "./scss/MyTable.scss";
+import "./scss/ProductTable.scss";
 
 const BproductStockTable = ({ hname, children }) => {
   return (
@@ -14,6 +14,7 @@ const BproductStockTable = ({ hname, children }) => {
             <th className="TableHeader">{hname[4]}</th>
             <th className="TableHeader">{hname[5]}</th>
             <th className="TableHeader">{hname[6]}</th>
+            <th className="TableHeader">{hname[7]}</th>
           </tr>
         </thead>
         <tbody>{children}</tbody>
