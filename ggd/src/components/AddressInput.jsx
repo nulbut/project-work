@@ -73,9 +73,7 @@ const AddressInput = ({ setAddr }) => {
           <div>
             <input placeholder="우편번호" name="zonecode" value={zonecode} />
           </div>
-          <button type="button" onClick={toggleHandler}>
-            주소찾기
-          </button>
+          
         </div>
         {isOpen && (
           <div className="DaumPostcode">
