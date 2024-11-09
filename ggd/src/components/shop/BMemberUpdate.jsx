@@ -2,12 +2,15 @@ import axios from "axios";
 import Button from "./Button";
 import React, { useCallback, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import AddressInput from "../AddressInput";
 
 const BMemberUpdate = () => {
   const nav = useNavigate();
   //아이디 받아오기
   const { state } = useLocation();
   const { bid } = state;
+
+  const [addr, setAddr] = useState("");
 
   console.log(bid);
 
@@ -19,7 +22,7 @@ const BMemberUpdate = () => {
     bbreality: "",
     bbtype: "",
     bemail: "",
-    //    baddress : "",
+    baddress : "",
     bname: "",
     bbday: "",
     bphonenum: "",
@@ -37,7 +40,7 @@ const BMemberUpdate = () => {
     bbreality,
     bbtype,
     bemail,
-    // baddress,
+    baddress,
     bname,
     bbday,
     bphonenum,
@@ -59,15 +62,17 @@ const BMemberUpdate = () => {
       .catch((err) => console.log(err));
   }, []);
 
+  const sendInfo = {...bmemberInfo,baddress: addr};
   const onch = useCallback(
     (e) => {
       const bmemberObj = {
-        ...bmemberInfo,
+        ...sendInfo,
         [e.target.name]: e.target.value,
       };
+      
       setBmemberInfo(bmemberObj);
     },
-    [bmemberInfo]
+    [sendInfo]
   );
 
   const onWrite = useCallback(
@@ -79,7 +84,7 @@ const BMemberUpdate = () => {
 
       bmemberformData.append(
         "bmemberInfo",
-        new Blob([JSON.stringify(bmemberInfo)], { type: "application/json" })
+        new Blob([JSON.stringify(sendInfo)], { type: "application/json" })
       );
 
       for (let key of bmemberformData.keys()) {
@@ -101,8 +106,9 @@ const BMemberUpdate = () => {
           console.log(err);
         });
     },
-    [bmemberInfo]
+    [sendInfo]
   );
+  console.log(sendInfo);
 
   return (
     <div>
@@ -203,16 +209,11 @@ const BMemberUpdate = () => {
         </div>
         <div className="address">
           <p>주소 *</p>
-          <p>
-            <input placeholder="우편번호" className="input" />
-            <button>아이콘 들어갈것</button>
-          </p>
-          <p>
-            <input placeholder="사업자 주소" />
-          </p>
-          <p>
-            <input placeholder="상세 주소" />
-          </p>
+          <AddressInput 
+          value={baddress}
+          onChange={onch}
+          setAddr = {setAddr}
+          />
         </div>
         <div className="representativename">
           <p>대표자 이름 *</p>
