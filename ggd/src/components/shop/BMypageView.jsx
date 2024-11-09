@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { Link, Outlet } from "react-router-dom";
-import "./scss/Bmypage.scss";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import Button from "../idealcup/Button";
 import logo from "../images/logo.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -8,6 +7,7 @@ import inquiryicon from "../images/inquiryicon.png";
 import "./scss/BmypageView.scss";
 
 const BMypageView = (props) => {
+  const nav = useNavigate();
   // console.log(props.onLogout);
   //...님에 상호 불러오게 하기
   const bcname = sessionStorage.getItem("nnickname");
@@ -15,6 +15,26 @@ const BMypageView = (props) => {
   const id = sessionStorage.getItem("bid");
 
   console.log(id);
+
+  const productgo = () => {
+    nav("/bmypage/bp1");
+  }
+
+  const odergo = () =>{
+    nav("/bmypage/boderhistory");
+  }
+
+  const stockgo = () => {
+    nav("/bmypage/bproductstock");
+  }
+
+  const inquirygo = () => {
+    nav("/bmypage/binquiry");
+  }
+
+  const notificationgo = () => {
+    nav("/Notification");
+  }
 
   const menuArr = [
     {
@@ -76,43 +96,43 @@ const BMypageView = (props) => {
         </div>
       </div>
       <div className="desc">
-        <div className="oder">
+      <div className="oder">
           <Button>주문완료</Button>
-          <div className="count">{}건</div>
+          <div onClick={odergo} className="count">{}건</div>
         </div>
         <div className="delivery">
           <Button>배송준비</Button>
-          <div className="count">{}건</div>
+          <div onClick={odergo} className="count">{}건</div>
           <Button>배송중</Button>
-          <div className="count">{}건</div>
+          <div onClick={odergo} className="count">{}건</div>
         </div>
         <div className="cancellation">
           <Button>취소요청</Button>
-          <div className="count">{}건</div>
-          <Button>반품요청</Button>
-          <div className="count">{}건</div>
-          <Button>교환요청</Button>
-          <div className="count">{}건</div>
+          <div  onClick={odergo} className="count">{}건</div>
+
         </div>
         <div className="revenue">
           <Button>오늘 매출액</Button>
           <div className="count">{}건</div>
         </div>
         <div className="inquiry">
-          <img src={inquiryicon} alt="" />
+          <img onClick={inquirygo} src={inquiryicon} alt="" />
         </div>
         <div className="stockstatus">
           <table>
             <tr>재고상황</tr>
             <td>
               <Button>품절</Button>
+              <div onClick={stockgo}>{}</div>
             </td>
             <td>
               <Button>통보수량초과</Button>
+              <div onClick={stockgo}>{}</div>
             </td>
           </table>
         </div>
         <div className="announcement">공지사항</div>
+
         <Outlet />
       </div>
     </div>

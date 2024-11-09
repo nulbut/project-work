@@ -114,13 +114,15 @@ $success-color: #28a745;
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 15px;
+      margin: 0;
 
-      input {
+      .AddressInput {
         width: 100%;
         padding: $input-padding;
         font-size: 1rem;
         border: $input-border;
         border-radius: 4px;
+        
       }
 
       .join-address button {

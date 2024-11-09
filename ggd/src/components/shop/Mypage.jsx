@@ -22,7 +22,7 @@ const Mypage = (props) => {
     },
     {
       name: "회원정보 수정",
-      path: "/",
+      path: "nmemberupdate",
     },
     {
       name: "찜목록",

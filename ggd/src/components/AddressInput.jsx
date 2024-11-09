@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import DaumPostcode from "react-daum-postcode";
 import { useForm } from "react-hook-form";
+import addressicon from "./images/addressicon.svg";
+import "./shop/scss/AddressInput.scss";
 
 const AddressInput = ({ setAddr }) => {
   const [zonecode, setZonecode] = useState("");
@@ -71,9 +73,9 @@ const AddressInput = ({ setAddr }) => {
         <div>
           <div>우편번호</div>
           <div>
-            <input placeholder="우편번호" name="zonecode" value={zonecode} />
+            <input className="input" placeholder="우편번호" name="zonecode" value={zonecode} />
           </div>
-          
+            <img className="address-button" src={addressicon} onClick={toggleHandler} />
         </div>
         {isOpen && (
           <div className="DaumPostcode">
@@ -87,7 +89,7 @@ const AddressInput = ({ setAddr }) => {
         )}
         <div>주소</div>
         <div>
-          <input placeholder="주소 입력" name="address" value={address} />
+          <input className="input" placeholder="주소 입력" name="address" value={address} />
         </div>
         <div>상세주소</div>
         <input

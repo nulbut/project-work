@@ -63,6 +63,7 @@ import BMemberUpdate from "./components/shop/BMemberUpdate";
 import BProductStock from "./components/shop/BProductStock";
 import BInquiry from "./components/shop/BInquiry";
 import BOderHistory from "./components/shop/BOderHistory";
+import NmemberUpdate from "./components/shop/NmemberUpdate";
 
 function App() {
   const nav = useNavigate();
@@ -78,7 +79,7 @@ function App() {
   //로그아웃 함수
   const onLogout = () => {
     alert("로그아웃 되었습니다.");
-    console.log("뭐냐이건?");
+    // console.log("뭐냐이건?");
     const newState = {
       loginid: "",
       loginnick: "",
@@ -159,6 +160,7 @@ function App() {
           <Route path="/join_b" element={<JoinB />} />
           <Route path="/mypage" element={<Mypage onLogout={onLogout} />}>
             <Route path="orderDelivery" element={<OrderDelivery />} />
+            <Route path="nmemberupdate" element={<NmemberUpdate />} />
             <Route path="productRegistered" element={<ProductRegistered />} />
             <Route path="productWrite" element={<ProductWrite />} />
             <Route path="dibs" element={<Dibs />} />

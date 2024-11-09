@@ -12,7 +12,7 @@ const BMemberUpdate = () => {
 
   const [addr, setAddr] = useState("");
 
-  console.log(bid);
+  // console.log(bid);
 
   const [bmemberInfo, setBmemberInfo] = useState({
     bid: bid,
@@ -75,12 +75,13 @@ const BMemberUpdate = () => {
     [sendInfo]
   );
 
+  //회원정보 작성
   const onWrite = useCallback(
     (e) => {
       e.preventDefault(); //페이지 변환 방지하는 함수
 
       const bmemberformData = new FormData();
-      console.log(bmemberformData);
+      // console.log(bmemberformData);
 
       bmemberformData.append(
         "bmemberInfo",
@@ -108,12 +109,12 @@ const BMemberUpdate = () => {
     },
     [sendInfo]
   );
-  console.log(sendInfo);
+  // console.log(sendInfo);
 
   return (
     <div>
       <form className="content" onSubmit={onWrite}>
-        <h1>JOIN</h1>
+        <h1>회원정보 수정</h1>
         <div className="essential">
           <p>* 표시 필수 입력</p>
         </div>

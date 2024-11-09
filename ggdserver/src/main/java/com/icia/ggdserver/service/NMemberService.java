@@ -6,6 +6,7 @@ import com.icia.ggdserver.repository.BMemberRepository;
 import com.icia.ggdserver.repository.NMemberRepository;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -293,4 +294,22 @@ public class NMemberService {
         }
         return nersMap;
     }
+
+
+    //회원정보 수정
+    public String insertNmember(NmemberTbl nmemberTbl,
+                                HttpSession session) {
+        log.info("insertNmember()");
+        String result = null;
+
+        try {
+            nmRepo.save(nmemberTbl);
+            log.info("nid : {}", nmemberTbl.getNid());
+            result = "ok";
+        } catch (Exception e) {
+            e.printStackTrace();
+            result = "fail";
+        }
+        return result;
+    }// insertNmember end
 }//class end
