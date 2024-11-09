@@ -109,7 +109,7 @@ const BMemberUpdate = () => {
     },
     [sendInfo]
   );
-  // console.log(sendInfo);
+  console.log(sendInfo);
 
   return (
     <div>

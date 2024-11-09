@@ -64,6 +64,7 @@ import BProductStock from "./components/shop/BProductStock";
 import BInquiry from "./components/shop/BInquiry";
 import BOderHistory from "./components/shop/BOderHistory";
 import NmemberUpdate from "./components/shop/NmemberUpdate";
+import NmemberPasswordCheck from "./components/shop/NmemberPasswordCheck";
 
 function App() {
   const nav = useNavigate();
@@ -160,7 +161,8 @@ function App() {
           <Route path="/join_b" element={<JoinB />} />
           <Route path="/mypage" element={<Mypage onLogout={onLogout} />}>
             <Route path="orderDelivery" element={<OrderDelivery />} />
-            <Route path="nmemberupdate" element={<NmemberUpdate />} />
+            <Route path="nmemberpasswordcheck" element={<NmemberPasswordCheck />}/>
+            
             <Route path="productRegistered" element={<ProductRegistered />} />
             <Route path="productWrite" element={<ProductWrite />} />
             <Route path="dibs" element={<Dibs />} />
@@ -176,6 +178,7 @@ function App() {
             <Route path="usedRegistered" element={<UsedRegistered />} />
             <Route path="usedRegistered/usView" element={<UsedView />} />
           </Route>
+          <Route path="/nmemberupdate" element={<NmemberUpdate />} />
           <Route path="usedWrite" element={<UsedWrite />} />
 
           <Route path="bmypage" element={<BMypage onLogout={onLogout} />}>
