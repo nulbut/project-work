@@ -66,7 +66,7 @@ import BOderHistory from "./components/shop/BOderHistory";
 import NmemberUpdate from "./components/shop/NmemberUpdate";
 import NmemberPasswordCheck from "./components/shop/NmemberPasswordCheck";
 import MemberSecession from "./components/shop/MemberSecession";
-import NaverLogin from "./components/naver/NaverLogin";
+
 
 function App() {
   const nav = useNavigate();
@@ -155,7 +155,6 @@ function App() {
           <Route path="/notification" element={<Notification />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/login" element={<Login sucLogin={sucLogin} />} />
-          <Route path='/naverlogin' component={NaverLogin} />
           <Route path="/idpwdfind" element={<IdPasswordFind />} />
           <Route path="/idpwdfind2" element={<IdPasswordFind2 />} />
           <Route path="/changepass" element={<ChangePass />} />
