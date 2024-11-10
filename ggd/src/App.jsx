@@ -63,6 +63,9 @@ import BMemberUpdate from "./components/shop/BMemberUpdate";
 import BProductStock from "./components/shop/BProductStock";
 import BInquiry from "./components/shop/BInquiry";
 import BOderHistory from "./components/shop/BOderHistory";
+import MemberPasswordCheck from "./components/shop/MemberPasswordCheck";
+import NMemberView from "./components/shop/NMemberView";
+import NMemberUpdate from "./components/shop/NMemberUpdate";
 
 function App() {
   const nav = useNavigate();
@@ -157,6 +160,7 @@ function App() {
           <Route path="/joinchoice" element={<JoinChoice />} />
           <Route path="/join_n" element={<JoinN />} />
           <Route path="/join_b" element={<JoinB />} />
+
           <Route path="/mypage" element={<Mypage onLogout={onLogout} />}>
             <Route path="orderDelivery" element={<OrderDelivery />} />
             <Route path="productRegistered" element={<ProductRegistered />} />
@@ -166,6 +170,13 @@ function App() {
             <Route path="inquiryWrite" element={<InquiryWrite />} />
             <Route path="inquiry/inView" element={<InquiryView />} />
             <Route path="inquiry/inView/inUpdate" element={<InquiryUpdate />} />
+            <Route path="PasswordChek" element={<MemberPasswordCheck />} />
+            <Route path="PasswordChek/NMview" element={<NMemberView />} />
+            <Route
+              path="PasswordChek/NMview/NMUpdate"
+              element={<NMemberUpdate />}
+            />
+
             <Route path="productRegistered/pdView" element={<ProductView />} />
             <Route
               path="productRegistered/pdview/pdUpdate"
@@ -174,6 +185,7 @@ function App() {
             <Route path="usedRegistered" element={<UsedRegistered />} />
             <Route path="usedRegistered/usView" element={<UsedView />} />
           </Route>
+
           <Route path="usedWrite" element={<UsedWrite />} />
 
           <Route path="bmypage" element={<BMypage onLogout={onLogout} />}>

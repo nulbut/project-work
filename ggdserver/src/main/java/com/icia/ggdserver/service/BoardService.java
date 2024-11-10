@@ -44,7 +44,7 @@ public class BoardService {
         }
 
         //페이지 당 보여질 문의게시글 개수
-        int listCnt = 5;
+        int listCnt = 10;
 
         //페이징 조건 처리 객체 생성(Pageable)
         Pageable pb = PageRequest.of((pageNum - 1), listCnt,

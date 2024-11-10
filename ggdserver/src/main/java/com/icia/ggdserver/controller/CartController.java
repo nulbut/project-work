@@ -1,7 +1,6 @@
 package com.icia.ggdserver.controller;
 
 import com.icia.ggdserver.entity.CartTbl;
-import com.icia.ggdserver.repository.CartRepository;
 import com.icia.ggdserver.service.CartService;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
@@ -79,11 +78,16 @@ public class CartController {
 
         // 수량이 재고를 초과하는지 확인
         if (quantity > usedStock) {
-            return "error: 중고 상품 수량이 재고를 초과합니다.";
+            return "error: 중고 상품 수량이 재고를 초과합니다.";  // 재고 초과 오류 메시지 반환
         }
 
         // 장바구니에 중고 상품 추가
-        return cServ.getUsedCart(cnid, usedCode, usedStock, quantity);
+        String result = cServ.getUsedCart(cnid, usedCode, usedStock, quantity);
+        if (result.startsWith("error")) {
+            return result;  // 오류가 발생한 경우 해당 오류 메시지 반환
+        }
+
+        return "ok";  // 정상적으로 추가된 경우
     }
 
     // 장바구니 수량 저장

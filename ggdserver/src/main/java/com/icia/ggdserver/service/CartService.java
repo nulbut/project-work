@@ -46,7 +46,7 @@ public class CartService {
             pageNum = 1;
         }
 
-        int listCnt = 5; // 한 페이지 당 항목 수
+        int listCnt = 10; // 한 페이지 당 항목 수
         Pageable pb = PageRequest.of(pageNum - 1, listCnt, Sort.Direction.DESC, "cartCode");
 
         // 장바구니 데이터 가져오기
@@ -109,6 +109,12 @@ public class CartService {
         if (quantity > productStock) {
             return "상품 수량이 부족합니다.";
         }
+        // 장바구니에서 해당 상품이 이미 있는지 확인
+        CartTbl existingCartItem = cRepo.findByCnidAndProductCode(cnid, productCode);
+        if (existingCartItem != null) {
+            // 이미 장바구니에 해당 상품이 존재하는 경우
+            return "이미 장바구니에 해당 상품이 있습니다.";
+        }
 
         CartTbl cartItem = new CartTbl();
         cartItem.setQuantity(quantity);
@@ -122,14 +128,27 @@ public class CartService {
     // 장바구니에 중고 상품 추가
     public String getUsedCart(String cnid, long usedCode, int usedStock, int quantity) {
         if (quantity > usedStock) {
-            return "상품 수량이 부족합니다.";
+            return "error: 상품 수량이 부족합니다.";
         }
 
+        // 장바구니에서 해당 상품이 이미 있는지 확인
+        CartTbl existingCartItem = cRepo.findByCnidAndUsedCode(cnid, usedCode);
+        if (existingCartItem != null) {
+            // 이미 장바구니에 해당 상품이 존재하는 경우
+            return "error: 이미 장바구니에 해당 상품이 있습니다.";
+        }
+
+        // 장바구니에 상품 추가
         CartTbl cartItem = new CartTbl();
         cartItem.setQuantity(quantity);
         cartItem.setCnid(cnid);
         cartItem.setUsedCode(usedCode);
-        cRepo.save(cartItem);
+
+//        try {
+//            cRepo.save(cartItem); // DB에 저장
+//        } catch (Exception e) {
+//            return "error: 장바구니 추가 중 오류가 발생했습니다.";
+//        }
 
         return "ok"; // 성공적으로 추가
     }
@@ -168,5 +187,6 @@ public class CartService {
             cRepo.save(cartItem);     // 장바구니 항목 업데이트
         }
     }
+
 
 }

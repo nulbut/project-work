@@ -100,11 +100,13 @@ const LatestProducts = () => {
       .then((res) => {
         console.log(res);
         if (res.data === "ok") {
-          alert("추가되었습니다.");
-        } else if (res.data === "already exists") {
+          alert("장바구니에 추가되었습니다.");
+        } else if (res.data === "상품 수량이 부족합니다.") {
+          alert("수량이 재고를 초과합니다.");
+        } else if (res.data === "이미 장바구니에 해당 상품이 있습니다.") {
           alert("이미 장바구니에 있습니다.");
         } else {
-          alert("수량을 초과 하였습니다.");
+          alert("장바구니 추가 실패: " + res.data);
         }
       })
       .catch((err) => {
@@ -130,10 +132,10 @@ const LatestProducts = () => {
         console.log(res);
         if (res.data === "ok") {
           alert("찜목록에 추가되었습니다.");
-        } else if (res.data === "alreadt exists") {
+        } else if (res.data === "이미 찜한 상품입니다.") {
           alert("이미 찜한 상품입니다.");
         } else {
-          alert("실패");
+          alert("실패:" + res.data);
         }
       })
       .catch((err) => {
