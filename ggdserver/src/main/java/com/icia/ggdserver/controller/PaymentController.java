@@ -76,6 +76,7 @@ public class PaymentController {
         return ResponseEntity.status(code).body(jsonObject);
     }
 
+
     @RequestMapping(value = "/widsuccess", method = RequestMethod.GET)
     public String widsuccess(
             @RequestParam("paymentType") String paymentType,
@@ -91,6 +92,7 @@ public class PaymentController {
         model.addAttribute(" amount", amount);
 
         // 성공 페이지를 반환
-        return "success"; // "success"는 보여줄 HTML 파일 이름입니다.
+        return "success"; // "success"는 보여줄 HTML 파일
     }
+
 }
