@@ -132,4 +132,32 @@
       background-color: #ddd;
     }
   }
+  .loginlogo {
+    
+    
+    .naver {
+      width: 200px;
+      margin-top: 0.5rem; 
+      &:hover {
+        transform: scale(1.1);
+    }
+    
+    }
+    .kakao {
+      width: 200px;
+      margin-top: 0.5rem; 
+      &:hover {
+        transform: scale(1.1);
+    }
+    }
+    .goggle {
+      width: 200px;
+      margin-top: 0.5rem; 
+
+      &:hover {
+        transform: scale(1.1);
+    }
+    }
+  }
 }
+

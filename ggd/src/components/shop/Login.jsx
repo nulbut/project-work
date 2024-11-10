@@ -5,6 +5,9 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import Button from "./Button";
 import "./scss/Login.scss";
 import "./scss/Button.scss";
+import naverlogo from "../images/naverlogo.svg";
+import kakaologo from "../images/kakaologo.svg";
+import gogglelogo from "../images/gogglelogo.svg";
 
 const Login = ({ sucLogin }) => {
   const navigate = useNavigate();
@@ -85,6 +88,10 @@ const Login = ({ sucLogin }) => {
     navigate("/idpwdfind");
   };
 
+  const naverlogin = () => {
+    naverlogin("/naverlogin");
+  }
+
   return (
     <div className="login">
       <div className="head-login">
@@ -129,13 +136,13 @@ const Login = ({ sucLogin }) => {
         <div className="join">
           <Link to="/joinchoice">회원이 아니신가요? 회원가입 하기</Link>
         </div>
-        <div>
+        <div className="loginlogo">
           {/*위치 표시용*/}
-          <button>네이버 아이디로 로그인</button>
+          <img className="naver"  src={naverlogo} onClick={naverlogin} />
           <br />
-          <button>카카오계정으로 로그인</button>
+          <img className="kakao"  src={kakaologo} />
           <br />
-          <button>Google로 로그인</button>
+          <img className="goggle"  src={gogglelogo} />
         </div>
       </form>
     </div>

@@ -63,9 +63,9 @@ import BMemberUpdate from "./components/shop/BMemberUpdate";
 import BProductStock from "./components/shop/BProductStock";
 import BInquiry from "./components/shop/BInquiry";
 import BOderHistory from "./components/shop/BOderHistory";
-import MemberPasswordCheck from "./components/shop/MemberPasswordCheck";
-import NMemberView from "./components/shop/NMemberView";
-import NMemberUpdate from "./components/shop/NMemberUpdate";
+import NmemberUpdate from "./components/shop/NmemberUpdate";
+import NmemberPasswordCheck from "./components/shop/NmemberPasswordCheck";
+import MemberSecession from "./components/shop/MemberSecession";
 
 function App() {
   const nav = useNavigate();
@@ -81,7 +81,7 @@ function App() {
   //로그아웃 함수
   const onLogout = () => {
     alert("로그아웃 되었습니다.");
-    console.log("뭐냐이건?");
+    // console.log("뭐냐이건?");
     const newState = {
       loginid: "",
       loginnick: "",
@@ -163,6 +163,11 @@ function App() {
 
           <Route path="/mypage" element={<Mypage onLogout={onLogout} />}>
             <Route path="orderDelivery" element={<OrderDelivery />} />
+            <Route
+              path="nmemberpasswordcheck"
+              element={<NmemberPasswordCheck />}
+            />
+
             <Route path="productRegistered" element={<ProductRegistered />} />
             <Route path="productWrite" element={<ProductWrite />} />
             <Route path="dibs" element={<Dibs />} />
@@ -185,7 +190,7 @@ function App() {
             <Route path="usedRegistered" element={<UsedRegistered />} />
             <Route path="usedRegistered/usView" element={<UsedView />} />
           </Route>
-
+          <Route path="/nmemberupdate" element={<NmemberUpdate />} />
           <Route path="usedWrite" element={<UsedWrite />} />
 
           <Route path="bmypage" element={<BMypage onLogout={onLogout} />}>
@@ -195,10 +200,6 @@ function App() {
             <Route path="bproductstock" element={<BProductStock />} />
             <Route path="binquiry" element={<BInquiry />} />
             <Route path="boderhistory" element={<BOderHistory />} />
-            <Route
-              path="bmemberpasswordcheck"
-              element={<BMemberPasswordCheck />}
-            />
           </Route>
           <Route path="bp0" element={<BMypageView onLogout={onLogout} />} />
 
@@ -221,6 +222,7 @@ function App() {
             element={<BMemberPasswordCheck />}
           />
           <Route path="/bmemberupdate" element={<BMemberUpdate />} />
+          <Route path="/membersecession" element={<MemberSecession />} />
         </Route>
 
         <Route

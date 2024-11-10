@@ -168,18 +168,16 @@ const BproductRegisterd = () => {
   };
 
   return (
-    <div style={{ width: "90%" }}>
+    <div className="BproductRegisterd" style={{ width: "90%" }}>
       <h2>등록한 상품</h2>
       <hr />
-      <div>
-        <select>
+      <div className="input-group">
+      <select className="form-control">
           <option>전체분류</option>
           <option>상품코드</option>
           <option>상품명</option>
           <option>가격</option>
         </select>
-      </div>
-      <div className="input-group">
         <input
           className="form-control"
           type="text"
@@ -193,6 +191,7 @@ const BproductRegisterd = () => {
       </div>
       <div>
         <BproductTable
+          className="Table"
           hname={[
             <label>
               <input type="checkbox" onChange={allCheckedHandler} />
@@ -213,9 +212,9 @@ const BproductRegisterd = () => {
         </BproductTable>
         <Paging page={page} getList={getBproduct} />
       </div>
-      <div>
-        <Button onClick={bproductwirtego}>상품등록</Button>
-        <Button onClick={checkDelete}>상품삭제</Button>
+      <div className="button-group">
+        <Button wsize="s-10" color="bule"  onClick={bproductwirtego}>상품등록</Button>
+        <Button wsize="s-10" color="red" onClick={checkDelete}>상품삭제</Button>
       </div>
     </div>
   );

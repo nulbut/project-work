@@ -22,7 +22,7 @@ const Mypage = (props) => {
     },
     {
       name: "회원정보 수정",
-      path: "PasswordChek",
+      path: "nmemberpasswordcheck",
     },
     {
       name: "찜목록",

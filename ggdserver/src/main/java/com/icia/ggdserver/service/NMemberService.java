@@ -294,20 +294,4 @@ public class NMemberService {
         }
         return nersMap;
     }
-
-    public String insertNmember(NmemberTbl nmemberTbl,
-                                HttpSession session) {
-        log.info("insertNmember()");
-        String result = null;
-
-        try {
-            nmRepo.save(nmemberTbl);
-            log.info("nid : {}", nmemberTbl.getNid());
-            result = "ok";
-        }catch (Exception e){
-            e.printStackTrace();
-            result= "fail";
-        }
-        return result;
-    }
 }//class end

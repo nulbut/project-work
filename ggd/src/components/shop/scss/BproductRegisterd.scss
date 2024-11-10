@@ -1,3 +1,115 @@
 .img {
   width: 100px;
 }
+.BproductRegisterd {
+  width: 90%;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.BproductRegisterd h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.BproductRegisterd .input-group {
+  display: flex;
+  align-items: center;
+  margin: 1.5rem 0;
+  max-width: 500px;
+
+  .form-control {
+    flex: 1;
+    padding: 0.75rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px 0 0 5px;
+    outline: none;
+    transition: border-color 0.3s;
+
+    &:focus {
+      border-color: #4a90e2;
+    }
+  }
+
+  .btn {
+    background-color: #4a90e2;
+    color: #fff;
+    border: none;
+    padding: 0.75rem 1.25rem;
+    font-size: 1rem;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    transition: background 0.3s;
+
+    &:hover {
+      background-color: #357ab7;
+    }
+  }
+}
+
+.BproductRegisterd .button-group {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  text-align: center;
+  Button {
+    flex: 1;
+    padding: 0.75rem 1.25rem;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s;
+
+    &:first-child {
+      background-color: #4a90e2;
+      color: #fff;
+
+      &:hover {
+        background-color: #357ab7;
+      }
+    }
+
+    &:last-child {
+      background-color: #e74c3c;
+      color: #fff;
+
+      &:hover {
+        background-color: #c0392b;
+      }
+    }
+  }
+}
+.Table {
+  margin-top: 2rem;
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+
+    th,
+    td {
+      padding: 1rem;
+      text-align: center;
+      border-bottom: 1px solid #eee;
+    }
+
+    th {
+      background-color: #838383;
+      color: #555;
+      font-weight: bold;
+    }
+
+    tr:hover {
+      background-color: #f9f9f9;
+    }
+  }
+}

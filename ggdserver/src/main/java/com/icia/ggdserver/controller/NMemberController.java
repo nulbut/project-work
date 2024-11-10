@@ -102,6 +102,15 @@ public class NMemberController {
         return nmServ.getNMember(nid);
     }
 
+    //회원정보 수정 입력하기
+    @PostMapping("nmemberwriteproc")
+    public String nmemberwriteproc (@RequestPart(value = "nmemberInfo", required = true) NmemberTbl nmemberTbl,
+                                    HttpSession session){
+        log.info("nmemberwriteproc()");
+        String result = nmServ.insertNmember(nmemberTbl, session);
+        return result;
+    }
+
     //회원가입 이메일 인증
     @GetMapping("mailconfirm")
     public String mailconfirm (@RequestParam String nemail)

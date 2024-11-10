@@ -362,7 +362,7 @@ const JoinN = (props) => {
           <input
             className="join-input"
             name="numberValue"
-            placeholder=" - 를 제외한 번호 입력"
+            placeholder=" - 를 포함한 번호 입력"
             {...register("nphonenum", {
               required: {
                 value: true,
@@ -412,8 +412,10 @@ const JoinN = (props) => {
           </p>
         </div>
         <div className="join-address">
-          <AddressInput setAddr={setAddr} />
-          <span className="error">{errors?.naddress?.message}</span>
+          <AddressInput 
+          className="join-input"
+          setAddr={setAddr} />
+          {/* <span className="error">{errors?.naddress?.message}</span> */}
         </div>
 
         <div className="join-submit">
