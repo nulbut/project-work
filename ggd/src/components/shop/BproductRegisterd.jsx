@@ -191,6 +191,7 @@ const BproductRegisterd = () => {
       </div>
       <div>
         <BproductTable
+          className="Table"
           hname={[
             <label>
               <input type="checkbox" onChange={allCheckedHandler} />
