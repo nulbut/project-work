@@ -107,17 +107,18 @@ const BProductStock = () => {
   };
 
   return (
-    <div>
+    <div className="bproductstock" style={{ width: "90%" }} >
       <div className="Title">
-        <h3>상품 재고관리</h3>
+        <h2>상품 재고관리</h2>
         <hr />
       </div>
-      <div className="Titlesv">
-        <select>
+      
+        
+        <div className="input-group">
+        <select className="form-control">
           <option>상품명</option>
           <option>상품코드</option>
         </select>
-        <div className="input-group">
           <input
             className="form-control"
             type="text"
@@ -132,8 +133,7 @@ const BProductStock = () => {
           >
             <FontAwesomeIcon icon={faMagnifyingGlass} />
           </button>
-        </div>
-        <Button>상품 옵션 관리</Button>
+        <Button className="button">상품 옵션 관리</Button>
       </div>
       <div className="Table">
         <BproductStockTable
@@ -154,7 +154,7 @@ const BProductStock = () => {
       <div>
         <p>{}</p>
       </div>
-      <Paging page={page} getList={getBproduct} />
+      <Paging className="page" page={page} getList={getBproduct} />
     </div>
   );
 };

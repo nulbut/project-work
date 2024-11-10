@@ -157,18 +157,18 @@ const BproductView = () => {
         </div>
         <div className="Buttons">
           <Button
-            wsize="s-10"
+            wsize="s-30"
             color="gray"
             onClick={() => nav("/bmypage/bp1", { state: { bpnum: bpnum } })}
           >
             뒤로가기
-          </Button>
+          </Button >
           {bsellerId === BproductRegistered.bprobid ? (
             <>
-              <Button wsize="s-10" color="red" onClick={updateBproduct}>
+              <Button wsize="s-20" color="red" onClick={updateBproduct}>
                 수정
               </Button>
-              <Button wsize="s-10" color="red" onClick={deleteBproduct}>
+              <Button wsize="s-20" color="red" onClick={deleteBproduct}>
                 삭제
               </Button>
             </>
