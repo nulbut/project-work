@@ -65,6 +65,7 @@ import BInquiry from "./components/shop/BInquiry";
 import BOderHistory from "./components/shop/BOderHistory";
 import NmemberUpdate from "./components/shop/NmemberUpdate";
 import NmemberPasswordCheck from "./components/shop/NmemberPasswordCheck";
+import MemberSecession from "./components/shop/MemberSecession";
 
 function App() {
   const nav = useNavigate();
@@ -188,10 +189,7 @@ function App() {
             <Route path="bproductstock" element={<BProductStock />} />
             <Route path="binquiry" element={<BInquiry />} />
             <Route path="boderhistory" element={<BOderHistory />} />
-            <Route
-              path="bmemberpasswordcheck"
-              element={<BMemberPasswordCheck />}
-            />
+            
           </Route>
           <Route path="bp0" element={<BMypageView onLogout={onLogout} />} />
 
@@ -214,6 +212,7 @@ function App() {
             element={<BMemberPasswordCheck />}
           />
           <Route path="/bmemberupdate" element={<BMemberUpdate />} />
+          <Route path="/membersecession" element={<MemberSecession />} />
         </Route>
 
         <Route

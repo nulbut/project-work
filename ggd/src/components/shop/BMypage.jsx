@@ -38,8 +38,8 @@ const BMypage = (props) => {
       path: "binquiry",
     },
     {
-      name: "사업자 정보 변경",
-      path: "bmemberpasswordcheck",
+      name: "사업자 정보",
+      path: "/bmemberpasswordcheck",
     },
   ];
 
