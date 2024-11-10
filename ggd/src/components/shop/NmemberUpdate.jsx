@@ -6,7 +6,7 @@ import Button from "./Button";
 import AddressInput from "../AddressInput";
 
 let nck = false; //닉네임 중복 체크
-const NmemberUpdate = () => {
+const NMemberUpdate = () => {
   const nav = useNavigate();
   const nid = sessionStorage.getItem("nid");
   const [addr, setAddr] = useState("");
@@ -23,15 +23,13 @@ const NmemberUpdate = () => {
     nid: nid,
     nnickname: "",
     nname: "",
-    ngender: "",
     nbday: "",
     nphonenum: "",
     naddress: "",
     nemail: "",
   });
 
-  const { nnickname, nname, ngender, nbday, nphonenum, naddress, nemail } =
-    nmemberInfo;
+  const { nnickname, nname, nbday, nphonenum, naddress, nemail } = nmemberInfo;
 
   //서버로부터 회원 정보 받아오기
 
@@ -80,7 +78,7 @@ const NmemberUpdate = () => {
         .then((res) => {
           if (res.data === "ok") {
             alert("회원정보 수정 성공");
-            nav("/mypage", { state: { nid: nid } });
+            nav("/mypage/Passwordchek/NMview", { state: { nid: nid } });
           } else {
             alert("수정 실패");
           }
@@ -154,27 +152,6 @@ const NmemberUpdate = () => {
             required
           />
         </div>
-        {/* <div className='join-gender'>
-                    <p>성별</p>
-                    <input 
-                        type='radio'
-                        className='radio'
-                        name='ngender'
-                        value={ngender}
-                        autoFocus
-                        required
-                    />
-                    남성
-                    <input 
-                        type='radio'
-                        className='radio'
-                        name='ngender'
-                        value={ngender}
-                        autoFocus
-                        required
-                        />
-                    여성
-                </div> */}
         <div className="join-birthday">
           <input
             type="date"
@@ -227,4 +204,4 @@ const NmemberUpdate = () => {
   );
 };
 
-export default NmemberUpdate;
+export default NMemberUpdate;

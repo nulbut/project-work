@@ -30,7 +30,7 @@ const NMemberView = () => {
 
   //회원수정으로 이동
   const updatego = () => {
-    nav("NMUpdate", { state: { nid: id } });
+    nav("NmUpdate", { state: { nid: id } });
   };
   return (
     <div className="Mypage">

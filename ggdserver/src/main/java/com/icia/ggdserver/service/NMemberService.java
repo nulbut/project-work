@@ -294,4 +294,20 @@ public class NMemberService {
         }
         return nersMap;
     }
+    // 회원정보 수정
+    public String insertNmember(NmemberTbl nmemberTbl,
+                                HttpSession session) {
+        log.info("insertNmember()");
+        String result = null;
+
+        try {
+            nmRepo.save(nmemberTbl);
+            log.info("nid: {}", nmemberTbl.getNid());
+            result = "ok";
+        }catch (Exception e){
+            e.printStackTrace();
+            result = "fail";
+        }
+        return result;
+    }
 }//class end

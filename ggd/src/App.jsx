@@ -63,7 +63,7 @@ import BMemberUpdate from "./components/shop/BMemberUpdate";
 import BProductStock from "./components/shop/BProductStock";
 import BInquiry from "./components/shop/BInquiry";
 import BOderHistory from "./components/shop/BOderHistory";
-import NmemberUpdate from "./components/shop/NMemberUpdate";
+import NMemberUpdate from "./components/shop/NMemberUpdate";
 import NmemberPasswordCheck from "./components/shop/NmemberPasswordCheck";
 import NMemberView from "./components/shop/NMemberView";
 import MemberSecession from "./components/shop/MemberSecession";
@@ -179,10 +179,9 @@ function App() {
             <Route path="PasswordChek" element={<NmemberPasswordCheck />} />
             <Route path="PasswordChek/NMview" element={<NMemberView />} />
             <Route
-              path="PasswordChek/NMview/NMUpdate"
-              element={<NmemberUpdate />}
+              path="PasswordChek/NMview/NmUpdate"
+              element={<NMemberUpdate />}
             />
-
             <Route path="productRegistered/pdView" element={<ProductView />} />
             <Route
               path="productRegistered/pdview/pdUpdate"
@@ -191,7 +190,7 @@ function App() {
             <Route path="usedRegistered" element={<UsedRegistered />} />
             <Route path="usedRegistered/usView" element={<UsedView />} />
           </Route>
-          {/* <Route path="/nmemberupdate" element={<NmemberUpdate />} /> */}
+
           <Route path="usedWrite" element={<UsedWrite />} />
 
           <Route path="bmypage" element={<BMypage onLogout={onLogout} />}>
