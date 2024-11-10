@@ -88,6 +88,10 @@ const Login = ({ sucLogin }) => {
     navigate("/idpwdfind");
   };
 
+  const naverlogin = () => {
+    naverlogin("/naverlogin");
+  }
+
   return (
     <div className="login">
       <div className="head-login">
@@ -134,7 +138,7 @@ const Login = ({ sucLogin }) => {
         </div>
         <div className="loginlogo">
           {/*위치 표시용*/}
-          <img className="naver"  src={naverlogo} />
+          <img className="naver"  src={naverlogo} onClick={naverlogin} />
           <br />
           <img className="kakao"  src={kakaologo} />
           <br />
