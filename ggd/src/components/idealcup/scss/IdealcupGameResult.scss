@@ -1,0 +1,44 @@
+/* src/components/Lightbox.css */
+
+.lightbox-result {
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.lightbox-content-result {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  width: 500px;
+  text-align: center;
+
+  .close-btn-result {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 30px;
+    cursor: pointer;
+  }
+  button {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 20px;
+
+    width: 100px;
+  }
+  button:hover {
+    background-color: #45a049;
+  }
+}

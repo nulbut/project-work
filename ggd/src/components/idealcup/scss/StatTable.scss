@@ -1,0 +1,18 @@
+/* src/components/StatTable.module.scss */
+
+.statTable {
+  width: 50%;
+  border-collapse: collapse;
+  margin-bottom: 30px;
+
+  th,
+  td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: center;
+  }
+
+  th {
+    background-color: #f4f4f4;
+  }
+}

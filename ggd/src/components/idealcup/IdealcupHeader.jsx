@@ -8,7 +8,10 @@ const IdealcupHeader = ({ lstate, onLogout }) => {
 
   return (
     <header>
-      <div className="header-content">
+      <div
+        className="header-content"
+        onClick={() => (window.location.href = "/idlecup")}
+      >
         GGD's 이상형 월드컵
         <img src={logo} />
       </div>

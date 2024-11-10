@@ -63,6 +63,7 @@ import BMemberUpdate from "./components/shop/BMemberUpdate";
 import BProductStock from "./components/shop/BProductStock";
 import BInquiry from "./components/shop/BInquiry";
 import BOderHistory from "./components/shop/BOderHistory";
+import ResultPage from "./components/idealcup/ResultPage";
 
 function App() {
   const nav = useNavigate();
@@ -220,6 +221,7 @@ function App() {
           <Route path="/make" element={<IdealCupMaker />} />
           <Route path="/mycup" element={<IdealcupMy />} />
           <Route path="/idleinquiry" element={<InquiryForm />} />
+          <Route path="/resultpage" element={<ResultPage />} />
         </Route>
         <Route path="/admin" element={<Admin />} />
         <Route path="/adminex" element={<AdminEx />} />

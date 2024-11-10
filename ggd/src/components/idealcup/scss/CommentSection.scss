@@ -1,0 +1,43 @@
+/* src/components/CommentSection.module.scss */
+
+.commentSection {
+  margin-top: 40px;
+}
+
+.commentsList {
+  margin-bottom: 20px;
+}
+
+.comment {
+  background-color: #f9f9f9;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.commentForm {
+  display: flex;
+  align-items: center;
+
+  .commentInput {
+    padding: 10px;
+    width: 80%;
+    margin-right: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+
+  .commentButton {
+    padding: 10px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+
+  .commentButton:hover {
+    background-color: #45a049;
+  }
+}
