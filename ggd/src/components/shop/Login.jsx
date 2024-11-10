@@ -132,13 +132,13 @@ const Login = ({ sucLogin }) => {
         <div className="join">
           <Link to="/joinchoice">회원이 아니신가요? 회원가입 하기</Link>
         </div>
-        <div>
+        <div className="loginlogo">
           {/*위치 표시용*/}
-          <img className="naverlogo" src={naverlogo} />
+          <img className="naver"  src={naverlogo} />
           <br />
-          <img className="naverlogo" src={kakaologo} />
+          <img className="kakao"  src={kakaologo} />
           <br />
-          <img className="naverlogo" src={gogglelogo} />
+          <img className="goggle"  src={gogglelogo} />
         </div>
       </form>
     </div>
