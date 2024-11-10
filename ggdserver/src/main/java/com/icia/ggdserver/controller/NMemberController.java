@@ -4,10 +4,13 @@ import com.icia.ggdserver.entity.BmemberTbl;
 import com.icia.ggdserver.entity.NmemberTbl;
 import com.icia.ggdserver.service.NMemberService;
 import jakarta.mail.MessagingException;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.UnsupportedEncodingException;
@@ -124,4 +127,7 @@ public class NMemberController {
         log.info("nidfindproc()");
         return nmServ.nidfindproc(nmemberTbl);
     }
+
+    //회원삭제
+
 }

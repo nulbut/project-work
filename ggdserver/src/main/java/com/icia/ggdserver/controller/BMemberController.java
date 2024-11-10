@@ -3,6 +3,7 @@ package com.icia.ggdserver.controller;
 
 import com.icia.ggdserver.entity.BmemberTbl;
 import com.icia.ggdserver.entity.NmemberTbl;
+import com.icia.ggdserver.repository.BMemberRepository;
 import com.icia.ggdserver.service.BMemberSevrvice;
 import com.icia.ggdserver.service.NMemberService;
 import jakarta.mail.MessagingException;
@@ -10,6 +11,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -98,7 +100,18 @@ public class BMemberController {
     }
 
     //회원 탈퇴
+    @DeleteMapping("bmemberdelete")
+    public ResponseEntity<String> bmemberdelete (HttpSession session){
+        BmemberTbl bmemberTbl = (BmemberTbl) session.getAttribute("bmemberTbl");
 
+        if (bmemberTbl != null){
+            bmServ.bmemberdelete(bmemberTbl.getBid());
+            session.invalidate();
+            return ResponseEntity.status(HttpStatus.OK).body("탈퇴완료");
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+        }
+    }
 
 
 
