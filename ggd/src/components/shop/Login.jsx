@@ -5,6 +5,9 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import Button from "./Button";
 import "./scss/Login.scss";
 import "./scss/Button.scss";
+import naverlogo from "../images/naverlogo.svg";
+import kakaologo from "../images/kakaologo.svg";
+import gogglelogo from "../images/gogglelogo.svg";
 
 const Login = ({ sucLogin }) => {
   const navigate = useNavigate();
@@ -131,11 +134,11 @@ const Login = ({ sucLogin }) => {
         </div>
         <div>
           {/*위치 표시용*/}
-          <button>네이버 아이디로 로그인</button>
+          <img className="naverlogo" src={naverlogo} />
           <br />
-          <button>카카오계정으로 로그인</button>
+          <img className="naverlogo" src={kakaologo} />
           <br />
-          <button>Google로 로그인</button>
+          <img className="naverlogo" src={gogglelogo} />
         </div>
       </form>
     </div>
