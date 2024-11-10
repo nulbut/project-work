@@ -63,8 +63,9 @@ import BMemberUpdate from "./components/shop/BMemberUpdate";
 import BProductStock from "./components/shop/BProductStock";
 import BInquiry from "./components/shop/BInquiry";
 import BOderHistory from "./components/shop/BOderHistory";
-import NmemberUpdate from "./components/shop/NmemberUpdate";
+import NmemberUpdate from "./components/shop/NMemberUpdate";
 import NmemberPasswordCheck from "./components/shop/NmemberPasswordCheck";
+import NMemberView from "./components/shop/NMemberView";
 import MemberSecession from "./components/shop/MemberSecession";
 
 function App() {
@@ -163,10 +164,10 @@ function App() {
 
           <Route path="/mypage" element={<Mypage onLogout={onLogout} />}>
             <Route path="orderDelivery" element={<OrderDelivery />} />
-            <Route
+            {/* <Route
               path="nmemberpasswordcheck"
               element={<NmemberPasswordCheck />}
-            />
+            /> */}
 
             <Route path="productRegistered" element={<ProductRegistered />} />
             <Route path="productWrite" element={<ProductWrite />} />
@@ -175,11 +176,11 @@ function App() {
             <Route path="inquiryWrite" element={<InquiryWrite />} />
             <Route path="inquiry/inView" element={<InquiryView />} />
             <Route path="inquiry/inView/inUpdate" element={<InquiryUpdate />} />
-            <Route path="PasswordChek" element={<MemberPasswordCheck />} />
+            <Route path="PasswordChek" element={<NmemberPasswordCheck />} />
             <Route path="PasswordChek/NMview" element={<NMemberView />} />
             <Route
               path="PasswordChek/NMview/NMUpdate"
-              element={<NMemberUpdate />}
+              element={<NmemberUpdate />}
             />
 
             <Route path="productRegistered/pdView" element={<ProductView />} />
@@ -190,7 +191,7 @@ function App() {
             <Route path="usedRegistered" element={<UsedRegistered />} />
             <Route path="usedRegistered/usView" element={<UsedView />} />
           </Route>
-          <Route path="/nmemberupdate" element={<NmemberUpdate />} />
+          {/* <Route path="/nmemberupdate" element={<NmemberUpdate />} /> */}
           <Route path="usedWrite" element={<UsedWrite />} />
 
           <Route path="bmypage" element={<BMypage onLogout={onLogout} />}>
