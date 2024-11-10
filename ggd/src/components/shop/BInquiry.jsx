@@ -6,6 +6,8 @@ import axios from "axios";
 import TableRow from "./TableRow";
 import TableColumn from "./TableColumn";
 import moment from "moment";
+import Button from "./Button";
+
 
 const df = (data) => moment(data).format("YYYY-MM-DD");
 
@@ -79,7 +81,12 @@ const BInquiry = () => {
     pageSt.setViewPage(<DmList />);
   };
 
-  return <div className="Main">{pageSt.viewPage}</div>;
+  return <div className="Main">
+    <div>{pageSt.viewPage}</div>
+    <hr />
+    <div><Button onClick={buttons}>답변하기</Button></div>
+    
+    </div>;
 };
 
 export default BInquiry;

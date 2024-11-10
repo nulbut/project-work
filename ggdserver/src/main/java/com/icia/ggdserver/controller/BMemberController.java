@@ -6,9 +6,11 @@ import com.icia.ggdserver.entity.NmemberTbl;
 import com.icia.ggdserver.service.BMemberSevrvice;
 import com.icia.ggdserver.service.NMemberService;
 import jakarta.mail.MessagingException;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.UnsupportedEncodingException;
@@ -95,7 +97,8 @@ public class BMemberController {
         return bersMap;
     }
 
-    //회원정보 불러오기
+    //회원 탈퇴
+
 
 
 
