@@ -94,6 +94,20 @@ const ProductDetails = () => {
     navigate("/widgetcheckout", { state: { usedCode } });
   };
 
+  // const cartList = (ud, quantity) => {
+  //   console.log(ud)
+  //   const nid = sessionStorage.getItem("nid");
+  //   let conf = window.confirm("장바구니에 추가할까요?");
+  //   if (!conf) {
+  //     return;
+  //   }
+  //   axios
+  //     .get("/setusedcart", {
+  //       params: { cnid: nid, usedCode: ud, quantity },
+  //     })
+  //     .then
+  // }
+
   const handleAddToCart = () => {
     alert("장바구니에 추가되었습니다.");
     // 장바구니 추가 구현
