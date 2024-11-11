@@ -14,8 +14,8 @@ public class BmemberTbl { //사업자 회원 테이블
     @Column(name = "b_id")
     private String bid; //아이디 (PK)
 
-    @Column(name = "m_num", nullable = false, length = 1)
-    private int bmnum; // 회원 구분 번호 (사업자 = 2)
+    @Column(name = "b_situation", nullable = false, length = 10)
+    private String bsituation; // 사업자 회원 상태 ( 기본값 : "사용중" , 탈퇴시 "탈퇴" 로그인 안됨)
 
     @Column(name = "b_cname",nullable = false, unique = true, length = 50)
     private String bcname; //상호
