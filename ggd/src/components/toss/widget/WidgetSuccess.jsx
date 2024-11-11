@@ -9,8 +9,8 @@ export function WidgetSuccessPage() {
   useEffect(() => {
     async function confirm() {
       const requestData = {
-        porderId: searchParams.get("porderId"),
-        pamount: searchParams.get("pamount"),
+        orderId: searchParams.get("orderId"),
+        amount: searchParams.get("amount"),
         paymentKey: searchParams.get("paymentKey"),
       };
 
@@ -40,7 +40,7 @@ export function WidgetSuccessPage() {
         console.log(error);
         navigate(`/fail?code=${error.code}&message=${error.message}`);
       });
-  }, [searchParams, navigate]);
+  }, [searchParams]);
 
   return (
     <>
@@ -55,20 +55,20 @@ export function WidgetSuccessPage() {
             <b>결제금액</b>
           </div>
           <div className="p-grid-col text--right" id="amount">
-            {`${Number(searchParams.get("pamount")).toLocaleString()}원`}
+            {`${Number(searchParams.get("amount")).toLocaleString()}원`}
           </div>
         </div>
         <div className="p-grid typography--p" style={{ marginTop: "10px" }}>
           <div className="p-grid-col text--left">
             <b>주문번호</b>
           </div>
-          <div className="p-grid-col text--right" id="porderId">
+          <div className="p-grid-col text--right" id="orderId">
             {`${searchParams.get("orderId")}`}
           </div>
         </div>
         <div className="p-grid typography--p" style={{ marginTop: "10px" }}>
           <div className="p-grid-col text--left">
-            <b>Payment Key</b>
+            <b>paymentKey</b>
           </div>
           <div
             className="p-grid-col text--right"
@@ -76,30 +76,6 @@ export function WidgetSuccessPage() {
             style={{ whiteSpace: "initial", width: "250px" }}
           >
             {`${searchParams.get("paymentKey")}`}
-          </div>
-        </div>
-        <div className="p-grid typography--p" style={{ marginTop: "10px" }}>
-          <div className="p-grid-col text--left">
-            <b>고객 이름</b>
-          </div>
-          <div className="p-grid-col text--right">
-            {responseData?.pcustomername || "N/A"}
-          </div>
-        </div>
-        <div className="p-grid typography--p" style={{ marginTop: "10px" }}>
-          <div className="p-grid-col text--left">
-            <b>고객 이메일</b>
-          </div>
-          <div className="p-grid-col text--right">
-            {responseData?.pcustomeremail || "N/A"}
-          </div>
-        </div>
-        <div className="p-grid typography--p" style={{ marginTop: "10px" }}>
-          <div className="p-grid-col text--left">
-            <b>고객 전화번호</b>
-          </div>
-          <div className="p-grid-col text--right">
-            {responseData?.pcustomerphonenum || "N/A"}
           </div>
         </div>
         <div className="p-grid-col">
@@ -128,10 +104,6 @@ export function WidgetSuccessPage() {
     </>
   );
 }
-
-
-
-
 
 // import { useEffect, useState } from "react";
 // import { Link, useNavigate, useSearchParams } from "react-router-dom";

@@ -3,7 +3,11 @@ package com.icia.ggdserver.controller;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.json.simple.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
@@ -79,6 +83,7 @@ public class PaymentController {
             @RequestParam("amount") String amount,
             Model model) {
 
+        log.info(paymentKey);
         // 성공 페이지에 필요한 데이터를 모델에 추가
         model.addAttribute("paymentType", paymentType);
         model.addAttribute(" orderId", orderId);
