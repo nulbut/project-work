@@ -342,7 +342,11 @@ const IdealcupMain = () => {
               <Link>
                 <Button wsize="s-25">랭킹</Button>
               </Link>
-              <ShareButton />
+              <ShareButton
+                code={item.iwcCode}
+                name={item.iwcName}
+                expl={item.iwcExplanation}
+              />
             </div>
           </div>
         ))}

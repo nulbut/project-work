@@ -3,9 +3,11 @@ import "./scss/game.scss";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import CryptoJS from "crypto-js";
+import IdealcupGameResult from "./IdealcupGameResult";
 const Game = () => {
   const location = useLocation();
   const nav = useNavigate();
+  const [showLightbox, setShowLightbox] = useState(false);
   const [displays, setDisplays] = useState([]);
   const [winners, setWinners] = useState([]);
   const [goods, setGoods] = useState([]);
@@ -129,6 +131,13 @@ const Game = () => {
         });
         updateVs(good, gameinfo.code);
         console.log("어케바뀜?", gameinfo.code);
+        // 페이지가 로드되면 2초 후에 라이트박스를 보여주기
+        const timer = setTimeout(() => {
+          setShowLightbox(true);
+        }, 3000);
+
+        // 컴포넌트가 언마운트 될 때 타이머 클리어
+        return () => clearTimeout(timer);
       } else {
         let updatedGood = [...winners, good];
         updatedGood.sort(() => Math.random() - 0.5);
@@ -172,8 +181,21 @@ const Game = () => {
     console.log(gang);
   };
   console.log(displays);
+
+  const closeLightbox = () => {
+    setShowLightbox(false);
+  };
+  const openLightbox = () => {
+    setShowLightbox(true);
+  };
   return (
     <div className="frame">
+      {showLightbox && (
+        <IdealcupGameResult
+          onClose={closeLightbox}
+          data={{ good: displays, game: gameinfo }}
+        />
+      )}
       <div className="gametitle">
         <h1>
           {gameinfo.name}
@@ -207,7 +229,7 @@ const Game = () => {
         return (
           <>
             {gang.now == -98 ? (
-              <div className="flex-1" key={d.src}>
+              <div className="flex-1" key={d.src} onClick={openLightbox}>
                 <img
                   className="food-img"
                   src={d.src}
