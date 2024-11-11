@@ -269,28 +269,7 @@ public class BMemberSevrvice {
         return result;
     }
 
+    
 
-    public void bmemberdelete(String bid) {
-        BmemberTbl bmemberTbl = bmRepo.findById(bid)
-                .orElseThrow(() -> new IllegalArgumentException("회원을 찾을 수 없습니다."));
-        bmRepo.delete(bmemberTbl);
 
-    }
-
-    //회원 삭제
-    @Transactional
-    public String deletemember(long bsituation) {
-        log.info("deletemember()");
-        String result = null;
-
-        try {
-            bmRepo.deleteByMember(bsituation);
-
-            result = "ok";
-        } catch (Exception e) {
-            e.printStackTrace();
-            result = "fail";
-        }
-        return result;
-    }
 }//class end

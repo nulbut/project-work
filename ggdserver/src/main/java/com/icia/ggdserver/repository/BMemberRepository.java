@@ -71,8 +71,5 @@ public interface BMemberRepository extends CrudRepository<BmemberTbl, String> {
                                      @Param(value = "edate") String endDate,
                                      Pageable pb);
 
-//    //회원삭제 메소드
-    @Modifying
-    @Query(value = "update BmemberTbl bt set bt.bsituation = '탈퇴' where bt.bid = :bcon")
-    void deleteByMember (@Param("bcon") long bcon);
+
 }
