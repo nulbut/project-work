@@ -38,6 +38,7 @@ const Login = ({ sucLogin }) => {
       .then(
         axios.spread((res1, res2) => {
           console.log(res1, res2);
+
           if (res1.data.res1 == "ok") {
             //일반회원 아이디, 패스워드 일치
             sucLogin(res1.data.nid, res1.data.nnickname, "n");
@@ -90,7 +91,7 @@ const Login = ({ sucLogin }) => {
 
   const naverlogin = () => {
     naverlogin("/naverlogin");
-  }
+  };
 
   return (
     <div className="login">
@@ -138,11 +139,11 @@ const Login = ({ sucLogin }) => {
         </div>
         <div className="loginlogo">
           {/*위치 표시용*/}
-          <img className="naver"  src={naverlogo} onClick={naverlogin} />
+          <img className="naver" src={naverlogo} onClick={naverlogin} />
           <br />
-          <img className="kakao"  src={kakaologo} />
+          <img className="kakao" src={kakaologo} />
           <br />
-          <img className="goggle"  src={gogglelogo} />
+          <img className="goggle" src={gogglelogo} />
         </div>
       </form>
     </div>

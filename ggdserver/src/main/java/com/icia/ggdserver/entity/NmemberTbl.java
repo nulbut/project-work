@@ -15,8 +15,8 @@ public class NmemberTbl { //일반 회원 테이블
     @Column(name = "n_id")
     private String nid; //아이디 (PK)
 
-    @Column(name = "m_num", nullable = false, length = 1)
-    private int nmnum; //회원 구분 번호 (일반 = 1)
+    @Column(name = "n_situation", nullable = false, length = 10)
+    private String nsituation; //회원 사용상태 ( 기본값 : "사용중" , 탈퇴시 "탈퇴" 로그인 안됨)
 
     @Column(name = "n_nickname", nullable = false, length = 30)
     private String nnickname; //닉네임

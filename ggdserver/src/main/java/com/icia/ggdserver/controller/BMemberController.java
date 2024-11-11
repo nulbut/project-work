@@ -3,6 +3,7 @@ package com.icia.ggdserver.controller;
 
 import com.icia.ggdserver.entity.BmemberTbl;
 import com.icia.ggdserver.entity.NmemberTbl;
+import com.icia.ggdserver.repository.BMemberRepository;
 import com.icia.ggdserver.service.BMemberSevrvice;
 import com.icia.ggdserver.service.NMemberService;
 import jakarta.mail.MessagingException;
@@ -10,6 +11,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -98,7 +100,11 @@ public class BMemberController {
     }
 
     //회원 탈퇴
-
+    @GetMapping("deletemember")
+    public String deletemember(@RequestParam long bsituation){
+        log.info("deletemember()");
+        return bmServ.deletemember(bsituation);
+    }
 
 
 

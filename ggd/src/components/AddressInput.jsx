@@ -56,7 +56,7 @@ const AddressInput = ({ setAddr }) => {
 
   const inputChangeHandler = (event) => {
     setDetailedAddress(event.target.value);
-    const fulladdr = [address, detailedAddress].join(" ");
+    const fulladdr = [address, event.target.value].join(" ");
     console.log(fulladdr);
     setAddr(fulladdr);
   };
