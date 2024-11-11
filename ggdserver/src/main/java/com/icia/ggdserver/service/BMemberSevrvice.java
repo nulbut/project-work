@@ -83,39 +83,50 @@ public class BMemberSevrvice {
         }
         return res;
     } //joinBMember end
-
-    //로그인
+    // 로그인
     public Map<String, String> bloginproc(BmemberTbl bmemberTbl) {
         log.info("loginproc()");
         BmemberTbl bdbMember = null;
         Map<String, String> rsMap = new HashMap<>();
 
-
         try {
-            bdbMember = bmRepo.findById(bmemberTbl.getBid()).get();
-            //db에서 꺼내온 사용자의 비밀번호와 입력한 비밀번호를 비교
+            // ID로 회원 정보를 가져옴
+            bdbMember = bmRepo.findById(bmemberTbl.getBid()).orElse(null);
 
-            if (encoder.matches(bmemberTbl.getBpw(), bdbMember.getBpw())){
-                //로그인 성공
-                rsMap.put("res2","ok");
-                rsMap.put("bid",bmemberTbl.getBid());
+            if (bdbMember == null) {
+                // 회원이 존재하지 않는 경우
+                rsMap.put("res2", "fail2");
+                rsMap.put("msg", "회원정보가 존재하지 않습니다.");
+                return rsMap;
+            }
+
+            // 회원의 상태 확인 ("사용중"인 경우에만 로그인 가능)
+            if (!"사용중".equals(bdbMember.getBsituation())) {
+                rsMap.put("res2", "fail10");  // 상태가 "사용중"이 아닌 경우
+                rsMap.put("msg", "회원 상태가 유효하지 않습니다. (탈퇴 또는 중지 상태)");
+                return rsMap;
+            }
+
+            // 비밀번호 비교
+            if (encoder.matches(bmemberTbl.getBpw(), bdbMember.getBpw())) {
+                // 로그인 성공
+                rsMap.put("res2", "ok");
+                rsMap.put("bid", bdbMember.getBid());
                 rsMap.put("bcname", bdbMember.getBcname());
-
-
+            } else {
+                // 비밀번호 틀림
+                rsMap.put("res2", "fail1");
+                rsMap.put("msg", "비밀번호가 일치하지 않습니다.");
             }
-            else {
-                //비밀번호 틀림
-                rsMap.put("res2","fail1");
-                rsMap.put("msg","비밀번호가 일치하지 않습니다.");
-            }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-            //회원이 아닌 경우
-            rsMap.put("res2","fail2");
-            rsMap.put("msg","회원정보가 존재하지 않습니다.");
+            // 예기치 않은 오류 발생 시 처리
+            rsMap.put("res2", "fail11");
+            rsMap.put("msg", "로그인 중 오류가 발생했습니다.");
         }
         return rsMap;
     }//loginproc end
+
 
     //아이디 가져오기
     public BmemberTbl getBMemeber(String bid) {
@@ -271,14 +282,6 @@ public class BMemberSevrvice {
     }
 
     //회원 삭제
-    public BmemberTbl getbid(String bid) {
-        log.info("getbid()");
-
-        BmemberTbl bmemberTbl = bmRepo.findById(bid).get();
-
-        return bmemberTbl;
-    }
-
     @Transactional
     public String deletemember(String bid) {
         log.info("deletemember()");

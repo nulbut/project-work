@@ -66,13 +66,7 @@ const Login = ({ sucLogin }) => {
             // 일반회원 패스워드 불일치
             alert(res1.data.msg);
           }
-          // else if (res2.data.res2 == "ok") {
-          //   sucLogin(res2.data.bid);
-          //   sessionStorage.setItem("bid", res2.data.bid);
-          //   sessionStorage.setItem("bcname", res2.data.bcname);
-          //   navigate("/shoppingmall");
-          // }
-          else if (res2.data.res2 == "fail") {
+          else if (res2.data.res2 == "fail10") {
             alert(res1.data.msg);
           } else if (res1.data.res1 == "fail") {
             alert(res2.data.msg);

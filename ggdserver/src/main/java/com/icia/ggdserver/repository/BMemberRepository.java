@@ -35,10 +35,6 @@ public interface BMemberRepository extends CrudRepository<BmemberTbl, String> {
     Long countMemberToday(@Param(value = "date") String date );
 
 
-    //long findById(String n_id);
-
-//    long findByNnickname(String n_nickname);
-
     BmemberTbl findByBcname(String bcname);
 
     long countByBname (String b_name);

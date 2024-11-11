@@ -99,14 +99,9 @@ public class BMemberController {
         return bersMap;
     }
 
-    //회원 탈퇴
-    @GetMapping("getbid")
-    public BmemberTbl getbid (@RequestParam String bid){
-        log.info("getbid()");
-        return bmServ.getbid(bid);
-    }
 
 
+    //회원 삭제
     @GetMapping("deletemember")
     public String deletemember(@RequestParam(required = false, value = "bcon") String bid  ){
         log.info("deletemember()");
