@@ -3,6 +3,7 @@ package com.icia.ggdserver.controller;
 
 import com.icia.ggdserver.dto.GameVsDto;
 import com.icia.ggdserver.dto.LikeRequest;
+import com.icia.ggdserver.entity.IwcCommentTbl;
 import com.icia.ggdserver.entity.IwcContentsTbl;
 import com.icia.ggdserver.entity.IwcTbl;
 import com.icia.ggdserver.service.IdealWorldCupService;
@@ -120,4 +121,29 @@ public class IdealWorldCupController {
 
         iwcServ.toggleLike(iwcCode,likeNid,isLiked);
     }
+
+    @GetMapping("getGameWinner")
+    public Map<String, Object> getGameWinner(@RequestParam long iwcCode,
+                                           @RequestParam long iwcContentsCode){
+        log.info("getGameWinner()");
+        return iwcServ.getGameWinner(iwcCode, iwcContentsCode);
+    }
+
+    @GetMapping("getAdList")
+    public Map<String, Object> getAdList(@RequestParam String category){
+        //임시로 이름 검색
+        log.info("getAdList() {}",category);
+        return iwcServ.getAdList(category);
+    }
+
+    @PostMapping("setIwcComments")
+    public IwcCommentTbl addComment(@RequestBody IwcCommentTbl comment) {
+        return iwcServ.addComment(comment);
+    }
+
+    @GetMapping("getIwcComments")
+    public List<IwcCommentTbl> getCommentsByPost(@RequestParam Long postId) {
+        return iwcServ.getCommentsByPost(postId);
+    }
+
 }
