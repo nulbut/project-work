@@ -5,8 +5,9 @@ import axios, { all, spread } from "axios";
 import CheckBox from "./checkbox/CheckBox";
 import { param } from "jquery";
 
-const MemberSecession = () => {
+const MemberSecession = ({bcon}) => {
   const nav = useNavigate();
+  
 
   const bid = sessionStorage.getItem("bid"); // 사업자 아이디
 
@@ -18,7 +19,7 @@ const MemberSecession = () => {
   //사업자 유저 정보 가져옴
   const [bmemberInfo, setBmemberInfo] = useState({
     bid: bid,
-    bsituation: "",
+    bsituation: "사용중",
   });
 
   const { bsituation } = bmemberInfo;
@@ -49,41 +50,29 @@ const MemberSecession = () => {
       .catch((err) => console.log(err));
   }, []);
 
-  const onch = useCallback(
-    (e) => {
-      const bmemberObj = {
-        ...bmemberInfo,
-        [e.target.name]: e.target.value,
-      };
+  //사업자회원 탈퇴 처리 
 
-      setBmemberInfo(bmemberObj);
-    },
-    [bmemberInfo]
-  );
-
-  const handleDeleteUser = useCallback(
-    (e) => {
-      e.preventDefault();
-
-      if (window.confirm("확인을 누르면 회원 정보가 삭제됩니다.")) {
+  const deleteBmember = (e) => {
+    e.preventDefault();
+    if (window.confirm("확인을 누르면 회원 정보가 삭제됩니다.")) {
         if (check == "1") {
-          const bmemberformData = new FormData();
+        //   const bmemberformData = new FormData();
 
-          bmemberformData.append(
-            "bmemberInfo",
-            new Blob([JSON.stringify(bmemberInfo)], {
-              type: "application/json",
-            })
-          );
+        //   bmemberformData.append(
+        //     "bmemberInfo",
+        //     new Blob([JSON.stringify(bmemberInfo)], {
+        //       type: "application/json",
+        //     })
+        //   );
 
-          for (let key of bmemberformData.keys()) {
-            console.log(key);
-          }
+        //   for (let key of bmemberformData.keys()) {
+        //     console.log(key);
+        //   }
 
           axios
-            .get("/deletemember", { params: { bid: bid } })
+            .get("/deletemember", { params: { bcon: bid } })
             .then((res) => {
-              if (res.data === "ok") {
+              if (res.data == "ok") {
                 alert("GGD's 서비스를 이용해주셔서 감사합니다.");
                 // nav("/");
               } else {
@@ -98,10 +87,10 @@ const MemberSecession = () => {
           alert("동의사항에 체크해주세요");
         }
       }
-    },
-    [bmemberInfo]
-  );
-  console.log(bmemberInfo);
+  }
+
+  
+  
 
   //취소버튼 누를 시 뒤로가기 됨
   const back = () => {
@@ -109,17 +98,10 @@ const MemberSecession = () => {
   };
   return (
     <div className="membersecession-main">
-      <form className="membersecession-content" onSubmit={handleDeleteUser}>
+      <form className="membersecession-content">
         <div className="membersecession-reason">
           <h4>회원탈퇴 사유</h4>
           <hr />
-          <input
-            type="hidden"
-            value={bsituation}
-            onChange={onch}
-            autoFocus
-            required
-          />
           <div className="reason-button">
             <Button>아이디 변경</Button>
             <Button>개인정보 노출 우려</Button>
@@ -148,7 +130,7 @@ const MemberSecession = () => {
         </div>
         <div className="secession-button">
           <Button onClick={back}>취소</Button>
-          <Button type="submit">확인</Button>
+          <Button onClick={deleteBmember}>확인</Button>
         </div>
         <div className="conment">
           <p>

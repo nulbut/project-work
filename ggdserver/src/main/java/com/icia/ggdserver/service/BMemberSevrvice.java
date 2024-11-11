@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.UnsupportedEncodingException;
@@ -270,14 +271,21 @@ public class BMemberSevrvice {
     }
 
     //회원 삭제
+    public BmemberTbl getbid(String bid) {
+        log.info("getbid()");
+
+        BmemberTbl bmemberTbl = bmRepo.findById(bid).get();
+
+        return bmemberTbl;
+    }
+
     @Transactional
-    public String deletemember(long bsituation) {
+    public String deletemember(String bid) {
         log.info("deletemember()");
         String result = null;
 
         try {
-            bmRepo.deleteByMember(bsituation);
-
+            bmRepo.deleteByMember(bid);  // 네이티브 쿼리 호출
             result = "ok";
         } catch (Exception e) {
             e.printStackTrace();
@@ -285,6 +293,11 @@ public class BMemberSevrvice {
         }
         return result;
     }
+
+
+
+
+
 
 
 }//class end

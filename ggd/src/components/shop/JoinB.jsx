@@ -183,7 +183,6 @@ const JoinB = () => {
       <form className="content" onSubmit={handleSubmit(onBSubmit)}>
         <input type="hidden" value={2} {...register("bmnum")} />
         <input type="hidden" value={1} {...register("bstatus")} />
-        <input type="hidden" value="사용중" {...register("bsituation")} />
         <h1>JOIN</h1>
         <div className="essential">
           <p>

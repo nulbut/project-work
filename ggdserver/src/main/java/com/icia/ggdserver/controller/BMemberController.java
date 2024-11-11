@@ -100,10 +100,17 @@ public class BMemberController {
     }
 
     //회원 탈퇴
+    @GetMapping("getbid")
+    public BmemberTbl getbid (@RequestParam String bid){
+        log.info("getbid()");
+        return bmServ.getbid(bid);
+    }
+
+
     @GetMapping("deletemember")
-    public String deletemember(@RequestParam long bsituation){
+    public String deletemember(@RequestParam(required = false, value = "bcon") String bid  ){
         log.info("deletemember()");
-        return bmServ.deletemember(bsituation);
+        return bmServ.deletemember(bid);
     }
 
 
