@@ -6,6 +6,7 @@ import logo from "../images/logo.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import inquiryicon from "../images/inquiryicon.png";
 
+
 const BMypage = (props) => {
   // console.log(props.onLogout);
   //...님에 상호 불러오게 하기
@@ -37,8 +38,8 @@ const BMypage = (props) => {
       path: "binquiry",
     },
     {
-      name: "사업자 정보 변경",
-      path: "bmemberpasswordcheck",
+      name: "사업자 정보",
+      path: "/bmemberpasswordcheck",
     },
   ];
 

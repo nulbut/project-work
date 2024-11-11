@@ -70,6 +70,15 @@ public class NMemberController {
         return nmServ.loginproc(nmemberTbl);
     }
 
+    //일반회원정보 수정 입력하기
+    @PostMapping("nmemberwriteProc")
+    public String nmemberwriteProc(@RequestParam(value = "nmemberInfo", required = true) NmemberTbl nmemberTbl,
+                                   HttpSession session){
+        log.info("nmemberwriteProc()");
+        String result = nmServ.insertNmember(nmemberTbl, session);
+        return result;
+    }
+
     //닉네임 불러오기
     @GetMapping("getNickname")
     public NmemberTbl getNickname(@RequestParam long nnickname){
@@ -91,6 +100,15 @@ public class NMemberController {
     public NmemberTbl getNMember(@RequestParam String nid){
         log.info("getNMember()");
         return nmServ.getNMember(nid);
+    }
+
+    //회원정보 수정 입력하기
+    @PostMapping("nmemberwriteproc")
+    public String nmemberwriteproc (@RequestPart(value = "nmemberInfo", required = true) NmemberTbl nmemberTbl,
+                                    HttpSession session){
+        log.info("nmemberwriteproc()");
+        String result = nmServ.insertNmember(nmemberTbl, session);
+        return result;
     }
 
     //회원가입 이메일 인증

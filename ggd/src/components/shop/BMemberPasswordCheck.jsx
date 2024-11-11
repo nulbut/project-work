@@ -3,6 +3,9 @@ import Button from "./Button";
 import React from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import "./scss/MemberPasswordCheck.scss";
+
+
 
 const BMemberPasswordCheck = () => {
   const nav = useNavigate();
@@ -39,12 +42,14 @@ const BMemberPasswordCheck = () => {
   };
 
   return (
-    <div className="Main">
+    <div className="BMemberPasswordCheck_Main">
       <form onSubmit={handleSubmit(sendLogin)}>
         <div>
           <p>Password</p>
+          <hr />
           <input type="hidden" value={id} {...register("bid")} />
           <input
+            className="BMemberPasswordCheck_input"
             type="password"
             placeholder="비밀번호"
             {...register("bpw", {
@@ -53,7 +58,7 @@ const BMemberPasswordCheck = () => {
           />
           <span className="error">{errors?.bpw?.message}</span>
         </div>
-        <div>
+        <div className="BMemberPasswordCheck_ButtonGroup">
           <Button type="submit">확인</Button>
           <Button onClick={handleBack}>취소</Button>
         </div>

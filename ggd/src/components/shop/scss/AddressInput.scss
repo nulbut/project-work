@@ -1,0 +1,75 @@
+// AddressInput.scss
+
+.AddressInput {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-family: Arial, sans-serif;
+
+  // 우편번호와 주소 입력 필드 스타일
+  .input {
+    width: 100%;
+    padding: 0.6rem;
+    font-size: 1rem;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    transition: border-color 0.3s;
+    
+    &:focus {
+      border-color: #0077cc;
+      outline: none;
+    }
+  }
+
+  // 우편번호, 주소, 상세주소 타이틀 스타일
+  div > div:first-child {
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #333333;
+    margin-bottom: 0.2rem;
+  }
+
+  // 주소 아이콘 버튼 스타일
+  .address-button {
+    width: 300px;
+    height: 30px;
+    cursor: pointer;
+    margin-left: 0.5rem;
+    margin-top: 0.5rem;
+    vertical-align: middle;
+    transition: transform 0.2s;
+
+      img{
+        width: 200px;
+        height: 30px;
+        cursor: pointer;
+        margin-left: 0.5rem;
+        vertical-align: middle;
+        transition: transform 0.2s;
+        
+      }
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+
+  // DaumPostcode 모달 스타일
+  .DaumPostcode {
+    width: 100%;
+    max-width: 400px;
+    margin-top: 0.5rem;
+    border: 1.4px solid #333333;
+    background-color: #ffffff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+
+    .postcode-popup {
+      width: 100%;
+      height: 600px;
+      border: none;
+      border-radius: 8px;
+    }
+  }
+}

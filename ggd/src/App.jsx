@@ -64,6 +64,10 @@ import BProductStock from "./components/shop/BProductStock";
 import BInquiry from "./components/shop/BInquiry";
 import BOderHistory from "./components/shop/BOderHistory";
 import ResultPage from "./components/idealcup/ResultPage";
+import NmemberUpdate from "./components/shop/NmemberUpdate";
+import NmemberPasswordCheck from "./components/shop/NmemberPasswordCheck";
+import NMemberView from "./components/shop/NMemberView";
+import MemberSecession from "./components/shop/MemberSecession";
 
 function App() {
   const nav = useNavigate();
@@ -79,7 +83,7 @@ function App() {
   //로그아웃 함수
   const onLogout = () => {
     alert("로그아웃 되었습니다.");
-    console.log("뭐냐이건?");
+    // console.log("뭐냐이건?");
     const newState = {
       loginid: "",
       loginnick: "",
@@ -158,8 +162,14 @@ function App() {
           <Route path="/joinchoice" element={<JoinChoice />} />
           <Route path="/join_n" element={<JoinN />} />
           <Route path="/join_b" element={<JoinB />} />
+
           <Route path="/mypage" element={<Mypage onLogout={onLogout} />}>
             <Route path="orderDelivery" element={<OrderDelivery />} />
+            {/* <Route
+              path="nmemberpasswordcheck"
+              element={<NmemberPasswordCheck />}
+            /> */}
+
             <Route path="productRegistered" element={<ProductRegistered />} />
             <Route path="productWrite" element={<ProductWrite />} />
             <Route path="dibs" element={<Dibs />} />
@@ -167,6 +177,12 @@ function App() {
             <Route path="inquiryWrite" element={<InquiryWrite />} />
             <Route path="inquiry/inView" element={<InquiryView />} />
             <Route path="inquiry/inView/inUpdate" element={<InquiryUpdate />} />
+            <Route path="PasswordChek" element={<NmemberPasswordCheck />} />
+            <Route path="PasswordChek/NMview" element={<NMemberView />} />
+            <Route
+              path="PasswordChek/NMview/NmUpdate"
+              element={<NmemberUpdate />}
+            />
             <Route path="productRegistered/pdView" element={<ProductView />} />
             <Route
               path="productRegistered/pdview/pdUpdate"
@@ -175,6 +191,7 @@ function App() {
             <Route path="usedRegistered" element={<UsedRegistered />} />
             <Route path="usedRegistered/usView" element={<UsedView />} />
           </Route>
+
           <Route path="usedWrite" element={<UsedWrite />} />
 
           <Route path="bmypage" element={<BMypage onLogout={onLogout} />}>
@@ -184,10 +201,6 @@ function App() {
             <Route path="bproductstock" element={<BProductStock />} />
             <Route path="binquiry" element={<BInquiry />} />
             <Route path="boderhistory" element={<BOderHistory />} />
-            <Route
-              path="bmemberpasswordcheck"
-              element={<BMemberPasswordCheck />}
-            />
           </Route>
           <Route path="bp0" element={<BMypageView onLogout={onLogout} />} />
 
@@ -210,6 +223,7 @@ function App() {
             element={<BMemberPasswordCheck />}
           />
           <Route path="/bmemberupdate" element={<BMemberUpdate />} />
+          <Route path="/membersecession" element={<MemberSecession />} />
         </Route>
 
         <Route

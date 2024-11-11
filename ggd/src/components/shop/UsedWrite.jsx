@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import UsedButton from "./UsedButton";
@@ -97,6 +97,15 @@ const UsedWrite = () => {
     [data]
   );
   console.log("현재값", data);
+
+  //로그인 상태 체크
+  useEffect(() => {
+    if (usedsellerId === null) {
+      alert("로그인이 필요합니다.");
+      nav("/login", { replace: true });
+      return;
+    }
+  });
 
   return (
     <div className="UsedWrite">
