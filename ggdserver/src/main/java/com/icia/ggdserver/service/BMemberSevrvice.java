@@ -266,4 +266,6 @@ public class BMemberSevrvice {
         }
         return result;
     }
+
+
 }//class end

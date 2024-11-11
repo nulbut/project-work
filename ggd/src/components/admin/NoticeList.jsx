@@ -85,6 +85,7 @@ const NoticeList = () => {
         등록
       </Button>
       <Table hName={["제목", "날짜"]}>{list}</Table>
+
       <Paging page={page} getList={getnList} />
     </div>
   );

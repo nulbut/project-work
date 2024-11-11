@@ -1,65 +1,65 @@
 .mypage-ex {
-  display: flex;
-  flex-direction: row;
-}
-
-.sideber {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  color: #202020;
-  height: 100%;
-  width: 20%;
-  white-space: pre-wrap;
-  bottom: 0;
-  padding-top: 3%;
-  background-color: aliceblue;
-  position: relative;
-}
-.mypage {
-  font-size: 3em;
-  float: left;
-  // background: #000;
-  img {
-    width: 48px;
-    height: 48px;
-    float: inline-start;
+    display: flex;
+    flex-direction: row;
   }
-}
-
-.border-ber {
-  position: relative;
-  background-color: aqua;
-  border: 1px solid gray;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 80%;
-  height: 30%;
-  padding-top: 10%;
-  padding-bottom: 8%;
-  margin-top: 30%;
-
-  .sideber-menu {
-    // background-color: orange;
+  
+  .sideber {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    text-decoration: none;
-    padding-bottom: 3%;
+    position: fixed;
+    color: #202020;
+    height: 100%;
+    width: 20%;
+    white-space: pre-wrap;
+    bottom: 0;
     padding-top: 3%;
+    background-color: aliceblue;
+    position: relative;
   }
-  .btn {
-    margin-top: 30px;
-    background-color: hotpink;
+  .mypage {
+    font-size: 3em;
+    float: left;
+    // background: #000;
+    img {
+      width: 48px;
+      height: 48px;
+      float: inline-start;
+    }
   }
-}
-.desc {
-  display: flex;
-  width: 80%;
-}
-.oder {
-  text-align: center;
-  background-color: antiquewhite;
-}
+  
+  .border-ber {
+    position: relative;
+    background-color: aqua;
+    border: 1px solid gray;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    height: 30%;
+    padding-top: 10%;
+    padding-bottom: 8%;
+    margin-top: 30%;
+  
+    .sideber-menu {
+      // background-color: orange;
+      align-items: center;
+      text-decoration: none;
+      padding-bottom: 3%;
+      padding-top: 3%;
+    }
+    .btn {
+      margin-top: 30px;
+      background-color: hotpink;
+    }
+  }
+  .desc {
+    display: flex;
+    width: 80%;
+  }
+  .oder {
+    text-align: center;
+    background-color: antiquewhite;
+  }

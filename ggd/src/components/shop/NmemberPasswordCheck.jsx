@@ -1,15 +1,12 @@
-import { useForm } from "react-hook-form";
-import Button from "./Button";
-import React from "react";
 import axios from "axios";
+import React from "react";
+import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import "./scss/MemberPasswordCheck.scss";
+import Button from "./Button";
 
-
-
-const BMemberPasswordCheck = () => {
+const NmemberPasswordCheck = () => {
   const nav = useNavigate();
-  const id = sessionStorage.getItem("bid");
+  const id = sessionStorage.getItem("nid");
   console.log(id);
 
   const {
@@ -19,13 +16,12 @@ const BMemberPasswordCheck = () => {
     formState: { errors },
   } = useForm();
 
-  const sendLogin = (bform) => {
+  const sendLogin = (form) => {
     axios
-      .post("/bloginproc", bform)
-      .then((res2) => {
-        if (res2.data.res2 === "ok") {
-          // sessionStorage.setItem("bid", res2.data.bid);
-          nav("/bmemberview");
+      .post("/loginproc", form)
+      .then((res1) => {
+        if (res1.data.res1 === "ok") {
+          nav("NMview");
         } else {
           alert("비밀번호 다시 확인해주세요.");
         }
@@ -42,23 +38,21 @@ const BMemberPasswordCheck = () => {
   };
 
   return (
-    <div className="BMemberPasswordCheck_Main">
+    <div className="Main">
       <form onSubmit={handleSubmit(sendLogin)}>
         <div>
           <p>Password</p>
-          <hr />
-          <input type="hidden" value={id} {...register("bid")} />
+          <input type="hidden" value={id} {...register("nid")} />
           <input
-            className="BMemberPasswordCheck_input"
             type="password"
             placeholder="비밀번호"
-            {...register("bpw", {
+            {...register("npw", {
               required: { value: true, message: "비밀번호 입력해주세요." },
             })}
           />
           <span className="error">{errors?.bpw?.message}</span>
         </div>
-        <div className="BMemberPasswordCheck_ButtonGroup">
+        <div>
           <Button type="submit">확인</Button>
           <Button onClick={handleBack}>취소</Button>
         </div>
@@ -67,4 +61,4 @@ const BMemberPasswordCheck = () => {
   );
 };
 
-export default BMemberPasswordCheck;
+export default NmemberPasswordCheck;

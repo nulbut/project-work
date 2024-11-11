@@ -2,6 +2,7 @@ import axios from "axios";
 import Button from "./Button";
 import React, { useCallback, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import AddressInput from "../AddressInput";
 
 const BMemberUpdate = () => {
   const nav = useNavigate();
@@ -9,7 +10,9 @@ const BMemberUpdate = () => {
   const { state } = useLocation();
   const { bid } = state;
 
-  console.log(bid);
+  const [addr, setAddr] = useState("");
+
+  // console.log(bid);
 
   const [bmemberInfo, setBmemberInfo] = useState({
     bid: bid,
@@ -19,7 +22,7 @@ const BMemberUpdate = () => {
     bbreality: "",
     bbtype: "",
     bemail: "",
-    //    baddress : "",
+    baddress : "",
     bname: "",
     bbday: "",
     bphonenum: "",
@@ -37,7 +40,7 @@ const BMemberUpdate = () => {
     bbreality,
     bbtype,
     bemail,
-    // baddress,
+    baddress,
     bname,
     bbday,
     bphonenum,
@@ -59,27 +62,30 @@ const BMemberUpdate = () => {
       .catch((err) => console.log(err));
   }, []);
 
+  const sendInfo = {...bmemberInfo,baddress: addr};
   const onch = useCallback(
     (e) => {
       const bmemberObj = {
-        ...bmemberInfo,
+        ...sendInfo,
         [e.target.name]: e.target.value,
       };
+      
       setBmemberInfo(bmemberObj);
     },
-    [bmemberInfo]
+    [sendInfo]
   );
 
+  //회원정보 작성
   const onWrite = useCallback(
     (e) => {
       e.preventDefault(); //페이지 변환 방지하는 함수
 
       const bmemberformData = new FormData();
-      console.log(bmemberformData);
+      // console.log(bmemberformData);
 
       bmemberformData.append(
         "bmemberInfo",
-        new Blob([JSON.stringify(bmemberInfo)], { type: "application/json" })
+        new Blob([JSON.stringify(sendInfo)], { type: "application/json" })
       );
 
       for (let key of bmemberformData.keys()) {
@@ -101,13 +107,14 @@ const BMemberUpdate = () => {
           console.log(err);
         });
     },
-    [bmemberInfo]
+    [sendInfo]
   );
+  console.log(sendInfo);
 
   return (
     <div>
       <form className="content" onSubmit={onWrite}>
-        <h1>JOIN</h1>
+        <h1>회원정보 수정</h1>
         <div className="essential">
           <p>* 표시 필수 입력</p>
         </div>
@@ -203,16 +210,11 @@ const BMemberUpdate = () => {
         </div>
         <div className="address">
           <p>주소 *</p>
-          <p>
-            <input placeholder="우편번호" className="input" />
-            <button>아이콘 들어갈것</button>
-          </p>
-          <p>
-            <input placeholder="사업자 주소" />
-          </p>
-          <p>
-            <input placeholder="상세 주소" />
-          </p>
+          <AddressInput 
+          value={baddress}
+          onChange={onch}
+          setAddr = {setAddr}
+          />
         </div>
         <div className="representativename">
           <p>대표자 이름 *</p>

@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "./Button";
 import "./scss/Main.scss";
 import AddressInput from "../AddressInput";
+import "./scss/JoinB.scss";
 
 let ck = false; //아이디 중복 체크
 let cnumclick = false; //사업자등록번호 확인
@@ -184,10 +185,10 @@ const JoinB = () => {
         <input type="hidden" value={1} {...register("bstatus")} />
         <h1>JOIN</h1>
         <div className="essential">
-          <p>* 표시 필수 입력</p>
+          <p><span className="red">*</span> 표시 필수 입력</p>
         </div>
         <div className="companyname">
-          <p>상호 *</p>
+          <p>상호 <span className="red">*</span></p>
           <input
             placeholder="사업자 상호 입력"
             className="input"
@@ -202,13 +203,13 @@ const JoinB = () => {
         </div>
         <div className="entrepreneurnum">
           <p>
-            사업자등록번호 *
-            <Button type="button" onClick={bnumcSubmit}>
+            사업자등록번호 <span className="red">*</span>
+            <Button className="button" type="button" onClick={bnumcSubmit}>
               사업자등록번호 확인
             </Button>
           </p>
           <input
-            placeholder="- 제외한 13자리 입력"
+            placeholder="- 포함한 13자리 입력"
             className="input"
             {...register("bcnum", {
               required: {
@@ -225,7 +226,7 @@ const JoinB = () => {
           />
         </div>
         <div className="taxationtype">
-          <p>과세유형 *</p>
+          <p>과세유형 <span className="red">*</span></p>
           <select
             {...register("bttype", {
               required: {
@@ -240,7 +241,7 @@ const JoinB = () => {
           <span className="error">{errors?.bttype?.message}</span>
         </div>
         <div className="breality">
-          <p>업태 *</p>
+          <p>업태 <span className="red">*</span></p>
           <input
             placeholder="업태 입력"
             className="input"
@@ -254,7 +255,7 @@ const JoinB = () => {
           <span className="error">{errors?.bbreality?.message}</span>
         </div>
         <div className="btype">
-          <p>업종 *</p>
+          <p>업종 <span className="red">*</span></p>
           <input
             placeholder="업종 입력"
             className="input"
@@ -268,7 +269,7 @@ const JoinB = () => {
           <span className="error">{errors?.bbtype?.message}</span>
         </div>
         <div className="email">
-          <p>사업자 EMail *</p>
+          <p>사업자 EMail <span className="red">*</span></p>
           <input
             placeholder="you@example.com"
             className="input"
@@ -285,7 +286,7 @@ const JoinB = () => {
             })}
           />
           <span className="error">{errors?.bemail?.message}</span>
-          <Button type="button" outline onClick={mailCh}>
+          <Button className="button" type="button" outline onClick={mailCh}>
             E-mail전송
           </Button>
           <input
@@ -294,20 +295,20 @@ const JoinB = () => {
             onChange={onch}
             value={userCode}
           />
-          <Button type="button" outline onClick={emailmatch}>
+          <Button className="button" type="button" outline onClick={emailmatch}>
             E-mail인증
           </Button>
         </div>
         <div className="address">
-          <p>주소 *</p>
+          <p>주소 <span className="red">*</span></p>
           <div>
             <AddressInput setAddr={setAddr} />
           </div>
         </div>
         <div className="bid">
           <p>
-            ID *
-            <Button type="button" onClick={bidCheck}>
+            ID <span className="red">*</span>
+            <Button className="button" type="button" onClick={bidCheck}>
               ID 중복 확인
             </Button>
           </p>
@@ -324,7 +325,7 @@ const JoinB = () => {
           <span className="error">{errors?.bid?.message}</span>
         </div>
         <div className="representativename">
-          <p>대표자 이름 *</p>
+          <p>대표자 이름 <span className="red">*</span></p>
           <input
             placeholder="대표자 이름"
             className="input"
@@ -338,8 +339,9 @@ const JoinB = () => {
           <span className="error">{errors?.bname?.message}</span>
         </div>
         <div className="representativegender">
-          <p>대표자 성별 *</p>
+          <p>대표자 성별 <span className="red">*</span></p>
           <input
+          className="input-radio"
             type="radio"
             value={1}
             {...register("bgender", {
@@ -352,6 +354,7 @@ const JoinB = () => {
           <span className="error">{errors?.bgender?.message}</span>
           남성
           <input
+          className="input-radio"
             type="radio"
             value={2}
             {...register("bgender", {
@@ -364,7 +367,7 @@ const JoinB = () => {
           여성
         </div>
         <div className="representativebirthday">
-          <p>대표자 생년월일 *</p>
+          <p>대표자 생년월일 <span className="red">*</span></p>
           <input
             type="date"
             className="input"
@@ -379,10 +382,10 @@ const JoinB = () => {
           <span className="error">{errors?.bbday?.message}</span>
         </div>
         <div className="representativephoennum">
-          <p>대표자 전화번호 *</p>
+          <p>대표자 전화번호 <span className="red">*</span></p>
           <input
             className="input"
-            placeholder=" - 를 제외한 번호 입력"
+            placeholder=" - 를 포함한 번호 입력"
             {...register("bphonenum", {
               required: {
                 value: true,
@@ -397,7 +400,7 @@ const JoinB = () => {
           <span className="error">{errors?.bphonenum?.message}</span>
         </div>
         <div className="banknum">
-          <p>정산 입금계좌 *</p>
+          <p>정산 입금계좌 <span className="red">*</span></p>
           <select
             {...register("bbanknum", {
               required: {
@@ -426,7 +429,7 @@ const JoinB = () => {
           <span className="error">{errors?.bbanknum?.message}</span>
           <p>
             <input
-              placeholder='"-"제외 입력'
+              placeholder='"-" 포함 입력'
               className="input"
               {...register("bbaccunt", {
                 required: {
@@ -444,13 +447,13 @@ const JoinB = () => {
         </div>
         <div className="managername">
           <p>담당자 이름</p>
-          <input placeholder="담당자 이름" {...register("bmname")} />
+          <input className="input" placeholder="담당자 이름" {...register("bmname")} />
         </div>
         <div className="managephoennum">
           <p>담당자 전화번호</p>
           <input
             className="input"
-            placeholder=" - 를 제외한 번호 입력"
+            placeholder=" - 를 포함한 번호 입력"
             {...register("bmphonenum", {
               pattern: {
                 value: /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/,
@@ -467,6 +470,7 @@ const JoinB = () => {
         <div className="manageremail">
           <p>담당자 Email</p>
           <input
+            className="input"
             placeholder="you@example.com"
             // type="email"
             {...register("bmemail", {
@@ -484,8 +488,9 @@ const JoinB = () => {
           )}
         </div>
         <div className="password">
-          <p>Password *</p>
+          <p>Password <span className="red">*</span></p>
           <input
+            className="input"
             type="password"
             placeholder="영문,숫자,특수문자 중 2종류 이상을 조합하여 최소 8자리"
             {...register("bpw", {
@@ -499,8 +504,9 @@ const JoinB = () => {
           <span className="error">{errors?.bpw?.message}</span>
         </div>
         <div className="passwordcheck">
-          <p>비밀번호 확인 *</p>
+          <p>비밀번호 확인 <span className="red">*</span></p>
           <input
+            className="input"
             type="password"
             placeholder="영문,숫자,특수문자 중 2종류 이상을 조합하여 최소 8자리"
             {...register("bpwcheck", {

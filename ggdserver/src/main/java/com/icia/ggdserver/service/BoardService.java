@@ -44,7 +44,7 @@ public class BoardService {
         }
 
         //페이지 당 보여질 문의게시글 개수
-        int listCnt = 5;
+        int listCnt = 10;
 
         //페이징 조건 처리 객체 생성(Pageable)
         Pageable pb = PageRequest.of((pageNum - 1), listCnt,
@@ -164,7 +164,6 @@ public class BoardService {
                 if (product != null) {
                     board.setProductName(product.getProductName()); // Product 테이블에서 가져온 productName 설정
                 } else {
-                    log.warn("Product not found for productCode: {}", productCode);
                     board.setProductName("상품 정보 없음"); // 상품 정보를 찾지 못한 경우 처리
                 }
             } else {

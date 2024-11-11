@@ -43,7 +43,7 @@ public class DibsService {
         if (pageNum == null) {
             pageNum = 1;
         }
-        int limitCnt = 5;
+        int limitCnt = 10;
         Pageable pb = PageRequest.of((pageNum - 1), limitCnt, Sort.Direction.DESC,"dibsCode");
 
         // 찜 데이터 가져오기
@@ -83,11 +83,11 @@ public class DibsService {
     public String getDibs(String dnid, Long productCode) {
         try {
             if (productCode == null || dnid == null) {
-                return "error: 상품이나 아이디가 없습니다."; // 필수 파라미터가 없는 경우
+                return "상품이나 아이디가 없습니다."; // 필수 파라미터가 없는 경우
             }
 
-            // 중고 상품에 대한 찜 중복 처리
-            DibsTbl existingDibs = dRepo.findByDnidAndUsedCode(dnid, productCode);
+            // 상품에 대한 찜 중복 처리
+            DibsTbl existingDibs = dRepo.findByDnidAndProductCode(dnid, productCode);
             if (existingDibs != null) {
                 return "이미 찜한 상품입니다."; // 이미 찜한 중고 상품
             }
@@ -106,7 +106,7 @@ public class DibsService {
 
 
 
-    public String getUsedDibs(String dnid, Long usedCode) {
+    public String   getUsedDibs(String dnid, Long usedCode) {
         try {
             if (usedCode == null || dnid == null) {
                 return "error: 상품이나 아이디가 없습니다."; // 필수 파라미터가 없는 경우

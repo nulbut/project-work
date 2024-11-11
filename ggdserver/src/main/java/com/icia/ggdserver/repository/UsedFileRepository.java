@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface UsedFileRepository extends CrudRepository<UsedproductFileTbl, Long> {
 
-    List<UsedproductFileTbl> findByUsedFileNum(long usedCode);
+    List<UsedproductFileTbl> findByUsedFileNum(long usedFileNum);
 
     void deleteByUsedFileNum(long usedCode);
 }
