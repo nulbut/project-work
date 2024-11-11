@@ -269,7 +269,22 @@ public class BMemberSevrvice {
         return result;
     }
 
+    //회원 삭제
+    @Transactional
+    public String deletemember(long bsituation) {
+        log.info("deletemember()");
+        String result = null;
 
+        try {
+            bmRepo.deleteByMember(bsituation);
+
+            result = "ok";
+        } catch (Exception e) {
+            e.printStackTrace();
+            result = "fail";
+        }
+        return result;
+    }
 
 
 }//class end
