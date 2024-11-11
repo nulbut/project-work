@@ -298,10 +298,16 @@ public class BMemberSevrvice {
         return result;
     }
 
+    //회원정보 수정
+    public String bmemberwriteProc(BmemberTbl bmemberTbl,
+                                   HttpSession session) {
+        BmemberTbl existingMember = bmRepo.findById(bmemberTbl.getBid())
+                .orElseThrow(() -> new RuntimeException("BMember not found"));
 
-
-
-
-
-
+        if (bmemberTbl.getBpw() == null || bmemberTbl.getBpw().isEmpty()){
+            bmemberTbl.setBpw(existingMember.getBpw());
+        }
+        bmRepo.save(bmemberTbl);
+        return "ok";
+    }
 }//class end

@@ -109,7 +109,7 @@ public class NMemberController {
     public String nmemberwriteproc (@RequestPart(value = "nmemberInfo", required = true) NmemberTbl nmemberTbl,
                                     HttpSession session){
         log.info("nmemberwriteproc()");
-        String result = nmServ.insertNmember(nmemberTbl, session);
+        String result = nmServ.nmemberwriteproc(nmemberTbl, session);
         return result;
     }
 

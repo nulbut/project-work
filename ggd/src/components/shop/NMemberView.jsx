@@ -10,6 +10,7 @@ const NMemberView = () => {
 
   const [nmemberInfo, setNmemberInfo] = useState({
     nid: id,
+    npw : "",
     nname: "",
     nbday: "",
     nphonenum: "",

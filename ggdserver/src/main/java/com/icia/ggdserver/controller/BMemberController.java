@@ -62,7 +62,7 @@ public class BMemberController {
     public String bmemberwriteProc (@RequestPart(value = "bmemberInfo", required = true) BmemberTbl bmemberTbl,
                                     HttpSession session){
         log.info("bmemberwriteProc()");
-        String result = bmServ.insertBmember(bmemberTbl, session);
+        String result = bmServ.bmemberwriteProc(bmemberTbl, session);
         return result;
     }
 

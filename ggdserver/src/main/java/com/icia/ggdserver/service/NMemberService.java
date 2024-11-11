@@ -338,5 +338,16 @@ public class NMemberService {
         }
         return result;
     }
+    //회원정보 수정
+    public String nmemberwriteproc(NmemberTbl nmemberTbl,
+                                   HttpSession session) {
+        NmemberTbl existingMember = nmRepo.findById(nmemberTbl.getNid())
+                .orElseThrow(() -> new RuntimeException("NMember not found"));
 
+        if(nmemberTbl.getNpw() == null || nmemberTbl.getNpw().isEmpty()){
+            nmemberTbl.setNpw(existingMember.getNpw());
+        }
+        nmRepo.save(nmemberTbl);
+        return "ok";
+    }
 }//class end
