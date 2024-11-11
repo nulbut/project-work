@@ -18,23 +18,23 @@ const BMypageView = (props) => {
 
   const productgo = () => {
     nav("/bmypage/bp1");
-  }
+  };
 
-  const odergo = () =>{
+  const odergo = () => {
     nav("/bmypage/boderhistory");
-  }
+  };
 
   const stockgo = () => {
     nav("/bmypage/bproductstock");
-  }
+  };
 
   const inquirygo = () => {
     nav("/bmypage/binquiry");
-  }
+  };
 
   const notificationgo = () => {
     nav("/Notification");
-  }
+  };
 
   const menuArr = [
     {
@@ -96,20 +96,27 @@ const BMypageView = (props) => {
         </div>
       </div>
       <div className="desc">
-      <div className="oder">
+        <div className="oder">
           <Button>주문완료</Button>
-          <div onClick={odergo} className="count">{}건</div>
+          <div onClick={odergo} className="count">
+            {}건
+          </div>
         </div>
         <div className="delivery">
           <Button>배송준비</Button>
-          <div onClick={odergo} className="count">{}건</div>
+          <div onClick={odergo} className="count">
+            {}건
+          </div>
           <Button>배송중</Button>
-          <div onClick={odergo} className="count">{}건</div>
+          <div onClick={odergo} className="count">
+            {}건
+          </div>
         </div>
         <div className="cancellation">
           <Button>취소요청</Button>
-          <div  onClick={odergo} className="count">{}건</div>
-
+          <div onClick={odergo} className="count">
+            {}건
+          </div>
         </div>
         <div className="revenue">
           <Button>오늘 매출액</Button>

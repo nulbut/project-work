@@ -21,7 +21,7 @@ const Footer = () => {
           email@icia.co.kr
         </a>
         <br />
-        Copyright© 2024. redrabbit. All Rights Reserved.
+        Copyright© 2024. Goose Goods Ducks. All Rights Reserved.
       </div>
 
       {/* 아이콘 영역 */}
