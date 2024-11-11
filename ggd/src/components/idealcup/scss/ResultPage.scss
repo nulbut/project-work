@@ -1,0 +1,63 @@
+/* src/components/ResultPage.module.scss */
+
+.resultPage {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  margin: 20px;
+  font-family: Arial, sans-serif;
+}
+.firstCoulmn {
+  .winnerPhoto {
+    background-color: burlywood;
+    display: flex;
+    padding: 15px;
+    .winner {
+      width: 50%;
+      padding: auto;
+      display: flex;
+      justify-content: center; /* 이미지를 중앙 정렬 */
+      align-items: center; /* 이미지를 세로로 중앙 정렬 */
+      position: relative;
+      img {
+        height: 100%;
+        border-radius: 10px;
+
+        object-fit: cover;
+      }
+      .name {
+        position: absolute;
+        z-index: 3;
+        color: #fff;
+        text-shadow: 5px 5px 5px black, -5px -5px 5px black;
+        bottom: 20%;
+        font-size: 3em;
+        text-align: center;
+        width: 80%;
+      }
+    }
+  }
+}
+.second-result {
+  flex-direction: row;
+  display: flex;
+  .buttons {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    width: 50%;
+    .button {
+      padding: 10px;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      margin: 10px 0;
+      cursor: pointer;
+      transition: background-color 0.3s;
+
+      &:hover {
+        background-color: #45a049;
+      }
+    }
+  }
+}

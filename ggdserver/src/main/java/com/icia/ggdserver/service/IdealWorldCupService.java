@@ -2,12 +2,8 @@ package com.icia.ggdserver.service;
 
 import com.icia.ggdserver.dto.GameVsDto;
 import com.icia.ggdserver.dto.TurnImgDto;
-import com.icia.ggdserver.entity.IwcContentsTbl;
-import com.icia.ggdserver.entity.IwcLikeTbl;
-import com.icia.ggdserver.entity.IwcTbl;
-import com.icia.ggdserver.repository.IwcContentsRepository;
-import com.icia.ggdserver.repository.IwcLikeRepository;
-import com.icia.ggdserver.repository.IwcTblRepository;
+import com.icia.ggdserver.entity.*;
+import com.icia.ggdserver.repository.*;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +32,15 @@ public class IdealWorldCupService {
 
     @Autowired
     private IwcLikeRepository likeRepo;
+
+    @Autowired
+    private UsedTblRepository usedRepo;
+
+    @Autowired
+    private UsedFileRepository usfRepo;
+
+    @Autowired
+    private IwcCommentRepository icoRepo;
 
     public String insertIwc(IwcTbl iwc,
                               List<MultipartFile> files,
@@ -377,5 +382,33 @@ public class IdealWorldCupService {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public Map<String, Object> getGameWinner(long iwcCode, long iwcContentsCode) {
+        Map<String, Object> res = new HashMap<>();
+        res.put("iwc", iwcRepo.findById(iwcCode));
+        res.put("content", conRepo.findById(iwcContentsCode));
+        res.put("rank",conRepo.getWinnerRank(iwcCode,iwcContentsCode));
+        return res;
+    }
+
+    public Map<String, Object> getAdList(String category) {
+        Map<String, Object> res = new HashMap<>();
+        List<UsedProductTbl> uList = usedRepo.findRandomUsedProductsByName(category);
+        for (UsedProductTbl uL : uList) {
+            List<UsedproductFileTbl> ufList = usfRepo.findByUsedFileNum(uL.getUsedCode());
+            uL.setUsedproductFileTblList(ufList);
+        }
+        res.put("used",uList);
+        return res;
+
+
+    }
+    public IwcCommentTbl addComment(IwcCommentTbl comment) {
+        return icoRepo.save(comment);  // 댓글 추가
+    }
+
+    public List<IwcCommentTbl> getCommentsByPost(Long postId) {
+        return icoRepo.findByIwcCode(postId);  // 게시글에 달린 댓글 조회
     }
 }
