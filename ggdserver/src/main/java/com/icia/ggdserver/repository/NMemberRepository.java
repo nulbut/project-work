@@ -78,4 +78,7 @@ public interface NMemberRepository extends CrudRepository<NmemberTbl, String> {
         "    GROUP BY dates.date\n" +
         "ORDER BY dates.date ASC; " ,nativeQuery = true)
     List<Object[]> countMemberPeriod();
+
+////회원삭제 메소드
+//    void deleteByNId(long nid);
 }

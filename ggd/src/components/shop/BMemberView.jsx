@@ -67,6 +67,8 @@ const BMemberView = () => {
     nav("/bmemberupdate", { state: { bid: id } });
   };
 
+
+
   return (
     <div className="Mypage">
       <div className="Title">
@@ -105,7 +107,7 @@ const BMemberView = () => {
       </div>
       <div>
         <hr />
-        <Link to="/membersecession">회원탈퇴하기</Link>
+        <Link to={"/membersecession"}>회원탈퇴하기</Link>
       </div>
     </div>
   );

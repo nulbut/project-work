@@ -268,4 +268,10 @@ public class BMemberSevrvice {
     }
 
 
+    public void bmemberdelete(String bid) {
+        BmemberTbl bmemberTbl = bmRepo.findById(bid)
+                .orElseThrow(() -> new IllegalArgumentException("회원을 찾을 수 없습니다."));
+        bmRepo.delete(bmemberTbl);
+
+    }
 }//class end
