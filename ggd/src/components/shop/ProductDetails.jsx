@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import moment from "moment";
 import "./scss/ProductDetails.scss";
+import UproductReview from "./UproductReview";
 
 const ProductDetails = () => {
   const location = useLocation();
@@ -16,11 +17,14 @@ const ProductDetails = () => {
 
   const usedCode = code || null; // `usedCode`가 존재하지 않으면 `null`
   const productCode = productCodeFromState || null; // `productCode`가 존재하지 않으면 `null`
+  const uProduct = productCode !== null ? "신상품" : "중고 상품";
 
   // 디버깅을 위한 콘솔 출력
   console.log("location.state:", location.state);
   console.log("usedCode:", usedCode);
   console.log("productCode:", productCode);
+
+  const nid = sessionStorage.getItem("nid");
 
   // 페이지 데이터 가져오기
   useEffect(() => {
@@ -190,6 +194,20 @@ const ProductDetails = () => {
               신고하기
             </button>
           </div>
+          {nid !== null ? (
+            <div className="Reviews">
+              <div className="ReviewList"></div>
+              <div className="ReviewWirte">
+                <UproductReview
+                  productCode={productCode}
+                  nid={nid}
+                  uProduct={uProduct}
+                />
+              </div>
+            </div>
+          ) : (
+            <></>
+          )}
         </div>
       </div>
     </div>

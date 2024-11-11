@@ -63,6 +63,11 @@ import BMemberUpdate from "./components/shop/BMemberUpdate";
 import BProductStock from "./components/shop/BProductStock";
 import BInquiry from "./components/shop/BInquiry";
 import BOderHistory from "./components/shop/BOderHistory";
+import NmemberPasswordCheck from "./components/shop/NmemberPasswordCheck";
+import NMemberView from "./components/shop/NMemberView";
+import NmemberUpdate from "./components/shop/NmemberUpdate";
+import MemberSecession from "./components/shop/MemberSecession";
+import ResultPage from "./components/idealcup/ResultPage";
 
 function App() {
   const nav = useNavigate();

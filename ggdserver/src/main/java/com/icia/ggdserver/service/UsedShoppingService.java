@@ -1,5 +1,6 @@
 package com.icia.ggdserver.service;
 
+import com.icia.ggdserver.entity.UproductReviewTbl;
 import com.icia.ggdserver.entity.UsedProductTbl;
 import com.icia.ggdserver.entity.UsedproductFileTbl;
 import com.icia.ggdserver.repository.UsedFileRepository;
@@ -222,4 +223,7 @@ public class UsedShoppingService {
 
             return res;
         }
-    }
+
+//    public String insertupreview(UproductReviewTbl upreview) {
+//    }
+}
