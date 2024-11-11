@@ -81,7 +81,7 @@ const MemberSecession = () => {
           }
 
           axios
-            .get("/deletemember", bmemberformData)
+            .get("/deletemember", { params: { bid: bid } })
             .then((res) => {
               if (res.data === "ok") {
                 alert("GGD's 서비스를 이용해주셔서 감사합니다.");
