@@ -51,6 +51,14 @@ public interface IwcContentsRepository extends CrudRepository<IwcContentsTbl, Lo
             "iwc_contents_category order by count(*) desc limit 10",nativeQuery = true)
     List<Object[]> categoryCnt();
 
+    @Query(value ="select ranking " +
+            "from (" +
+            "select iwc_contents_code, rank() over (order by iwc_content_finalcount desc) as ranking " +
+            "from iwc_contents_tbl " +
+            "where iwc_contents_iwc_code = :iwcCode) AS ranked " +
+            "where iwc_contents_code =:iwcContentsCode",nativeQuery = true)
+    Long getWinnerRank(@Param(value = "iwcCode") long iwcCode,
+                       @Param(value = "iwcContentsCode") long iwcContentsCode);
 
 
 

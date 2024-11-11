@@ -7,18 +7,35 @@
   margin: 20px;
   font-family: Arial, sans-serif;
 }
+.firstCoulmn {
+  .winnerPhoto {
+    background-color: burlywood;
+    display: flex;
+    padding: 15px;
+    .winner {
+      width: 50%;
+      padding: auto;
+      display: flex;
+      justify-content: center; /* 이미지를 중앙 정렬 */
+      align-items: center; /* 이미지를 세로로 중앙 정렬 */
+      position: relative;
+      img {
+        height: 100%;
+        border-radius: 10px;
 
-.leftColumn {
-  flex: 1;
-  padding-right: 20px;
-}
-
-.winnerPhoto {
-  display: flex;
-  img {
-    width: 50%;
-    border-radius: 10px;
-    height: 500px;
+        object-fit: cover;
+      }
+      .name {
+        position: absolute;
+        z-index: 3;
+        color: #fff;
+        text-shadow: 5px 5px 5px black, -5px -5px 5px black;
+        bottom: 20%;
+        font-size: 3em;
+        text-align: center;
+        width: 80%;
+      }
+    }
   }
 }
 .second-result {

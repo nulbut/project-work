@@ -1,4 +1,10 @@
 package com.icia.ggdserver.repository;
 
-public interface IwcCommentRepository {
+import com.icia.ggdserver.entity.IwcCommentTbl;
+import org.springframework.data.repository.CrudRepository;
+
+import java.util.List;
+
+public interface IwcCommentRepository extends CrudRepository<IwcCommentTbl, Long> {
+    List<IwcCommentTbl> findByIwcCode(Long postId);
 }
