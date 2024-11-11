@@ -58,7 +58,7 @@ const BMypage = (props) => {
           </p>
         </div>
         <div className="border-ber">
-          {bcname}님<div>등급:</div>
+          {bcname}님
           {menuArr.map((butn, idx) => {
             return (
               <Link className="sideber-menu" to={butn.path} key={idx}>

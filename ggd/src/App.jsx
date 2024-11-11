@@ -68,6 +68,7 @@ import NmemberUpdate from "./components/shop/NmemberUpdate";
 import NmemberPasswordCheck from "./components/shop/NmemberPasswordCheck";
 import NMemberView from "./components/shop/NMemberView";
 import MemberSecession from "./components/shop/MemberSecession";
+import NMemberSecession from "./components/shop/NMemberSecession";
 
 function App() {
   const nav = useNavigate();
@@ -191,6 +192,7 @@ function App() {
             <Route path="usedRegistered" element={<UsedRegistered />} />
             <Route path="usedRegistered/usView" element={<UsedView />} />
           </Route>
+          <Route path="/nmemberSecession" element={<NMemberSecession onLogout={onLogout}  />}/>
 
           <Route path="usedWrite" element={<UsedWrite />} />
 
@@ -223,7 +225,7 @@ function App() {
             element={<BMemberPasswordCheck />}
           />
           <Route path="/bmemberupdate" element={<BMemberUpdate />} />
-          <Route path="/membersecession" element={<MemberSecession />} />
+          <Route path="/membersecession" element={<MemberSecession onLogout={onLogout}/>} />
         </Route>
 
         <Route

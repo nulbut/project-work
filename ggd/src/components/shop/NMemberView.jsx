@@ -53,7 +53,7 @@ const NMemberView = () => {
         <p>주소 {naddress}</p>
       </div>
       <div>
-        <Link to="/">회원탈퇴하기</Link>
+        <Link to="/nmemberSecession">회원탈퇴하기</Link>
       </div>
     </div>
   );

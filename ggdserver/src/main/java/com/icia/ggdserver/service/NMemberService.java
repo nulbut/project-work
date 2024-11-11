@@ -323,8 +323,6 @@ public class NMemberService {
     }
 
 
-
-
     //회원 삭제
     @Transactional
     public String Ndeletemember(String nid) {
