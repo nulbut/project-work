@@ -128,27 +128,22 @@ public class CartService {
     // 장바구니에 중고 상품 추가
     public String getUsedCart(String cnid, long usedCode, int usedStock, int quantity) {
         if (quantity > usedStock) {
-            return "error: 상품 수량이 부족합니다.";
+            return "상품 수량이 부족합니다.";
         }
 
         // 장바구니에서 해당 상품이 이미 있는지 확인
         CartTbl existingCartItem = cRepo.findByCnidAndUsedCode(cnid, usedCode);
         if (existingCartItem != null) {
             // 이미 장바구니에 해당 상품이 존재하는 경우
-            return "error: 이미 장바구니에 해당 상품이 있습니다.";
+            return "이미 장바구니에 해당 상품이 있습니다.";
         }
 
         // 장바구니에 상품 추가
-        CartTbl cartItem = new CartTbl();
-        cartItem.setQuantity(quantity);
-        cartItem.setCnid(cnid);
-        cartItem.setUsedCode(usedCode);
-
-//        try {
-//            cRepo.save(cartItem); // DB에 저장
-//        } catch (Exception e) {
-//            return "error: 장바구니 추가 중 오류가 발생했습니다.";
-//        }
+        CartTbl cartusedItem = new CartTbl();
+        cartusedItem.setQuantity(quantity);
+        cartusedItem.setCnid(cnid);
+        cartusedItem.setUsedCode(usedCode);
+        cRepo.save(cartusedItem);
 
         return "ok"; // 성공적으로 추가
     }

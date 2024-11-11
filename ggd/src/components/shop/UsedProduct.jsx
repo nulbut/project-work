@@ -145,7 +145,7 @@ const UsedProduct = () => {
               <div className="product-image-placeholder">
                 {item.usedFileSysname ? (
                   <img
-                    src={`/usupload/${item.usedFileSysname}`}
+                    src={`usupload/${item.usedFileSysname}`}
                     alt={`상품 이미지 ${item.usedCode}`}
                     className="product-image"
                   />
@@ -199,11 +199,7 @@ const UsedProduct = () => {
                     style={{ color: "#000000", fontSize: "1.5em" }}
                   />
                 </Button>
-                <Button
-                  wsize="s-25"
-                  color="black"
-                  onClick={() => dibsList(item.usedCode)}
-                >
+                <Button wsize="s-25" onClick={() => dibsList(item.usedCode)}>
                   <FontAwesomeIcon
                     icon={faHeart}
                     style={{ color: "#ff0000", fontSize: "1.5em" }}

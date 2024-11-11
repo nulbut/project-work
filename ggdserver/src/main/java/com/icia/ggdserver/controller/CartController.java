@@ -49,7 +49,7 @@ public class CartController {
 
         // 수량이 재고를 초과하는지 확인
         if (quantity > productStock) {
-            return "error: 수량이 재고를 초과합니다.";
+            return "상품 수량이 재고를 초과합니다.";
         }
 
         // 장바구니에 상품 추가
@@ -78,16 +78,11 @@ public class CartController {
 
         // 수량이 재고를 초과하는지 확인
         if (quantity > usedStock) {
-            return "error: 중고 상품 수량이 재고를 초과합니다.";  // 재고 초과 오류 메시지 반환
+            return "중고 상품 수량이 재고를 초과합니다.";  // 재고 초과 오류 메시지 반환
         }
 
         // 장바구니에 중고 상품 추가
-        String result = cServ.getUsedCart(cnid, usedCode, usedStock, quantity);
-        if (result.startsWith("error")) {
-            return result;  // 오류가 발생한 경우 해당 오류 메시지 반환
-        }
-
-        return "ok";  // 정상적으로 추가된 경우
+        return cServ.getUsedCart(cnid, usedCode, quantity, usedStock);
     }
 
     // 장바구니 수량 저장

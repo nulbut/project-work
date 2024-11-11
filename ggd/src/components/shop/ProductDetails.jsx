@@ -12,9 +12,10 @@ const ProductDetails = () => {
   const [error, setError] = useState(null); // 에러 상태를 관리
 
   // location.state에서 productCode와 usedCode를 받아옵니다.
-  const code = location.state || {};
-  const usedCode = code.code; // 중고상품 코드
-  const productCode = code.productCode; // 신상품 코드
+  const { code, productCode: productCodeFromState } = location.state || {}; // state에서 코드 값을 가져오고, 없으면 빈 객체로 초기화
+
+  const usedCode = code || null; // `usedCode`가 존재하지 않으면 `null`
+  const productCode = productCodeFromState || null; // `productCode`가 존재하지 않으면 `null`
 
   // 디버깅을 위한 콘솔 출력
   console.log("location.state:", location.state);
@@ -119,7 +120,7 @@ const ProductDetails = () => {
           {productCode ? (
             productInfo?.image ? (
               <img
-                src={`/product-images/${productInfo.image}`}
+                src={`upload/${productInfo.image}`}
                 alt={`상품 이미지 ${productInfo.productName}`}
                 className="product-image"
               />

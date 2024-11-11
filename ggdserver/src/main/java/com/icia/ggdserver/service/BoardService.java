@@ -164,7 +164,6 @@ public class BoardService {
                 if (product != null) {
                     board.setProductName(product.getProductName()); // Product 테이블에서 가져온 productName 설정
                 } else {
-                    log.warn("Product not found for productCode: {}", productCode);
                     board.setProductName("상품 정보 없음"); // 상품 정보를 찾지 못한 경우 처리
                 }
             } else {
