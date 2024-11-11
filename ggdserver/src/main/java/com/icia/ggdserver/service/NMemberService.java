@@ -300,9 +300,7 @@ public class NMemberService {
         }
         return nersMap;
     }
-
-
-    //회원정보 수정
+    // 회원정보 수정
     public String insertNmember(NmemberTbl nmemberTbl,
                                 HttpSession session) {
         log.info("insertNmember()");
@@ -310,14 +308,14 @@ public class NMemberService {
 
         try {
             nmRepo.save(nmemberTbl);
-            log.info("nid : {}", nmemberTbl.getNid());
+            log.info("nid: {}", nmemberTbl.getNid());
             result = "ok";
-        } catch (Exception e) {
+        }catch (Exception e){
             e.printStackTrace();
             result = "fail";
         }
         return result;
-    }// insertNmember end
+    }
 
 
     //회원 삭제

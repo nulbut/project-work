@@ -86,11 +86,13 @@ const UsedProduct = () => {
       .then((res) => {
         console.log(res);
         if (res.data === "ok") {
-          alert("추가되었습니다.");
-        } else if (res.data === "already exists") {
+          alert("장바구니에 추가되었습니다.");
+        } else if (res.data === "상품 수량이 부족합니다.") {
+          alert("수량이 재고를 초과합니다.");
+        } else if (res.data === "이미 장바구니에 해당 상품이 있습니다.") {
           alert("이미 장바구니에 있습니다.");
         } else {
-          alert("수량을 초과 하였습니다.");
+          alert("장바구니 추가 실패: " + res.data);
         }
       })
       .catch((err) => {
@@ -119,7 +121,7 @@ const UsedProduct = () => {
         console.log(res);
         if (res.data === "ok") {
           alert("찜목록에 추가되었습니다.");
-        } else if (res.data === "already exists") {
+        } else if (res.data === "이미 찜한 상품입니다.") {
           alert("이미 찜한 상품입니다.");
         } else {
           alert("실패: " + res.data); // 서버에서 반환한 에러 메시지 표시
@@ -143,7 +145,7 @@ const UsedProduct = () => {
               <div className="product-image-placeholder">
                 {item.usedFileSysname ? (
                   <img
-                    src={`/usupload/${item.usedFileSysname}`}
+                    src={`usupload/${item.usedFileSysname}`}
                     alt={`상품 이미지 ${item.usedCode}`}
                     className="product-image"
                   />
@@ -197,11 +199,7 @@ const UsedProduct = () => {
                     style={{ color: "#000000", fontSize: "1.5em" }}
                   />
                 </Button>
-                <Button
-                  wsize="s-25"
-                  color="black"
-                  onClick={() => dibsList(item.usedCode)}
-                >
+                <Button wsize="s-25" onClick={() => dibsList(item.usedCode)}>
                   <FontAwesomeIcon
                     icon={faHeart}
                     style={{ color: "#ff0000", fontSize: "1.5em" }}

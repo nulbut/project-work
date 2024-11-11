@@ -63,9 +63,9 @@ const AddressInput = ({ setAddr }) => {
 
   //주소 합치기
 
-  // const full = [address, detailedAddress].join(" ");
+  const full = [address, detailedAddress].join(" ");
 
-  // console.log(full);
+  console.log(full);
 
   return (
     <div className="AddressInput">

@@ -12,21 +12,19 @@ const UsedView = () => {
   //중고 상품 번호 받기
   const { state } = useLocation();
   const { uc } = state;
-
   const usedsellerId = sessionStorage.getItem("nid");
-
   const [UsedRegistered, setUsedRegistered] = useState({});
+  console.log(UsedRegistered);
   const [flist, setFlist] = useState([
     {
       usedFileCode: "",
-      // usedFileNum: 0,
+      usedFileNum: "",
       usedFileSysname: "",
       usedFileOriname: "Nothing",
       image: "",
-      usedName: "",
     },
   ]);
-  
+
   //서버로부터 중고 상품 내용 받아오기
   useEffect(() => {
     axios
@@ -35,7 +33,7 @@ const UsedView = () => {
         setUsedRegistered(res.data);
         console.log(res.data);
 
-        const bfList = res.data.usedFileSysname;//UsedproductFileTblList;
+        const bfList = res.data.usedproductFileTblList; //UsedproductFileTblList;
         console.log(bfList);
 
         //파일 목록 처리 (res.data에서 파일목록 꺼내서 flist로 처리)
@@ -45,7 +43,7 @@ const UsedView = () => {
           for (let i = 0; i < bfList.length; i++) {
             const newFile = {
               ...bfList[i],
-              image: "usupload/" + bfList[i].usedFileSysname,
+              image: "../../usupload/" + bfList[i].usedFileSysname,
             };
             newFileList.push(newFile); // 배열에 추가
           }
@@ -55,7 +53,7 @@ const UsedView = () => {
       })
       .catch((err) => console.log(err));
   }, []);
-  
+
   const viewFList = flist.map((v) => {
     return (
       <div className="Down">
