@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
@@ -260,6 +261,7 @@ public class BMemberSevrvice {
             bmRepo.save(bmemberTbl);
             log.info("bid : {}", bmemberTbl.getBid());
             result = "ok";
+
         } catch (Exception e) {
             e.printStackTrace();
             result = "fail";
@@ -273,5 +275,22 @@ public class BMemberSevrvice {
                 .orElseThrow(() -> new IllegalArgumentException("회원을 찾을 수 없습니다."));
         bmRepo.delete(bmemberTbl);
 
+    }
+
+    //회원 삭제
+    @Transactional
+    public String deletemember(long bsituation) {
+        log.info("deletemember()");
+        String result = null;
+
+        try {
+            bmRepo.deleteByMember(bsituation);
+
+            result = "ok";
+        } catch (Exception e) {
+            e.printStackTrace();
+            result = "fail";
+        }
+        return result;
     }
 }//class end

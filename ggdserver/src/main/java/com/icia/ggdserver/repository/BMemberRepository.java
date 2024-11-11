@@ -6,6 +6,7 @@ import com.icia.ggdserver.entity.BmemberTbl;
 import com.icia.ggdserver.entity.NmemberTbl;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -71,5 +72,7 @@ public interface BMemberRepository extends CrudRepository<BmemberTbl, String> {
                                      Pageable pb);
 
 //    //회원삭제 메소드
-//    void deleteByBId(long bid);
+    @Modifying
+    @Query(value = "update BmemberTbl bt set bt.bsituation = '탈퇴' where bt.bid = :bcon")
+    void deleteByMember (@Param("bcon") long bcon);
 }
