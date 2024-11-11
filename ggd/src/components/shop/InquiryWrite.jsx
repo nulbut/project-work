@@ -9,23 +9,36 @@ import "./scss/FileInput.scss";
 
 const InquiryWrite = () => {
   const nav = useNavigate();
-  const nid = sessionStorage.getItem("nid");
-  // const productName = sessionStorage.getItem("productName") || ""; // sessionStorage에서 ProductName 가져오기
+  const nid = sessionStorage.getItem("nid"); // Fetch user id from session storage
+  const productCode = sessionStorage.getItem("productCode");
+  const usedCode = sessionStorage.getItem("usedCode");
 
   // 상태 초기화
   const [data, setData] = useState({
     boardType: "",
-    productName: "",
-    productCode: "",
     bnid: nid,
     bnphonenum: "",
     boardTitle: "",
     boardContent: "",
+    selectedProduct: productCode || "", // Set initial product code or used code
+    selectedUsedProduct: usedCode || "", // For used products
   });
-  const [fileName, setFileName] = useState("선택된 파일이 없습니다.");
-  const [files, setFiles] = useState([]); // 선택된 파일 목록 상태 관리
 
-  const { boardType, boardTitle, boardContent, bnphonenum, productName } = data;
+  const [fileName, setFileName] = useState("선택된 파일이 없습니다.");
+  const [files, setFiles] = useState([]); // 파일 목록 상태 관리
+  const [products, setProducts] = useState([]); // 상태: 상품 목록
+  console.log(products);
+  const [usedProducts, setUsedProducts] = useState([]); // 상태: 중고 상품 목록
+  console.log(usedProducts);
+
+  const {
+    boardType,
+    boardTitle,
+    boardContent,
+    bnphonenum,
+    selectedProduct,
+    selectedUsedProduct,
+  } = data;
 
   // input 값 변경 시 data 상태 업데이트
   const onChange = useCallback((e) => {
@@ -92,6 +105,31 @@ const InquiryWrite = () => {
     [data, files, nav] // data, files, nav가 변경될 때마다 실행
   );
 
+  // 상품 목록과 중고 상품 목록을 가져오는 함수
+  useEffect(() => {
+    axios
+      .get("/products") // 상품 목록을 가져오는 endpoint
+      .then((res) => {
+        if (res.data && Array.isArray(res.data)) {
+          setProducts(res.data); // 상품 목록을 상태에 저장
+          console.log(res.data);
+        }
+      })
+      .catch((err) => {
+        console.error("상품 목록 불러오기 실패:", err);
+      });
+    axios
+      .get("/usedProducts") // 중고 상품 목록을 가져오는 endpoint
+      .then((res) => {
+        if (res.data && Array.isArray(res.data)) {
+          setUsedProducts(res.data); // 중고 상품 목록을 상태에 저장
+        }
+      })
+      .catch((err) => {
+        console.error("중고 상품 목록 불러오기 실패:", err);
+      });
+  }, []); // 컴포넌트가 마운트될 때 한 번 실행
+
   return (
     <div className="Main">
       <form className="Content" onSubmit={onSubmit}>
@@ -111,6 +149,43 @@ const InquiryWrite = () => {
           <option value="배송문의">배송문의</option>
           <option value="기타">기타</option>
         </select>
+        {/* 상품 코드와 중고 상품 코드 선택 드롭다운 */}
+        <select
+          className="Input"
+          name="selectedProduct"
+          value={selectedProduct}
+          onChange={onChange}
+        >
+          <option value="">상품을 선택하세요</option>
+          {products.length > 0 ? (
+            products.map((product) => (
+              <option key={product.productCode} value={product.productCode}>
+                (상품:{product.productName})
+              </option>
+            ))
+          ) : (
+            <option value="">등록된 상품이 없습니다</option>
+          )}
+        </select>
+
+        {/* 중고 상품 선택 드롭다운 */}
+        <select
+          className="Input"
+          name="selectedUsedProduct"
+          value={selectedUsedProduct}
+          onChange={onChange}
+        >
+          <option value="">중고 상품을 선택하세요</option>
+          {usedProducts.length > 0 ? (
+            usedProducts.map((usedProduct) => (
+              <option key={usedProduct.usedCode} value={usedProduct.usedCode}>
+                (중고상품: {usedProduct.usedName})
+              </option>
+            ))
+          ) : (
+            <option value="">등록된 중고 상품이 없습니다</option>
+          )}
+        </select>
 
         <input
           className="Input"
@@ -121,18 +196,6 @@ const InquiryWrite = () => {
           autoFocus
           required
         />
-
-        {/* productName을 표시하는 필드 */}
-        <input
-          className="Input"
-          name="productName"
-          value={productName}
-          placeholder="구입한 상품"
-          onChange={onChange}
-          autoFocus
-          required
-        />
-
         <input
           className="Input"
           name="bnphonenum"

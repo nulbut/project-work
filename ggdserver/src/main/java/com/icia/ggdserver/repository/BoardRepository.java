@@ -11,4 +11,6 @@ public interface BoardRepository extends CrudRepository<BoardTbl, Long> {
 
 
     Page<BoardTbl> findByBoardCodeGreaterThanAndBnid(long BoardCode, String bnid, Pageable pb);
+
+    Page<BoardTbl> findByBoardCodeGreaterThanAndBnidAndProductCodeAndUsedCode(long BoardCode, String bnid, long productCode, long usedCode, Pageable pb);
 }

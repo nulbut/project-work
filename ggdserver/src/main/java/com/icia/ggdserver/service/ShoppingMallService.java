@@ -14,9 +14,12 @@ import org.springframework.transaction.annotation.Transactional;
 import  org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
 @Slf4j
@@ -223,6 +226,13 @@ public ProductTbl getProduct(long productFileNum){
 
 
         return res;
+    }
+
+    // 모든 상품 목록을 가져오는 메소드
+    public List<ProductTbl> getAllProducts() {
+        // pdtRepo.findAll()은 Iterable<ProductTbl>을 반환하므로, 이를 List로 변환
+        return StreamSupport.stream(pdtRepo.findAll().spliterator(), false)
+                .collect(Collectors.toList());  // Stream을 List로 변환
     }
 }
 
