@@ -56,18 +56,6 @@ const MemberSecession = ({bcon}) => {
     e.preventDefault();
     if (window.confirm("확인을 누르면 회원 정보가 삭제됩니다.")) {
         if (check == "1") {
-        //   const bmemberformData = new FormData();
-
-        //   bmemberformData.append(
-        //     "bmemberInfo",
-        //     new Blob([JSON.stringify(bmemberInfo)], {
-        //       type: "application/json",
-        //     })
-        //   );
-
-        //   for (let key of bmemberformData.keys()) {
-        //     console.log(key);
-        //   }
 
           axios
             .get("/deletemember", { params: { bcon: bid } })
