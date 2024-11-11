@@ -9,7 +9,6 @@ import jakarta.mail.internet.MimeMessage;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Status;
-import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -17,16 +16,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Member;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 @Service
 @Slf4j
@@ -109,42 +106,50 @@ public class NMemberService {
             res = "fail";
         }
         return res;
-
-
-
-
-
-
     }//joinMember end
 
     //로그인 처리 메소드
     public Map<String, String> loginproc(NmemberTbl nmemberTbl) {
         log.info("loginproc()");
-        NmemberTbl ndbMember = null;
         Map<String, String> rsMap = new HashMap<>();
 
-
-
         try {
-            ndbMember = nmRepo.findById(nmemberTbl.getNid()).get();
-            //db에서 꺼내온 사용자의 비밀번호와 입력한 비밀번호를 비교
+            // ID로 회원 정보를 가져오되, Optional이 비어 있을 때 대비
+            Optional<NmemberTbl> optionalMember = nmRepo.findById(nmemberTbl.getNid());
 
-            if (encoder.matches(nmemberTbl.getNpw(), ndbMember.getNpw())){
-                //로그인 성공
+            if (optionalMember.isEmpty()) {
+                // 회원이 존재하지 않는 경우
+                rsMap.put("res1", "fail2");
+                rsMap.put("msg", "회원정보가 존재하지 않습니다.");
+                return rsMap;
+            }
+
+            // Optional에서 값 추출
+            NmemberTbl ndbMember = optionalMember.get();
+
+            // 회원의 상태 확인 ("사용중"인 경우에만 로그인 가능)
+            if (!"사용중".equals(ndbMember.getNsituation())) {
+                rsMap.put("res1", "fail9");  // 상태가 "사용중"이 아닌 경우
+                rsMap.put("msg", "회원 상태가 유효하지 않습니다. (탈퇴 또는 중지 상태)");
+                return rsMap;
+            }
+
+            // 비밀번호 비교
+            if (encoder.matches(nmemberTbl.getNpw(), ndbMember.getNpw())) {
+                // 로그인 성공
                 rsMap.put("res1", "ok");
-                rsMap.put("nid", nmemberTbl.getNid());
-                rsMap.put("nnickname" ,ndbMember.getNnickname());
+                rsMap.put("nid", ndbMember.getNid());
+                rsMap.put("nnickname", ndbMember.getNnickname());
+            } else {
+                // 비밀번호 틀림
+                rsMap.put("res1", "fail1");
+                rsMap.put("msg", "비밀번호가 일치하지 않습니다.");
             }
-            else {
-                //비밀번호가 틀림
-                rsMap.put("res1","fail1");
-                rsMap.put("msg","비밀번호가 일치하지 않습니다.");
-            }
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-            //회원이 아닌 경우
-            rsMap.put("res1","fail2");
-            rsMap.put("msg","회원정보가 존재하지 않습니다.");
+            // 예기치 않은 오류 발생 시 처리
+            rsMap.put("res1", "fail8");
+            rsMap.put("msg", "로그인 중 오류가 발생했습니다.");
         }
         return rsMap;
     }//loginproc end
@@ -172,8 +177,8 @@ public class NMemberService {
 
     //메일 인증
     public String sendEmail(String email)
-        throws MessagingException,UnsupportedEncodingException {
-            //메일 전송에 필요한 정보 설정
+            throws MessagingException,UnsupportedEncodingException {
+        //메일 전송에 필요한 정보 설정
         //String email = nmRepo.selectMail(nid);
         MimeMessage emailForm = createEmailForm(email);
         //실제 메일 전송
@@ -184,7 +189,7 @@ public class NMemberService {
 
 
     private MimeMessage createEmailForm(String email)
-        throws MessagingException, UnsupportedEncodingException {
+            throws MessagingException, UnsupportedEncodingException {
 
         createCode(); //인증 코드 생성
         String setFrom = "rnjstnwjd32@gamil.com"; //email-config에 설정한 이메일 보내는사람 (수정이꺼)
@@ -318,7 +323,22 @@ public class NMemberService {
     }
 
 
-    //회원 삭제
 
+
+    //회원 삭제
+    @Transactional
+    public String Ndeletemember(String nid) {
+        log.info("Ndeletemember()");
+        String result = null;
+
+        try {
+            nmRepo.deleteByNMember(nid);  // 네이티브 쿼리 호출
+            result = "ok";
+        } catch (Exception e) {
+            e.printStackTrace();
+            result = "fail";
+        }
+        return result;
+    }
 
 }//class end

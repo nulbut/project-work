@@ -15,10 +15,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.UnsupportedEncodingException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 @Service
 @Slf4j
@@ -85,20 +82,22 @@ public class BMemberSevrvice {
     } //joinBMember end
     // 로그인
     public Map<String, String> bloginproc(BmemberTbl bmemberTbl) {
-        log.info("loginproc()");
-        BmemberTbl bdbMember = null;
+        log.info("bloginproc()");
         Map<String, String> rsMap = new HashMap<>();
 
         try {
-            // ID로 회원 정보를 가져옴
-            bdbMember = bmRepo.findById(bmemberTbl.getBid()).orElse(null);
+            // ID로 회원 정보를 가져오되, Optional이 비어 있을 때 대비
+            Optional<BmemberTbl> optionalMember = bmRepo.findById(bmemberTbl.getBid());
 
-            if (bdbMember == null) {
+            if (optionalMember.isEmpty()) {
                 // 회원이 존재하지 않는 경우
-                rsMap.put("res2", "fail2");
+                rsMap.put("res2", "fail4");
                 rsMap.put("msg", "회원정보가 존재하지 않습니다.");
                 return rsMap;
             }
+
+            // Optional에서 값 추출
+            BmemberTbl bdbMember = optionalMember.get();
 
             // 회원의 상태 확인 ("사용중"인 경우에만 로그인 가능)
             if (!"사용중".equals(bdbMember.getBsituation())) {
@@ -115,7 +114,7 @@ public class BMemberSevrvice {
                 rsMap.put("bcname", bdbMember.getBcname());
             } else {
                 // 비밀번호 틀림
-                rsMap.put("res2", "fail1");
+                rsMap.put("res2", "fail3");
                 rsMap.put("msg", "비밀번호가 일치하지 않습니다.");
             }
         } catch (Exception e) {
@@ -125,7 +124,9 @@ public class BMemberSevrvice {
             rsMap.put("msg", "로그인 중 오류가 발생했습니다.");
         }
         return rsMap;
-    }//loginproc end
+    }
+
+
 
 
     //아이디 가져오기
