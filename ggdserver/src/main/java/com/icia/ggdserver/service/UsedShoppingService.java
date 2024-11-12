@@ -185,6 +185,7 @@ public class UsedShoppingService {
 
         List<UsedProductTbl> uList = result.getContent();
 
+
         int totalPage = result.getTotalPages();
 
         Map<String, Object> res = new HashMap<>();
@@ -216,6 +217,10 @@ public class UsedShoppingService {
         //page 객체를 list로 변환 후 전송
         List<UsedProductTbl> uList = result.getContent();//page에서 게시글 목록 꺼내오기
         //uList에 저장
+        for(UsedProductTbl upt : uList) {
+            log.info("돌아가는ㄴ중");
+            upt.setUsedproductFileTblList(usfRepo.findByUsedFileNum(upt.getUsedCode()));
+        }
         int totalPage = result.getTotalPages();// 전체 페이지
 
             Map<String, Object> res = new HashMap<>();

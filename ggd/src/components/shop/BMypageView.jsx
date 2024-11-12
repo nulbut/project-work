@@ -19,21 +19,27 @@ const BMypageView = (props) => {
   const productgo = () => {
     nav("/bmypage/bp1");
   };
+  };
 
   const odergo = () => {
+  const odergo = () => {
     nav("/bmypage/boderhistory");
+  };
   };
 
   const stockgo = () => {
     nav("/bmypage/bproductstock");
   };
+  };
 
   const inquirygo = () => {
     nav("/bmypage/binquiry");
   };
+  };
 
   const notificationgo = () => {
     nav("/Notification");
+  };
   };
 
   const menuArr = [

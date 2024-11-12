@@ -74,7 +74,7 @@ const BMypage = (props) => {
           </div>
         </div>
       </div>
-      <div className="desc">
+      <div className="desc-bmypage">
         <Outlet />
       </div>
     </div>
