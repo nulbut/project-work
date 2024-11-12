@@ -130,7 +130,7 @@ const InfiniteScroll = () => {
             <p className="product-price">₩{item.sellerPayment}</p>
             <p className="product-body">{item.productDetail}</p>
           </div>
-        ))}
+        ) )}
       </div>
 
       <h2 className="section-title">

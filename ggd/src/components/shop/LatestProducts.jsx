@@ -1,12 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./scss/InfiniteScroll.scss";
+import "./scss/ProductList.scss";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import moment from "moment";
-import TableRow from "./TableRow";
-import TableColumn from "./TableColumn";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBagShopping, faHeart } from "@fortawesome/free-solid-svg-icons";
+import { faBagShopping, faHeart, faL } from "@fortawesome/free-solid-svg-icons";
 import Button from "./Button";
 import { Link } from "react-router-dom";
 
@@ -35,6 +34,20 @@ const LatestProducts = () => {
     if (pageParams.includes(inpage.pageNum)) return;
     setLoading(true);
     try {
+  //     const res = await axios.get("productList", {
+  //       params: { pageNum: inpage.pageNum },
+  //     });
+  //     const { bList, totalPage, pageNum } = res.data;
+  //       setPage({ totalPage, pageNum });
+  //       setProducts((prevProduct) => [...prevProduct, ...bList]);
+  //       setHasNextPage(pageNum < totalPage);
+  //       setPageParams((prev) =>  [...prev, inpage.pageNum]);
+  //       setLoading(false);
+  //   } catch (err) {
+  //     console.error(err);
+  //     setLoading(false);
+  //   }
+  // };
       axios
         .get("productList", { params: { pageNum: inpage.pageNum } })
         .then((res) => {
@@ -144,6 +157,11 @@ const LatestProducts = () => {
       });
   };
 
+
+  const handleClick = () => {
+    alert("구매페이지로 이동합니다");
+  };
+
   return (
     <div className="product-list">
       <h2 className="section-title">
@@ -152,33 +170,45 @@ const LatestProducts = () => {
       <div className="product-grid">
         {products.map((item, index) => {
           return (
-            <div key={index} className="product-card">
-              <div className="product-image-placeholder">
-                <img
-                  src={`upload/${item.productFileSysname}`}
-                  alt={`상품 이미지 ${item.productCode}`}
-                  className="product-image"
-                />
-              </div>
-              <h3 className="product-title">상품명 : {item.productName} </h3>
-              <div className="product-price">
-                <strong>가격: </strong>
-                {item.sellerPayment}₩
-              </div>
+            <div key={index} className="product-grid-item">
+              <Link
+              to={`/pddetails`}
+              state={{
+               code: item.productCode,
+               name: item.productName,
+               sellerId: item.sellerId,
+               detail: item.productDetail,
+               seller: item.sellerPayment,
+               imageNum: item.productFileList,
+              }}
+              >
+                <div className="product-image-placeholder">
+                  {item.productFileList && item.productFileSysname.length > 0 && 
+                   item.productFileList[0]?.productFileSysname ? (
+                    <img
+                      src={`upload/${item.productFileTblList[0].productFileSysname}`}
+                      alt={`상품 이미지 ${item.productCode}`}
+                      className="product-image"
+                    />
+                  ) : (
+                    <div>이미지를 불러올 수 없습니다.</div>
+                  )}
+                </div>  
+
+                <h3 className="product-title">{item.productName}</h3>
+              </Link>
+              <div className="product-price">{item.sellerPayment} 원</div>
               <div className="product-quantity">
                 <strong>제품내용: </strong>
                 {item.productDetail}
               </div>
-              {/* 총 재고 수량을 표시 */}
               <div className="product-quantity">
-                <strong>총 수량:</strong> {item.productStock || "N/A"}
-              </div>
-              <div className="pruduct-quantity">
-                <strong>등록일: {df(item.productDate)}</strong>
+                <strong>등록일: </strong>
+                {df(item.productDate)}
               </div>
               <div className="btn-set">
-                <Link to={`/usedproductbuy/${item.usedCode}`}>
-                  <Button wsize="s-25">구매하기</Button>
+                <Link to={`/widgetcheckout`} onClick={handleClick}>
+                구매하기
                 </Link>
                 <Link
                   to={`/pddetails`}
@@ -188,21 +218,21 @@ const LatestProducts = () => {
                     sellerId: item.sellerId,
                     detail: item.productDetail,
                     seller: item.sellerPayment,
-                    imageNum: item.prodctinfo,
+                    imageNum: item.productFileSysname,
                   }}
                 >
-                  <Button wsize="s-25">제품 상세</Button>
+                  상세정보
                 </Link>
                 <Button
-                  wsize="s-25"
+                  wsize="w-25"
                   onClick={() => {
-                    const quantity = 1; // 예시로 1개를 기본 수량으로 설정
-                    cartList(item.productCode, quantity); // 클릭 시 수량 전달
+                    const quantity = 1;
+                    cartList(item.productCode, quantity);
                   }}
                 >
                   <FontAwesomeIcon
-                    icon={faBagShopping}
-                    style={{ color: "#000000", fontSize: "1.5em" }}
+                  icon={faBagShopping}
+                  style={{ color: "#000000", fontSize: "1.5em" }}
                   />
                 </Button>
                 <Button wsize="s-25" onClick={() => dibsList(item.productCode)}>
@@ -216,13 +246,98 @@ const LatestProducts = () => {
           );
         })}
       </div>
-      {hasNextPage && (
+      {hasNextPage} && (
         <div ref={observerRef} className="loading-indicator">
           더 많은 상품 불러오는 중...
         </div>
-      )}
+      )
     </div>
-  );
+  )
 };
+  
+  // return (
+  //   <div className="product-list">
+  //     <h2 className="section-title">
+  //       <span>최신</span>상품
+  //     </h2>
+  //     <div className="product-grid">
+  //       {products.map((item, index) => {
+  //         return (
+    //         <div key={index} className="product-card">
+    //           <div className="product-image-placeholder">
+    //             {item.productFileList[0]?.productFileSysname ? (
+    //             <img
+    //               src={`upload/${item.productFileList[0].productFileSysname}`}
+    //               alt={`상품 이미지 ${item.productCode}`}
+    //               className="product-image"
+    //             />
+    //           ) : (
+    //             <div>이미지를 불러올 수 없습니다.</div>
+    //           )}
+    //           </div>
+    //           <h3 className="product-title">상품명 : {item.productName} </h3>
+    //           <div className="product-price">
+    //             <strong>가격: </strong>
+    //             {item.sellerPayment}₩
+    //           </div>
+    //           <div className="product-quantity">
+    //             <strong>제품내용: </strong>
+    //             {item.productDetail}
+    //           </div>
+    //           {/* 총 재고 수량을 표시 */}
+    //           <div className="product-quantity">
+    //             <strong>총 수량:</strong> {item.productStock || "N/A"}
+    //           </div>
+    //           <div className="pruduct-quantity">
+    //             <strong>등록일: {df(item.productDate)}</strong>
+    //           </div>
+    //           <div className="btn-set">
+    //           <Link to={`/widgetcheckout`} onClick={handleClick}>
+    //               <Button wsize="s-25">구매하기</Button>
+    //             </Link>
+    //             <Link
+    //               to={`/pddetails`}
+    //               state={{
+    //                 code: item.productCode,
+    //                 name: item.productName,
+    //                 sellerId: item.sellerId,
+    //                 detail: item.productDetail,
+    //                 seller: item.sellerPayment,
+    //                 imageNum: item.productFileSysname,
+    //               }}
+    //             >
+    //               <Button wsize="s-25">제품 상세</Button>
+    //             </Link>
+    //             <Button
+    //               wsize="s-25"
+    //               onClick={() => {
+    //                 const quantity = 1; // 예시로 1개를 기본 수량으로 설정
+    //                 cartList(item.productCode, quantity); // 클릭 시 수량 전달
+    //               }}
+    //             >
+    //               <FontAwesomeIcon
+    //                 icon={faBagShopping}
+    //                 style={{ color: "#000000", fontSize: "1.5em" }}
+    //               />
+    //             </Button>
+    //             <Button wsize="s-25" onClick={() => dibsList(item.productCode)}>
+    //               <FontAwesomeIcon
+    //                 icon={faHeart}
+    //                 style={{ color: "#ff0000", fontSize: "1.5em" }}
+    //               />
+    //             </Button>
+    //           </div>
+    //         </div>
+    //       );
+    //     })}
+    //   </div>
+    //   {hasNextPage && (
+    //     <div ref={observerRef} className="loading-indicator">
+    //       더 많은 상품 불러오는 중...
+    //     </div>
+    //   )}
+    // </div>
+  // );
+// };
 
 export default LatestProducts;

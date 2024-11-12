@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./scss/UsedList.scss";
+import "./scss/InfiniteScroll.scss";
 import axios from "axios";
 import moment from "moment";
 import Button from "./Button";
@@ -12,6 +13,7 @@ const df = (date) => moment(date).format("YYYY-MM-DD");
 const UsedProduct = () => {
   const [useds, setUsed] = useState([]);
   const [page, setPage] = useState({
+    //페이징 관련 정보 저장
     totalPage: 0,
     pageNum: 1,
   });
@@ -133,6 +135,11 @@ const UsedProduct = () => {
       });
   };
 
+  const handleClick = () => {
+    alert("구매페이지로 이동합니다");
+  };
+
+
   return (
     <div className="usedproduct-list">
       <h2 className="section-title">
@@ -180,7 +187,9 @@ const UsedProduct = () => {
                 {df(item.usedDate)}
               </div>
               <div className="btn-set">
-                <Link to={`/usedproductbuy/${item.usedCode}`}>구매하기</Link>
+                <Link to={`/widgetcheckout`} onClick={handleClick}>
+                구매하기
+                </Link>
                 <Link
                   to={`/pddetails`}
                   state={{
