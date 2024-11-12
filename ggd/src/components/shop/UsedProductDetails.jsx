@@ -82,16 +82,16 @@ const UsedProductDetails = () => {
     alert("신고 페이지로 이동합니다.");
     navigate("/report"); // 신고 페이지로 이동
   };
-
+  console.log(usedProductData);
   return (
     <div className="product-detail">
       <h2 className="product-detail-title">{usedProductData?.usedName}</h2>
 
       <div className="product-detail-content">
         <div className="product-detail-image">
-          {usedProductData?.usedFileSysname ? (
+          {usedProductData?.usedproductFileTblList[0].usedFileSysname ? (
             <img
-              src={`/usupload/${usedProductData.usedFileSysname}`}
+              src={`usupload/${usedProductData.usedproductFileTblList[0].usedFileSysname}`}
               alt={`상품 이미지 ${usedProductData.usedName}`}
               className="product-image"
             />
