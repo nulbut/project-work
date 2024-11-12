@@ -7,10 +7,12 @@ import TableColumn from "../admin/TableColumn";
 import TableRow from "../admin/TableRow";
 import Paging from "../admin/Paging";
 import NotificationView from "./NotificationView";
+import { useNavigate } from "react-router-dom";
 
 const df = (date) => moment(date).format("YYYY-MM-DD");
 
 const Notification = () => {
+  const nav = useNavigate();
   const pnum = sessionStorage.getItem("pageNum");
   const [mitem, setMitem] = useState({});
   const [page, setPage] = useState({
@@ -18,7 +20,7 @@ const Notification = () => {
     pageNum: 1,
   });
 
-  const pageSt = useContext(AdminPageContextStore);
+  // const pageSt = useContext(AdminPageContextStore);
 
   const getNlist = (pnum) => {
     axios
@@ -60,8 +62,9 @@ const Notification = () => {
   }
   console.log(mitem);
   const getNotice = useCallback((nnum) => {
-    pageSt.setViewPage(<NotificationView nnum={nnum} />);
+    nav("NoticeView", { state: { nnum: nnum } });
   });
+
   useEffect(() => {
     pnum !== null ? getNlist(pnum) : getNlist(1);
   }, []);

@@ -4,12 +4,16 @@ import axios from "axios";
 import moment from "moment";
 import Button from "../idealcup/Button";
 import Notification from "./Notification";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 const df = (date) => moment(date).format("YYYY-MM-DD");
 
-const NotificationView = ({ nnum }) => {
-  const pageSt = useContext(AdminPageContextStore);
-
+const NotificationView = () => {
+  const location = useLocation(); // state로 전달된 데이터 받기
+  const { nnum } = location.state; // state에서 nnum 받기
+  console.log("nnum from state:", nnum);
+  // const pageSt = useContext(AdminPageContextStore);
+  const nav = useNavigate();
   const [notice, setNotice] = useState({});
   const [flist, setFlist] = useState([
     {
@@ -44,7 +48,7 @@ const NotificationView = ({ nnum }) => {
 
   const viewChange = () => {
     console.log("noticeview viewchange");
-    pageSt.setViewPage(<Notification />);
+    nav("/Notification", { state: { nnum: nnum } });
   };
 
   const viewFlist = flist.map((v, i) => {
@@ -67,12 +71,8 @@ const NotificationView = ({ nnum }) => {
         <div className="Title">
           {notice.ntitle} {df(notice.rdate)}
         </div>
-        {/* <div className="Data">{df(notice.rdate)}</div> */}
-        {/* <div className="DataArea"> */}
         <div className="Cont">{notice.ncontent}</div>
         <div className="FileData">{viewFlist}</div>
-        {/* </div> */}
-
         <div className="Buttons">
           <Button wsize="s-10" color="black" onClick={viewChange}>
             뒤로가기

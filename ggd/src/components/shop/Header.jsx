@@ -80,7 +80,7 @@ const Header = ({ lstate, onLogout }) => {
     },
     {
       name: "Q&A",
-      path: "/Inquiry",
+      path: "/mypage/Inquiry",
     },
   ];
   const menus2 = [

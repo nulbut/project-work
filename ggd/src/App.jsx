@@ -70,6 +70,7 @@ import NMemberView from "./components/shop/NMemberView";
 import MemberSecession from "./components/shop/MemberSecession";
 import NMemberSecession from "./components/shop/NMemberSecession";
 import UsedProductDetails from "./components/shop/UsedProductDetails";
+import NotificationView from "./components/shop/NotificationView";
 
 function App() {
   const nav = useNavigate();
@@ -156,6 +157,10 @@ function App() {
           <Route path="/newProduct" element={<NewProduct />} />
           <Route path="/usedProduct" element={<UsedProduct />} />
           <Route path="/notification" element={<Notification />} />
+          <Route
+            path="/notification/noticeView"
+            element={<NotificationView />}
+          />
           <Route path="/cart" element={<Cart />} />
           <Route path="/login" element={<Login sucLogin={sucLogin} />} />
           <Route path="/idpwdfind" element={<IdPasswordFind />} />
