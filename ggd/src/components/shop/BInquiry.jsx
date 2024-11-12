@@ -7,7 +7,7 @@ import TableRow from "./TableRow";
 import TableColumn from "./TableColumn";
 import moment from "moment";
 import Button from "./Button";
-
+import "./scss/BInquiry.scss";
 
 const df = (data) => moment(data).format("YYYY-MM-DD");
 
@@ -23,14 +23,14 @@ const BInquiry = () => {
     pageNum: 1,
   });
 
-  //서버에서 문의글 가져오기 
+  //서버에서 문의글 가져오기
   const getinquriy = (pnum) => {
     axios
-      .get("/boardlist",{ params: { pageNum: pnum, bnid: bnid } })
+      .get("/boardlist", { params: { pageNum: pnum, bnid: bnid } })
       .then((res) => {
-        const {Blist, totalPage, pageNum, nid} = res.data;
+        const { Blist, totalPage, pageNum, nid } = res.data;
         console.log(totalPage);
-        setPage({totalPage: totalPage, pageNum: pageNum});
+        setPage({ totalPage: totalPage, pageNum: pageNum });
         console.log(page);
         setIitem(Blist);
         console.log(Blist);
@@ -81,12 +81,15 @@ const BInquiry = () => {
     pageSt.setViewPage(<DmList />);
   };
 
-  return <div className="Main">
-    <div>{pageSt.viewPage}</div>
-    <hr />
-    <div><Button onClick={buttons}>답변하기</Button></div>
-    
-    </div>;
+  return (
+    <div className="Main">
+      <div>{pageSt.viewPage}</div>
+      <hr />
+      <div>
+        <Button onClick={buttons}>답변하기</Button>
+      </div>
+    </div>
+  );
 };
 
 export default BInquiry;
