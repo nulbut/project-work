@@ -180,6 +180,7 @@ const BproductRegisterd = () => {
         <TableColumn wd={"w-10"}>{item.bpnum}</TableColumn>
         <TableColumn wd={"w-20"}>
           <img
+            onClick={() => getBboard(item.bpnum)}
             className="img"
             src={"../productupload/" + item.bproductFileSysnameM}
           />

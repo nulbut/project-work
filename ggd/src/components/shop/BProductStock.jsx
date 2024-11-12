@@ -120,6 +120,7 @@ const BProductStock = () => {
         <TableColumn wd={"w-30"}>
           <div>
             <img
+              onClick={() => getBboard(item.bpnum)}
               className="img"
               src={"../productupload/" + item.bproductFileSysnameM}
             />
