@@ -29,7 +29,6 @@ const BproductWirte = () => {
     bpprice: "",
     bpprestriction: "",
     bpwarestock: "",
-    bpwarestocklimt: "",
     bpexplanation: "",
     bpdate: "",
     bpsize: "",
@@ -46,7 +45,6 @@ const BproductWirte = () => {
     bpprice,
     bpprestriction,
     bpwarestock,
-    bpwarestocklimt,
     bpexplanation,
     bpdate,
     bcondition,
@@ -250,7 +248,7 @@ const BproductWirte = () => {
             autoFocus
             required
           />
-          <p>통보재고</p>
+          {/* <p>통보재고</p>
           <p className="guide">
             통보재고수보다 가재고수가 더 적을 경우 통보띄워줌
           </p>
@@ -262,7 +260,7 @@ const BproductWirte = () => {
             onChange={bonch}
             autoFocus
             required
-          />
+          /> */}
           <p>출시일</p>
           <input
             type="date"

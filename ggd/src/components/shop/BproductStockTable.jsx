@@ -12,9 +12,9 @@ const BproductStockTable = ({ hname, children }) => {
             <th className="TableHeader">{hname[2]}</th>
             <th className="TableHeader">{hname[3]}</th>
             <th className="TableHeader">{hname[4]}</th>
-            <th className="TableHeader">{hname[5]}</th>
+            {/* <th className="TableHeader">{hname[5]}</th>
             <th className="TableHeader">{hname[6]}</th>
-            <th className="TableHeader">{hname[7]}</th>
+            <th className="TableHeader">{hname[7]}</th> */}
           </tr>
         </thead>
         <tbody>{children}</tbody>

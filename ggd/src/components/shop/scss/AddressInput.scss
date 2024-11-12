@@ -1,10 +1,11 @@
-// AddressInput.scss
-
 .AddressInput {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   font-family: Arial, sans-serif;
+  margin: 0 auto; /* 수평 가운데 정렬 */
+  max-width: 400px; /* 최대 너비 설정 */
+  align-items: center; /* 내부 요소 가운데 정렬 */
 
   // 우편번호와 주소 입력 필드 스타일
   .input {
@@ -14,7 +15,7 @@
     border: 1px solid #cccccc;
     border-radius: 4px;
     transition: border-color 0.3s;
-    
+
     &:focus {
       border-color: #0077cc;
       outline: none;
@@ -39,15 +40,14 @@
     vertical-align: middle;
     transition: transform 0.2s;
 
-      img{
-        width: 200px;
-        height: 30px;
-        cursor: pointer;
-        margin-left: 0.5rem;
-        vertical-align: middle;
-        transition: transform 0.2s;
-        
-      }
+    img {
+      width: 200px;
+      height: 30px;
+      cursor: pointer;
+      margin-left: 0.5rem;
+      vertical-align: middle;
+      transition: transform 0.2s;
+    }
 
     &:hover {
       transform: scale(1.1);
