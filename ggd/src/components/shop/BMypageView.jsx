@@ -3,7 +3,7 @@ import { Link, Outlet, useNavigate } from "react-router-dom";
 import Button from "../idealcup/Button";
 import logo from "../images/logo.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import inquiryicon from "../images/inquiryicon.png";
+import inquiryiconnone from "../images/inquiryiconnone.svg";
 import "./scss/BmypageView.scss";
 import axios from "axios";
 import TableRow from "./TableRow";
@@ -126,7 +126,7 @@ const BMypageView = (props) => {
           <div className="count">{}건</div>
         </div>
         <div className="inquiry">
-          <img onClick={inquirygo} src={inquiryicon} alt="" />
+          <img onClick={inquirygo} src={inquiryiconnone} alt="" />
         </div>
         <div className="stockstatus">
           <table>
