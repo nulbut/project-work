@@ -55,11 +55,11 @@ const IdealcupSidebar = () => {
         path: "/mycup",
         icon: <FontAwesomeIcon icon={faHouseUser} />,
       },
-      {
-        name: "이어하기",
-        path: "/",
-        icon: <FontAwesomeIcon icon={faFlagCheckered} />,
-      },
+      // {
+      //   name: "이어하기",
+      //   path: "/",
+      //   icon: <FontAwesomeIcon icon={faFlagCheckered} />,
+      // },
       {
         name: "통계",
         path: "/",
