@@ -3,6 +3,7 @@ package com.icia.ggdserver.repository;
 import com.icia.ggdserver.entity.NmemberTbl;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -80,5 +81,7 @@ public interface NMemberRepository extends CrudRepository<NmemberTbl, String> {
     List<Object[]> countMemberPeriod();
 
 ////회원삭제 메소드
-//    void deleteByNId(long nid);
-}
+    @Modifying
+    @Query(value = "update NmemberTbl nt set nt.nsituation = '탈퇴' where nt.nid = :ncon")
+    void deleteByNMember (@Param("ncon") String ncon);
+    }

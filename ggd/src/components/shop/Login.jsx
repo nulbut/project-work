@@ -58,24 +58,21 @@ const Login = ({ sucLogin }) => {
               sessionStorage.setItem("nnickname", res2.data.bcname);
               console.log(sessionStorage);
               navigate("/shoppingmall");
+              if (res2.data.res2 == "fail10") {
+                alert(res2.data.msg);
+              } else if (res2.data.res == "fail4"){
+                alert(res2.data.msg);
+              } 
             } else {
               // 사업자 회원 패스워드 불일치
               alert(res2.data.msg);
             }
-          } else if (res1.data.res1 == "fail1") {
-            // 일반회원 패스워드 불일치
+          } else if (res1.data.res1 == "fail9") {
+            // 일반회원 사용중 아님 
             alert(res1.data.msg);
           }
-          // else if (res2.data.res2 == "ok") {
-          //   sucLogin(res2.data.bid);
-          //   sessionStorage.setItem("bid", res2.data.bid);
-          //   sessionStorage.setItem("bcname", res2.data.bcname);
-          //   navigate("/shoppingmall");
-          // }
-          else if (res2.data.res2 == "fail") {
+          else if (res1.data.res1 == "fail") {
             alert(res1.data.msg);
-          } else if (res1.data.res1 == "fail") {
-            alert(res2.data.msg);
           }
         })
       )

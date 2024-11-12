@@ -228,7 +228,6 @@ const JoinN = (props) => {
       <form className="join-n-content" onSubmit={handleSubmit(onSubmit)}>
         <input type="hidden" value={1} {...register("nmnum")} />
         <input type="hidden" value={1} {...register("nstatus")} />
-        <input type="hidden" value="사용중" {...register("nsituation")} />
         <h1>JOIN</h1>
 
         <div className="join-id">

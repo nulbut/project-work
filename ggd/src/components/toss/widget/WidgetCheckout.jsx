@@ -4,7 +4,7 @@ import {
   PaymentWidgetInstance,
 } from "@tosspayments/tosspayments-sdk";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const clientKey = "test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm";
 const customerKey = generateRandomString();
@@ -12,10 +12,12 @@ const sampeid = generateRandomString();
 console.log(sampeid);
 export function WidgetCheckoutPage() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const productData = location.state?.data;
 
   const [amount, setAmount] = useState({
     currency: "KRW",
-    value: 30000,
+    value: productData.usedSeller,
   });
   const [ready, setReady] = useState(false);
   const [widgets, setWidgets] = useState(null);

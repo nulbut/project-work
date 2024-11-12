@@ -11,7 +11,7 @@ const NMemberUpdate = () => {
   const nid = sessionStorage.getItem("nid");
   const [addr, setAddr] = useState("");
 
-  //  console.log(nid);
+
 
   //입력값 유효성 체크
   const {
@@ -43,18 +43,20 @@ const NMemberUpdate = () => {
       .catch((err) => console.log(err));
   }, []);
 
-  const sendInfo = { ...nmemberInfo, naddress: addr };
+  const sendInfo = { ...nmemberInfo, naddress: addr }; 
   const onch = useCallback(
     (e) => {
-      const nmemberObj = {
-        ...sendInfo,
-        [e.target.name]: e.target.value,
-      };
+      const { name, value } = e.target;
+    setNmemberInfo({
+      ...sendInfo,
+      [name]: value,
+    });
 
-      setNmemberInfo(nmemberObj);
-    },
-    [sendInfo]
-  );
+  },
+  [sendInfo]
+);
+
+
 
   //회원정보 작성
   const onWrite = useCallback(

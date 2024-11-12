@@ -65,7 +65,6 @@ public class NMemberController {
         String res = nmServ.joinMember(nmemberTbl);
         return res;
     }
-
     //로그인
     @PostMapping("loginproc")
     public Map<String, String> loginproc(@RequestBody NmemberTbl nmemberTbl){
@@ -110,7 +109,7 @@ public class NMemberController {
     public String nmemberwriteproc (@RequestPart(value = "nmemberInfo", required = true) NmemberTbl nmemberTbl,
                                     HttpSession session){
         log.info("nmemberwriteproc()");
-        String result = nmServ.insertNmember(nmemberTbl, session);
+        String result = nmServ.nmemberwriteproc(nmemberTbl, session);
         return result;
     }
 
@@ -138,5 +137,9 @@ public class NMemberController {
     }
 
     //회원삭제
-
+    @GetMapping("Ndeletemember")
+    public String Ndeletemember(@RequestParam(required = false, value = "ncon") String nid  ){
+        log.info("Ndeletemember()");
+        return nmServ.Ndeletemember(nid);
+    }
 }
