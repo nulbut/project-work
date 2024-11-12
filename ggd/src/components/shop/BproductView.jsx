@@ -149,10 +149,9 @@ const BproductView = () => {
             <div className="Title">등록일</div>
             <div className="Data">{df(BproductRegistered.bpdate)}</div>
           </div>
-          <div className="Box">
-            <div className="FileTitle">이미지</div>
-            <div className="FileData">{viewFilst}</div>
-          </div>
+
+          <div className="FileTitle">이미지</div>
+          <div className="FileData">{viewFilst}</div>
           <div className="Cont">{BproductRegistered.bpexplanation}</div>
         </div>
         <div className="Buttons">
@@ -162,7 +161,7 @@ const BproductView = () => {
             onClick={() => nav("/bmypage/bp1", { state: { bpnum: bpnum } })}
           >
             뒤로가기
-          </Button >
+          </Button>
           {bsellerId === BproductRegistered.bprobid ? (
             <>
               <Button wsize="s-20" color="red" onClick={updateBproduct}>
