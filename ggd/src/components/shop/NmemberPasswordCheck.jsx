@@ -21,7 +21,7 @@ const NmemberPasswordCheck = () => {
       .post("/loginproc", form)
       .then((res1) => {
         if (res1.data.res1 === "ok") {
-          nav("NMview");
+          nav("NMview",sessionStorage.setItem("npw",res1.data.npw));
         } else {
           alert("비밀번호 다시 확인해주세요.");
         }

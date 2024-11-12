@@ -1,29 +1,26 @@
-import React, { useCallback, useEffect, useState } from "react";
-import Button from "./Button";
-import { useLocation, useNavigate } from "react-router-dom";
-import axios, { all, spread } from "axios";
-import CheckBox from "./checkbox/CheckBox";
-import { param } from "jquery";
+import React, { useEffect, useState } from 'react';
+import Button from './Button';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import "./scss/MemberSecession.scss";
 
-const MemberSecession = (props) => {
-  const nav = useNavigate();
-  
+const NMemberSecession = (props) => {
+    const nav = useNavigate();
 
-  const bid = sessionStorage.getItem("bid"); // 사업자 아이디
+    const nid = sessionStorage.getItem("nid"); // 일반 회원 아이디 
 
-  console.log(bid);
+    console.log(nid);
 
-  const [check, setCheck] = useState("1");
+    const [check, setCheck] = useState("1");
   const cname = "1";
 
   //사업자 유저 정보 가져옴
-  const [bmemberInfo, setBmemberInfo] = useState({
-    bid: bid,
-    bsituation: "사용중",
+  const [nmemberInfo, setNmemberInfo] = useState({
+    nid: nid,
+    nsituation: "사용중",
   });
 
-  const { bsituation } = bmemberInfo;
+  const { nsituation } = nmemberInfo;
 
   //체크 함수
   const checkItemHandler = (checked, itemid) => {
@@ -42,13 +39,14 @@ const MemberSecession = (props) => {
 
   //로그아웃 불러오기
   const onLogout = props.onLogout;
+  
 
   //서버로부터 회원정보 받아오기
   useEffect(() => {
     axios
-      .get("/getBMemeber", { params: { bid: bid } })
+      .get("/getNMember", { params: { nid: nid } })
       .then((res) => {
-        setBmemberInfo(res.data);
+        setNmemberInfo(res.data);
         //   console.log(res.data);
       })
       .catch((err) => console.log(err));
@@ -56,25 +54,25 @@ const MemberSecession = (props) => {
 
   //사업자회원 탈퇴 처리 
 
-  const deleteBmember = (e) => {
+  const deleteNmember = (e) => {
     e.preventDefault();
     if (window.confirm("확인을 누르면 회원 정보가 삭제됩니다.")) {
         if (check == "1") {
 
           axios
-            .get("/deletemember", { params: { bcon: bid } })
+            .get("/Ndeletemember", { params: { ncon: nid } })
             .then((res) => {
               if (res.data == "ok") {
                 alert("GGD's 서비스를 이용해주셔서 감사합니다.");
 
                 //로그아웃 호출
                 if (onLogout) {
-                  onLogout();
-              }
+                    onLogout();
+                }
 
-              //홈으로 이동 
-              nav("/");
-              
+                //홈으로 이동 
+                nav("/");
+                
               } else {
                 alert("탈퇴 실패");
               }
@@ -96,9 +94,9 @@ const MemberSecession = (props) => {
   const back = () => {
     nav(-1);
   };
-  return (
-    <div className="membersecession-main">
-      <form className="membersecession-content">
+    return (
+        <div className="membersecession-main">
+            <form className="membersecession-content">
         <div className="membersecession-reason">
           <h4>회원탈퇴 사유</h4>
           <hr />
@@ -130,7 +128,7 @@ const MemberSecession = (props) => {
         </div>
         <div className="secession-button">
           <Button onClick={back}>취소</Button>
-          <Button onClick={deleteBmember}>확인</Button>
+          <Button onClick={deleteNmember}>확인</Button>
         </div>
         <div className="conment">
           <p>
@@ -139,8 +137,8 @@ const MemberSecession = (props) => {
           </p>
         </div>
       </form>
-    </div>
-  );
+        </div>
+    );
 };
 
-export default MemberSecession;
+export default NMemberSecession;

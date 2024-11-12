@@ -62,7 +62,7 @@ public class BMemberController {
     public String bmemberwriteProc (@RequestPart(value = "bmemberInfo", required = true) BmemberTbl bmemberTbl,
                                     HttpSession session){
         log.info("bmemberwriteProc()");
-        String result = bmServ.insertBmember(bmemberTbl, session);
+        String result = bmServ.bmemberwriteProc(bmemberTbl, session);
         return result;
     }
 
@@ -99,11 +99,13 @@ public class BMemberController {
         return bersMap;
     }
 
-    //회원 탈퇴
+
+
+    //회원 삭제
     @GetMapping("deletemember")
-    public String deletemember(@RequestParam long bsituation){
+    public String deletemember(@RequestParam(required = false, value = "bcon") String bid  ){
         log.info("deletemember()");
-        return bmServ.deletemember(bsituation);
+        return bmServ.deletemember(bid);
     }
 
 

@@ -162,7 +162,7 @@ const InquiryView = () => {
 
         <div className="Buttons">
           <Button
-            wsize="s-10"
+            wsize="s-20"
             color="gray"
             onClick={() => nav("/mypage/inquiry")}
           >

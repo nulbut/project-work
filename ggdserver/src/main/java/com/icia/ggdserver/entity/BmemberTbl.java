@@ -55,7 +55,7 @@ public class BmemberTbl { //사업자 회원 테이블
     @Column(name = "b_banknum", nullable = false, length = 50)
     private String bbanknum; //은행코드
 
-    @Column(name = "b_baccunt", nullable = false, length = 14)
+    @Column(name = "b_baccunt", nullable = false, length = 17)
     private String bbaccunt; //계좌번호
 
     @Column(name = "b_pw",nullable = false, length = 100)

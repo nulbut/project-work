@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./scss/UsedList.scss";
+import "./scss/InfiniteScroll.scss";
 import axios from "axios";
 import moment from "moment";
 import Button from "./Button";
@@ -71,8 +72,8 @@ const UsedProduct = () => {
   }, []);
 
   // 장바구니에 상품을 추가하는 함수
-  const cartList = (ud, quantity) => {
-    console.log(ud);
+  const cartList = (uc, quantity) => {
+    console.log(uc);
     const nid = sessionStorage.getItem("nid");
     let conf = window.confirm("장바구니에 추가할까요?");
     if (!conf) {
@@ -81,7 +82,7 @@ const UsedProduct = () => {
 
     axios
       .get("/setusedcart", {
-        params: { cnid: nid, usedCode: ud, quantity },
+        params: { cnid: nid, usedCode: uc, quantity },
       })
       .then((res) => {
         console.log(res);
@@ -143,7 +144,7 @@ const UsedProduct = () => {
           return (
             <div key={index} className="product-grid-item">
               <Link
-                to={`/pddetails`}
+                to={`/usedpddetails`}
                 state={{
                   code: item.usedCode,
                   name: item.usedName,
@@ -182,14 +183,14 @@ const UsedProduct = () => {
               <div className="btn-set">
                 <Link to={`/usedproductbuy/${item.usedCode}`}>구매하기</Link>
                 <Link
-                  to={`/pddetails`}
+                  to={`/usedpddetails`}
                   state={{
                     code: item.usedCode,
                     name: item.usedName,
                     sellerId: item.usedsellerId,
                     detail: item.usedDetail,
                     seller: item.usedSeller,
-                    imageNum: item.usedFileSysname,
+                    imageNum: item.usedinfo,
                   }}
                 >
                   상세정보

@@ -27,9 +27,7 @@ const InquiryWrite = () => {
   const [fileName, setFileName] = useState("선택된 파일이 없습니다.");
   const [files, setFiles] = useState([]); // 파일 목록 상태 관리
   const [products, setProducts] = useState([]); // 상태: 상품 목록
-  console.log(products);
   const [usedProducts, setUsedProducts] = useState([]); // 상태: 중고 상품 목록
-  console.log(usedProducts);
 
   const {
     boardType,
@@ -90,7 +88,6 @@ const InquiryWrite = () => {
         })
         .then((res) => {
           if (res.data === "ok") {
-            console.log(res.data);
             alert("작성 성공");
             nav("/mypage/inquiry"); // 성공 시 목록 페이지로 이동
           } else {
@@ -112,7 +109,6 @@ const InquiryWrite = () => {
       .then((res) => {
         if (res.data && Array.isArray(res.data)) {
           setProducts(res.data); // 상품 목록을 상태에 저장
-          console.log(res.data);
         }
       })
       .catch((err) => {
@@ -149,18 +145,20 @@ const InquiryWrite = () => {
           <option value="배송문의">배송문의</option>
           <option value="기타">기타</option>
         </select>
-        {/* 상품 코드와 중고 상품 코드 선택 드롭다운 */}
+
+        {/* 상품 선택 */}
         <select
           className="Input"
           name="selectedProduct"
           value={selectedProduct}
           onChange={onChange}
+          required
         >
           <option value="">상품을 선택하세요</option>
           {products.length > 0 ? (
             products.map((product) => (
               <option key={product.productCode} value={product.productCode}>
-                (상품:{product.productName})
+                (상품: {product.productName})
               </option>
             ))
           ) : (
@@ -168,12 +166,13 @@ const InquiryWrite = () => {
           )}
         </select>
 
-        {/* 중고 상품 선택 드롭다운 */}
+        {/* 중고 상품 선택 */}
         <select
           className="Input"
           name="selectedUsedProduct"
           value={selectedUsedProduct}
           onChange={onChange}
+          required
         >
           <option value="">중고 상품을 선택하세요</option>
           {usedProducts.length > 0 ? (
@@ -222,7 +221,7 @@ const InquiryWrite = () => {
           value={boardContent}
         ></textarea>
 
-        <div className="FileInput">
+        <div className="Box">
           <input id="upload" type="file" multiple onChange={onFileChange} />
           <label className="FileLabel" htmlFor="upload">
             파일선택
@@ -235,7 +234,7 @@ const InquiryWrite = () => {
             type="button"
             size="large"
             color="gray"
-            wsize="s-10"
+            wsize="s-30"
             outline
             onClick={() => nav("/mypage/inquiry")}
           >
