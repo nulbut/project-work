@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import "./scss/InfiniteScroll.scss";
+import "./scss/UsedList.scss";
 import axios from "axios";
 import moment from "moment";
 import Button from "./Button";
@@ -86,11 +86,13 @@ const UsedProduct = () => {
       .then((res) => {
         console.log(res);
         if (res.data === "ok") {
-          alert("추가되었습니다.");
-        } else if (res.data === "already exists") {
+          alert("장바구니에 추가되었습니다.");
+        } else if (res.data === "상품 수량이 부족합니다.") {
+          alert("수량이 재고를 초과합니다.");
+        } else if (res.data === "이미 장바구니에 해당 상품이 있습니다.") {
           alert("이미 장바구니에 있습니다.");
         } else {
-          alert("수량을 초과 하였습니다.");
+          alert("장바구니 추가 실패: " + res.data);
         }
       })
       .catch((err) => {
@@ -119,7 +121,7 @@ const UsedProduct = () => {
         console.log(res);
         if (res.data === "ok") {
           alert("찜목록에 추가되었습니다.");
-        } else if (res.data === "already exists") {
+        } else if (res.data === "이미 찜한 상품입니다.") {
           alert("이미 찜한 상품입니다.");
         } else {
           alert("실패: " + res.data); // 서버에서 반환한 에러 메시지 표시
@@ -132,35 +134,44 @@ const UsedProduct = () => {
   };
 
   return (
-    <div className="product-list">
+    <div className="usedproduct-list">
       <h2 className="section-title">
         <span>중고</span>상품
       </h2>
       <div className="product-grid">
         {useds.map((item, index) => {
           return (
-            <div key={index} className="product-card">
-              <div className="product-image-placeholder">
-                {item.usedFileSysname ? (
-                  <img
-                    src={`/usupload/${item.usedFileSysname}`}
-                    alt={`상품 이미지 ${item.usedCode}`}
-                    className="product-image"
-                  />
-                ) : (
-                  <div>이미지를 불러올 수 없습니다.</div>
-                )}
-              </div>
-              <h3 className="product-title">상품명 : {item.usedName}</h3>
-              <div className="product-price">
-                <strong>가격: </strong>
-                {item.usedSeller}₩
-              </div>
+            <div key={index} className="product-grid-item">
+              <Link
+                to={`/pddetails`}
+                state={{
+                  code: item.usedCode,
+                  name: item.usedName,
+                  sellerId: item.usedsellerId,
+                  detail: item.usedDetail,
+                  seller: item.usedSeller,
+                  imageNum: item.usedFileSysname,
+                }}
+              >
+                <div className="product-image-placeholder">
+                  {item.usedproductFileTblList[0]?.usedFileSysname ? (
+                    <img
+                      src={`usupload/${item.usedproductFileTblList[0].usedFileSysname}`}
+                      alt={`상품 이미지 ${item.usedCode}`}
+                      className="product-image"
+                    />
+                  ) : (
+                    <div>이미지를 불러올 수 없습니다.</div>
+                  )}
+                </div>
+
+                <h3 className="product-title">{item.usedName}</h3>
+              </Link>
+              <div className="product-price">{item.usedSeller} 원</div>
               <div className="product-quantity">
                 <strong>제품내용: </strong>
                 {item.usedDetail}
               </div>
-              {/* 총 재고 수량을 표시 */}
               <div className="product-quantity">
                 <strong>총 수량:</strong> {item.usedStock || "N/A"}
               </div>
@@ -169,9 +180,7 @@ const UsedProduct = () => {
                 {df(item.usedDate)}
               </div>
               <div className="btn-set">
-                <Link to={`/usedproductbuy/${item.usedCode}`}>
-                  <Button wsize="s-25">구매하기</Button>
-                </Link>
+                <Link to={`/usedproductbuy/${item.usedCode}`}>구매하기</Link>
                 <Link
                   to={`/pddetails`}
                   state={{
@@ -183,7 +192,7 @@ const UsedProduct = () => {
                     imageNum: item.usedFileSysname,
                   }}
                 >
-                  <Button wsize="s-25">제품 상세</Button>
+                  상세정보
                 </Link>
                 <Button
                   wsize="s-25"
@@ -197,11 +206,7 @@ const UsedProduct = () => {
                     style={{ color: "#000000", fontSize: "1.5em" }}
                   />
                 </Button>
-                <Button
-                  wsize="s-25"
-                  color="black"
-                  onClick={() => dibsList(item.usedCode)}
-                >
+                <Button wsize="s-25" onClick={() => dibsList(item.usedCode)}>
                   <FontAwesomeIcon
                     icon={faHeart}
                     style={{ color: "#ff0000", fontSize: "1.5em" }}

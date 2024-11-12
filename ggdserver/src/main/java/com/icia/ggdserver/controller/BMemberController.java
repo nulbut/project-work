@@ -100,17 +100,10 @@ public class BMemberController {
     }
 
     //회원 탈퇴
-    @DeleteMapping("bmemberdelete")
-    public ResponseEntity<String> bmemberdelete (HttpSession session){
-        BmemberTbl bmemberTbl = (BmemberTbl) session.getAttribute("bmemberTbl");
-
-        if (bmemberTbl != null){
-            bmServ.bmemberdelete(bmemberTbl.getBid());
-            session.invalidate();
-            return ResponseEntity.status(HttpStatus.OK).body("탈퇴완료");
-        } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
-        }
+    @GetMapping("deletemember")
+    public String deletemember(@RequestParam long bsituation){
+        log.info("deletemember()");
+        return bmServ.deletemember(bsituation);
     }
 
 

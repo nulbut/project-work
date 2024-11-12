@@ -7,7 +7,7 @@ import Radio from "./Radio";
 
 const BOderHistory = () => {
   return (
-    <div className="main">
+    <div className="main-boderhistory">
       <div className="title">
         <h4>주문목록 / 배송조회 내역 총 {} 건</h4>
       </div>
@@ -16,29 +16,32 @@ const BOderHistory = () => {
           <p>주문내역 / 배송조회</p>
         </div>
         <div className="searchbox">
-          <p>주문일자</p>
-          <Button>오늘</Button>
-          <Button>7일</Button>
-          <Button>1개월</Button>
-          <Button>3개월</Button>
-          <Button>1년</Button>
-          <div>
-            <input type="date" />
-            -
-            <input type="date" />`
-          </div>
-          <Button>조회</Button>
+          <label>
+            <p>조회기간</p>
+            <Button>오늘</Button>
+            <Button>7일</Button>
+            <Button>1개월</Button>
+            <Button>3개월</Button>
+            <Button>1년</Button>
+            <div>
+              <input type="date" />
+              -
+              <input type="date" />
+            </div>
+            <Button>조회</Button>
+          </label>
+
           {/* 내가 조회버튼 만들어서 아이콘식으로 넣어도될듯? */}
         </div>
         <div className="selectsearch">
-          <select name="" id="">
-            <option>분류</option>
-            <option>주문번호</option>
-            <option>주문상품명</option>
-            <option>주문자</option>
-            <option>주문자ID</option>
-          </select>
           <div className="input-group">
+            <select name="" id="">
+              <option>분류</option>
+              <option>주문번호</option>
+              <option>주문상품명</option>
+              <option>주문자</option>
+              <option>주문자ID</option>
+            </select>
             <input
               className="form-control"
               type="text"
@@ -55,9 +58,9 @@ const BOderHistory = () => {
             </button>
           </div>
           <div className="radioshi">
-            <div>
-              <p>주문상태</p>
-              <div>
+            <div className="radio-group">
+              <div className="radio-item">
+                <p>주문상태</p>
                 <Radio name="content" value="text">
                   전체선택
                 </Radio>
@@ -83,7 +86,7 @@ const BOderHistory = () => {
                   일부취소
                 </Radio>
               </div>
-              <div>
+              <div className="radio-item">
                 <p>결제수단</p>
                 <Radio name="content" value="text">
                   전체
@@ -95,7 +98,7 @@ const BOderHistory = () => {
                   신용/체크카드
                 </Radio>
               </div>
-              <div>
+              <div className="radio-item">
                 <p>기타선택</p>
                 <Radio name="content" value="text">
                   전체

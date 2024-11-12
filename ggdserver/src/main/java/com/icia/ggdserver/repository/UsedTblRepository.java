@@ -18,4 +18,6 @@ public interface UsedTblRepository extends CrudRepository<UsedProductTbl, Long> 
 
     @Query(value = "SELECT * FROM used_product_tbl WHERE REPLACE(used_name, ' ', '') LIKE CONCAT('%', REPLACE(:category, ' ', ''), '%') ORDER BY RAND() LIMIT 3", nativeQuery = true)
     List<UsedProductTbl> findRandomUsedProductsByName(@Param("category") String category);
+
+    UsedProductTbl findByUsedCode(long usedCode);
 }

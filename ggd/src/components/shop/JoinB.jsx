@@ -170,25 +170,30 @@ const JoinB = () => {
     }
   };
 
-  //가입 날짜 가져오기
-  const today = new Date();
+  // //가입 날짜 가져오기
+  // const today = new Date();
 
-  //날짜 형식 2024-01-01 형식으로 변경
-  const formattedDate = `${today.getFullYear()}-${
-    today.getMonth() + 1
-  }-${today.getDate()}`;
+  // //날짜 형식 2024-01-01 형식으로 변경
+  // const formattedDate = `${today.getFullYear()}-${
+  //   today.getMonth() + 1
+  // }-${today.getDate()}`;
 
   return (
     <div className="Main">
       <form className="content" onSubmit={handleSubmit(onBSubmit)}>
         <input type="hidden" value={2} {...register("bmnum")} />
         <input type="hidden" value={1} {...register("bstatus")} />
+        <input type="hidden" value="사용중" {...register("bsituation")} />
         <h1>JOIN</h1>
         <div className="essential">
-          <p><span className="red">*</span> 표시 필수 입력</p>
+          <p>
+            <span className="red">*</span> 표시 필수 입력
+          </p>
         </div>
         <div className="companyname">
-          <p>상호 <span className="red">*</span></p>
+          <p>
+            상호 <span className="red">*</span>
+          </p>
           <input
             placeholder="사업자 상호 입력"
             className="input"
@@ -226,7 +231,9 @@ const JoinB = () => {
           />
         </div>
         <div className="taxationtype">
-          <p>과세유형 <span className="red">*</span></p>
+          <p>
+            과세유형 <span className="red">*</span>
+          </p>
           <select
             {...register("bttype", {
               required: {
@@ -241,7 +248,9 @@ const JoinB = () => {
           <span className="error">{errors?.bttype?.message}</span>
         </div>
         <div className="breality">
-          <p>업태 <span className="red">*</span></p>
+          <p>
+            업태 <span className="red">*</span>
+          </p>
           <input
             placeholder="업태 입력"
             className="input"
@@ -255,7 +264,9 @@ const JoinB = () => {
           <span className="error">{errors?.bbreality?.message}</span>
         </div>
         <div className="btype">
-          <p>업종 <span className="red">*</span></p>
+          <p>
+            업종 <span className="red">*</span>
+          </p>
           <input
             placeholder="업종 입력"
             className="input"
@@ -269,7 +280,9 @@ const JoinB = () => {
           <span className="error">{errors?.bbtype?.message}</span>
         </div>
         <div className="email">
-          <p>사업자 EMail <span className="red">*</span></p>
+          <p>
+            사업자 EMail <span className="red">*</span>
+          </p>
           <input
             placeholder="you@example.com"
             className="input"
@@ -300,7 +313,9 @@ const JoinB = () => {
           </Button>
         </div>
         <div className="address">
-          <p>주소 <span className="red">*</span></p>
+          <p>
+            주소 <span className="red">*</span>
+          </p>
           <div>
             <AddressInput setAddr={setAddr} />
           </div>
@@ -325,7 +340,9 @@ const JoinB = () => {
           <span className="error">{errors?.bid?.message}</span>
         </div>
         <div className="representativename">
-          <p>대표자 이름 <span className="red">*</span></p>
+          <p>
+            대표자 이름 <span className="red">*</span>
+          </p>
           <input
             placeholder="대표자 이름"
             className="input"
@@ -339,9 +356,11 @@ const JoinB = () => {
           <span className="error">{errors?.bname?.message}</span>
         </div>
         <div className="representativegender">
-          <p>대표자 성별 <span className="red">*</span></p>
+          <p>
+            대표자 성별 <span className="red">*</span>
+          </p>
           <input
-          className="input-radio"
+            className="input-radio"
             type="radio"
             value={1}
             {...register("bgender", {
@@ -354,7 +373,7 @@ const JoinB = () => {
           <span className="error">{errors?.bgender?.message}</span>
           남성
           <input
-          className="input-radio"
+            className="input-radio"
             type="radio"
             value={2}
             {...register("bgender", {
@@ -367,7 +386,9 @@ const JoinB = () => {
           여성
         </div>
         <div className="representativebirthday">
-          <p>대표자 생년월일 <span className="red">*</span></p>
+          <p>
+            대표자 생년월일 <span className="red">*</span>
+          </p>
           <input
             type="date"
             className="input"
@@ -382,7 +403,9 @@ const JoinB = () => {
           <span className="error">{errors?.bbday?.message}</span>
         </div>
         <div className="representativephoennum">
-          <p>대표자 전화번호 <span className="red">*</span></p>
+          <p>
+            대표자 전화번호 <span className="red">*</span>
+          </p>
           <input
             className="input"
             placeholder=" - 를 포함한 번호 입력"
@@ -400,7 +423,9 @@ const JoinB = () => {
           <span className="error">{errors?.bphonenum?.message}</span>
         </div>
         <div className="banknum">
-          <p>정산 입금계좌 <span className="red">*</span></p>
+          <p>
+            정산 입금계좌 <span className="red">*</span>
+          </p>
           <select
             {...register("bbanknum", {
               required: {
@@ -447,7 +472,11 @@ const JoinB = () => {
         </div>
         <div className="managername">
           <p>담당자 이름</p>
-          <input className="input" placeholder="담당자 이름" {...register("bmname")} />
+          <input
+            className="input"
+            placeholder="담당자 이름"
+            {...register("bmname")}
+          />
         </div>
         <div className="managephoennum">
           <p>담당자 전화번호</p>
@@ -488,7 +517,9 @@ const JoinB = () => {
           )}
         </div>
         <div className="password">
-          <p>Password <span className="red">*</span></p>
+          <p>
+            Password <span className="red">*</span>
+          </p>
           <input
             className="input"
             type="password"
@@ -504,7 +535,9 @@ const JoinB = () => {
           <span className="error">{errors?.bpw?.message}</span>
         </div>
         <div className="passwordcheck">
-          <p>비밀번호 확인 <span className="red">*</span></p>
+          <p>
+            비밀번호 확인 <span className="red">*</span>
+          </p>
           <input
             className="input"
             type="password"

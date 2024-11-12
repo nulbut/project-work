@@ -5,6 +5,7 @@ import moment from "moment";
 import "./scss/ProductDetails.scss";
 
 const ProductDetails = () => {
+  const [activeTab, setActiveTab] = useState("content");
   const location = useLocation();
   const navigate = useNavigate();
   const [productData, setProductData] = useState(null); // 합친 데이터를 저장할 state
@@ -12,9 +13,10 @@ const ProductDetails = () => {
   const [error, setError] = useState(null); // 에러 상태를 관리
 
   // location.state에서 productCode와 usedCode를 받아옵니다.
-  const code = location.state || {};
-  const usedCode = code.code; // 중고상품 코드
-  const productCode = code.productCode; // 신상품 코드
+  const { code, productCode: productCodeFromState } = location.state || {}; // state에서 코드 값을 가져오고, 없으면 빈 객체로 초기화
+
+  const usedCode = code || null; // `usedCode`가 존재하지 않으면 `null`
+  const productCode = productCodeFromState || null; // `productCode`가 존재하지 않으면 `null`
 
   // 디버깅을 위한 콘솔 출력
   console.log("location.state:", location.state);
@@ -119,7 +121,9 @@ const ProductDetails = () => {
   };
 
   console.log("상품 데이터:", productData);
-
+  const handleTabClick = (tab) => {
+    setActiveTab(tab); // 클릭한 탭을 활성화
+  };
   return (
     <div className="product-detail">
       {/* Title: 신상품이 있으면 productName, 아니면 usedName */}
@@ -133,7 +137,7 @@ const ProductDetails = () => {
           {productCode ? (
             productInfo?.image ? (
               <img
-                src={`/product-images/${productInfo.image}`}
+                src={`upload/${productInfo.image}`}
                 alt={`상품 이미지 ${productInfo.productName}`}
                 className="product-image"
               />
@@ -202,6 +206,61 @@ const ProductDetails = () => {
             <button className="report-button" onClick={handleReport}>
               신고하기
             </button>
+          </div>
+        </div>
+      </div>
+      <div className="product-detail-tabs">
+        <div className="tab-header">
+          <div
+            className={`tab-item ${activeTab === "content" ? "active" : ""}`}
+            onClick={() => handleTabClick("content")}
+          >
+            내용
+          </div>
+          <div
+            className={`tab-item ${activeTab === "reviews" ? "active" : ""}`}
+            onClick={() => handleTabClick("reviews")}
+          >
+            후기
+          </div>
+          <div
+            className={`tab-item ${activeTab === "questions" ? "active" : ""}`}
+            onClick={() => handleTabClick("questions")}
+          >
+            문의사항
+          </div>
+          <div
+            className={`tab-item ${
+              activeTab === "specifications" ? "active" : ""
+            }`}
+            onClick={() => handleTabClick("specifications")}
+          >
+            제품규격
+          </div>
+        </div>
+
+        <div className="tab-content">
+          <div
+            className={`tab-pane ${activeTab === "content" ? "active" : ""}`}
+          >
+            <p>상품의 상세 내용이 여기 들어갑니다.</p>
+          </div>
+          <div
+            className={`tab-pane ${activeTab === "reviews" ? "active" : ""}`}
+          >
+            <p>후기 내용이 여기 들어갑니다.</p>
+          </div>
+          <div
+            className={`tab-pane ${activeTab === "questions" ? "active" : ""}`}
+          >
+            <p>문의사항 내용이 여기 들어갑니다.</p>
+          </div>
+          <div
+            className={`tab-pane ${
+              activeTab === "specifications" ? "active" : ""
+            }`}
+          >
+            <p>제품 규격 내용이 여기 들어갑니다.</p>
           </div>
         </div>
       </div>

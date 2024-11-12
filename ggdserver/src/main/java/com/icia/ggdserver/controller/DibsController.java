@@ -35,7 +35,7 @@ public class DibsController {
 
             // 파라미터가 없으면 에러 처리
             if (productCode == null) {
-                return "error: Missing required parameter (productCode)"; // 필수 파라미터가 없을 경우 에러 메시지 반환
+                return "error:(productCode)"; // 필수 파라미터가 없을 경우 에러 메시지 반환
             }
 
             // 찜에 상품 추가 처리
@@ -55,7 +55,7 @@ public class DibsController {
 
             // 파라미터가 없으면 에러 처리
             if (usedCode == null) {
-                return "error: Missing required parameter (usedCode)"; // 필수 파라미터가 없을 경우 에러 메시지 반환
+                return "error:(usedCode)"; // 필수 파라미터가 없을 경우 에러 메시지 반환
             }
 
             // 찜에 상품 추가 처리

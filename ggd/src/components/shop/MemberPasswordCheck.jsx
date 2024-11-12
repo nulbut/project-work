@@ -4,26 +4,26 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import Button from "./Button";
 
-const NmemberPasswordCheck = () => {
+const MemberPasswordCheck = () => {
   const nav = useNavigate();
-  const id = sessionStorage.getItem("nid");
-  console.log(id);
+  const nid = sessionStorage.getItem("nid");
+  console.log(nid);
 
   const {
     handleSubmit,
     register,
-    watch,
+    warch,
     formState: { errors },
   } = useForm();
 
-  const sendLogin = (form) => {
+  const sendLogin = (nform) => {
     axios
-      .post("/loginproc", form)
+      .post("/loginproc", nform)
       .then((res1) => {
         if (res1.data.res1 === "ok") {
           nav("NMview");
         } else {
-          alert("비밀번호 다시 확인해주세요.");
+          alert("비밀번호를 다시 확인해주세요.");
         }
       })
       .catch((err) => {
@@ -42,7 +42,7 @@ const NmemberPasswordCheck = () => {
       <form onSubmit={handleSubmit(sendLogin)}>
         <div>
           <p>Password</p>
-          <input type="hidden" value={id} {...register("nid")} />
+          <input type="hidden" value={nid} {...register("nid")} />
           <input
             type="password"
             placeholder="비밀번호"
@@ -50,7 +50,7 @@ const NmemberPasswordCheck = () => {
               required: { value: true, message: "비밀번호 입력해주세요." },
             })}
           />
-          <span className="error">{errors?.bpw?.message}</span>
+          <span className="error">{errors?.npw?.message}</span>
         </div>
         <div>
           <Button type="submit">확인</Button>
@@ -61,4 +61,4 @@ const NmemberPasswordCheck = () => {
   );
 };
 
-export default NmemberPasswordCheck;
+export default MemberPasswordCheck;

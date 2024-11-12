@@ -12,20 +12,15 @@ const ProductView = () => {
   //상품 번호 받기
   const { state } = useLocation();
   const { pc } = state;
-
   const sellerId = sessionStorage.getItem("nid");
-
   const [ProductRegistered, setProductRegistered] = useState({});
   const [flist, setFlist] = useState([
     {
-      // productCode: "",
-      // sellerId: "",
       productFileCode: "",
-      // productFileNum: "",
+      productName: "",
       productFileSysname: "",
       productFileOriname: "Nothing",
       image: "",
-      productName: "",
     },
   ]);
 
