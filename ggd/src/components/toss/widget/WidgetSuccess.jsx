@@ -90,6 +90,13 @@ export function WidgetSuccessPage() {
               실시간 문의
             </button>
           </Link>
+          <br/>
+          <button 
+              className="button p-grid-col5"
+              onClick={() => navigate("/ShoppingMall")}    
+          >
+            쇼핑몰로 돌아가기
+          </button>
         </div>
       </div>
       <div
