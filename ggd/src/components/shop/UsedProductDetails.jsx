@@ -70,7 +70,7 @@ const UsedProductDetails = () => {
 
   const handlePurchase = () => {
     alert("구매 페이지로 이동합니다.");
-    navigate("/widgetcheckout", { state: { usedCode } }); // 중고상품 코드 전달
+    navigate("/widgetcheckout", { state: { data: usedProductData } }); // 중고상품 코드 전달
   };
 
   const handleAddToCart = () => {

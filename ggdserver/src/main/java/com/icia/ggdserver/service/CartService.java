@@ -124,6 +124,7 @@ public class CartService {
 
     // 장바구니에 중고 상품 추가
     public String getUsedCart(String cnid, long usedCode, int quantity ,int usedStock) {
+        log.info("{} : {} ",quantity,usedStock);
         if (quantity > usedStock) {
             return "상품 수량이 부족합니다.";
         }

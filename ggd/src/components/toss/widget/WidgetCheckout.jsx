@@ -3,6 +3,7 @@ import {
   ANONYMOUS,
   PaymentWidgetInstance,
 } from "@tosspayments/tosspayments-sdk";
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -17,8 +18,8 @@ console.log(sampeid);
 export function WidgetCheckoutPage() {
   const navigate = useNavigate();
   const location = useLocation();
-  const productData = location.state?.data;
-
+  const [productData, setProductData] = useState([location.state?.data]);
+  console.log(productData);
   const [amount, setAmount] = useState({
     currency: "KRW",
     value: productData.usedSeller,
@@ -83,9 +84,90 @@ export function WidgetCheckoutPage() {
 
     renderPaymentWidgets();
   }, [widgets]);
+  const [cartItems, setCartItems] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
 
+  // 서버에서 장바구니 데이터 가져오기
+  useEffect(() => {
+    axios
+      .get("/api/cart")
+      .then((response) => {
+        setCartItems(response.data);
+        calculateTotalPrice(response.data);
+      })
+      .catch((error) => {
+        console.error("장바구니 데이터를 가져오는 데 실패했습니다:", error);
+      });
+  }, []);
+
+  // 총 금액 계산
+  const calculateTotalPrice = (items) => {
+    const total = items.reduce(
+      (sum, item) => sum + item.price * item.quantity,
+      0
+    );
+    setTotalPrice(total);
+  };
+
+  // 수량 변경 핸들러
+  const handleQuantityChange = (id, newQuantity) => {
+    const updatedItems = productData.map((item) =>
+      item.id === id ? { ...item, quantity: newQuantity } : item
+    );
+    setCartItems(updatedItems);
+    calculateTotalPrice(updatedItems);
+  };
+
+  // 결제 페이지로 이동
+  const handleCheckout = () => {
+    // 장바구니 데이터 전송 (POST)
+    axios
+      .post("/api/checkout", { items: cartItems })
+      .then((response) => {
+        window.location.href = "/checkout"; // 결제 페이지로 리다이렉션
+      })
+      .catch((error) => {
+        console.error("결제 처리 중 오류가 발생했습니다:", error);
+      });
+  };
   return (
     <div className="wrapper">
+      <div>
+        <h1>구매 예정 목록</h1>
+        {productData.length > 0 ? (
+          <div>
+            {productData.map((item) => (
+              <div key={item.id} className="cart-item">
+                <img
+                  src={`usupload/${item.usedproductFileTblList[0].usedFileSysname}`}
+                  alt={item.usedName}
+                  width="100"
+                />
+                <div>{item.usedName}</div>
+                <div>가격: {item.usedSeller} 원</div>
+                <div>
+                  수량:
+                  <input
+                    type="number"
+                    value={item.quantity}
+                    min="1"
+                    onChange={(e) =>
+                      handleQuantityChange(item.id, parseInt(e.target.value))
+                    }
+                  />
+                </div>
+                <div>합계: {item.price * item.quantity} 원</div>
+              </div>
+            ))}
+            <div>
+              <h2>총 금액: {totalPrice} 원</h2>
+            </div>
+            <button onClick={handleCheckout}>결제하기</button>
+          </div>
+        ) : (
+          <p>장바구니가 비었습니다.</p>
+        )}
+      </div>
       <div className="box_section">
         {/* 결제 UI */}
         <div id="payment-method" />
