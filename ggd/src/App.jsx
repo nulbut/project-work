@@ -167,11 +167,6 @@ function App() {
 
           <Route path="/mypage" element={<Mypage onLogout={onLogout} />}>
             <Route path="orderDelivery" element={<OrderDelivery />} />
-            {/* <Route
-              path="nmemberpasswordcheck"
-              element={<NmemberPasswordCheck />}
-            /> */}
-
             <Route path="productRegistered" element={<ProductRegistered />} />
             <Route path="productWrite" element={<ProductWrite />} />
             <Route path="dibs" element={<Dibs />} />

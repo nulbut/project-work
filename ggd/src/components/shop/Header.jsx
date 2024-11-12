@@ -38,12 +38,12 @@ const Header = ({ lstate, onLogout }) => {
     },
     {
       name: "최신상품",
-      path: "/LatestProduct",
+      path: "/NewProduct",
       sub: 1,
     },
     {
-      name: "신상품",
-      path: "/NewProduct",
+      name: "입점상품",
+      path: "/LatestProduct",
       sub: 1,
     },
     {

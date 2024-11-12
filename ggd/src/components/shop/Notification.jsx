@@ -1,41 +1,77 @@
-import React from "react";
-import TableRow from "./TableRow";
-import TableColumn from "./TableColumn";
-import moment from "moment"; // 날짜 포맷을 위해 moment 사용
+import React, { useCallback, useEffect, useState, useContext } from "react";
+import { AdminPageContextStore } from "../admin/AdminPageStatus";
+import axios from "axios";
+import moment from "moment";
 import Table from "../admin/Table";
+import TableColumn from "../admin/TableColumn";
+import TableRow from "../admin/TableRow";
+import Paging from "../admin/Paging";
+import NotificationView from "./NotificationView";
 
 const df = (date) => moment(date).format("YYYY-MM-DD");
 
-const Notification = ({ aitem = [], getNotice }) => {
-  let list = null;
+const Notification = () => {
+  const pnum = sessionStorage.getItem("pageNum");
+  const [mitem, setMitem] = useState({});
+  const [page, setPage] = useState({
+    totalPage: 0,
+    pageNum: 1,
+  });
 
-  if (aitem.length === 0) {
-    // 공지사항이 없을 경우 메시지 출력
+  const pageSt = useContext(AdminPageContextStore);
+
+  const getNlist = (pnum) => {
+    axios
+      .get("admin/notice", { params: { pageNum: pnum } })
+      .then((res) => {
+        const { nList, totalPage, pageNum } = res.data;
+        console.log(res.data);
+        setPage({ totalPage: totalPage, pageNum: pageNum });
+        setMitem(nList);
+        sessionStorage.setItem("pageNum", pageNum);
+      })
+      .catch((err) => console.log(err));
+  };
+  let list = null;
+  if (mitem.length === 0) {
     list = (
       <TableRow key={0}>
         <TableColumn span={2}>공지사항이 없습니다</TableColumn>
       </TableRow>
     );
   } else {
-    // 공지사항이 있을 경우 목록 렌더링
-    list = aitem.map((item) => (
-      <TableRow key={item.nnum} bg={item.isPinned ? "pinned" : ""}>
-        <TableColumn wd="w-10">
-          <div onClick={() => getNotice(item.nnum)}>{item.ntitle}</div>{" "}
-          {/* 공지사항 제목 클릭 시 상세보기 */}
-        </TableColumn>
-        <TableColumn wd="w-20">{df(item.rdate)}</TableColumn>{" "}
-        {/* 공지사항 날짜 */}
-      </TableRow>
-    ));
+    list = Object.values(mitem).map((item) =>
+      item.isPinned ? (
+        <TableRow key={item.nnum} bg="pinned">
+          <TableColumn wd="w-10">
+            <div onClick={() => getNotice(item.nnum)}>{item.ntitle}</div>
+          </TableColumn>
+          <TableColumn wd="w-20">{df(item.rdate)}</TableColumn>
+        </TableRow>
+      ) : (
+        <TableRow key={item.nnum}>
+          <TableColumn wd="w-10">
+            <div onClick={() => getNotice(item.nnum)}>{item.ntitle}</div>
+          </TableColumn>
+          <TableColumn wd="w-20">{df(item.rdate)}</TableColumn>
+        </TableRow>
+      )
+    );
   }
-  console.log(aitem);
-  console.log(list);
+  console.log(mitem);
+  const getNotice = useCallback((nnum) => {
+    pageSt.setViewPage(<NotificationView nnum={nnum} />);
+  });
+  useEffect(() => {
+    pnum !== null ? getNlist(pnum) : getNlist(1);
+  }, []);
 
   return (
-    <div>
+    <div className="Content">
+      <h1>공지사항</h1>
       <Table hName={["제목", "날짜"]}>{list}</Table>
-      {/* 공지사항 제목과 날짜 출력 */}
+
+      <Paging page={page} getList={getNlist} />
     </div>
   );
 };
