@@ -24,6 +24,13 @@ const BProductStock = () => {
 
   const [bbitem, setBbitem] = useState([]);
 
+  // 검색 필터링된 아이템
+  const [filteredItems, setFilteredItems] = useState([]);
+
+  // 검색 상태 추가
+  const [searchCategory, setSearchCategory] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
+
   const [stockdata, setStockdata] = useState({
     bprobid: id,
     bsellerId: bsellerId,
@@ -55,9 +62,34 @@ const BProductStock = () => {
           newBlist.push({ ...bItem });
         }
         setBbitem(newBlist);
+        // 초기 필터링 상태는 전체 리스트
+        setFilteredItems(newBlist);
         sessionStorage.getItem("pageNum", pageNum);
       })
       .catch((err) => console.log(err));
+  };
+
+  // 검색 핸들러
+  const handleSearch = () => {
+    console.log("검색 기준:", searchCategory);
+    console.log("검색어:", searchTerm);
+
+    if (!searchCategory || !searchTerm) {
+      // 검색 기준이나 검색어가 없을 경우 원래의 리스트를 보여줌
+      setFilteredItems(bbitem);
+      return;
+    }
+
+    const filteredList = bbitem.filter((item) => {
+      if (searchCategory === "상품명") {
+        return item.bpname.includes(searchTerm);
+      } else if (searchCategory === "상품코드") {
+        return item.bpnum.toString().includes(searchTerm);
+      }
+      return false;
+    });
+    console.log("필터링 된 리스트 :", filteredList);
+    setFilteredItems(filteredList);
   };
 
   //BProductStock 컴포넌트가 화면에 보일때 서버로 부터 등록상품 목록을 가져오기
@@ -81,24 +113,24 @@ const BProductStock = () => {
       </TableRow>
     );
   } else {
-    BproductList = Object.values(bbitem).map((bbitem) => (
-      <TableRow key={bbitem.bpnum}>
-        <TableColumn wd={"w-10"}>{bbitem.bpnum}</TableColumn>
+    BproductList = Object.values(filteredItems).map((item) => (
+      <TableRow key={item.bpnum}>
+        <TableColumn wd={"w-10"}>{item.bpnum}</TableColumn>
         <TableColumn wd={"w-30"}>
           <div>
             <img
               className="img"
-              src={"../productupload/" + bbitem.bproductFileSysnameM}
+              src={"../productupload/" + item.bproductFileSysnameM}
             />
-            <div onClick={() => getBboard(bbitem.bpnum)}>{bbitem.bpname}</div>
+            <div onClick={() => getBboard(item.bpnum)}>{item.bpname}</div>
           </div>
         </TableColumn>
-        <TableColumn wd={"w-10"}>{bn(bbitem.bpwarestock)}</TableColumn>
+        <TableColumn wd={"w-10"}>{bn(item.bpwarestock)}</TableColumn>
         <TableColumn wd={"w-10"}>{testnum}</TableColumn>
-        <TableColumn wd={"w-10"}>{bbitem.bfackstock}</TableColumn>
-        <TableColumn wd={"w-10"}>{bbitem.bpwarestocklimt}</TableColumn>
-        <TableColumn wd={"w-10"}>{bbitem.brestock}</TableColumn>
-        <TableColumn wd={"w-10"}>{bbitem.bcondition}</TableColumn>
+        <TableColumn wd={"w-10"}>{item.bfackstock}</TableColumn>
+        <TableColumn wd={"w-10"}>{item.bpwarestocklimt}</TableColumn>
+        <TableColumn wd={"w-10"}>{item.brestock}</TableColumn>
+        <TableColumn wd={"w-10"}>{item.bcondition}</TableColumn>
       </TableRow>
     ));
   }
@@ -114,9 +146,18 @@ const BProductStock = () => {
       </div>
 
       <div className="input-group">
-        <select className="form-control">
-          <option>상품명</option>
-          <option>상품코드</option>
+        <select
+          className="form-control"
+          value={searchCategory}
+          onChange={(e) => setSearchCategory(e.target.value)}
+        >
+          <option value="">전체</option>
+          <option value="상품코드" name="상품코드">
+            상품명
+          </option>
+          <option value="상품명" name="상품명">
+            상품코드
+          </option>
         </select>
         <input
           className="form-control"
@@ -124,8 +165,15 @@ const BProductStock = () => {
           placeholder="Search for..."
           aria-label="Search for..."
           aria-describedby="btnNavbarSearch"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
         />
-        <button className="btn btn-primary" id="btnNavbarSearch" type="button">
+        <button
+          className="btn btn-primary"
+          id="btnNavbarSearch"
+          type="button"
+          onClick={handleSearch}
+        >
           <FontAwesomeIcon icon={faMagnifyingGlass} />
         </button>
         {/* <Button className="button">상품 옵션 관리</Button> */}
