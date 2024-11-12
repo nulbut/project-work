@@ -18,23 +18,23 @@ const BMypageView = (props) => {
 
   const productgo = () => {
     nav("/bmypage/bp1");
-  }
+  };
 
-  const odergo = () =>{
+  const odergo = () => {
     nav("/bmypage/boderhistory");
-  }
+  };
 
   const stockgo = () => {
     nav("/bmypage/bproductstock");
-  }
+  };
 
   const inquirygo = () => {
     nav("/bmypage/binquiry");
-  }
+  };
 
   const notificationgo = () => {
     nav("/Notification");
-  }
+  };
 
   const menuArr = [
     {
@@ -96,23 +96,30 @@ const BMypageView = (props) => {
         </div>
       </div>
       <div className="desc">
-      <div className="oder">
-          <Button>주문완료</Button>
-          <div onClick={odergo} className="count">{}건</div>
+        <div className="oder">
+          <Button className="button">주문완료</Button>
+          <div onClick={odergo} className="count">
+            {}건
+          </div>
         </div>
         <div className="delivery">
-          <Button>배송준비</Button>
-          <div onClick={odergo} className="count">{}건</div>
-          <Button>배송중</Button>
-          <div onClick={odergo} className="count">{}건</div>
+          <Button className="button">배송준비</Button>
+          <div onClick={odergo} className="count">
+            {}건
+          </div>
+          <Button className="button">배송중</Button>
+          <div onClick={odergo} className="count">
+            {}건
+          </div>
         </div>
         <div className="cancellation">
-          <Button>취소요청</Button>
-          <div  onClick={odergo} className="count">{}건</div>
-
+          <Button className="button">취소요청</Button>
+          <div onClick={odergo} className="count">
+            {}건
+          </div>
         </div>
         <div className="revenue">
-          <Button>오늘 매출액</Button>
+          <Button className="button">오늘 매출액</Button>
           <div className="count">{}건</div>
         </div>
         <div className="inquiry">
@@ -120,13 +127,13 @@ const BMypageView = (props) => {
         </div>
         <div className="stockstatus">
           <table>
-            <tr>재고상황</tr>
-            <td>
-              <Button>품절</Button>
+            <tr className="tr">재고상황</tr>
+            <td className="p1">
+              <p>품절</p>
               <div onClick={stockgo}>{}</div>
             </td>
-            <td>
-              <Button>통보수량초과</Button>
+            <td className="p2">
+              <p>통보수량초과</p>
               <div onClick={stockgo}>{}</div>
             </td>
           </table>

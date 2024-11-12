@@ -288,7 +288,7 @@ const BproductWirte = () => {
             required
           ></textarea>
         </div>
-        <div>
+        {/* <div>
           <h4 className="title">옵션사용</h4>
           <hr />
           <p>상품 옵션</p>
@@ -299,7 +299,7 @@ const BproductWirte = () => {
               <img src={toggleoff} onClick={toggleHandler} />
             )}
           </div>
-        </div>
+        </div> */}
         <div>
           <h4 className="title">사양</h4>
           <hr />

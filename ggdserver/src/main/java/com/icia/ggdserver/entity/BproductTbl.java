@@ -60,14 +60,14 @@ public class BproductTbl { // 사업자 상품 테이블
 //    @Column(nullable = false, length = 50)
 //    private String bpdsysname; //상품 상세 이미지
 
-    @Column(length = 1)
-    private int bpoption; //옵션 사용 여부
-
-    @Column(length = 50)
-    private String bpoptionname; //옵션명
-
-    @Column(length = 100)
-    private String bpoptionstock; //옵션 재고 수
+//    @Column(length = 1)
+//    private int bpoption; //옵션 사용 여부
+//
+//    @Column(length = 50)
+//    private String bpoptionname; //옵션명
+//
+//    @Column(length = 100)
+//    private String bpoptionstock; //옵션 재고 수
 
     @Column(length = 50)
     private String bpsize; //사이즈

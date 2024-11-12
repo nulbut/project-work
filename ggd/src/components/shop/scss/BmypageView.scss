@@ -8,6 +8,7 @@
     height: 118px;
     left: 500px;
     top: 231px;
+    border: 1px solid #3d3d3d;
   }
   .delivery {
     /* 배송현황 */
@@ -17,6 +18,7 @@
     height: 118px;
     left: 500px;
     top: 381px;
+    border: 1px solid #3d3d3d;
   }
   .cancellation {
     /* 취소현황 */
@@ -26,6 +28,7 @@
     height: 118px;
     left: 500px;
     top: 531px;
+    border: 1px solid #3d3d3d;
   }
   .revenue {
     /* 정산금액 */
@@ -35,6 +38,7 @@
     height: 118px;
     left: 500px;
     top: 741px;
+    border: 1px solid #3d3d3d;
   }
   .inquiry {
     /* 상품문의사항 */
@@ -57,6 +61,62 @@
     height: 218px;
     left: 1300px;
     top: 231px;
+    border: 1px solid #3d3d3d;
+
+    table {
+      width: 100%; /* 전체 너비로 설정 */
+      border-collapse: collapse; /* 테이블 경계선 겹침 제거 */
+      margin: 1rem 0;
+      background-color: #f9f9f9;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    tr.tr {
+      background-color: #4a90e2; /* 헤더 배경색 */
+      color: #fff;
+      text-align: center; /* 텍스트 중앙 정렬 */
+      font-size: 1.2rem;
+      font-weight: bold;
+      height: 50px; /* 행 높이 설정 */
+    }
+
+    td {
+      padding: 1rem;
+      border: 1px solid #ddd;
+      text-align: center; /* 텍스트 중앙 정렬 */
+    }
+
+    .p1,
+    .p2 {
+      font-size: 1rem;
+      color: #333;
+      position: relative; /* div 요소 위치 조정을 위해 */
+    }
+
+    .p1 p,
+    .p2 p {
+      margin: 0 0 0.5rem;
+    }
+
+    .p1 div,
+    .p2 div {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      background-color: #e74c3c; /* 기본 색상 설정 */
+      border-radius: 50%; /* 원형으로 만듦 */
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .p2 div {
+      background-color: #f39c12; /* 다른 상태의 색상 */
+    }
+
+    .p1 div:hover,
+    .p2 div:hover {
+      background-color: #c0392b; /* 호버 시 색상 */
+    }
   }
   .announcement {
     /* 공지사항 */
@@ -66,5 +126,6 @@
     height: 359px;
     left: 1005.48px;
     top: 500px;
+    border: 1px solid #3d3d3d;
   }
 }
