@@ -29,9 +29,6 @@ public class CartService {
     private CartRepository cRepo;
 
     @Autowired
-    private ShoppingMallService sServ;
-
-    @Autowired
     private ProductTblRepository pdRepo;
 
     @Autowired
@@ -126,7 +123,7 @@ public class CartService {
     }
 
     // 장바구니에 중고 상품 추가
-    public String getUsedCart(String cnid, long usedCode, int usedStock, int quantity) {
+    public String getUsedCart(String cnid, long usedCode, int quantity ,int usedStock) {
         if (quantity > usedStock) {
             return "상품 수량이 부족합니다.";
         }
