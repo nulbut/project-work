@@ -172,7 +172,7 @@ const BproductRegisterd = () => {
       <h2>등록한 상품</h2>
       <hr />
       <div className="input-group">
-      <select className="form-control">
+        <select className="form-control">
           <option>전체분류</option>
           <option>상품코드</option>
           <option>상품명</option>
@@ -213,8 +213,12 @@ const BproductRegisterd = () => {
         <Paging page={page} getList={getBproduct} />
       </div>
       <div className="button-group">
-        <Button wsize="s-10" color="bule"  onClick={bproductwirtego}>상품등록</Button>
-        <Button wsize="s-10" color="red" onClick={checkDelete}>상품삭제</Button>
+        <Button wsize="s-10" color="bule" onClick={bproductwirtego}>
+          상품등록
+        </Button>
+        <Button wsize="s-10" color="red" onClick={checkDelete}>
+          상품삭제
+        </Button>
       </div>
     </div>
   );

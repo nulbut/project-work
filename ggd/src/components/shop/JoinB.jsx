@@ -213,7 +213,7 @@ const JoinB = () => {
             </Button>
           </p>
           <input
-            placeholder="- 포함한 13자리 입력"
+            placeholder="- 포함한 10자리 입력"
             className="input"
             {...register("bcnum", {
               required: {

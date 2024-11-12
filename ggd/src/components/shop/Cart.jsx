@@ -22,6 +22,7 @@ const Cart = () => {
     pageNum: 1,
   });
   const [selectAll, setSelectAll] = useState(false); // 전체 선택 상태 관리
+  console.log(citem);
 
   // 서버로부터 장바구니 가져오는 함수
   const getCartList = (pnum) => {
