@@ -9,6 +9,9 @@
     left: 500px;
     top: 231px;
     border: 1px solid #3d3d3d;
+    .count {
+      margin-top: 0.1rem;
+    }
   }
   .delivery {
     /* 배송현황 */
@@ -18,7 +21,10 @@
     height: 118px;
     left: 500px;
     top: 381px;
-    border: 1px solid #3d3d3d;
+    // border: 1px solid #3d3d3d;
+    .count {
+      border: 1px solid #3d3d3d;
+    }
   }
   .cancellation {
     /* 취소현황 */
@@ -29,6 +35,10 @@
     left: 500px;
     top: 531px;
     border: 1px solid #3d3d3d;
+    margin-top: 2rem;
+    .count {
+      margin-top: 0.1rem;
+    }
   }
   .revenue {
     /* 정산금액 */
@@ -39,6 +49,9 @@
     left: 500px;
     top: 741px;
     border: 1px solid #3d3d3d;
+    .count {
+      margin-top: 0.1rem;
+    }
   }
   .inquiry {
     /* 상품문의사항 */
@@ -70,17 +83,17 @@
     }
 
     tr.tr {
-      background-color: #4a90e2;
-      color: #fff;
+      // background-color: #4a90e2;
+      // color: #fff;
       text-align: center;
       font-size: 1.2rem;
-      font-weight: bold;
+      // font-weight: bold;
       height: 50px;
     }
 
     td {
       padding: 1rem;
-      border: 1px solid #ddd;
+      // border: 1px solid #ddd;
       text-align: center;
     }
 
@@ -107,16 +120,16 @@
     }
 
     .p1 div {
-      background-color: #e74c3c;
+      // background-color: #e74c3c;
     }
 
     .p2 div {
-      background-color: #f39c12;
+      // background-color: #f39c12;
     }
 
     .p1 div:hover,
     .p2 div:hover {
-      background-color: #c0392b;
+      // background-color: #c0392b;
     }
   }
 
