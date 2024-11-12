@@ -8,9 +8,9 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "order_detail_tbl")
+@Table(name = "order_tbl")
 @Data
-public class OrderDetailTbl {
+public class OrderTbl {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long orderId;
@@ -39,17 +39,4 @@ public class OrderDetailTbl {
     @Column
     private String transactionId;
 
-//  -- 상품 내역
-    @Column
-    private String product_where;
-    @Column
-    private long product_code;
-    @Column
-    private String product_name;
-    @Column
-    private int quantity;
-    @Column
-    private int price;
-    @Column
-    private int total_price;//  -- quantity * price
 }

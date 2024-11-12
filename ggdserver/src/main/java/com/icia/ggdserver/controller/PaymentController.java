@@ -1,6 +1,8 @@
 package com.icia.ggdserver.controller;
 
+import com.icia.ggdserver.entity.IwcTbl;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -11,12 +13,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
+import java.util.List;
 
 @RestController
 @Slf4j
@@ -93,4 +97,13 @@ public class PaymentController {
         // 성공 페이지를 반환
         return "success"; // "success"는 보여줄 HTML 파일 이름입니다.
     }
+
+    @PostMapping("saveorder")
+    public String writeProc(@RequestBody IwcTbl iwc,
+                            HttpSession session){
+        log.info("writeProc()");
+
+        return "esult";
+    }
+
 }

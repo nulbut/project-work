@@ -41,7 +41,7 @@ export function WidgetSuccessPage() {
         navigate(`/fail?code=${error.code}&message=${error.message}`);
       });
   }, [searchParams]);
-
+  console.log(searchParams.get("products"));
   return (
     <>
       <div className="box_section" style={{ width: "600px" }}>

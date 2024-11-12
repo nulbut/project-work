@@ -3,8 +3,10 @@ package com.icia.ggdserver.service;
 import com.icia.ggdserver.entity.CartTbl;
 import com.icia.ggdserver.entity.ProductTbl;
 import com.icia.ggdserver.entity.UsedProductTbl;
+import com.icia.ggdserver.entity.UsedproductFileTbl;
 import com.icia.ggdserver.repository.CartRepository;
 import com.icia.ggdserver.repository.ProductTblRepository;
+import com.icia.ggdserver.repository.UsedFileRepository;
 import com.icia.ggdserver.repository.UsedTblRepository;
 import com.icia.ggdserver.service.ShoppingMallService;
 import com.icia.ggdserver.service.UsedShoppingService;
@@ -34,6 +36,9 @@ public class CartService {
     @Autowired
     private UsedTblRepository udRepo;
 
+    @Autowired
+    private UsedFileRepository udfRepo;
+
 
     // 장바구니 리스트 가져오기
     public Map<String, Object> getCartList(Integer pageNum, String cnid) {
@@ -57,7 +62,11 @@ public class CartService {
                 if (cartItem.getUsedCode() != 0L) {
                     UsedProductTbl usedProduct = udRepo.findById(cartItem.getUsedCode()).orElse(null);
                     if (usedProduct != null) {
-                        cartItem.setUsedin(usedProduct); // 중고 상품 데이터 세팅
+                        List<UsedproductFileTbl> usedFile = udfRepo.findByUsedFileNum(usedProduct.getUsedCode());
+                        usedProduct.setUsedproductFileTblList(usedFile);
+                        cartItem.setUsedin(usedProduct);
+
+                        // 중고 상품 데이터 세팅
                     }
                 }
                 // 중고 상품 코드가 없고, 상품 코드가 있을 경우
