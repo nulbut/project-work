@@ -64,7 +64,7 @@ const ProductDetails = () => {
 
   const handlePurchase = () => {
     alert("구매 페이지로 이동합니다.");
-    navigate("/widgetcheckout", { state: { data: productData } });
+    navigate("/widgetcheckout", { state: { data: newProductData } });
   };
 
   const handleAddToCart = () => {
