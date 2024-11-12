@@ -4,7 +4,7 @@ import {
   PaymentWidgetInstance,
 } from "@tosspayments/tosspayments-sdk";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 // TODO: clientKey는 개발자센터의 결제위젯 연동 키 > 클라이언트 키로 바꾸세요.
 // TODO: server.js 의 secretKey 또한 결제위젯 연동 키가 아닌 API 개별 연동 키의 시크릿 키로 변경해야 합니다.
@@ -16,10 +16,12 @@ const sampeid = generateRandomString();
 console.log(sampeid);
 export function WidgetCheckoutPage() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const productData = location.state?.data;
 
   const [amount, setAmount] = useState({
     currency: "KRW",
-    value: 30000,
+    value: productData.usedSeller,
   });
   const [ready, setReady] = useState(false);
   const [widgets, setWidgets] = useState(null);

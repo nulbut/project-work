@@ -93,7 +93,7 @@ const ProductDetails = () => {
 
   const handlePurchase = () => {
     alert("구매 페이지로 이동합니다.");
-    navigate("/widgetcheckout", { state: { usedCode } });
+    navigate("/widgetcheckout", { state: { data: productData } });
   };
 
   const handleAddToCart = () => {
@@ -174,7 +174,8 @@ const ProductDetails = () => {
               </p>
               <strong>종류 : </strong> {usedcategoryCode}
               <p>
-                <strong>가격 : </strong> ₩{usedSeller}
+                <strong>가격 : </strong>
+                {usedSeller} <strong>원</strong>
               </p>
               <p>
                 <strong>제품 상세 설명 :</strong> {usedDetail}
