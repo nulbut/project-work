@@ -5,6 +5,7 @@ import NoticeList from "./NoticeList";
 import { AdminPageContextStore } from "./AdminPageStatus";
 import Button from "../idealcup/Button";
 import Nupdate from "./Nupdate";
+import "./scss/Admin.scss";
 
 const df = (date) => moment(date).format("YYYY-MM-DD");
 
@@ -70,7 +71,7 @@ const NotieView = ({ nnum }) => {
 
   const updateBoard = () => {
     console.log("nupdate viewchange");
-    pageSt.setViewPage(<Nupdate nnum={nnum}/>);
+    pageSt.setViewPage(<Nupdate nnum={nnum} />);
   };
 
   const viewFlist = filst.map((v, i) => {
@@ -89,25 +90,28 @@ const NotieView = ({ nnum }) => {
   });
 
   return (
-    <div className="Main">
+    <div className="Main_a">
       <div className="Content">
-        <div className="Title">
-          {notice.ntitle} {df(notice.rdate)}
+        <div className="Content-1">
+          <div className="Title">
+            {notice.ntitle} {df(notice.rdate)}
+          </div>
+          {/* <div className="Data">{df(notice.rdate)}</div> */}
+          {/* <div className="DataArea"> */}
+          <div className="Cont">{notice.ncontent}</div>
         </div>
-        {/* <div className="Data">{df(notice.rdate)}</div> */}
-        {/* <div className="DataArea"> */}
-        <div className="Cont">{notice.ncontent}</div>
-        <div className="FileData">{viewFlist}</div>
+
+        <div className="FileData-1">{viewFlist}</div>
         {/* </div> */}
 
         <div className="Buttons">
-          <Button wsize="s-10" color="black" onClick={viewChange}>
+          <Button wsize="s-30" color="black" onClick={viewChange}>
             뒤로가기
           </Button>
-          <Button wsize="s-10" onClick={updateBoard}>
+          <Button wsize="s-30" onClick={updateBoard}>
             수정
           </Button>
-          <Button wsize="s-10" color="red" onClick={deleteNotice}>
+          <Button wsize="s-30" color="red" onClick={deleteNotice}>
             삭제
           </Button>
         </div>

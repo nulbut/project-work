@@ -3,6 +3,7 @@ package com.icia.ggdserver.service;
 import com.icia.ggdserver.entity.UproductReviewTbl;
 import com.icia.ggdserver.entity.UsedProductTbl;
 import com.icia.ggdserver.entity.UsedproductFileTbl;
+import com.icia.ggdserver.repository.UproductReviewTblRepository;
 import com.icia.ggdserver.repository.UsedFileRepository;
 import com.icia.ggdserver.repository.UsedTblRepository;
 import jakarta.servlet.http.HttpSession;
@@ -30,6 +31,9 @@ public class UsedShoppingService {
 
     @Autowired
     private UsedFileRepository usfRepo; // 중고 상품 이미지 레포지터리
+
+    @Autowired
+    private UproductReviewTblRepository urRepo;
 
 
 
@@ -224,6 +228,19 @@ public class UsedShoppingService {
             return res;
         }
 
-//    public String insertupreview(UproductReviewTbl upreview) {
-//    }
+    public String insertupreview(UproductReviewTbl upreview) {
+        log.info("insertupreview()");
+        String result = null;
+
+        try{
+            upreview.setUPreivew("작성완료");
+            urRepo.save(upreview);
+
+            result = "ok";
+        } catch (Exception e) {
+            e.printStackTrace();
+            result = "fail";
+        }
+        return result;
+    }
 }

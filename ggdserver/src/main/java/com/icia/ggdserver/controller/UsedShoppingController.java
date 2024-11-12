@@ -73,10 +73,10 @@ public class UsedShoppingController {
         return uptServ.usedDelete(usedCode, session);
     }
 
-//    @PostMapping("uproduct")
-//    public String UproductReview(@RequestBody UproductReviewTbl upreview){
-//        log.info("UproductReview()");
-//        String result = uptServ.insertupreview(upreview);
-//        return result;
-//    }
+    @PostMapping("uproduct")
+    public String UproductReview(@RequestBody UproductReviewTbl upreview){
+        log.info("UproductReview()");
+        String result = uptServ.insertupreview(upreview);
+        return result;
+    }
 }

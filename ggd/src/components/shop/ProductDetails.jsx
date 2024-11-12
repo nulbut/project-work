@@ -4,6 +4,7 @@ import axios from "axios";
 import moment from "moment";
 import "./scss/ProductDetails.scss";
 import UproductReview from "./UproductReview";
+import UrevList from "./UrevList";
 
 const ProductDetails = () => {
   const location = useLocation();
@@ -25,6 +26,7 @@ const ProductDetails = () => {
   console.log("productCode:", productCode);
 
   const nid = sessionStorage.getItem("nid");
+  const reviewCode = productCode !== null ? productCode : usedCode;
 
   // 페이지 데이터 가져오기
   useEffect(() => {
@@ -196,10 +198,10 @@ const ProductDetails = () => {
           </div>
           {nid !== null ? (
             <div className="Reviews">
-              <div className="ReviewList"></div>
+              <div className="ReviewList"><UrevList/></div>
               <div className="ReviewWirte">
                 <UproductReview
-                  productCode={productCode}
+                  reviewCode={reviewCode}
                   nid={nid}
                   uProduct={uProduct}
                 />

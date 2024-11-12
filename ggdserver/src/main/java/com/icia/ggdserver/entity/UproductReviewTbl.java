@@ -31,4 +31,5 @@ public class UproductReviewTbl {
     @CreationTimestamp
     @Column
     private Timestamp uRdate; // 작성 날짜
+
 }

@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Button from "../idealcup/Button";
 import NoticeList from "./NoticeList";
 import { AdminPageContextStore } from "./AdminPageStatus";
+import "./scss/Admin.scss";
 
 const Nupdate = ({ nnum }) => {
   const pageSt = useContext(AdminPageContextStore);
@@ -133,7 +134,7 @@ const Nupdate = ({ nnum }) => {
   };
 
   return (
-    <div className="Main">
+    <div className="Main_a">
       <form className="Content" onSubmit={onWrite}>
         <h1>공지사항</h1>
         <input
