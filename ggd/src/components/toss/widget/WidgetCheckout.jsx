@@ -1,6 +1,10 @@
-import { loadTossPayments, ANONYMOUS, PaymentWidgetInstance } from "@tosspayments/tosspayments-sdk";
+import {
+  loadTossPayments,
+  ANONYMOUS,
+  PaymentWidgetInstance,
+} from "@tosspayments/tosspayments-sdk";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 // TODO: clientKey는 개발자센터의 결제위젯 연동 키 > 클라이언트 키로 바꾸세요.
 // TODO: server.js 의 secretKey 또한 결제위젯 연동 키가 아닌 API 개별 연동 키의 시크릿 키로 변경해야 합니다.
@@ -8,13 +12,16 @@ import { useNavigate } from "react-router-dom";
 // @docs https://docs.tosspayments.com/sdk/v2/js#토스페이먼츠-초기화
 const clientKey = "test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm";
 const customerKey = generateRandomString();
-
+const sampeid = generateRandomString();
+console.log(sampeid);
 export function WidgetCheckoutPage() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const productData = location.state?.data;
 
   const [amount, setAmount] = useState({
     currency: "KRW",
-    value: 30000 ,
+    value: productData.usedSeller,
   });
   const [ready, setReady] = useState(false);
   const [widgets, setWidgets] = useState(null);
@@ -50,12 +57,12 @@ export function WidgetCheckoutPage() {
       // ------  주문서의 결제 금액 설정 ------
       // TODO: 위젯의 결제금액을 결제하려는 금액으로 초기화하세요.
       // TODO: renderPaymentMethods, renderAgreement, requestPayment 보다 반드시 선행되어야 합니다.
-      // @docs https://docs.tosspayments.com/sdk/v2/js#widgetssetamount 
+      // @docs https://docs.tosspayments.com/sdk/v2/js#widgetssetamount
       await widgets.setAmount(amount);
 
       await Promise.all([
         // ------  결제 UI 렌더링 ------
-        // @docs https://docs.tosspayments.com/sdk/v2/js#widgetsrenderpaymentmethods 
+        // @docs https://docs.tosspayments.com/sdk/v2/js#widgetsrenderpaymentmethods
         widgets.renderPaymentMethods({
           selector: "#payment-method",
           // 렌더링하고 싶은 결제 UI의 variantKey
@@ -87,7 +94,10 @@ export function WidgetCheckoutPage() {
         {/* 쿠폰 체크박스 */}
         <div style={{ paddingLeft: "30px" }}>
           <div className="checkable typography--p">
-            <label htmlFor="coupon-box" className="checkable__label typography--regular">
+            <label
+              htmlFor="coupon-box"
+              className="checkable__label typography--regular"
+            >
               <input
                 id="coupon-box"
                 className="checkable__input"
@@ -129,7 +139,7 @@ export function WidgetCheckoutPage() {
               // 결제를 요청하기 전에 orderId, amount를 서버에 저장하세요.
               // 결제 과정에서 악의적으로 결제 금액이 바뀌는 것을 확인하는 용도입니다.
               await widgets.requestPayment({
-                orderId:  generateRandomString(), // 고유 주문 번호
+                orderId: sampeid, // 고유 주문 번호
                 orderName: "토스 티셔츠 외 2건",
                 successUrl: window.location.origin + "/widsuccess", // 결제 요청이 성공하면 리다이렉트되는 URL
                 failUrl: window.location.origin + "/fail", // 결제 요청이 실패하면 리다이렉트되는 URL

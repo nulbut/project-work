@@ -1,5 +1,6 @@
 package com.icia.ggdserver.service;
 
+import com.icia.ggdserver.entity.ProductTbl;
 import com.icia.ggdserver.entity.UproductReviewTbl;
 import com.icia.ggdserver.entity.UsedProductTbl;
 import com.icia.ggdserver.entity.UsedproductFileTbl;
@@ -21,6 +22,8 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 
 @Service
@@ -187,6 +190,7 @@ public class UsedShoppingService {
 
         List<UsedProductTbl> uList = result.getContent();
 
+
         int totalPage = result.getTotalPages();
 
         Map<String, Object> res = new HashMap<>();
@@ -218,6 +222,10 @@ public class UsedShoppingService {
         //page 객체를 list로 변환 후 전송
         List<UsedProductTbl> uList = result.getContent();//page에서 게시글 목록 꺼내오기
         //uList에 저장
+        for(UsedProductTbl upt : uList) {
+            log.info("돌아가는ㄴ중");
+            upt.setUsedproductFileTblList(usfRepo.findByUsedFileNum(upt.getUsedCode()));
+        }
         int totalPage = result.getTotalPages();// 전체 페이지
 
             Map<String, Object> res = new HashMap<>();
@@ -242,5 +250,14 @@ public class UsedShoppingService {
             result = "fail";
         }
         return result;
+    }
+}
+        }
+
+    // 모든 상품 목록을 가져오는 메소드
+    public List<UsedProductTbl> getAllUsedProducts() {
+        // pdtRepo.findAll()은 Iterable<ProductTbl>을 반환하므로, 이를 List로 변환
+        return StreamSupport.stream(ustRepo.findAll().spliterator(), false)
+                .collect(Collectors.toList());  // Stream을 List로 변환
     }
 }

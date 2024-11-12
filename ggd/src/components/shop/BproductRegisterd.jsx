@@ -28,6 +28,16 @@ const BproductRegisterd = () => {
 
   console.log(id);
 
+  //들어온 데이터 넣음
+  const [itemList, setItemList] = useState([]);
+  const [sort] = useState();
+
+  //검색할때 쓰일것 같음
+  const [searchItem, setSearchItem] = useState("");
+
+  //select 옵션 선택
+  const [filter, setFilter] = useState("");
+
   const [bbitem, setBbitem] = useState([]);
 
   const [page, setPage] = useState({
@@ -172,12 +182,13 @@ const BproductRegisterd = () => {
       <h2>등록한 상품</h2>
       <hr />
       <div className="input-group">
-      <select className="form-control">
+        <select className="form-control">
           <option>전체분류</option>
           <option>상품코드</option>
           <option>상품명</option>
           <option>가격</option>
         </select>
+
         <input
           className="form-control"
           type="text"
@@ -185,7 +196,7 @@ const BproductRegisterd = () => {
           aria-label="Search for..."
           aria-describedby="btnNavbarSearch"
         />
-        <button className="btn btn-primary" id="btnNavbarSearch" type="button">
+        <button className="btn btn-primary" id="btnNavbarSearch" type="submit">
           <FontAwesomeIcon icon={faMagnifyingGlass} />
         </button>
       </div>
@@ -213,8 +224,12 @@ const BproductRegisterd = () => {
         <Paging page={page} getList={getBproduct} />
       </div>
       <div className="button-group">
-        <Button wsize="s-10" color="bule"  onClick={bproductwirtego}>상품등록</Button>
-        <Button wsize="s-10" color="red" onClick={checkDelete}>상품삭제</Button>
+        <Button wsize="s-10" color="bule" onClick={bproductwirtego}>
+          상품등록
+        </Button>
+        <Button wsize="s-10" color="red" onClick={checkDelete}>
+          상품삭제
+        </Button>
       </div>
     </div>
   );

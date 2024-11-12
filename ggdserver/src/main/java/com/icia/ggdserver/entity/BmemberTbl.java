@@ -2,6 +2,7 @@ package com.icia.ggdserver.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
@@ -14,8 +15,9 @@ public class BmemberTbl { //사업자 회원 테이블
     @Column(name = "b_id")
     private String bid; //아이디 (PK)
 
-    @Column(name = "m_num", nullable = false, length = 1)
-    private int bmnum; // 회원 구분 번호 (사업자 = 2)
+    @Column
+    @ColumnDefault("'사용중'")
+    private String bsituation = "사용중"; // 사업자 회원 상태 ( 기본값 : "사용중" , 탈퇴시 "탈퇴" 로그인 안됨)
 
     @Column(name = "b_cname",nullable = false, unique = true, length = 50)
     private String bcname; //상호
@@ -53,7 +55,7 @@ public class BmemberTbl { //사업자 회원 테이블
     @Column(name = "b_banknum", nullable = false, length = 50)
     private String bbanknum; //은행코드
 
-    @Column(name = "b_baccunt", nullable = false, length = 14)
+    @Column(name = "b_baccunt", nullable = false, length = 17)
     private String bbaccunt; //계좌번호
 
     @Column(name = "b_pw",nullable = false, length = 100)

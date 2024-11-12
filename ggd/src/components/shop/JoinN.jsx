@@ -412,9 +412,7 @@ const JoinN = (props) => {
           </p>
         </div>
         <div className="join-address">
-          <AddressInput 
-          className="join-input"
-          setAddr={setAddr} />
+          <AddressInput className="join-input" setAddr={setAddr} />
           {/* <span className="error">{errors?.naddress?.message}</span> */}
         </div>
 

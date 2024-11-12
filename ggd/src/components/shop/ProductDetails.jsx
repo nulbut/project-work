@@ -13,11 +13,8 @@ const ProductDetails = () => {
   const [loading, setLoading] = useState(true); // 로딩 상태를 관리
   const [error, setError] = useState(null); // 에러 상태를 관리
 
-  // location.state에서 productCode와 usedCode를 받아옵니다.
-  const { code, productCode: productCodeFromState } = location.state || {}; // state에서 코드 값을 가져오고, 없으면 빈 객체로 초기화
-
-  const usedCode = code || null; // `usedCode`가 존재하지 않으면 `null`
-  const productCode = productCodeFromState || null; // `productCode`가 존재하지 않으면 `null`
+  // location.state에서 전달된 값들
+  const { code } = location.state || {}; // type은 더 이상 사용하지 않음
   const uProduct = productCode !== null ? "신상품" : "중고 상품";
 
   // 디버깅을 위한 콘솔 출력
@@ -27,6 +24,8 @@ const ProductDetails = () => {
 
   const nid = sessionStorage.getItem("nid");
   const reviewCode = productCode !== null ? productCode : usedCode;
+  // 신상품 코드
+  const productCode = code;
 
   // 페이지 데이터 가져오기
   useEffect(() => {
@@ -210,6 +209,63 @@ const ProductDetails = () => {
           ) : (
             <></>
           )}
+        </div>
+      </div>
+
+      {/* 탭 관련 내용 */}
+      <div className="product-detail-tabs">
+        <div className="tab-header">
+          <div
+            className={`tab-item ${activeTab === "content" ? "active" : ""}`}
+            onClick={() => handleTabClick("content")}
+          >
+            내용
+          </div>
+          <div
+            className={`tab-item ${activeTab === "reviews" ? "active" : ""}`}
+            onClick={() => handleTabClick("reviews")}
+          >
+            후기
+          </div>
+          <div
+            className={`tab-item ${activeTab === "questions" ? "active" : ""}`}
+            onClick={() => handleTabClick("questions")}
+          >
+            문의사항
+          </div>
+          <div
+            className={`tab-item ${
+              activeTab === "specifications" ? "active" : ""
+            }`}
+            onClick={() => handleTabClick("specifications")}
+          >
+            제품규격
+          </div>
+        </div>
+
+        <div className="tab-content">
+          <div
+            className={`tab-pane ${activeTab === "content" ? "active" : ""}`}
+          >
+            <p>{newProductData?.productDetail}</p>
+          </div>
+          <div
+            className={`tab-pane ${activeTab === "reviews" ? "active" : ""}`}
+          >
+            <p>후기 내용이 여기 들어갑니다.</p>
+          </div>
+          <div
+            className={`tab-pane ${activeTab === "questions" ? "active" : ""}`}
+          >
+            <p>문의사항 내용이 여기 들어갑니다.</p>
+          </div>
+          <div
+            className={`tab-pane ${
+              activeTab === "specifications" ? "active" : ""
+            }`}
+          >
+            <p>제품 규격 내용이 여기 들어갑니다.</p>
+          </div>
         </div>
       </div>
     </div>

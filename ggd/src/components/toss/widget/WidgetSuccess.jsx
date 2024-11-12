@@ -5,7 +5,7 @@ export function WidgetSuccessPage() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [responseData, setResponseData] = useState(null);
-
+  console.log(responseData);
   useEffect(() => {
     async function confirm() {
       const requestData = {
@@ -14,7 +14,8 @@ export function WidgetSuccessPage() {
         paymentKey: searchParams.get("paymentKey"),
       };
 
-      const response = await fetch("/widsuccess", {//api/confirm/widget
+      const response = await fetch("/confirm", {
+        //api/confirm/widget
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -36,6 +37,7 @@ export function WidgetSuccessPage() {
         setResponseData(data);
       })
       .catch((error) => {
+        console.log(error);
         navigate(`/fail?code=${error.code}&message=${error.message}`);
       });
   }, [searchParams]);
@@ -43,7 +45,10 @@ export function WidgetSuccessPage() {
   return (
     <>
       <div className="box_section" style={{ width: "600px" }}>
-        <img width="100px" src="https://static.toss.im/illusts/check-blue-spot-ending-frame.png" />
+        <img
+          width="100px"
+          src="https://static.toss.im/illusts/check-blue-spot-ending-frame.png"
+        />
         <h2>결제를 완료했어요</h2>
         <div className="p-grid typography--p" style={{ marginTop: "50px" }}>
           <div className="p-grid-col text--left">
@@ -65,7 +70,11 @@ export function WidgetSuccessPage() {
           <div className="p-grid-col text--left">
             <b>paymentKey</b>
           </div>
-          <div className="p-grid-col text--right" id="paymentKey" style={{ whiteSpace: "initial", width: "250px" }}>
+          <div
+            className="p-grid-col text--right"
+            id="paymentKey"
+            style={{ whiteSpace: "initial", width: "250px" }}
+          >
             {`${searchParams.get("paymentKey")}`}
           </div>
         </div>
@@ -74,13 +83,19 @@ export function WidgetSuccessPage() {
             <button className="button p-grid-col5">연동 문서</button>
           </Link>
           <Link to="https://discord.gg/A4fRFXQhRu">
-            <button className="button p-grid-col5" style={{ backgroundColor: "#e8f3ff", color: "#1b64da" }}>
+            <button
+              className="button p-grid-col5"
+              style={{ backgroundColor: "#e8f3ff", color: "#1b64da" }}
+            >
               실시간 문의
             </button>
           </Link>
         </div>
       </div>
-      <div className="box_section" style={{ width: "600px", textAlign: "left" }}>
+      <div
+        className="box_section"
+        style={{ width: "600px", textAlign: "left" }}
+      >
         <b>Response Data :</b>
         <div id="response" style={{ whiteSpace: "initial" }}>
           {responseData && <pre>{JSON.stringify(responseData, null, 4)}</pre>}
@@ -89,10 +104,6 @@ export function WidgetSuccessPage() {
     </>
   );
 }
-
-
-
-
 
 // import { useEffect, useState } from "react";
 // import { Link, useNavigate, useSearchParams } from "react-router-dom";
@@ -151,7 +162,7 @@ export function WidgetSuccessPage() {
 //         </div>
 //         <div className="p-grid typography--p" style={{ marginTop: "10px" }}>
 //           <div className="p-grid-col text--left">
-//             <b>주문번호</b> 
+//             <b>주문번호</b>
 //           </div>
 //           <div className="p-grid-col text--right" id="orderId">
 //             {`${searchParams.get("orderId")}`}

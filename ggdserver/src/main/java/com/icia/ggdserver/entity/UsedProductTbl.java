@@ -42,6 +42,9 @@ public class UsedProductTbl {
     private String usedDetail; //중고 상품 설명
 
     @Transient
+    private UsedproductFileTbl thumbnail;
+
+    @Transient
     private List<UsedproductFileTbl> UsedproductFileTblList; // 첨부파일
 
 

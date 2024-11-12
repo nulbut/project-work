@@ -3,6 +3,7 @@ import React, { useRef } from "react";
 import { useForm } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router-dom";
 import Button from "./Button";
+import "./scss/ChangePass.scss";
 
 const ChangePass = () => {
   //비밀번호 변경

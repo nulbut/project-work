@@ -38,6 +38,7 @@ const Login = ({ sucLogin }) => {
       .then(
         axios.spread((res1, res2) => {
           console.log(res1, res2);
+
           if (res1.data.res1 == "ok") {
             //일반회원 아이디, 패스워드 일치
             sucLogin(res1.data.nid, res1.data.nnickname, "n");
@@ -57,24 +58,21 @@ const Login = ({ sucLogin }) => {
               sessionStorage.setItem("nnickname", res2.data.bcname);
               console.log(sessionStorage);
               navigate("/shoppingmall");
+              if (res2.data.res2 == "fail10") {
+                alert(res2.data.msg);
+              } else if (res2.data.res == "fail4"){
+                alert(res2.data.msg);
+              } 
             } else {
               // 사업자 회원 패스워드 불일치
               alert(res2.data.msg);
             }
-          } else if (res1.data.res1 == "fail1") {
-            // 일반회원 패스워드 불일치
+          } else if (res1.data.res1 == "fail9") {
+            // 일반회원 사용중 아님 
             alert(res1.data.msg);
           }
-          // else if (res2.data.res2 == "ok") {
-          //   sucLogin(res2.data.bid);
-          //   sessionStorage.setItem("bid", res2.data.bid);
-          //   sessionStorage.setItem("bcname", res2.data.bcname);
-          //   navigate("/shoppingmall");
-          // }
-          else if (res2.data.res2 == "fail") {
+          else if (res1.data.res1 == "fail") {
             alert(res1.data.msg);
-          } else if (res1.data.res1 == "fail") {
-            alert(res2.data.msg);
           }
         })
       )
@@ -90,7 +88,7 @@ const Login = ({ sucLogin }) => {
 
   const naverlogin = () => {
     naverlogin("/naverlogin");
-  }
+  };
 
   return (
     <div className="login">
@@ -138,11 +136,11 @@ const Login = ({ sucLogin }) => {
         </div>
         <div className="loginlogo">
           {/*위치 표시용*/}
-          <img className="naver"  src={naverlogo} onClick={naverlogin} />
+          <img className="naver" src={naverlogo} onClick={naverlogin} />
           <br />
-          <img className="kakao"  src={kakaologo} />
+          <img className="kakao" src={kakaologo} />
           <br />
-          <img className="goggle"  src={gogglelogo} />
+          <img className="goggle" src={gogglelogo} />
         </div>
       </form>
     </div>

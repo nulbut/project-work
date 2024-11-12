@@ -107,33 +107,28 @@ const BProductStock = () => {
   };
 
   return (
-    <div className="bproductstock" style={{ width: "90%" }} >
+    <div className="bproductstock" style={{ width: "90%" }}>
       <div className="Title">
         <h2>상품 재고관리</h2>
         <hr />
       </div>
-      
-        
-        <div className="input-group">
+
+      <div className="input-group">
         <select className="form-control">
           <option>상품명</option>
           <option>상품코드</option>
         </select>
-          <input
-            className="form-control"
-            type="text"
-            placeholder="Search for..."
-            aria-label="Search for..."
-            aria-describedby="btnNavbarSearch"
-          />
-          <button
-            className="btn btn-primary"
-            id="btnNavbarSearch"
-            type="button"
-          >
-            <FontAwesomeIcon icon={faMagnifyingGlass} />
-          </button>
-        <Button className="button">상품 옵션 관리</Button>
+        <input
+          className="form-control"
+          type="text"
+          placeholder="Search for..."
+          aria-label="Search for..."
+          aria-describedby="btnNavbarSearch"
+        />
+        <button className="btn btn-primary" id="btnNavbarSearch" type="button">
+          <FontAwesomeIcon icon={faMagnifyingGlass} />
+        </button>
+        {/* <Button className="button">상품 옵션 관리</Button> */}
       </div>
       <div className="Table">
         <BproductStockTable

@@ -30,6 +30,9 @@ public class CartTbl {
     @Column(nullable = false)
     private int productStock; // 해당 상품의 재고 수량
 
+    @Column(nullable = false)
+    private int usedStock;
+
     @CreationTimestamp
     @Column
     private Timestamp cartData;//문의 게시글 등록일

@@ -6,7 +6,6 @@ import logo from "../images/logo.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import inquiryicon from "../images/inquiryicon.png";
 
-
 const BMypage = (props) => {
   // console.log(props.onLogout);
   //...님에 상호 불러오게 하기
@@ -58,7 +57,7 @@ const BMypage = (props) => {
           </p>
         </div>
         <div className="border-ber">
-          {bcname}님<div>등급:</div>
+          {bcname}님
           {menuArr.map((butn, idx) => {
             return (
               <Link className="sideber-menu" to={butn.path} key={idx}>
@@ -75,7 +74,7 @@ const BMypage = (props) => {
           </div>
         </div>
       </div>
-      <div className="desc">
+      <div className="desc-bmypage">
         <Outlet />
       </div>
     </div>

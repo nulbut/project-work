@@ -3,9 +3,11 @@ package com.icia.ggdserver.service;
 import com.icia.ggdserver.entity.BoardFileTbl;
 import com.icia.ggdserver.entity.BoardTbl;
 import com.icia.ggdserver.entity.ProductTbl;
+import com.icia.ggdserver.entity.UsedProductTbl;
 import com.icia.ggdserver.repository.BoardFileRepository;
 import com.icia.ggdserver.repository.BoardRepository;
 import com.icia.ggdserver.repository.ProductTblRepository;
+import com.icia.ggdserver.repository.UsedTblRepository;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,26 +38,31 @@ public class BoardService {
     @Autowired
     private ProductTblRepository pRepo;
 
+    @Autowired
+    private UsedTblRepository upRepo;
+
     public Map<String, Object> getBoardList(Integer pageNum, String bnid) {
-        log.info("getBoardList() bnid : {}", bnid);
+        log.info("getBoardList() bnid : {}, ", bnid);
 
         if (pageNum == null) {
             pageNum = 1;
         }
 
-        //페이지 당 보여질 문의게시글 개수
+        // 페이지 당 보여질 문의게시글 개수
         int listCnt = 10;
 
-        //페이징 조건 처리 객체 생성(Pageable)
-        Pageable pb = PageRequest.of((pageNum - 1), listCnt,
-                Sort.Direction.DESC,"BoardCode");
-        //PageRequest.of(페이지번호, 페이지당 문의게시글 개수, 정렬방식, 컬럼명)
+        // 페이징 조건 처리 객체 생성(Pageable)
+        Pageable pb = PageRequest.of((pageNum - 1), listCnt, Sort.Direction.DESC, "BoardCode");
+        // PageRequest.of(페이지번호, 페이지당 문의게시글 개수, 정렬방식, 컬럼명)
 
-        Page<BoardTbl> result = bRepo.findByBoardCodeGreaterThanAndBnid(0L, bnid, pb);
-        //page 객체를 list 로 변환 후 전송.
-        List<BoardTbl> Blist = result.getContent();//page에서 문의게시글을 꺼내서
-                                                       //boardList에 저장
-        int totalPage = result.getTotalPages();// 전체 페이지 개수
+        // Updated query call with productCode and usedCode parameters
+        Page<BoardTbl> result = bRepo.findByBoardCodeGreaterThanAndBnid(
+                0L, bnid, pb);
+
+        // 페이지 객체를 list로 변환 후 전송.
+        List<BoardTbl> Blist = result.getContent(); // page에서 문의게시글을 꺼내서 boardList에 저장
+
+        int totalPage = result.getTotalPages(); // 전체 페이지 개수
 
         Map<String, Object> res = new HashMap<>();
         res.put("Blist", Blist);
@@ -66,31 +73,34 @@ public class BoardService {
         return res;
     }
 
-    //문의 게시글 저장하는 메소드
-    public String insertinquiry(BoardTbl board,
-                                List<MultipartFile> files,
-                                HttpSession session) {
-        log.info("insertinquiry()");
 
-        String result = null; // React 쪽으로 보내는 처리 결과 메시지
+    //문의 게시글 저장하는 메소드
+    public String insertinquiry(BoardTbl board, List<MultipartFile> files, HttpSession session) {
+        log.info("insertInquiry()");
 
         try {
-            // productCode를 통해 productName을 설정
+            // 상품 정보 설정
             if (board.getProductCode() != 0) {
-                // productCode로 ProductTbl에서 상품 이름 조회
                 ProductTbl product = pRepo.findByProductCode(board.getProductCode());
                 if (product != null) {
-                    // 상품이 존재하면 productName을 설정
                     board.setProductName(product.getProductName());
                 } else {
-                    // 상품을 찾지 못한 경우 처리
                     board.setProductName("상품 정보 없음");
-                    log.warn("No product found for productCode: {}", board.getProductCode());
                 }
             } else {
-                // productCode가 0인 경우 처리
                 board.setProductName("상품 정보 없음");
-                log.warn("Product code is 0, setting productName to '상품 정보 없음'");
+            }
+
+            // 중고 상품 정보 설정
+            if (board.getUsedCode() != 0) {
+                UsedProductTbl usedProduct = upRepo.findByUsedCode(board.getUsedCode());
+                if (usedProduct != null) {
+                    board.setUsedName(usedProduct.getUsedName());
+                } else {
+                    board.setUsedName("중고 상품 정보 없음");
+                }
+            } else {
+                board.setUsedName("중고 상품 정보 없음");
             }
 
             // 게시글 저장
@@ -102,13 +112,12 @@ public class BoardService {
                 fileUpload(files, session, board.getBoardCode());
             }
 
-            result = "ok";
+            return "ok";
+
         } catch (Exception e) {
             e.printStackTrace();
-            result = "fail";
+            return "fail";
         }
-
-        return result;
     }
 
     private void fileUpload(List<MultipartFile> files,
@@ -186,7 +195,25 @@ public class BoardService {
         return board;
     }
 
+    // 상품 이름 조회
+    public String getProductName(long productCode) {
+        ProductTbl product = pRepo.findByProductCode(productCode);
+        if (product != null) {
+            return product.getProductName();
+        } else {
+            return "상품 정보 없음";  // 상품이 존재하지 않을 경우
+        }
+    }
 
+    // 중고 상품 이름 조회
+    public String getUsedProductName(long usedCode) {
+        UsedProductTbl usedProduct = upRepo.findByUsedCode(usedCode);
+        if (usedProduct != null) {
+            return usedProduct.getUsedName();
+        } else {
+            return "중고 상품 정보 없음";  // 중고 상품이 존재하지 않을 경우
+        }
+    }
 
     @Transactional
     public Map<String, String> deleteBoard(long boardCode,

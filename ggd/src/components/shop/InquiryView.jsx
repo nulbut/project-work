@@ -4,16 +4,19 @@ import axios from "axios";
 import Button from "./Button";
 import moment from "moment";
 
-// 날짜 포맷 함수
-const bf = (date) => moment(date).format("YYYY-MM-DD");
-
 const InquiryView = () => {
   const nav = useNavigate();
 
   // 게시글 번호 받기
   const { state } = useLocation();
   const { bc } = state; // 게시글 번호를 꺼냈다.
+  // sessionStorage에서 productCode, usedCode 가져오기
+  const productCode = sessionStorage.getItem("productCode");
+  console.log(productCode);
+  const usedCode = sessionStorage.getItem("usedCode");
+  console.log(usedCode);
   const nid = sessionStorage.getItem("nid");
+  console.log(nid);
   const [inquiry, setInquiry] = useState({}); // 게시글 데이터
   console.log(inquiry);
   const [flist, setFlist] = useState([
@@ -27,18 +30,20 @@ const InquiryView = () => {
     },
   ]);
 
+  // 상품과 중고 상품 이름을 위한 상태
+  const [productName, setProductName] = useState(""); // 상품명
+  console.log(productName);
+  const [usedName, setUsedName] = useState(""); // 중고 상품명
+  console.log(usedName);
+
   // 서버로부터 문의 게시글 내용을 받아오기
   useEffect(() => {
     axios
       .get("/getinquiry", { params: { boardCode: bc } })
       .then((res) => {
         setInquiry(res.data); // inquiry 데이터 설정
-        console.log(res.data);
 
         const bfList = res.data.boardFileTblList; // 파일 목록 처리
-        console.log(bfList);
-
-        // 파일 목록 처리
         if (bfList.length > 0) {
           let newFileList = [];
           for (let i = 0; i < bfList.length; i++) {
@@ -49,6 +54,28 @@ const InquiryView = () => {
             newFileList.push(newFile);
           }
           setFlist(newFileList); // 파일 목록 상태 설정
+        }
+
+        // productCode와 usedCode를 사용해 상품 이름 및 중고 상품 이름 가져오기
+        const { selectedProduct, selectedUsedProduct } = res.data;
+        if (selectedProduct) {
+          axios
+            .get(`/getProductName/${selectedProduct}`) // 상품 정보를 조회하는 API 호출
+            .then((response) => {
+              setProductName(response.data.productName);
+              console.log(response.data.productName);
+            })
+            .catch((err) => console.error("상품 정보 가져오기 실패", err));
+        }
+
+        if (selectedUsedProduct) {
+          axios
+            .get(`/getUsedProductName/${selectedUsedProduct}`) // 중고 상품 정보를 조회하는 API 호출
+            .then((response) => {
+              setUsedName(response.data.usedName);
+              console.log(setUsedName);
+            })
+            .catch((err) => console.error("중고 상품 정보 가져오기 실패", err));
         }
       })
       .catch((err) => console.log(err));
@@ -67,9 +94,7 @@ const InquiryView = () => {
   // 삭제 함수
   const deleteInquiry = useCallback(() => {
     let conf = window.confirm("삭제하시겠습니까?");
-    if (!conf) {
-      return;
-    }
+    if (!conf) return;
 
     axios
       .post("/deleteInquiry", null, { params: { boardCode: bc } })
@@ -102,11 +127,18 @@ const InquiryView = () => {
             <div className="Title">머리말</div>
             <div className="Data">{inquiry.boardType}</div>
           </div>
+
           <div className="Box">
-            <div className="Title">주문 내역</div>
-            {/* productName을 표시 */}
-            <div className="Data">{inquiry.productName}</div>
+            <div className="Title">상품명 / 중고 상품명</div>
+            <div className="Data">
+              {productCode
+                ? productName
+                : usedCode
+                ? usedName
+                : "상품 또는 중고 상품 정보 없음"}
+            </div>
           </div>
+
           <div className="Box">
             <div className="Title">작성자</div>
             <div className="Data">{inquiry.bnid}</div>
@@ -117,7 +149,9 @@ const InquiryView = () => {
           </div>
           <div className="Box">
             <div className="Title">등록일</div>
-            <div className="Data">{bf(inquiry.boardDate)}</div>
+            <div className="Data">
+              {moment(inquiry.boardDate).format("YYYY-MM-DD")}
+            </div>
           </div>
           <div className="Box">
             <div className="FileTitle">파일</div>
@@ -128,7 +162,7 @@ const InquiryView = () => {
 
         <div className="Buttons">
           <Button
-            wsize="s-10"
+            wsize="s-20"
             color="gray"
             onClick={() => nav("/mypage/inquiry")}
           >
