@@ -1,13 +1,236 @@
-.main {
+// BOderHistory.scss
+
+.main-boderhistory {
+  box-sizing: content-box;
+  padding: 20px;
+  width: 100%;
+  font-family: Arial, sans-serif;
+
   .title {
-    /* 주문목록 / 배송조회 내역 총 1 건 */
+    margin-bottom: 20px;
+    h4 {
+      font-size: 24px;
+      font-weight: bold;
+      color: #333;
+    }
+  }
 
-    position: absolute;
-    width: 275px;
-    height: 20px;
-    left: 248px;
-    top: 223px;
+  .oderhistorysearch {
+    margin-top: 20px;
 
-    color: #000000;
+    .oderhistorysearchtitle {
+      p {
+        font-size: 18px;
+        font-weight: bold;
+        color: #555;
+        margin-bottom: 10px;
+      }
+    }
+
+    .searchbox {
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+      label {
+        display: flex;
+        p {
+          width: 100%;
+          font-size: 14px;
+          font-weight: bold;
+          color: #777;
+        }
+
+        Button {
+          background-color: #f1f1f1;
+          border: 1px solid #ddd;
+          padding: 8px 15px;
+          font-size: 14px;
+
+          color: #333;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+
+          &:hover {
+            background-color: #e0e0e0;
+          }
+        }
+        div {
+          display: flex;
+          input[type="date"] {
+            padding: 5px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+          }
+        }
+      }
+
+      .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+        color: white;
+
+        &:hover {
+          background-color: #0056b3;
+          border-color: #0056b3;
+        }
+      }
+    }
+
+    .selectsearch {
+      width: 50%;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+
+      select {
+        width: 30%;
+        padding: 8px;
+        font-size: 14px;
+        border: 1px solid #ddd;
+      }
+
+      .input-group {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        flex-grow: 1;
+
+        .form-control {
+          font-size: 14px;
+          border: 1px solid #ddd;
+          flex-grow: 1;
+        }
+
+        .btn {
+          background-color: #28a745;
+          color: white;
+          padding: 6px 12px;
+
+          &:hover {
+            background-color: #218838;
+          }
+        }
+      }
+
+      .radioshi {
+        margin-top: 20px;
+
+        .radio-group {
+          margin-bottom: 15px;
+
+          p {
+            font-size: 14px;
+            font-weight: bold;
+            color: #777;
+            margin-bottom: 5px;
+          }
+
+          .radio-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+
+            .radio-label {
+              font-size: 14px;
+              color: #333;
+            }
+          }
+        }
+      }
+    }
+
+    .today-buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+
+      Button {
+        background-color: #f1f1f1;
+        border: 1px solid #ddd;
+        padding: 8px 15px;
+        font-size: 14px;
+        color: #333;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+          background-color: #e0e0e0;
+        }
+      }
+    }
+
+    .table {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #f9f9f9;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      border: 1px solid #ddd;
+    }
+
+    .oderchage {
+      margin-top: 20px;
+      p {
+        font-size: 14px;
+        font-weight: bold;
+        color: #777;
+      }
+
+      .radio-group {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+
+        .radio-item {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+
+          .radio-label {
+            font-size: 14px;
+            color: #333;
+          }
+        }
+      }
+    }
+
+    .chagebutton {
+      margin-top: 20px;
+      display: flex;
+      gap: 15px;
+
+      Button {
+        flex-grow: 1;
+        background-color: #007bff;
+        border: none;
+        padding: 10px;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+
+        &:hover {
+          background-color: #0056b3;
+        }
+      }
+    }
+
+    .pagination {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+
+      Button {
+        background-color: #f1f1f1;
+        border: 1px solid #ddd;
+        padding: 6px 12px;
+        font-size: 14px;
+
+        &:hover {
+          background-color: #e0e0e0;
+        }
+      }
+    }
   }
 }
