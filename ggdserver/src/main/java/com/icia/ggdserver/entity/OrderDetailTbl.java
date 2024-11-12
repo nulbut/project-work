@@ -13,7 +13,7 @@ public class OrderDetailTbl {
     private long orderDetailId;
 
     @Column
-    private String product_where;
+    private String product_where;//'중고상품","입점상품"
     @Column
     private long product_code;
     @Column

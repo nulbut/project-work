@@ -27,6 +27,8 @@ export function WidgetCheckoutPage() {
       name: "기본 값",
       price: 1,
       quantity: 1,
+      where: "중고",
+      product_code: "",
     },
   ]);
   console.log(productData);
@@ -55,6 +57,8 @@ export function WidgetCheckoutPage() {
             name: data.usedName,
             price: data.usedSeller,
             quantity: 1,
+            product_where: "중고",
+            product_code: data.usedCode,
           },
         ]);
         calculateTotalPrice([
@@ -63,6 +67,8 @@ export function WidgetCheckoutPage() {
             name: data.usedName,
             price: data.usedSeller,
             quantity: 1,
+            product_where: "중고",
+            product_code: data.usedCode,
           },
         ]);
       }
@@ -84,6 +90,8 @@ export function WidgetCheckoutPage() {
           name: usedIn.usedName,
           price: usedIn.usedSeller,
           quantity: item.quantity, // 원래 전달받은 quantity 값 사용
+          product_where: "중고",
+          product_code: usedIn.usedCode,
         };
       });
       setBuyData(updatedBuyData);
@@ -175,6 +183,7 @@ export function WidgetCheckoutPage() {
   };
 
   const saveOrderToServer = async (sampeid) => {
+    const orderInfo = [];
     try {
       // 결제 요청 전에 orderId와 amount를 서버에 저장하세요.
       // 결제 과정에서 악의적으로 결제 금액이 변경되는 것을 방지하는 용도로 사용됩니다.
@@ -190,7 +199,7 @@ export function WidgetCheckoutPage() {
   const handleSubmitPay = async () => {
     const sampeid = generateRandomString();
     console.log(sampeid);
-    saveOrderToServer(sampeid);
+    // saveOrderToServer(sampeid);
     console.log(sessionStorage.getItem("nid"));
     try {
       // 결제 요청 전에 orderId와 amount를 서버에 저장하세요.
