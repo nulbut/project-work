@@ -85,8 +85,9 @@ const BProductStock = () => {
         return item.bpname.includes(searchTerm);
       } else if (searchCategory === "상품코드") {
         return item.bpnum.toString().includes(searchTerm);
-      }
-      return false;
+      } else if (searchCategory === "상태") {
+        return item.bcondition.includes(searchTerm);
+      }return false;
     });
     console.log("필터링 된 리스트 :", filteredList);
     setFilteredItems(filteredList);
@@ -106,7 +107,7 @@ const BProductStock = () => {
 
   //등록 상품 목록 작성
   let BproductList = null;
-  if (bbitem.length === 0) {
+  if (filteredItems.length === 0) {
     BproductList = (
       <TableRow key={0}>
         <TableColumn span={4}>등록된 상품이 없습니다.</TableColumn>
@@ -127,9 +128,9 @@ const BProductStock = () => {
         </TableColumn>
         <TableColumn wd={"w-10"}>{bn(item.bpwarestock)}</TableColumn>
         <TableColumn wd={"w-10"}>{testnum}</TableColumn>
-        <TableColumn wd={"w-10"}>{item.bfackstock}</TableColumn>
-        <TableColumn wd={"w-10"}>{item.bpwarestocklimt}</TableColumn>
-        <TableColumn wd={"w-10"}>{item.brestock}</TableColumn>
+        {/* <TableColumn wd={"w-10"}>{item.bfackstock}</TableColumn> */}
+        {/* <TableColumn wd={"w-10"}>{item.bpwarestocklimt}</TableColumn> */}
+        {/* <TableColumn wd={"w-10"}>{item.brestock}</TableColumn> */}
         <TableColumn wd={"w-10"}>{item.bcondition}</TableColumn>
       </TableRow>
     ));
@@ -150,13 +151,17 @@ const BProductStock = () => {
           className="form-control"
           value={searchCategory}
           onChange={(e) => setSearchCategory(e.target.value)}
+          name="search"
         >
           <option value="">전체</option>
-          <option value="상품코드" name="상품코드">
+          <option value="상품명" name="상품명">
             상품명
           </option>
-          <option value="상품명" name="상품명">
+          <option value="상품코드" name="상품코드">
             상품코드
+          </option>
+          <option value="상태" name="상태">
+            상태
           </option>
         </select>
         <input
@@ -185,9 +190,9 @@ const BProductStock = () => {
             "상품명",
             "창고재고",
             "주문대기",
-            "가재고",
-            "통보수량",
-            "재입고 알림",
+            // "가재고",
+            // "통보수량",
+            // "재입고 알림",
             "상태",
           ]}
         >

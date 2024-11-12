@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -91,6 +92,13 @@ public class BproductController {
         log.info("BproductList() - {}", pageNum);
         Map<String, Object> res = bpServ.getBproductList(pageNum, bsellerId);
         return res;
+    }
+
+    //품절개수 세기
+    @GetMapping("out-of-stock-count")
+    public ResponseEntity<Long> getOutOfStockCount() {
+        long outOfStockCount = bpServ.countOutOfStockProducts();
+        return ResponseEntity.ok(outOfStockCount);
     }
 
 
