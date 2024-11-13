@@ -114,7 +114,7 @@ const InfiniteScroll = () => {
   return (
     <div className="product-list">
       <h2 className="section-title">
-        [굿즈]<span>추천</span>상품
+        [굿즈]<span>입점</span>상품
       </h2>
       <div className="product-grid">
         {products.map((item, index) => (
@@ -133,7 +133,7 @@ const InfiniteScroll = () => {
         ) )}
       </div>
 
-      <h2 className="section-title">
+      {/* <h2 className="section-title">
         [굿즈]<span>최신</span>상품
       </h2>
       <div className="product-grid">
@@ -156,7 +156,7 @@ const InfiniteScroll = () => {
         <div ref={observerRef} className="loading-indicator">
           더 많은 상품 불러오는 중...
         </div>
-      )}
+      )} */}
     </div>
   );
 };
