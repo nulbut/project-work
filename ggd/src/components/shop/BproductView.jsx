@@ -55,7 +55,7 @@ const BproductView = () => {
 
   const getBProduct = () => {
     axios
-      .get("/inventory/getBproduct", { params: { bpnum: bpnum } })
+      .get("/getBproduct", { params: { bpnum: bpnum } })
       .then((res) => {
         setBproductRegistered(res.data);
         console.log(res.data);
@@ -100,7 +100,7 @@ const BproductView = () => {
     }
 
     axios
-      .post("/inventory/bpdDelete", null, { params: { bpnum: bpnum } })
+      .post("/bpdDelete", null, { params: { bpnum: bpnum } })
       .then((res) => {
         if (res.data.res === "ok") {
           alert("삭제완료");

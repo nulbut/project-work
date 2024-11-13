@@ -149,6 +149,15 @@ function App() {
     setLoginState(newState);
   }, []);
 
+  //Bmypage 화면으로 전송하기 
+  const [totalQuantity, setTotalQuantity] = useState(0);
+  const [totalAmounts, setTotalAmounts] = useState(0);
+
+  const handleOrderData = (quantity, amounts) => {
+    setTotalQuantity(quantity);
+    setTotalAmounts(amounts);
+  };
+
   return (
     <div className="App">
       <Routes>
@@ -213,7 +222,7 @@ function App() {
             <Route path="bp1" element={<BproductRegisterd />} />
             {/* <Route path="widget/widsuccess" element={<WidgetSuccessPage />} /> */}
 
-            <Route path="bproductstock" element={<BProductStock />} />
+            <Route path="bproductstock" element={<BProductStock/>} />
             <Route path="binquiry" element={<BInquiry />} />
             <Route path="boderhistory" element={<BOderHistory />} />
           </Route>
@@ -233,7 +242,7 @@ function App() {
           <Route path="/bpsuccess" element={<BrandpaySuccessPage />} />
           <Route path="/bproductview" element={<BproductView />} />
           <Route path="/bproductupdata" element={<BproductUpdata />} />
-          <Route path="/bmemberview" element={<BMemberView />} />
+          <Route path="/bmemberview" element={<BMemberView/>} />
 
           <Route
             path="/bmemberpasswordcheck"

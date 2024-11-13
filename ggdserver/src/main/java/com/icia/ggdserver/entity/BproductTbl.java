@@ -37,6 +37,9 @@ public class BproductTbl { // 사업자 상품 테이블
     @Column(nullable = false, length = 100)
     private int bpwarestock; //창고재고
 
+    @Column
+    private String bpwarstockdeduct; //주문건수(창고재고를 줄여주는 역할할거임)
+
 //    @Column(length = 100)
 //    private int bpwarestocklimt; //통보재고
 

@@ -148,6 +148,8 @@ public class PaymentService {
         List<OrderWithDetailsDto> res = orderRepo.findBySellerId(bid);
 
         return res;
+
+
     }
 }
 

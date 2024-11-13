@@ -12,7 +12,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.Mapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -305,58 +304,11 @@ public class BproductService {
         return bpdRepo.countByBcondition("품절");
     }
 
-    //주문건수 만큼 창고재고 수 줄이기
-    @Transactional
-    public void deductStock() {
-        // 주문 내역 가져오기
-        List<OrderDetailTbl> orderDetails = (List<OrderDetailTbl>) odrRepo.findAll();
-
-        for (OrderDetailTbl order : orderDetails) {
-            long productCode = order.getProduct_code();
-            int quantity = order.getQuantity();
-
-            // 상품 테이블에서 product_code와 일치하는 상품 찾기
-            BproductTbl product = bpdRepo.findByBpnum(productCode);
-
-            if (product != null) {
-                // 재고를 quantity만큼 차감
-                int currentStock = product.getBpwarestock();
-                if (currentStock >= quantity) {
-                    product.setBpwarestock(currentStock - quantity);
-                    bpdRepo.save(product); // 변경된 상품 재고 저장
-                } else {
-                    // 재고 부족 처리 로직 추가 (예: 예외 발생)
-                    throw new IllegalStateException("재고가 부족합니다. 상품 ID: " + productCode);
-                }
-            }
-        }
-    }
 
 
 
-//    public Map<String, Object> getBproductListNormal(Integer pageNum) {
-//        log.info("getBproductList() bsellerId : {}", bsellerId);
-//
-//        if (pageNum == null){
-//            pageNum = 1;
-//        }
-//        int listCnt  = 8;
-//
-//        Pageable pb = PageRequest.of((pageNum - 1), listCnt,
-//                Sort.Direction.DESC, "bpnum");
-//
-//        Page<BproductTbl> result =bpdRepo.findByBpnumGreaterThanAndBsellerId(0L, bsellerId, pb);
-//        //page 객체를 list로 변환 후 전송
-//        List<BproductTbl> bList = result.getContent();
-//        //blist에 저장
-//        int totalPage = result.getTotalPages();
-//
-//        Map<String, Object> res = new HashMap<>();
-//        res.put("bList", bList);
-//        res.put("totalPage",totalPage);
-//        res.put("pageNum",pageNum);
-//
-//
-//        return res;
-//    }
+
+
+
+
 }//class end

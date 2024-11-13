@@ -10,6 +10,7 @@ import TableRow from "./TableRow";
 import TableColumn from "./TableColumn";
 import BproductStockCheck from "./BproductStockCheck";
 import BUserNoticeListView from "./BUserNoticeListView";
+import BOderHistory from "./BOderHistory";
 
 const BMypageView = (props) => {
   const nav = useNavigate();
@@ -70,24 +71,35 @@ const BMypageView = (props) => {
   //     clickTab(index);
   //   };
 
-  // 주문 목록 가져오기 (예시 API 호출)
-
+  //합계건수들 불러오기 
   const [orders, setOrders] = useState([]);
+  const [totalQuantity, setTotalQuantity] = useState(0);
+  const [totalAmounts, setTotalAmounts] = useState(0);
 
   useEffect(() => {
     const paramData = {
-      // sortBy: sortBy,
       bid: sessionStorage.getItem("bid"),
     };
     axios
       .get("/getStoreOrders", { params: paramData })
       .then((res) => {
         setOrders(res.data);
+
+        const orderData = [setOrders];
+
+        // 합계 계산
+        const totalQuantity = orderData.reduce((sum, order) => sum + order.quantity, 0);
+        const totalAmounts = orderData.reduce((sum, order) => sum + order.totalAmount, 0);
+
+        setTotalQuantity(totalQuantity); // 총 주문 수량
+        setTotalAmounts(totalAmounts); // 총 매출 금액
       })
       .catch((error) => {
         console.error("Error fetching orders:", error);
       });
   }, []);
+
+  
 
   return (
     <div className="mypage-ex">
@@ -120,7 +132,7 @@ const BMypageView = (props) => {
         <div className="oder">
           <Button className="button">주문완료</Button>
           <div onClick={odergo} className="count">
-            {}건
+            {totalQuantity}건
           </div>
         </div>
         <div className="delivery">
@@ -141,7 +153,7 @@ const BMypageView = (props) => {
         </div>
         <div className="revenue">
           <Button className="button">오늘 매출액</Button>
-          <div className="count">{}건</div>
+          <div className="count">{totalAmounts}건</div>
         </div>
         <div className="inquiry">
           <img onClick={inquirygo} src={inquiryiconnone} alt="" />
@@ -156,6 +168,7 @@ const BMypageView = (props) => {
           {/* 공지사항 */}
           <BUserNoticeListView className="bnserNoticeListView" />
         </div>
+        
         <Outlet />
       </div>
     </div>

@@ -17,6 +17,8 @@ import java.util.List;
 
 public interface OrderDetailRepository extends CrudRepository<OrderDetailTbl, Long> {
 
+
+
 //    @Query(value = "SELECT *\n" +
 //            "FROM order_detail_tbl\n" +
 //            "WHERE 1 = 1\n" +
@@ -34,9 +36,7 @@ public interface OrderDetailRepository extends CrudRepository<OrderDetailTbl, Lo
 //            nativeQuery = true)
 //    long totalcnt(@PathVariable("code") long code);
 
-    //주문건수 만큼 창고재고 차감
-    public interface OrderDetailTblRepository extends JpaRepository<OrderDetailTbl, Long> {
-        List<OrderDetailTbl> findByProductCode(long productCode);}
+
 }
 
 
