@@ -461,7 +461,7 @@ public class AdminService {
     }
 
     @Transactional
-    public Map<String, String> deletereview(long uNum, HttpSession session) {
+    public Map<String, String> deletereview(long uNum) {
         log.info("deletereview()");
         Map<String, String> rsMap = new HashMap<>();
 

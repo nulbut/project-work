@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { AdminPageContextStore } from "./AdminPageStatus";
 import axios from "axios";
 import TableRow from "./TableRow";
@@ -50,24 +50,24 @@ const Preview = () => {
     ));
   }
 
-    const deleteReview = useCallback((unum) => {
-      let conf = window.confirm("삭제 할까요?");
-      if (!conf) {
-          return;
-      }
+  const deleteReview = useCallback((unum) => {
+    let conf = window.confirm("삭제 할까요?");
+    if (!conf) {
+      return;
+    }
 
-      axios
-      .post("/admin/deleterv", null, { unum: unum })
+    axios
+      .post("/admin/deleterv", null, { params: { uNum: unum } })
       .then((res) => {
-          if (res.data.res === "ok"){
-              alert("삭제 완료");
-              getrvList(res.data);
-          } else {
-              alert("삭제 실패");
-          }
+        if (res.data.res === "ok") {
+          alert("삭제 완료");
+          getrvList(res.data);
+        } else {
+          alert("삭제 실패");
+        }
       })
       .catch((err) => console.log(err));
-    }, []);
+  }, []);
 
   //   useEffect(() => {
   //     // if (!admin) {
@@ -80,7 +80,7 @@ const Preview = () => {
   return (
     <div className="Content">
       <h1>후기 관리</h1>
-      <Table hName={["상품명", "내용", "ID", "날짜", "관리"]}>{list}</Table>
+      <Table hName={["상품코드", "내용", "ID", "날짜", "관리"]}>{list}</Table>
       {/* <Paging getrvList={getrvList} /> */}
     </div>
   );
