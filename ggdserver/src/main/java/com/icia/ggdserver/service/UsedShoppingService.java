@@ -1,8 +1,10 @@
 package com.icia.ggdserver.service;
 
 import com.icia.ggdserver.entity.ProductTbl;
+import com.icia.ggdserver.entity.UproductReviewTbl;
 import com.icia.ggdserver.entity.UsedProductTbl;
 import com.icia.ggdserver.entity.UsedproductFileTbl;
+import com.icia.ggdserver.repository.UproductReviewTblRepository;
 import com.icia.ggdserver.repository.UsedFileRepository;
 import com.icia.ggdserver.repository.UsedTblRepository;
 import jakarta.servlet.http.HttpSession;
@@ -14,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -32,6 +35,9 @@ public class UsedShoppingService {
 
     @Autowired
     private UsedFileRepository usfRepo; // 중고 상품 이미지 레포지터리
+
+    @Autowired
+    private UproductReviewTblRepository urRepo;
 
 
 
@@ -236,5 +242,21 @@ public class UsedShoppingService {
         // pdtRepo.findAll()은 Iterable<ProductTbl>을 반환하므로, 이를 List로 변환
         return StreamSupport.stream(ustRepo.findAll().spliterator(), false)
                 .collect(Collectors.toList());  // Stream을 List로 변환
+    }
+
+    //후기 작성 메소드
+    public String insertupreview(UproductReviewTbl upreview) {
+        log.info("insertupreview()");
+        String result = null;
+
+        try{
+            urRepo.save(upreview);
+
+            result = "ok";
+        } catch (Exception e) {
+            e.printStackTrace();
+            result = "fail";
+        }
+        return result;
     }
 }

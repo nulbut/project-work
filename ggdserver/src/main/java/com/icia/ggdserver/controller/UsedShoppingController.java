@@ -1,5 +1,6 @@
 package com.icia.ggdserver.controller;
 
+import com.icia.ggdserver.entity.UproductReviewTbl;
 import com.icia.ggdserver.entity.UsedProductTbl;
 import com.icia.ggdserver.service.UsedShoppingService;
 import jakarta.servlet.http.HttpSession;
@@ -71,4 +72,14 @@ public class UsedShoppingController {
         log.info("deleteusedProduct()");
         return uptServ.usedDelete(usedCode, session);
     }
+
+    //후기 작성
+    @PostMapping("uproduct")
+    public String UproductReview(UproductReviewTbl upreview){
+        log.info("UproductReview()");
+        String result = uptServ.insertupreview(upreview);
+        return result;
+    }
+
+
 }

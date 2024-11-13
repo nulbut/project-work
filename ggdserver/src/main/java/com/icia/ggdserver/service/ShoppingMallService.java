@@ -34,6 +34,9 @@ public class ShoppingMallService {
     @Autowired
     private BproductRepository bpdRepo;
 
+    @Autowired
+    private UproductReviewTblRepository urRepo;
+
 
     public String insertSpm(ProductTbl pdt,
                             List<MultipartFile> files,
@@ -231,12 +234,32 @@ public ProductTbl getProduct(long productFileNum){
 
         return res;
     }
+    //후기 작성 메소드
+    public String insertupreview(UproductReviewTbl upreview) {
+        log.info("insertupreview()");
+        String result = null;
+
+        try{
+            urRepo.save(upreview);
+
+            result = "ok";
+        } catch (Exception e) {
+            e.printStackTrace();
+            result = "fail";
+        }
+        return result;
+    }
 
     // 모든 상품 목록을 가져오는 메소드
     public List<ProductTbl> getAllProducts() {
         // pdtRepo.findAll()은 Iterable<ProductTbl>을 반환하므로, 이를 List로 변환
         return StreamSupport.stream(pdtRepo.findAll().spliterator(), false)
                 .collect(Collectors.toList());  // Stream을 List로 변환
+    }
+
+    //후기 목록 가져오기
+    public List<UproductReviewTbl> getReview(long productCode) {
+        return urRepo.findByUCode(productCode);
     }
 }
 
