@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import "./scss/ProductDetails.scss";
+import UproductReview from "./UproductReview";
 
 const ProductDetails = () => {
   const [activeTab, setActiveTab] = useState("content");
@@ -10,6 +11,7 @@ const ProductDetails = () => {
   const [newProductData, setNewProductData] = useState(null); // 신상품 데이터 상태
   const [loading, setLoading] = useState(true); // 로딩 상태를 관리
   const [error, setError] = useState(null); // 에러 상태를 관리
+  const nid = sessionStorage.getItem("nid");
 
   //전체 이미지 불러오기
   const [filst, setFilst] = useState([
@@ -36,6 +38,28 @@ const ProductDetails = () => {
   const productCode = code;
   console.log(location.state);
   console.log(newProductData);
+  const usedCode = code || null; // `usedCode`가 존재하지 않으면 `null`
+  const uProduct = productCode;
+  // !== null ? "신상품" : "중고 상품"; - 중고상품 후기 빠짐, 신상품 후기만 작성 가능
+  const reviewCode = productCode !== null ? productCode : usedCode;
+
+  //후기 목록
+  const [reviewList, setReviewList] = useState(null);
+
+  //후기 목록 가져오는 함수
+  const getReviewList = async () => {
+    console.log("getReviewList()");
+
+    await axios
+      .get("/getreview", { params: { productCode } })
+      .then((res) => {
+        console.log(res);
+        setReviewList(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   useEffect(() => {
     const fetchProductDetails = async () => {
@@ -56,6 +80,7 @@ const ProductDetails = () => {
 
         // 신상품 데이터를 상태에 저장
         setNewProductData(productResponse.data);
+        getReviewList(); //후기 목록 불러오기 함수 실행
 
         // 이미지 파일 리스트
         const pfileList = productResponse.data.bproductFileTblList;
@@ -119,6 +144,22 @@ const ProductDetails = () => {
   const handleTabClick = (tab) => {
     setActiveTab(tab); // 클릭한 탭을 활성화
   };
+
+  //후기 목록 작성
+  const rvList =
+    reviewList !== null ? (
+      reviewList.map((r, i) => {
+        return (
+          <div key={i}>
+            {r.unum} : {r.upreivew}
+          </div>
+        );
+      })
+    ) : (
+      <div>후기가 없습니다.</div>
+    );
+
+  console.log(rvList);
 
   //전체이미지 불러오기
   const imgsview = filst.map((v) => {
@@ -223,7 +264,23 @@ const ProductDetails = () => {
           <div
             className={`tab-pane ${activeTab === "reviews" ? "active" : ""}`}
           >
-            <p>후기 내용이 여기 들어갑니다.</p>
+            <div className="Reviews">
+              {/* 후기 작성하는 부분 */}
+              {nid !== null ? (
+                <div className="ReviewWirte">
+                  <UproductReview
+                    reviewCode={reviewCode}
+                    nid={nid}
+                    uProduct={uProduct}
+                    getReviewList={getReviewList}
+                  />
+                </div>
+              ) : (
+                <></>
+              )}
+              {/* 후기 목록 보이는 부분 */}
+              <div className="ReviewList">{rvList}</div>
+            </div>
           </div>
           <div
             className={`tab-pane ${activeTab === "questions" ? "active" : ""}`}
