@@ -147,18 +147,22 @@ const LatestProducts = () => {
   return (
     <div className="product-list">
       <h2 className="section-title">
-        <span>최신</span>상품
+        <span>입점</span>상품
       </h2>
       <div className="product-grid">
         {products.map((item, index) => {
           return (
             <div key={index} className="product-card">
               <div className="product-image-placeholder">
-                <img
-                  src={`upload/${item.productFileSysname}`}
-                  alt={`상품 이미지 ${item.productCode}`}
-                  className="product-image"
-                />
+                {item.productFileList[0]?.productFileSysname ? (
+                  <img
+                    src={`upload/${item.productFileList[0].productFileSysname}`}
+                    alt={`상품 이미지 ${item.productCode}`}
+                    className="product-image"
+                  />
+                ) : (
+                  <div>이미지를 불러올 수 없습니다.</div>
+                )}
               </div>
               <h3 className="product-title">상품명 : {item.productName} </h3>
               <div className="product-price">

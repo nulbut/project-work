@@ -39,33 +39,22 @@ public class CartController {
         return res;
     }
 
-    // 장바구니에 상품 추가
-    @GetMapping("setcart")
-    public String setCart(@RequestParam String cnid,
-                          @RequestParam long productCode,
+
+    // 장바구니에 입점상품 추가
+    @GetMapping("setStorecart")
+    public String setStorecart(@RequestParam String cnid,
+                          @RequestParam long bpnum,
                           @RequestParam int quantity) {
         // 상품 재고 수량 조회
-        int productStock = cServ.getProductStockByCode(productCode);
+        int bpwarestock = cServ.getBproductStockByCode(bpnum);
 
         // 수량이 재고를 초과하는지 확인
-        if (quantity > productStock) {
+        if (quantity > bpwarestock) {
             return "상품 수량이 재고를 초과합니다.";
         }
 
         // 장바구니에 상품 추가
-        return cServ.getCart(cnid, productCode, productStock, quantity);
-    }
-
-    // 여러 장바구니 항목 삭제
-    @PostMapping("deleteCart")
-    public String deleteCart(@RequestBody List<Long> cartCodes) {
-        try {
-            cServ.deleteMultipleCarts(cartCodes);
-            return "ok";  // 삭제 성공
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "error: 삭제 중 오류 발생";  // 오류 발생 시
-        }
+        return cServ.getStoreCart(cnid, bpnum, quantity, bpwarestock);
     }
 
     // 장바구니에 중고 상품 추가
@@ -76,10 +65,12 @@ public class CartController {
         // 중고 상품 재고 수량 조회
         int usedStock = cServ.getUsedStockByCode(usedCode);
 
+
         // 수량이 재고를 초과하는지 확인
         if (quantity > usedStock) {
             return "중고 상품 수량이 재고를 초과합니다.";  // 재고 초과 오류 메시지 반환
         }
+
 
         // 장바구니에 중고 상품 추가
         return cServ.getUsedCart(cnid, usedCode, quantity, usedStock);
@@ -108,6 +99,18 @@ public class CartController {
         session.setAttribute("Reloaded", "true");
 
         return "ok"; // 초기화 성공
+    }
+
+    // 여러 장바구니 항목 삭제
+    @PostMapping("deleteCart")
+    public String deleteCart(@RequestBody List<Long> cartCodes) {
+        try {
+            cServ.deleteMultipleCarts(cartCodes);
+            return "ok";  // 삭제 성공
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "error: 삭제 중 오류 발생";  // 오류 발생 시
+        }
     }
 
 
