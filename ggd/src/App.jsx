@@ -70,6 +70,9 @@ import NMemberView from "./components/shop/NMemberView";
 import MemberSecession from "./components/shop/MemberSecession";
 import NMemberSecession from "./components/shop/NMemberSecession";
 import UsedProductDetails from "./components/shop/UsedProductDetails";
+import IdealcupStatics from "./components/idealcup/IdealcupStatics";
+import StoreProducts from "./components/shop/StoreProducts";
+import StoreDetail from "./components/shop/StoreDetail";
 import NotificationView from "./components/shop/NotificationView";
 
 function App() {
@@ -155,6 +158,7 @@ function App() {
           <Route path="/hotProduct" element={<HotProduct />} />
           <Route path="/latestProduct" element={<LatestProducts />} />
           <Route path="/newProduct" element={<NewProduct />} />
+          <Route path="/storeProduct" element={<StoreProducts />} />
           <Route path="/usedProduct" element={<UsedProduct />} />
           <Route path="/notification" element={<Notification />} />
           <Route
@@ -212,6 +216,7 @@ function App() {
 
           <Route path="/bproductw" element={<BproductWirte />} />
           <Route path="/pddetails?" element={<ProductDetails />} />
+          <Route path="/storedetail" element={<StoreDetail />} />
           <Route path="/usedpddetails?" element={<UsedProductDetails />} />
           <Route path="/pdpurchase" element={<ProductPurchase />} />
           <Route path="/widsuccess" element={<WidgetSuccessPage />} />
@@ -246,6 +251,7 @@ function App() {
           <Route path="/mycup" element={<IdealcupMy />} />
           <Route path="/idleinquiry" element={<InquiryForm />} />
           <Route path="/resultpage" element={<ResultPage />} />
+          <Route path="/cupstatics" element={<IdealcupStatics />} />
         </Route>
         <Route path="/admin" element={<Admin />} />
         <Route path="/adminex" element={<AdminEx />} />
