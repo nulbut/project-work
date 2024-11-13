@@ -359,30 +359,7 @@ public class AdminService {
     }
 
     public Map<String, Object> getReportList(Integer pageNum) {
-
-        log.info("getReportList()");
-
-        if (pageNum == null) {
-            pageNum = 1;
-        }
-
-        int listCnt = 10;
-
-        Pageable pb = PageRequest.of((pageNum -1), listCnt, Sort.Direction.DESC, "rNum");
-
-        Page<ReportTbl> result = rRepo.findByrNumGreaterThan(0L, pb);
-
-        List<ReportTbl> rList = result.getContent();
-
-        int totalPage = result.getTotalPages();
-
-        Map<String, Object> res = new HashMap<>();
-        res.put("rList", rList);
-        res.put("totalPage", totalPage);
-        res.put("pageNum",pageNum);
-
-        return res;
-
+        return null;
     }
 
     public ReportTbl getReport(long rNum) {
@@ -472,28 +449,35 @@ public class AdminService {
         return result;
     }
 
-    public Map<String, Object> getrvList(Integer pageNum) {
-        log.info("getrvList");
+    public List<UproductReviewTbl> getrvList() {
+        log.info("getrvList()");
 
-        if (pageNum == null){
-            pageNum = 1;
+        // 게시글 가져와서 담기
+        List<UproductReviewTbl> rv = (List<UproductReviewTbl>) rvRepo.findAll();
+
+
+        return rv;
+
+    }
+
+
+    public Map<String, String> deletereview(long unum, HttpSession session) {
+        log.info("deletereview()");
+
+        Optional<UproductReviewTbl> review = rvRepo.findById(unum);
+
+        Map<String, String> response = new HashMap<>();
+
+        if (review.isPresent()) {
+            rvRepo.deleteById(unum);  // 리뷰 삭제
+            response.put("status", "success");
+            response.put("message", "리뷰 삭제 성공");
+        } else {
+            response.put("status", "failure");
+            response.put("message", "리뷰를 찾을 수 없습니다.");
         }
-        int listCnt = 10;
 
-        Pageable pb = PageRequest.of((pageNum - 1), listCnt, Sort.Direction.DESC, "uNum");
-
-        Page<UproductReviewTbl> result = rvRepo.findByUCode(0L,pb);
-
-        List<UproductReviewTbl> rvList = result.getContent();
-
-        int totalPage = result.getTotalPages();
-
-        Map<String, Object> res = new HashMap<>();
-        res.put("rvList", rvList);
-        res.put("totalPage", totalPage);
-        res.put("pageNum", pageNum);
-
-        return res;
+        return response;
     }
 }
 

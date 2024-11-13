@@ -17,6 +17,6 @@ public interface UproductReviewTblRepository extends CrudRepository<UproductRevi
     @Query("select urt from UproductReviewTbl urt where urt.uCode = :ucode order by urt.uNum")
     List<UproductReviewTbl> findByUCode(@Param("ucode") Long ucode);
 
-    @Query("select urt from UproductReviewTbl urt where urt.uCode = :ucode order by urt.uNum")
-    Page<UproductReviewTbl> findByUCode(@Param("ucode") Long ucode, Pageable pageable);
+    List<UproductReviewTbl> findByUNum(long UNum, Pageable pb);
+
 }

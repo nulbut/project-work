@@ -2,19 +2,16 @@ package com.icia.ggdserver.controller;
 
 import com.icia.ggdserver.dto.DateDto;
 
-import com.icia.ggdserver.service.AdminStaticService;
 import com.icia.ggdserver.entity.*;
+import com.icia.ggdserver.repository.UproductReviewTblRepository;
 import com.icia.ggdserver.service.AdminService;
-import com.icia.ggdserver.service.IdealWorldCupService;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -142,11 +139,17 @@ public class AdminController {
         return aServ.getComment(directmsg);
     }
 
-    @GetMapping("/getpreview")
-    public Map<String, Object> getrvList(@RequestParam Integer pageNum){
+    @GetMapping("/getrvlist")
+    public List<UproductReviewTbl> getrvList(){
         log.info("getrvList()");
+        return aServ.getrvList();
+    }
 
-        Map<String, Object> res = aServ.getrvList(pageNum);
-        return res;
+    @PostMapping("/deleterv")
+    public Map<String, String> deletereview(@RequestBody long unum, HttpSession session){
+        log.info("deletereview()");
+        Map<String, String> result = aServ.deletereview(unum, session);
+        return result;
+
     }
 }
