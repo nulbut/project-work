@@ -146,10 +146,18 @@
     top: 500px;
     border: 1px solid #3d3d3d;
 
-    .userNoticeListView {
+    .bnserNoticeListView {
       position: relative;
       width: 100%;
       height: auto;
+      margin-top: 20px;
+
+      h1 {
+        display: inline-block;
+        &:hover {
+          background-color: #42a5f5;
+        }
+      }
     }
   }
 }
