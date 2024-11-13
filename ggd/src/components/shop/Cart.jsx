@@ -159,28 +159,33 @@ const Cart = () => {
     );
 
     const purchaseItems = selectedCartItems.map((item) => ({
+      img: item.bproductin
+        ? `productupload/${item.bproductin.bproductFileSysnameM}`
+        : item.usedin
+        ? `usupload/${item.usedin.usedproductFileTblList[0]?.usedFileSysname}`
+        : "상품 없음",
       cartCode: item.cartCode,
-      bpname: item.Bproductin
-        ? item.Bproductin.bpname
+      name: item.bproductin
+        ? item.bproductin.bpname
         : item.usedin
         ? item.usedin.usedName
         : "상품 없음",
       quantity: item.quantity,
-      price: item.Bproductin
-        ? item.productin.bpprice
+      price: item.bproductin
+        ? item.bproductin.bpprice
         : item.usedin
         ? item.usedin.usedSeller
         : 0,
-      totalPrice:
-        (item.Bproductin
-          ? item.Bproductin.bpprice
-          : item.usedin
-          ? item.usedin.usedSeller
-          : 0) * item.quantity,
+      product_where: item.bproductin ? "입점" : item.usedin ? "중고" : null,
+      product_code: item.bproductin
+        ? item.bpnum
+        : item.usedin
+        ? item.usedCode
+        : 0,
     }));
 
     console.log(purchaseItems);
-    nav("/widgetcheckout", { state: { datas: selectedCartItems } });
+    nav("/widgetcheckout", { state: { datas: purchaseItems } });
   };
 
   // 수량 초기화 요청 함수

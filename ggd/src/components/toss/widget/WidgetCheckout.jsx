@@ -39,9 +39,10 @@ export function WidgetCheckoutPage() {
     currency: "KRW",
     value: 0,
   });
-
+  console.log("datas가 있음", location.state.datas);
   const [ready, setReady] = useState(false);
   const [widgets, setWidgets] = useState(null);
+
   useEffect(() => {
     // location.state?.data와 location.state?.datas가 각각 어떤 데이터 구조인지 확인하고 처리
     if (location.state?.data) {
@@ -103,29 +104,12 @@ export function WidgetCheckoutPage() {
     if (location.state?.datas) {
       console.log("datas가 있음", location.state.datas);
       const datas = location.state.datas;
-      // datas가 배열이라면 배열을 순회하며 buyData에 값을 넣는 코드 작성
-      const updatedBuyData = location.state.datas.map((item) => {
-        const usedIn = item.usedin;
 
-        // usedproductFileTblList가 null일 경우, img와 관련된 데이터는 기본값 설정
-        const img = usedIn.usedproductFileTblList
-          ? `usupload/${usedIn.usedproductFileTblList[0]?.usedFileSysname}`
-          : "default_image.jpg";
-        return {
-          img,
-          name: usedIn.usedName,
-          price: usedIn.usedSeller,
-          quantity: item.quantity, // 원래 전달받은 quantity 값 사용
-          product_where: "중고",
-          product_code: usedIn.usedCode,
-        };
-      });
-      setBuyData(updatedBuyData);
+      setBuyData(datas);
 
-      calculateTotalPrice(updatedBuyData);
+      calculateTotalPrice(datas);
     }
   }, [location.state]);
-
   useEffect(() => {
     async function fetchPaymentWidgets() {
       try {
@@ -262,6 +246,7 @@ export function WidgetCheckoutPage() {
           <thead>
             <tr>
               <th>상품 이미지</th>
+              <th>분류</th>
               <th>상품명</th>
               <th>가격</th>
               <th>수량</th>
@@ -274,6 +259,7 @@ export function WidgetCheckoutPage() {
                 <td>
                   <img src={item.img} alt={item.name} width="100" />
                 </td>
+                <td>{item.product_where}</td>
                 <td>{item.name}</td>
                 <td>{item.price} 원</td>
                 <td>
