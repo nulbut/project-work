@@ -460,24 +460,19 @@ public class AdminService {
 
     }
 
-
-    public Map<String, String> deletereview(long unum, HttpSession session) {
+    @Transactional
+    public Map<String, String> deletereview(long uNum, HttpSession session) {
         log.info("deletereview()");
+        Map<String, String> rsMap = new HashMap<>();
 
-        Optional<UproductReviewTbl> review = rvRepo.findById(unum);
-
-        Map<String, String> response = new HashMap<>();
-
-        if (review.isPresent()) {
-            rvRepo.deleteById(unum);  // 리뷰 삭제
-            response.put("status", "success");
-            response.put("message", "리뷰 삭제 성공");
-        } else {
-            response.put("status", "failure");
-            response.put("message", "리뷰를 찾을 수 없습니다.");
+        try {
+            rvRepo.deleteById(uNum);
+            rsMap.put("res", "ok");
+        } catch (Exception e){
+            e.printStackTrace();
+            rsMap.put("res", "fail");
         }
-
-        return response;
+        return rsMap;
     }
 }
 

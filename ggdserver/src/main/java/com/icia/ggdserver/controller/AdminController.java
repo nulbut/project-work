@@ -146,10 +146,9 @@ public class AdminController {
     }
 
     @PostMapping("/deleterv")
-    public Map<String, String> deletereview(@RequestBody long unum, HttpSession session){
+    public Map<String, String> deletereview(@RequestParam long uNum, HttpSession session){
         log.info("deletereview()");
-        Map<String, String> result = aServ.deletereview(unum, session);
-        return result;
+        return aServ.deletereview(uNum, session);
 
     }
 }
