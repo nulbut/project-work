@@ -33,7 +33,9 @@ public class OrderTbl {
 
   // 결제 정보
     @Column
-    private String paymentMethod; //결제 방법
+    private String paymentMethod;
+    @Column
+    private String provider;
     @Column
     private String paymentStatus; //결제 상태
     @Column
