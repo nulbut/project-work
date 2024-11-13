@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 
@@ -41,7 +42,30 @@ export function WidgetSuccessPage() {
         navigate(`/fail?code=${error.code}&message=${error.message}`);
       });
   }, [searchParams]);
-  console.log(searchParams.get("products"));
+
+  const updateOrder = async () => {
+    if (responseData.status == "DONE") {
+      try {
+        await axios.get("/updateorder", {
+          params: {
+            transactionId: responseData.orderId,
+            method: responseData.method,
+            provider: responseData.easyPay.provider,
+          },
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (responseData) {
+      updateOrder(); // responseData가 변경될 때마다 updateOrder 함수 호출
+    }
+  }, [responseData]); // responseData가 변경될 때마다 실행
+
+  console.log(searchParams.get("orderId"));
   return (
     <>
       <div className="box_section" style={{ width: "600px" }}>

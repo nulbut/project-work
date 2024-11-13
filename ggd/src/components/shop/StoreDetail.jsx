@@ -16,6 +16,8 @@ const ProductDetails = () => {
 
   // 신상품 코드
   const productCode = code;
+  console.log(location.state);
+  console.log(newProductData);
 
   useEffect(() => {
     const fetchProductDetails = async () => {
@@ -30,8 +32,8 @@ const ProductDetails = () => {
 
       try {
         // 신상품 데이터 요청
-        const productResponse = await axios.get("/getproduct", {
-          params: { productCode },
+        const productResponse = await axios.get("/getBproduct", {
+          params: { bpnum: productCode },
         });
 
         // 신상품 데이터를 상태에 저장
@@ -67,35 +69,6 @@ const ProductDetails = () => {
     navigate("/widgetcheckout", { state: { data: newProductData } });
   };
 
-  const cartList = (ud, quantity) => {
-    console.log(ud)
-    const nid = sessionStorage.getItem("nid");
-    let conf = window.confirm("장바구니에 추가할까요?");
-    if (!conf) {
-      return;
-    }
-    axios
-      .get("/setusedcart", {
-        params: { cnid: nid, usedCode: ud, quantity },
-      })
-      .then((res) => {  
-        console.log(res);
-        if (res.data === "ok") {
-          alert("장바구니에 추가되었습니다.");
-        } else if (res.data === "상품 수량이 부족합니다.") {
-          alert("수량이 재고를 초과합니다.");
-        } else if (res.data === "이미 장바구니에 해당 상품이 있습니다.") {
-          alert("이미 장바구니에 있습니다.");
-        } else {
-          alert("장바구니에 추가 실패: " + res.data);
-        }
-      })
-      .catch((err) => {
-        alert("돌아가거라");
-        console.log(err);
-      });
-  };
-
   const handleAddToCart = () => {
     alert("장바구니에 추가되었습니다.");
     // 장바구니 추가 구현
@@ -116,9 +89,9 @@ const ProductDetails = () => {
 
       <div className="product-detail-content">
         <div className="product-detail-image">
-          {newProductData?.productFileList[0].productFileSysname ? (
+          {newProductData?.bproductFileTblList ? (
             <img
-              src={`upload/${newProductData.productFileList[0].productFileSysname}`}
+              src={`productupload/${newProductData.bproductFileTblList[0].bproductfilesysname}`}
               alt={`상품 이미지 ${newProductData.productName}`}
               className="product-image"
             />
@@ -131,18 +104,19 @@ const ProductDetails = () => {
           <div>
             <p>
               <strong>상품명 : </strong>
-              {newProductData?.productName}
+              {newProductData?.bpname}
             </p>
             <p>
-              <strong>가격 : </strong>₩{newProductData?.sellerPayment}
+              <strong>가격 : </strong>
+              {newProductData?.bpprice} <strong>원</strong>
             </p>
             <p>
               <strong>판매자 : </strong>
-              {newProductData?.sellerId}
+              {newProductData?.bsellerId}
             </p>
             <p>
               <strong>상세 설명 : </strong>
-              {newProductData?.productDetail}
+              {newProductData?.bpexplanation}
             </p>
           </div>
 
@@ -157,7 +131,7 @@ const ProductDetails = () => {
               신고하기
             </button>
           </div>
-        </div> 
+        </div>
       </div>
 
       {/* 탭 관련 내용 */}
@@ -174,12 +148,6 @@ const ProductDetails = () => {
             onClick={() => handleTabClick("reviews")}
           >
             후기
-          </div>
-          <div
-            className={`tab-item ${activeTab === "information"? "active" : ""}`}
-            onClick={() => handleTabClick("information")}
-          >
-            상품구매안내
           </div>
           <div
             className={`tab-item ${activeTab === "questions" ? "active" : ""}`}
@@ -207,11 +175,6 @@ const ProductDetails = () => {
             className={`tab-pane ${activeTab === "reviews" ? "active" : ""}`}
           >
             <p>후기 내용이 여기 들어갑니다.</p>
-          </div>
-          <div
-            className={`tab-pane ${activeTab === "information" ? "active" : ""}`}
-          >
-            <p>구매안내 내용이 여기 들어갑니다.</p>
           </div>
           <div
             className={`tab-pane ${activeTab === "questions" ? "active" : ""}`}

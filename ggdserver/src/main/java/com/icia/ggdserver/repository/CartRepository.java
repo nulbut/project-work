@@ -20,4 +20,8 @@ public interface CartRepository extends CrudRepository<CartTbl, Long> {
 
     //장바구니 중고상품 중복체크
     CartTbl findByCnidAndUsedCode(String cnid, long usedCode);
+
+    CartTbl findByCnidAndBpnum(String cnid, long bpnum);
+
+//    CartTbl findByCindAndBnum(String cnid, long bpnum);
 }
