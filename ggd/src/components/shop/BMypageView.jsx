@@ -28,8 +28,6 @@ const BMypageView = (props) => {
     nav("/bmypage/boderhistory");
   };
 
-  
-
   const inquirygo = () => {
     nav("/bmypage/binquiry");
   };
@@ -70,7 +68,7 @@ const BMypageView = (props) => {
   //     // 해당 함수가 실행되면 현재 선택된 Tab Menu 가 갱신.
   //     clickTab(index);
   //   };
- 
+
   return (
     <div className="mypage-ex">
       <div className="sideber">
@@ -129,13 +127,10 @@ const BMypageView = (props) => {
           <img onClick={inquirygo} src={inquiryiconnone} alt="" />
         </div>
         <div className="stockstatus">
-          <table>
-            <tr className="tr">재고상황</tr>
-            <td className="p1">
-              <p>품절</p>
-              <BproductStockCheck />
-            </td>
-          </table>
+          <Button className="button">재고상황</Button>
+
+          <p>품절</p>
+          <BproductStockCheck />
         </div>
         <div className="announcement">공지사항</div>
 

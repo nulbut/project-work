@@ -19,9 +19,6 @@ const BProductStock = () => {
   const bsellerId = sessionStorage.getItem("nnickname");
   const pageNum = sessionStorage.getItem("pageNum");
 
-  //임시 테스트용
-  let testnum = 245;
-
   const [bbitem, setBbitem] = useState([]);
 
   // 검색 필터링된 아이템
@@ -129,7 +126,7 @@ const BProductStock = () => {
           </div>
         </TableColumn>
         <TableColumn wd={"w-10"}>{bn(item.bpwarestock)}</TableColumn>
-        <TableColumn wd={"w-10"}>{testnum}</TableColumn>
+        <TableColumn wd={"w-10"}>{}</TableColumn>
         <TableColumn wd={"w-30"}>{item.bcondition}</TableColumn>
       </TableRow>
     ));
