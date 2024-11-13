@@ -1,6 +1,6 @@
 const express = require("express");
-const app = express(); 
-const port = 80;
+const app = express();
+const port = 8080;
 
 app.use(express.static("public"));
 app.use(express.json());
@@ -30,9 +30,9 @@ app.post("/confirm/widget", function (req, res) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-        orderId: orderId,
-        amount: amount,
-        paymentKey: paymentKey,
+      orderId: orderId,
+      amount: amount,
+      paymentKey: paymentKey,
     }),
   }).then(async function (response) {
     const result = await response.json();
@@ -44,7 +44,7 @@ app.post("/confirm/widget", function (req, res) {
 
       return;
     }
-    
+
     // TODO: 결제 완료 비즈니스 로직을 구현하세요.
     res.status(response.status).json(result);
   });
@@ -64,9 +64,9 @@ app.post("/confirm/widsuccess", function (req, res) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-        orderId: orderId,
-        amount: amount,
-        paymentKey: paymentKey,
+      orderId: orderId,
+      amount: amount,
+      paymentKey: paymentKey,
     }),
   }).then(async function (response) {
     const result = await response.json();
@@ -223,22 +223,4 @@ app.post("/confirm-billing", function (req, res) {
   });
 });
 
-app.listen(port, () => console.log(`http://localhost:${80} 으로 앱이 실행되었습니다.`));
-
-
-
-// read-only
-// const express = require('express');
-// const cors = require('cors');
-
-// const router = require('./Payments.router');
-
-// const app = express();
-
-// app.use(express.json());
-// app.use(express.urlencoded({ extended: true }));
-// app.use(cors());
-
-// app.use('/sandbox-dev/api/v1/payments', router);
-
-// app.listen(80, () => console.log('Server is Listening...'));
+app.listen(port, () => console.log(`http://localhost:${8080} 으로 앱이 실행되었습니다.`));

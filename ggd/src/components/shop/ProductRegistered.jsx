@@ -81,16 +81,8 @@ const ProductRegistered = () => {
         {BoardList}
       </ProductTable>
       <Paging page={page} getList={getBoardList} />
-      <Button
-        size="large"
-        wsize="s-50"
-        onClick={() => {
-          nav("/mypage/productWrite");
-        }}
-      >
-        상품등록
-      </Button>
-      <dr />
+      
+      <dr />  
       <Button
         size="large"
         wsize="s-50"
