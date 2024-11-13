@@ -31,7 +31,7 @@ const InfiniteScroll = () => {
     setLoading(true);
     try {
       axios
-        .get("productList", { params: { pageNum: inpage.pageNum } })
+        .get("bpdList", { params: { pageNum: inpage.pageNum } })
         .then((res) => {
           const { bList, totalPage, pageNum } = res.data;
           setPage({ totalPage: totalPage, pageNum: pageNum });
@@ -121,14 +121,14 @@ const InfiniteScroll = () => {
           <div key={index} className="product-card">
             <div className="product-image-placeholder">
               <img
-                src={`upload/${item.productFileSysname}`}
+                src={`productupload/${item.bpproductFileSysname}`}
                 alt={`상품 이미지 ${item.productCode}`}
                 className="product-image"
               />
             </div>
-            <h3 className="product-title">상품명 : {item.productName + 1} </h3>
-            <p className="product-price">₩{item.sellerPayment}</p>
-            <p className="product-body">{item.productDetail}</p>
+            <h3 className="product-title">상품명 : {item.bpName} </h3>
+            <p className="product-price">₩{item.bpprice}</p>
+            <p className="product-body">{item.bpexplanation}</p>
           </div>
         ) )}
       </div>

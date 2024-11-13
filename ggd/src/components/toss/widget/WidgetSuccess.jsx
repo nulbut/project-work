@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import "./WidgetSuccess.scss";
 
 export function WidgetSuccessPage() {
   const navigate = useNavigate();
@@ -68,7 +69,7 @@ export function WidgetSuccessPage() {
   console.log(searchParams.get("orderId"));
   return (
     <>
-      <div className="box_section" style={{ width: "600px" }}>
+      <div className="wcbox_section" style={{ width: "600px" }}>
         <img
           width="100px"
           src="https://static.toss.im/illusts/check-blue-spot-ending-frame.png"
@@ -124,7 +125,7 @@ export function WidgetSuccessPage() {
         </div>
       </div>
       <div
-        className="box_section"
+        className="wcbox_section"
         style={{ width: "600px", textAlign: "left" }}
       >
         <b>Response Data :</b>

@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./scss/InfiniteScroll.scss";
+import "./scss/StoreProduct.scss";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import moment from "moment";
@@ -145,41 +146,41 @@ const StoreProducts = () => {
   };
 
   return (
-    <div className="product-list">
-      <h2 className="section-title">
-        <span>최신</span>상품
+    <div className="spproduct-list">
+      <h2 className="spsection-title">
+        <span>입점</span>상품
       </h2>
-      <div className="product-grid">
+      <div className="spproduct-grid">
         {products.map((item, index) => {
           return (
-            <div key={index} className="product-card">
-              <div className="product-image-placeholder">
+            <div key={index} className="spproduct-card">
+              <div className="spproduct-image-placeholder">
                 <img
                   src={`productupload/${item.bproductFileSysnameM}`}
                   alt={`상품 이미지 ${item.productCode}`}
-                  className="product-image"
+                  className="spproduct-image"
                 />
               </div>
-              <h3 className="product-title">상품명 : {item.bpname} </h3>
-              <div className="product-price">
+              <h3 className="spproduct-title">상품명 : {item.bpname} </h3>
+              <div className="spproduct-price">
                 <strong>가격: </strong>
                 {item.bpprice}₩
               </div>
-              <div className="product-quantity">
+              <div className="spproduct-quantity">
                 <strong>제품내용: </strong>
                 {item.bpexplanation}
               </div>
               {/* 총 재고 수량을 표시 */}
-              <div className="product-quantity">
+              <div className="spproduct-quantity">
                 <strong>재고:</strong> {item.bpwarestock || "N/A"}
               </div>
-              <div className="pruduct-quantity">
+              <div className="sppruduct-quantity">
                 <strong>등록일: {df(item.bpdate)}</strong>
               </div>
-              <div className="pruduct-quantity">
+              <div className="sppruduct-quantity">
                 <strong>판매자: {item.bsellerId}</strong>
               </div>
-              <div className="btn-set">
+              <div className="spbtn-set">
                 <Link to={`/usedproductbuy/${item.usedCode}`}>
                   <Button wsize="s-25">구매하기</Button>
                 </Link>
@@ -220,7 +221,7 @@ const StoreProducts = () => {
         })}
       </div>
       {hasNextPage && (
-        <div ref={observerRef} className="loading-indicator">
+        <div ref={observerRef} className="sploading-indicator">
           더 많은 상품 불러오는 중...
         </div>
       )}

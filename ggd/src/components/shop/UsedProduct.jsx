@@ -12,6 +12,7 @@ const df = (date) => moment(date).format("YYYY-MM-DD");
 
 const UsedProduct = () => {
   const [useds, setUsed] = useState([]);
+  //검색 필터링된 상품
   const [filteredUseds, setFilteredUseds] = useState([]);
 
   const [page, setPage] = useState({
@@ -22,24 +23,24 @@ const UsedProduct = () => {
   const [loading, setLoading] = useState(false);
   const [hasNextPage, setHasNextPage] = useState(true);
   const [pageParams, setPageParams] = useState([]);
-
   const observerRef = useRef();
 
   //검색 상태 추가
   const [searchCategory, setSearchCategory] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
 
-  const usedsellerId = "usedsellerId"; // Placeholder for seller ID
   const nav = useNavigate();
+
+  const usedsellerId = "usedsellerId"; // Placeholder for seller ID
 
   console.log("페이지", page);
   console.log("중고상품", useds);
 
   // 서버로부터 등록한 상품을 불러오는 함수
   const fetchUseds = async (inpage) => {
-    if (pageParams.includes(inpage.pageNum)) return; // Prevent duplicate API calls
+    if(pageParams.includes(inpage.pageNum)) return;
     setLoading(true);
-    try {
+    try{
       const res = await axios.get("usedList", {
         params: { pageNum: inpage.pageNum },
       });
@@ -55,32 +56,45 @@ const UsedProduct = () => {
       setLoading(false);
     }
   };
-
+  
   useEffect(() => {
     fetchUseds(page);
   }, [page]);
 
   useEffect(() => {
-    if (usedsellerId === null) {
-      nav("/", { replace: true });
-      return;
-    }
-
-  
     const observer = new IntersectionObserver((entries) => {
       const firstEntry = entries[0];
-      if (firstEntry.isIntersecting) {
-        setPage((prev) => ({ ...prev, pageNum: prev.pageNum + 1 }));
-        console.log("옵저버", page);
+      if (firstEntry.isIntersecting){
+        setPage((prev) => ({ ...prev, pageNum:prev.pageNum + 1 }));
       }
     });
-
     if (observerRef.current) observer.observe(observerRef.current);
     return () => {
       if (observerRef.current) observer.unobserve(observerRef.current);
     };
   }, []);
 
+  // 검색 핸들러
+  const handleSearch = () => {
+    if (!searchCategory || !searchTerm) {
+      setFilteredUseds(useds);
+      return;
+    }
+
+    const filteredUseds = useds.filter((item) => {
+      if (searchCategory === "상품코드") {
+        return item.usedCode.toString().includes(searchTerm);
+      } else if (searchCategory === "상품명") {
+        return item.usedName.includes(searchTerm);
+      } else if (searchCategory === "가격") {
+        return item.usedSeller.toString().includes(searchTerm);
+      }
+      return false;
+    });
+
+    setFilteredUseds(filteredUseds);
+  };
+  
   // 장바구니에 상품을 추가하는 함수
   const cartList = (uc, quantity) => {
     console.log(uc);
@@ -145,77 +159,38 @@ const UsedProduct = () => {
   };
 
   const handleClick = () => {
-    alert("구매페이지로 이동합니다");
+    alert("구매페이지로 이동합니다")
+    nav("/widgetcheckout");//, { state: { data:usedProductData } }
   };
 
-  // 검색 핸들러
-  const handleSearch = () => {
-    console.log("검색 기준: ", searchCategory);
-    console.log("검색어: ", searchTerm);
-    
-    if(!searchCategory || !searchTerm){
-      setFilteredUseds(useds);
-      return;
-    }
-
-    const filteredUseds = useds.filter((item) => {
-      if (searchCategory === "상품코드"){
-        return item.usedCode.toString().includes(searchTerm);
-      } else if (searchCategory === "상품명") {
-        return item.usedName.includes(searchTerm);
-      } else if (searchCategory === "가격") {
-        return item.usedSeller.toString().includes(searchTerm);
-      }
-      return false;
-    });
-    console.log("필터링 된 리스트 :", filteredUseds);
-    setFilteredUseds(filteredUseds);
-  };
-
+  
   return (
     <div className="usedproduct-list">
-      <h2 className="section-title">
+      <h2 className="upsection-title">
         <span>중고</span>상품
       </h2>
-      <div className="product-grid">
-        <select
-          className="form-control"
-          value={searchCategory}
-          onChange={(e) => setSearchCategory(e.target.value)}
-          name="search"
-          >
-            <option value="">전체분류</option>
-            <option value="상품코드" name="상품코드">
-              상품코드
-            </option>
-            <option value="상품명" name="상품명">
-            상품명
-          </option>
-          <option value="가격" name="가격">
-            가격
-          </option>
-          </select>
-
-          <input
-          className="uform-control"
+      <div className="upproduct-grid">
+          {/* <input
+          className="upform-control"
           type="text"
           placeholder="Search for..."
           aria-label="Search for..."
           aria-describedby="btnNavbarSearch"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
+          name="upsearch"
           />
           <button
-          className="btn btn-primary"
-          id="btnNavbarSearch"
+          className="btn upbtn-primary"
+          id="upbtnNavbarSearch"
           onClick={handleSearch}
-        >
+          >
           <FontAwesomeIcon icon={faMagnifyingGlass} />
-        </button>
+          </button> */}
 
         {useds.map((item, index) => {
           return (
-            <div key={index} className="product-grid-item">
+            <div key={index} className="upproduct-grid-item">
               <Link
                 to={`/usedpddetails`}
                 state={{
@@ -227,31 +202,31 @@ const UsedProduct = () => {
                   imageNum: item.usedFileSysname,
                 }}
               >
-                <div className="product-image-placeholder">
+                <div className="upproduct-image-placeholder">
                   {item.usedproductFileTblList[0]?.usedFileSysname ? (
                     <img
                       src={`usupload/${item.usedproductFileTblList[0].usedFileSysname}`}
                       alt={`상품 이미지 ${item.usedCode}`}
-                      className="product-image"
+                      className="upproduct-image"
                     />
                   ) : (
                     <div>이미지를 불러올 수 없습니다.</div>
                   )}
                 </div>
 
-                <h3 className="product-title">{item.usedName}</h3>
+                <h3 className="upproduct-title">{item.usedName}</h3>
               </Link>
-              <div className="product-price">{item.usedSeller} 원</div>
-              <div className="product-quantity">
+              <div className="upproduct-price">{item.usedSeller} 원</div>
+              <div className="upproduct-quantity">
                 <strong>제품내용 : {item.usedDetail}</strong>
               </div>
-              <div className="product-quantity">
-                <strong>제고 : {item.usedStock || "N/A"}</strong>
+              <div className="upproduct-quantity">
+                <strong>재고 : {item.usedStock || "N/A"}</strong>
               </div>
-              <div className="product-quantity">
+              <div className="upproduct-quantity">
                 <strong>등록일 : {df(item.usedDate)}</strong>
               </div>
-              <div className="btn-set">
+              <div className="upbtn-set">
                 <Link to={`/widgetcheckout`} onClick={handleClick}>
                   구매하기
                 </Link>
@@ -292,7 +267,7 @@ const UsedProduct = () => {
         })}
       </div>
       {hasNextPage && (
-        <div ref={observerRef} className="loading-indicator">
+        <div ref={observerRef} className="uploading-indicator">
           더 많은 상품 불러오는 중...
         </div>
       )}
