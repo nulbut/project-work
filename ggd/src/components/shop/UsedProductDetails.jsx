@@ -35,7 +35,6 @@ const UsedProductDetails = () => {
         });
         setUsedProductData({
           ...response.data,
-          guideImage: "/images/information.PNG"
         });
       } catch(error) {
         console.error("데이터 로딩 실패", error);
@@ -75,12 +74,39 @@ const UsedProductDetails = () => {
 
   const handlePurchase = () => {
     alert("구매 페이지로 이동합니다.");
-    navigate("/widgetcheckout", { state: { usedCode } }); // 중고상품 코드 전달
+    navigate("/widgetcheckout", { state: { data:usedProductData } }); // 중고상품 코드 전달
   };
 
-  const handleAddToCart = () => {
-    alert("장바구니에 추가되었습니다.");
+  //const handleAddToCart = () => {
+    //alert("장바구니에 추가되었습니다.");
     // 장바구니 추가 구현
+  //};
+
+  // 장바구니에 상품을 추가하는 함수
+  const cartList = (ud, quantity) => {
+    console.log(ud);
+    const nid = sessionStorage.getItem("nid");
+    let conf = window.confirm("장바구니에 추가할까요?");
+    if (!conf) {
+      return;
+    }
+
+    axios
+      .get("/setusedcart", {
+        params: { cnid: nid, usedCode: ud, quantity },
+      })
+      .then((res) => {
+        console.log(res);
+        if (res.data === "ok") {
+          alert("추가되었습니다.");
+        } else {
+          alert("수량을 초과 하였습니다.");
+        }
+      })
+      .catch((err) => {
+        alert("돌아가");
+        console.log(err);
+      });
   };
 
   const handleReport = () => {
@@ -136,9 +162,16 @@ const UsedProductDetails = () => {
             <button className="purchase-button" onClick={handlePurchase}>
               구매하기
             </button>
-            <button className="cart-button" onClick={handleAddToCart}>
-              장바구니
-            </button>
+            <button
+            className="cart-button"
+            wsize="s-50"
+            onClick={() => {
+              const quantity = 1; // 예시로 1개를 기본 수량으로 설정
+              cartList(usedProductData.usedCode, quantity); // 클릭 시 수량 전달
+            }}
+          >
+            장바구니
+          </button>
             <button className="report-button" onClick={handleReport}>
               신고하기
             </button>
