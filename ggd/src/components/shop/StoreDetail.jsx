@@ -11,6 +11,24 @@ const ProductDetails = () => {
   const [loading, setLoading] = useState(true); // 로딩 상태를 관리
   const [error, setError] = useState(null); // 에러 상태를 관리
 
+  //전체 이미지 불러오기
+  const [filst, setFilst] = useState([
+    {
+      bpprice: "",
+      bprobid: "",
+      bpprestriction: "",
+      bpwarestock: "",
+      bpexplanation: "",
+      bpdate: "",
+      bpsize: "",
+      bpmaterial: "",
+      bproductfilecode: "",
+      bproductfilesysname: "",
+      bproductfileoriname: "Nothing",
+      image: "",
+    },
+  ]);
+
   // location.state에서 전달된 값들
   const { code } = location.state || {}; // type은 더 이상 사용하지 않음
 
@@ -38,6 +56,25 @@ const ProductDetails = () => {
 
         // 신상품 데이터를 상태에 저장
         setNewProductData(productResponse.data);
+
+        // 이미지 파일 리스트
+        const pfileList = productResponse.data.bproductFileTblList;
+        console.log(pfileList);
+
+        // 파일 목록 처리
+        if (pfileList.length > 0) {
+          console.log("pfileList.length :", pfileList.length);
+          let newPFileList = [];
+          for (let i = 0; i < pfileList.length; i++) {
+            const newfiles = {
+              ...pfileList[i],
+              image: "productupload/" + pfileList[i].bproductfilesysname,
+            };
+            newPFileList.push(newfiles); //배열 추가
+          }
+          console.log(newPFileList);
+          setFilst(newPFileList);
+        }
       } catch (error) {
         console.error("데이터 로딩 실패", error);
         setError("상품 정보를 불러오는 데 실패했습니다."); // 에러 메시지 설정
@@ -82,6 +119,17 @@ const ProductDetails = () => {
   const handleTabClick = (tab) => {
     setActiveTab(tab); // 클릭한 탭을 활성화
   };
+
+  //전체이미지 불러오기
+  const imgsview = filst.map((v) => {
+    return (
+      <div>
+        {v.image && (
+          <img className="tab-content-imags" src={v.image} alt="preview-img" />
+        )}
+      </div>
+    );
+  });
 
   return (
     <div className="product-detail">
@@ -169,7 +217,8 @@ const ProductDetails = () => {
           <div
             className={`tab-pane ${activeTab === "content" ? "active" : ""}`}
           >
-            <p>{newProductData?.productDetail}</p>
+            {imgsview}
+            <p>{newProductData?.bpexplanation}</p>
           </div>
           <div
             className={`tab-pane ${activeTab === "reviews" ? "active" : ""}`}
