@@ -26,10 +26,13 @@ public interface OrderDetailRepository extends CrudRepository<OrderDetailTbl, Lo
 
     //상품코드 동일한 건들 수를 세서 주문완료 건수로 출력할 예정
 
-    @Query (
-            value = "select count(*) from order_detail_tbl as o inner od as b on o.product_code = b.bpnum = :code",
-            nativeQuery = true)
-    long totalcnt(@PathVariable("code") long code);
+//    @Query (
+//            value = "select count(*) from order_detail_tbl as o inner od as b on o.product_code = b.bpnum = :code",
+//            nativeQuery = true)
+//    long totalcnt(@PathVariable("code") long code);
+
+    @Query("select count (od) from OrderDetailTbl od join BproductTbl bp on od.product_code = bp.bpnum where bp.bpnum = :code")
+    Long countByProductOrderCode(@Param("code") long code);
 }
 
 

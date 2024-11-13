@@ -20,6 +20,7 @@ import java.util.Map;
 
 @RestController
 @Slf4j
+@RequestMapping("/api/products")
 public class BproductController {
     @Autowired
     private BproductService bpServ;
@@ -110,12 +111,15 @@ public class BproductController {
         return ResponseEntity.ok(outOfStockCount);
     }
 
-    //주문건수 세기
-    @GetMapping("countorder")
-    public ResponseEntity<Long> countorder(@PathVariable("code") long code) {
-        long count = bpServ.getcountorder(code);
-        return ResponseEntity.ok(count);
-    }
+//    @GetMapping("/orders/count/{code}")
+//    public ResponseEntity<Long> getOrderCount(@PathVariable("code") long code) {
+//        Long count = bpServ.getOrderCount(code);
+//        if (count !=null){
+//            return ResponseEntity.ok(count);
+//        } else {
+//            return ResponseEntity.ok(null); //주문건수 없을 경우 null로 표기
+//        }
+//    }
 
 }
 

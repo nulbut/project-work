@@ -308,12 +308,6 @@ public class BproductService {
         return bpdRepo.countByBcondition("품절");
     }
 
-    //같은 상품 번호인 경우 개수를 셈 그걸 주문건수로 count
-
-
-    public long getcountorder (long code) {
-        return odrRepo.totalcnt(code);
-    }
 
 
 //    public Map<String, Object> getBproductListNormal(Integer pageNum) {

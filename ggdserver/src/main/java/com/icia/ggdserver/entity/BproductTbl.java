@@ -49,6 +49,9 @@ public class BproductTbl { // 사업자 상품 테이블
 
 
 
+
+
+
 //    @Column(length = 100)
 //    private int bfackstock; //가재고
 //

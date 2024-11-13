@@ -19,6 +19,7 @@ const BProductStock = () => {
   const id = sessionStorage.getItem("bid");
   const bsellerId = sessionStorage.getItem("nnickname");
   const pageNum = sessionStorage.getItem("pageNum");
+  const ordercount = localStorage.getItem("orderCount");
 
   const [bbitem, setBbitem] = useState([]);
 
@@ -127,9 +128,7 @@ const BProductStock = () => {
           </div>
         </TableColumn>
         <TableColumn wd={"w-10"}>{bn(item.bpwarestock)}</TableColumn>
-        <TableColumn wd={"w-10"}>
-          <OderBnumCount />
-        </TableColumn>
+        <TableColumn wd={"w-10"}>{ordercount}</TableColumn>
         <TableColumn wd={"w-30"}>{item.bcondition}</TableColumn>
       </TableRow>
     ));
