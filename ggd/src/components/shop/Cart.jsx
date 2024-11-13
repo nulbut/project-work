@@ -44,6 +44,7 @@ const Cart = () => {
 
         setCitem(reCart); // 장바구니 항목 업데이트
         sessionStorage.setItem("pageNum", pageNum);
+        console.log(res.data);
       })
       .catch((err) => console.log(err));
   };
@@ -159,20 +160,20 @@ const Cart = () => {
 
     const purchaseItems = selectedCartItems.map((item) => ({
       cartCode: item.cartCode,
-      productName: item.productin
-        ? item.productin.productName
+      bpname: item.Bproductin
+        ? item.Bproductin.bpname
         : item.usedin
         ? item.usedin.usedName
         : "상품 없음",
       quantity: item.quantity,
-      price: item.productin
-        ? item.productin.sellerPayment
+      price: item.Bproductin
+        ? item.productin.bpprice
         : item.usedin
         ? item.usedin.usedSeller
         : 0,
       totalPrice:
-        (item.productin
-          ? item.productin.sellerPayment
+        (item.Bproductin
+          ? item.Bproductin.bpprice
           : item.usedin
           ? item.usedin.usedSeller
           : 0) * item.quantity,
@@ -210,8 +211,8 @@ const Cart = () => {
     );
   } else {
     cartList = citem.map((item, index) => {
-      const price = item.productin
-        ? item.productin.sellerPayment
+      const price = item.bproductin
+        ? item.bproductin.bpprice
         : item.usedin
         ? item.usedin.usedSeller
         : 0;
@@ -226,8 +227,8 @@ const Cart = () => {
             />
           </TableColumn>
           <TableColumn wd="w-10">
-            {item.productin ? (
-              <div>신상품</div>
+            {item.bproductin ? (
+              <div>입점상품</div>
             ) : item.usedin ? (
               <div>중고상품</div>
             ) : (
@@ -235,9 +236,9 @@ const Cart = () => {
             )}
           </TableColumn>
           <TableColumn wd="w-25">
-            <div onClick={() => getCart(item.productCode)}>
-              {item.productin ? (
-                <div>{item.productin.productName}</div>
+            <div onClick={() => getCart(item.bpnum)}>
+              {item.bproductin ? (
+                <div>{item.bproductin.bpname}</div>
               ) : item.usedin ? (
                 <div>{item.usedin.usedName}</div>
               ) : (

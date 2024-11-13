@@ -85,8 +85,8 @@ const StoreProducts = () => {
   }, []);
 
   // 장바구니에 상품을 추가하는 함수
-  const cartList = (pc, quantity) => {
-    console.log(pc);
+  const cartList = (bpn, quantity) => {
+    console.log(bpn);
     const nid = sessionStorage.getItem("nid");
     let conf = window.confirm("장바구니에 추가할까요?");
     if (!conf) {
@@ -94,8 +94,8 @@ const StoreProducts = () => {
     }
 
     axios
-      .get("/setcart", {
-        params: { cnid: nid, productCode: pc, quantity },
+      .get("/setStorecart", {
+        params: { cnid: nid, bpnum: bpn, quantity },
       })
       .then((res) => {
         console.log(res);
@@ -116,8 +116,8 @@ const StoreProducts = () => {
   };
 
   // 찜목록에 상품을 추가하는 함수
-  const dibsList = (pc) => {
-    console.log(pc);
+  const dibsList = (bpn) => {
+    console.log(bpn);
     const nid = sessionStorage.getItem("nid");
     let conf = window.confirm("찜목록에 추가할까요?");
     if (!conf) {
@@ -126,7 +126,7 @@ const StoreProducts = () => {
 
     axios
       .get("/setDibs", {
-        params: { dnid: nid, productCode: pc },
+        params: { dnid: nid, bpnum: bpn },
       })
       .then((res) => {
         console.log(res);
@@ -200,7 +200,7 @@ const StoreProducts = () => {
                   wsize="s-25"
                   onClick={() => {
                     const quantity = 1; // 예시로 1개를 기본 수량으로 설정
-                    cartList(item.productCode, quantity); // 클릭 시 수량 전달
+                    cartList(item.bpnum, quantity); // 클릭 시 수량 전달
                   }}
                 >
                   <FontAwesomeIcon
@@ -208,7 +208,7 @@ const StoreProducts = () => {
                     style={{ color: "#000000", fontSize: "1.5em" }}
                   />
                 </Button>
-                <Button wsize="s-25" onClick={() => dibsList(item.productCode)}>
+                <Button wsize="s-25" onClick={() => dibsList(item.bpnum)}>
                   <FontAwesomeIcon
                     icon={faHeart}
                     style={{ color: "#ff0000", fontSize: "1.5em" }}
