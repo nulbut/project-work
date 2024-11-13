@@ -138,7 +138,7 @@ public class BMemberSevrvice {
     }
 
     public String sendBEmail(String bEmail)
-        throws MessagingException, UnsupportedEncodingException {
+            throws MessagingException, UnsupportedEncodingException {
         //메일 전송에 필요한 정보 설정
         MimeMessage emailForm = createEmailform(bEmail);
         //실제 메일 전송
@@ -147,7 +147,7 @@ public class BMemberSevrvice {
     }
 
     private MimeMessage createEmailform(String email)
-        throws MessagingException, UnsupportedEncodingException  {
+            throws MessagingException, UnsupportedEncodingException  {
 
         createCode(); //인증 코드 생성
         String setFrom = "rnjstnwjd32@gamil.com"; //email-config에 설정한 이메일 보내는사람 (수정이꺼)
@@ -161,7 +161,7 @@ public class BMemberSevrvice {
 
         return message;
 
-        }
+    }
 
     private void createCode() {
         Random random = new Random();

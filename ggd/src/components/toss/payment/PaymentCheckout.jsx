@@ -11,7 +11,7 @@ const customerKey = generateRandomString();
 
 const amount = {
   currency: "KRW",
-  value: "usedSeller", 
+  value: "usedSeller",
 };
 
 export function PaymentCheckoutPage() {
@@ -130,58 +130,86 @@ export function PaymentCheckoutPage() {
           customerName: "김토스",
           customerMobilePhone: "01012341234",
         });
-//       case "FOREIGN_EASY_PAY":
-//         await payment.requestPayment({
-//           method: "FOREIGN_EASY_PAY", // 해외 간편결제
-//           amount: {
-//             value: 100,
-//             currency: "USD",
-//           },
-//           orderId: generateRandomString(),
-//           orderName: "토스 티셔츠 외 2건",
-//           successUrl: window.location.origin + "/payment/success",
-//           failUrl: window.location.origin + "/fail",
-//           customerEmail: "customer123@gmail.com",
-//           customerName: "김토스",
-//           customerMobilePhone: "01012341234",
-//           foreignEasyPay: {
-//             provider: "PAYPAL", // PayPal 결제
-//             country: "KR",
-//           },
-//         });
+      //       case "FOREIGN_EASY_PAY":
+      //         await payment.requestPayment({
+      //           method: "FOREIGN_EASY_PAY", // 해외 간편결제
+      //           amount: {
+      //             value: 100,
+      //             currency: "USD",
+      //           },
+      //           orderId: generateRandomString(),
+      //           orderName: "토스 티셔츠 외 2건",
+      //           successUrl: window.location.origin + "/payment/success",
+      //           failUrl: window.location.origin + "/fail",
+      //           customerEmail: "customer123@gmail.com",
+      //           customerName: "김토스",
+      //           customerMobilePhone: "01012341234",
+      //           foreignEasyPay: {
+      //             provider: "PAYPAL", // PayPal 결제
+      //             country: "KR",
+      //           },
+      //         });
     }
   }
 
-//   async function requestBillingAuth() {
-//     await payment.requestBillingAuth({
-//       method: "CARD", // 자동결제(빌링)은 카드만 지원합니다
-//       successUrl: window.location.origin + "/payment/billing", // 요청이 성공하면 리다이렉트되는 URL
-//       failUrl: window.location.origin + "/fail", // 요청이 실패하면 리다이렉트되는 URL
-//       customerEmail: "customer123@gmail.com",
-//       customerName: "김토스",
-//     });
-//   }
+  //   async function requestBillingAuth() {
+  //     await payment.requestBillingAuth({
+  //       method: "CARD", // 자동결제(빌링)은 카드만 지원합니다
+  //       successUrl: window.location.origin + "/payment/billing", // 요청이 성공하면 리다이렉트되는 URL
+  //       failUrl: window.location.origin + "/fail", // 요청이 실패하면 리다이렉트되는 URL
+  //       customerEmail: "customer123@gmail.com",
+  //       customerName: "김토스",
+  //     });
+  //   }
 
   return (
     <div className="wrapper">
       <div className="box_section">
         <h1>일반 결제</h1>
         <div id="payment-method" style={{ display: "flex" }}>
-          <button id="CARD" className={`button2 ${selectedPaymentMethod === "CARD" ? "active" : ""}`} onClick={() => selectPaymentMethod("CARD")}>
+          <button
+            id="CARD"
+            className={`button2 ${
+              selectedPaymentMethod === "CARD" ? "active" : ""
+            }`}
+            onClick={() => selectPaymentMethod("CARD")}
+          >
             카드
           </button>
-          <button id="TRANSFER" className={`button2 ${selectedPaymentMethod === "TRANSFER" ? "active" : ""}`} onClick={() => selectPaymentMethod("TRANSFER")}>
+          <button
+            id="TRANSFER"
+            className={`button2 ${
+              selectedPaymentMethod === "TRANSFER" ? "active" : ""
+            }`}
+            onClick={() => selectPaymentMethod("TRANSFER")}
+          >
             계좌이체
           </button>
-          <button id="VIRTUAL_ACCOUNT" className={`button2 ${selectedPaymentMethod === "VIRTUAL_ACCOUNT" ? "active" : ""}`} onClick={() => selectPaymentMethod("VIRTUAL_ACCOUNT")}>
+          <button
+            id="VIRTUAL_ACCOUNT"
+            className={`button2 ${
+              selectedPaymentMethod === "VIRTUAL_ACCOUNT" ? "active" : ""
+            }`}
+            onClick={() => selectPaymentMethod("VIRTUAL_ACCOUNT")}
+          >
             가상계좌
           </button>
-          <button id="MOBILE_PHONE" className={`button2 ${selectedPaymentMethod === "MOBILE_PHONE" ? "active" : ""}`} onClick={() => selectPaymentMethod("MOBILE_PHONE")}>
+          <button
+            id="MOBILE_PHONE"
+            className={`button2 ${
+              selectedPaymentMethod === "MOBILE_PHONE" ? "active" : ""
+            }`}
+            onClick={() => selectPaymentMethod("MOBILE_PHONE")}
+          >
             휴대폰
           </button>
           <button
             id="CULTURE_GIFT_CERTIFICATE"
-            className={`button2 ${selectedPaymentMethod === "CULTURE_GIFT_CERTIFICATE" ? "active" : ""}`}
+            className={`button2 ${
+              selectedPaymentMethod === "CULTURE_GIFT_CERTIFICATE"
+                ? "active"
+                : ""
+            }`}
             onClick={() => selectPaymentMethod("CULTURE_GIFT_CERTIFICATE")}
           >
             문화상품권

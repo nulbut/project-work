@@ -271,4 +271,39 @@ public class BproductService {
         }
         return stockresult;
     }//updateBproductStock end
+
+    //상태와 재입고 관리
+    @Transactional
+    public String updateBproductStockcon(BproductTbl bproductTbl, HttpSession session) {
+        log.info("updateBproductStockcon()");
+        String stockresult = null;
+
+        try {
+            //재고에 따른 상태 업데이트
+            if (bproductTbl.getBpwarestock() <=0 ) {
+                bproductTbl.setBcondition("품절");
+            } else {
+                bproductTbl.setBcondition("판매중");
+            }
+
+            //저장
+            bpdRepo.save(bproductTbl);
+            log.info("bpnum : {}", bproductTbl.getBpnum());
+
+
+            stockresult = "ok";
+        } catch (Exception e) {
+            e.printStackTrace();
+            stockresult = "fail";
+        }
+        return stockresult;
+    }// updateBproductStockcon end
+
+    public long countOutOfStockProducts() {
+        // '품절' 상태인 상품 개수 계산
+        return bpdRepo.countByBcondition("품절");
+    }
+
+
+
 }//class end

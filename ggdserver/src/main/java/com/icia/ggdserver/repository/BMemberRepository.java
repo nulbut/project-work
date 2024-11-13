@@ -70,7 +70,7 @@ public interface BMemberRepository extends CrudRepository<BmemberTbl, String> {
     //회원삭제 메소드
     @Modifying
     @Query(value = "update BmemberTbl bt set bt.bsituation = '탈퇴' where bt.bid = :bcon")
-    void deleteByMember (@Param("bcon") String bcon);
+    void deleteByMember (@Param("bcon") String bid);
 
 
 

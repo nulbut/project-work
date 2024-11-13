@@ -23,7 +23,8 @@ const Cart = () => {
   });
   const [selectAll, setSelectAll] = useState(false); // 전체 선택 상태 관리
   console.log(citem);
-
+  console.log(selectedItems);
+  console.log(selectAll);
   // 서버로부터 장바구니 가져오는 함수
   const getCartList = (pnum) => {
     axios
@@ -177,7 +178,8 @@ const Cart = () => {
           : 0) * item.quantity,
     }));
 
-    nav("/widgetcheckout", { state: { purchaseItems } });
+    console.log(purchaseItems);
+    nav("/widgetcheckout", { state: { datas: selectedCartItems } });
   };
 
   // 수량 초기화 요청 함수
@@ -295,6 +297,9 @@ const Cart = () => {
         </Button>
         <Button size="large" wsize="s-30" onClick={resetCartQuantity}>
           수량 초기화
+        </Button>
+        <Button wsize="s-40" onClick={handlePurchase}>
+          일괄구매
         </Button>
         <Paging page={page} getList={getCartList} />
         <button className="Buttons" onClick={() => nav("/shoppingMall")}>

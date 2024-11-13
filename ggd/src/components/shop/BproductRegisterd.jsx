@@ -28,23 +28,19 @@ const BproductRegisterd = () => {
 
   console.log(id);
 
-  //들어온 데이터 넣음
-  const [itemList, setItemList] = useState([]);
-  const [sort] = useState();
-
-  //검색할때 쓰일것 같음
-  const [searchItem, setSearchItem] = useState("");
-
-  //select 옵션 선택
-  const [filter, setFilter] = useState("");
-
   const [bbitem, setBbitem] = useState([]);
+  // 검색 필터링된 아이템
+  const [filteredItems, setFilteredItems] = useState([]);
 
   const [page, setPage] = useState({
     //페이징 관련 정보 저장
     totalPage: 0,
     pageNum: 1,
   });
+
+  // 검색 상태 추가
+  const [searchCategory, setSearchCategory] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
 
   //서버로부터 등록한 상품 불러오는 함수
   const getBproduct = (pnum) => {
@@ -63,12 +59,37 @@ const BproductRegisterd = () => {
         for (let bItem of bList) {
           newBlist.push({ ...bItem, checked: false });
         }
-        //setitem(bList);
         setBbitem(newBlist);
-        //console.log(bList);
+        // 초기 필터링 상태는 전체 리스트
+        setFilteredItems(newBlist);
         sessionStorage.getItem("pageNum", pageNum);
       })
       .catch((err) => console.log(err));
+  };
+
+  // 검색 핸들러
+  const handleSearch = () => {
+    console.log("검색 기준:", searchCategory);
+    console.log("검색어:", searchTerm);
+
+    if (!searchCategory || !searchTerm) {
+      // 검색 기준이나 검색어가 없을 경우 원래의 리스트를 보여줌
+      setFilteredItems(bbitem);
+      return;
+    }
+
+    const filteredList = bbitem.filter((item) => {
+      if (searchCategory === "상품코드") {
+        return item.bpnum.toString().includes(searchTerm);
+      } else if (searchCategory === "상품명") {
+        return item.bpname.includes(searchTerm);
+      } else if (searchCategory === "가격") {
+        return item.bpprice.toString().includes(searchTerm);
+      }
+      return false;
+    });
+    console.log("필터링 된 리스트 :", filteredList);
+    setFilteredItems(filteredList);
   };
 
   //일괄체크 함수
@@ -139,37 +160,38 @@ const BproductRegisterd = () => {
 
   //등록상품 목록 작성
   let BproductList = null;
-  if (bbitem.length === 0) {
+  if (filteredItems.length === 0) {
     BproductList = (
       <TableRow key={0}>
         <TableColumn span={4}>등록된 상품이 없습니다.</TableColumn>
       </TableRow>
     );
   } else {
-    BproductList = Object.values(bbitem).map((bbitem) => (
-      <TableRow key={bbitem.bpnum}>
+    BproductList = Object.values(filteredItems).map((item) => (
+      <TableRow key={item.bpnum}>
         <TableColumn wd={"w-10"}>
           <CheckBox
-            key={bbitem.bpnum}
-            itemid={bbitem.bpnum}
+            key={item.bpnum}
+            itemid={item.bpnum}
             checkItemHandler={checkItemHandler}
-            checked={bbitem.checked}
+            checked={item.checked}
           />
         </TableColumn>
-        <TableColumn wd={"w-10"}>{bbitem.bpnum}</TableColumn>
+        <TableColumn wd={"w-10"}>{item.bpnum}</TableColumn>
         <TableColumn wd={"w-20"}>
           <img
+            onClick={() => getBboard(item.bpnum)}
             className="img"
-            src={"../productupload/" + bbitem.bproductFileSysnameM}
+            src={"../productupload/" + item.bproductFileSysnameM}
           />
         </TableColumn>
         <TableColumn wd={"w-10"}>
-          <div onClick={() => getBboard(bbitem.bpnum)}>{bbitem.bpname}</div>
+          <div onClick={() => getBboard(item.bpnum)}>{item.bpname}</div>
         </TableColumn>
-        <TableColumn wd={"w-10"}>{bn(bbitem.bpprice)}</TableColumn>
-        <TableColumn wd={"w-10"}>{bn(bbitem.bpwarestock)}</TableColumn>
-        <TableColumn wd={"w-10"}>{bn(bbitem.bcondition)}</TableColumn>
-        <TableColumn wd={"w-20"}>{bf(bbitem.bpsigndt)}</TableColumn>
+        <TableColumn wd={"w-10"}>{bn(item.bpprice)}</TableColumn>
+        <TableColumn wd={"w-10"}>{bn(item.bpwarestock)}</TableColumn>
+        <TableColumn wd={"w-10"}>{bn(item.bcondition)}</TableColumn>
+        <TableColumn wd={"w-20"}>{bf(item.bpsigndt)}</TableColumn>
       </TableRow>
     ));
   }
@@ -182,11 +204,22 @@ const BproductRegisterd = () => {
       <h2>등록한 상품</h2>
       <hr />
       <div className="input-group">
-        <select className="form-control">
-          <option>전체분류</option>
-          <option>상품코드</option>
-          <option>상품명</option>
-          <option>가격</option>
+        <select
+          className="form-control"
+          value={searchCategory}
+          onChange={(e) => setSearchCategory(e.target.value)}
+          name="search"
+        >
+          <option value="">전체분류</option>
+          <option value="상품코드" name="상품코드">
+            상품코드
+          </option>
+          <option value="상품명" name="상품명">
+            상품명
+          </option>
+          <option value="가격" name="가격">
+            가격
+          </option>
         </select>
 
         <input
@@ -195,8 +228,14 @@ const BproductRegisterd = () => {
           placeholder="Search for..."
           aria-label="Search for..."
           aria-describedby="btnNavbarSearch"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
         />
-        <button className="btn btn-primary" id="btnNavbarSearch" type="submit">
+        <button
+          className="btn btn-primary"
+          id="btnNavbarSearch"
+          onClick={handleSearch}
+        >
           <FontAwesomeIcon icon={faMagnifyingGlass} />
         </button>
       </div>
