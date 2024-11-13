@@ -24,8 +24,13 @@ const IdealcupSidebar = () => {
       },
       {
         name: "통계",
-        path: "/",
+        path: "/cupstatics",
         icon: <FontAwesomeIcon icon={faChartSimple} />,
+      },
+      {
+        name: "굿즈샵",
+        path: "/ShoppingMall",
+        icon: <FontAwesomeIcon icon={faShop} />,
       },
       {
         name: "더 많은 기능",
@@ -64,7 +69,7 @@ const IdealcupSidebar = () => {
 
       {
         name: "통계",
-        path: "/",
+        path: "/cupstatics",
         icon: <FontAwesomeIcon icon={faChartSimple} />,
       },
       {

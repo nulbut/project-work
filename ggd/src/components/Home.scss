@@ -14,18 +14,17 @@
     left: 0;
     background-color: rgb(237, 253, 144);
     transition: all 1.5s ease;
-    color: palevioletred;
   }
 
   .left-content {
     text-decoration: none;
-
+    transition: all 2s ease;
     position: fixed;
     width: 50%;
     height: 100%;
     left: 0;
     z-index: 99;
-
+    opacity: 0;
     &:hover ~ .left-container {
       width: 80%;
       background-color: rgb(252, 182, 240);
@@ -43,11 +42,20 @@
       opacity: 0;
     }
     &:hover ~ .logotextleft {
+      display: block;
+    }
+    &:hover {
       opacity: 1;
     }
   }
   .logotextleft {
-    opacity: 0;
+    // display: none; /* 기본적으로 숨김 */
+    color: black;
+    position: absolute; /* 위치 조정 */
+    top: 90%;
+    left: 50%;
+
+    transform: translate(-50%, -50%); /* 가운데 정렬 */
   }
   .logo {
     width: 30%;
@@ -68,6 +76,7 @@
   }
 
   .right-content {
+    transition: all 2s ease;
     text-decoration: none;
     color: wheat;
     position: fixed;
@@ -75,6 +84,8 @@
     height: 100%;
     right: 0;
     z-index: 99;
+    opacity: 0;
+
     &:hover ~ .right-container {
       width: 80%;
       background-color: rgb(252, 182, 240);
@@ -86,5 +97,17 @@
     &:hover ~ .logo {
       opacity: 0;
     }
+    &:hover {
+      opacity: 1;
+    }
+  }
+  .logotextright {
+    // display: none; /* 기본적으로 숨김 */
+    color: black;
+    position: absolute; /* 위치 조정 */
+    top: 0%;
+    left: 50%;
+
+    transform: translate(-50%, 0%); /* 가운데 정렬 */
   }
 }

@@ -17,7 +17,7 @@ const Home = () => {
       <div className="left-container"></div>
 
       <Link className="right-content" to="/ShoppingMall">
-        쇼핑몰
+        <div className="logotextright">쇼핑몰</div>
       </Link>
       <div className="right-container"></div>
 

@@ -185,6 +185,8 @@ public class BproductService {
         return res;
     }
 
+
+
     @Transactional
     public String deleteCheckedList(List<Long> ckList, HttpSession session) {
         log.info("deleteCheckedList()");
@@ -305,5 +307,29 @@ public class BproductService {
     }
 
 
-
+//    public Map<String, Object> getBproductListNormal(Integer pageNum) {
+//        log.info("getBproductList() bsellerId : {}", bsellerId);
+//
+//        if (pageNum == null){
+//            pageNum = 1;
+//        }
+//        int listCnt  = 8;
+//
+//        Pageable pb = PageRequest.of((pageNum - 1), listCnt,
+//                Sort.Direction.DESC, "bpnum");
+//
+//        Page<BproductTbl> result =bpdRepo.findByBpnumGreaterThanAndBsellerId(0L, bsellerId, pb);
+//        //page 객체를 list로 변환 후 전송
+//        List<BproductTbl> bList = result.getContent();
+//        //blist에 저장
+//        int totalPage = result.getTotalPages();
+//
+//        Map<String, Object> res = new HashMap<>();
+//        res.put("bList", bList);
+//        res.put("totalPage",totalPage);
+//        res.put("pageNum",pageNum);
+//
+//
+//        return res;
+//    }
 }//class end

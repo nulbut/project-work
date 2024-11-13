@@ -42,8 +42,8 @@ const Header = ({ lstate, onLogout }) => {
       sub: 1,
     },
     {
-      name: "신상품",
-      path: "/NewProduct",
+      name: "입점상품",
+      path: "/storeProduct",
       sub: 1,
     },
     {
