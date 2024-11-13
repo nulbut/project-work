@@ -36,7 +36,6 @@ const BproductUpdata = () => {
     bpprice: "",
     bpprestriction: "",
     bpwarestock: "",
-    bpwarestocklimt: "",
     bpexplanation: "",
     bpdate: "",
     bpsize: "",
@@ -59,7 +58,6 @@ const BproductUpdata = () => {
     bpsize,
     bpprestriction,
     bpwarestock,
-    bpwarestocklimt,
     bpexplanation,
     bpdate,
     bpmaterial,
@@ -300,7 +298,7 @@ const BproductUpdata = () => {
             autoFocus
             required
           />
-          <p>통보재고</p>
+          {/* <p>통보재고</p>
           <input
             className="Input"
             name="bpwarestocklimt"
@@ -309,7 +307,7 @@ const BproductUpdata = () => {
             onChange={bonch}
             autoFocus
             required
-          />
+          /> */}
           <p>출시일</p>
           <input
             type="date"
@@ -335,7 +333,7 @@ const BproductUpdata = () => {
             required
           ></textarea>
         </div>
-        <div>
+        {/* <div>
           <p className="title">옵션사용</p>
           <p>상품 옵션</p>
           <div className="onoff">
@@ -345,7 +343,7 @@ const BproductUpdata = () => {
               <img src={toggleoff} onClick={toggleHandler} />
             )}
           </div>
-        </div>
+        </div> */}
         <div>
           <p className="title">사양</p>
           <p>사이즈</p>

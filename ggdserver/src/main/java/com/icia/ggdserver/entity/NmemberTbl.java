@@ -16,7 +16,7 @@ public class NmemberTbl { //일반 회원 테이블
     @Column(name = "n_id")
     private String nid; //아이디 (PK)
 
-    @Column
+    @Column(nullable = false)
     @ColumnDefault("'사용중'")
     private String nsituation = "사용중"; // 일반 회원 상태 ( 기본값 : "사용중" , 탈퇴시 "탈퇴" 로그인 안됨)
 

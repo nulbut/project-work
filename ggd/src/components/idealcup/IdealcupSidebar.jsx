@@ -10,6 +10,7 @@ import {
   faCommentDots,
   faHeart,
   faPlus,
+  faShop,
 } from "@fortawesome/free-solid-svg-icons";
 import "./scss/IdealcupSidebar.scss";
 const IdealcupSidebar = () => {
@@ -60,10 +61,16 @@ const IdealcupSidebar = () => {
       //   path: "/",
       //   icon: <FontAwesomeIcon icon={faFlagCheckered} />,
       // },
+
       {
         name: "통계",
         path: "/",
         icon: <FontAwesomeIcon icon={faChartSimple} />,
+      },
+      {
+        name: "굿즈샵",
+        path: "/ShoppingMall",
+        icon: <FontAwesomeIcon icon={faShop} />,
       },
       {
         name: "문의",

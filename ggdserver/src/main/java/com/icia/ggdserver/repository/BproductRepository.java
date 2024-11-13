@@ -20,6 +20,9 @@ public interface BproductRepository extends CrudRepository<BproductTbl,Long> {
     @Query(value = "delete from BproductTbl b where b.bpnum in :ids")
     void deleteAllByIds(@Param("ids") List<Long> ids);
 
-    //가재고 계산
+
+
+    //품절개수 세기
+    long countByBcondition(String bcondition);
 
 }
