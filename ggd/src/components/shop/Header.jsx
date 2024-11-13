@@ -54,19 +54,19 @@ const Header = ({ lstate, onLogout }) => {
   ];
 
   const submenus = [
-    //서브메뉴
-    {
-      path: "",
-      name: "높은가격",
-    },
-    {
-      path: "",
-      name: "낮은가격",
-    },
-    {
-      path: "",
-      name: "인기순",
-    },
+    // //서브메뉴
+    // {
+    //   path: "",
+    //   name: "높은가격",
+    // },
+    // {
+    //   path: "",
+    //   name: "낮은가격",
+    // },
+    // {
+    //   path: "",
+    //   name: "인기순",
+    // },
   ];
   const submenus2 = [
     {
@@ -80,7 +80,7 @@ const Header = ({ lstate, onLogout }) => {
     },
     {
       name: "Q&A",
-      path: "/Inquiry",
+      path: "/mypage/Inquiry",
     },
   ];
   const menus2 = [

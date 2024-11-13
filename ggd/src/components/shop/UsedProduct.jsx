@@ -170,15 +170,13 @@ const UsedProduct = () => {
               </Link>
               <div className="product-price">{item.usedSeller} 원</div>
               <div className="product-quantity">
-                <strong>제품내용: </strong>
-                {item.usedDetail}
+                <strong>제품내용 : {item.usedDetail}</strong>
               </div>
               <div className="product-quantity">
-                <strong>총 수량:</strong> {item.usedStock || "N/A"}
+                <strong>제고 : {item.usedStock || "N/A"}</strong>
               </div>
               <div className="product-quantity">
-                <strong>등록일: </strong>
-                {df(item.usedDate)}
+                <strong>등록일 : {df(item.usedDate)}</strong>
               </div>
               <div className="btn-set">
                 <Link to={`/usedproductbuy/${item.usedCode}`}>구매하기</Link>
