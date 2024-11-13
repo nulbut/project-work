@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import logo from "../images/logo.svg";
+import logo from "../images/logo3.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faList,
@@ -38,12 +38,12 @@ const Header = ({ lstate, onLogout }) => {
     },
     {
       name: "최신상품",
-      path: "/LatestProduct",
+      path: "/NewProduct",
       sub: 1,
     },
     {
-      name: "신상품",
-      path: "/NewProduct",
+      name: "입점상품",
+      path: "/LatestProduct",
       sub: 1,
     },
     {
@@ -54,19 +54,19 @@ const Header = ({ lstate, onLogout }) => {
   ];
 
   const submenus = [
-    //서브메뉴
-    {
-      path: "",
-      name: "높은가격",
-    },
-    {
-      path: "",
-      name: "낮은가격",
-    },
-    {
-      path: "",
-      name: "인기순",
-    },
+    // //서브메뉴
+    // {
+    //   path: "",
+    //   name: "높은가격",
+    // },
+    // {
+    //   path: "",
+    //   name: "낮은가격",
+    // },
+    // {
+    //   path: "",
+    //   name: "인기순",
+    // },
   ];
   const submenus2 = [
     {
@@ -80,7 +80,7 @@ const Header = ({ lstate, onLogout }) => {
     },
     {
       name: "Q&A",
-      path: "/Inquiry",
+      path: "/mypage/Inquiry",
     },
   ];
   const menus2 = [

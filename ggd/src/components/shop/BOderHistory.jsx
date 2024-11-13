@@ -109,9 +109,9 @@ const BOderHistory = () => {
                 <Radio name="content" value="text">
                   환불
                 </Radio>
-                <Radio name="content" value="text">
+                {/* <Radio name="content" value="text">
                   포인트 주문
-                </Radio>
+                </Radio> */}
               </div>
             </div>
             <div className="table">{/* 테이블 들어갈 자리 */}</div>

@@ -165,39 +165,24 @@ const LatestProducts = () => {
   return (
     <div className="product-list">
       <h2 className="section-title">
-        <span>최신</span>상품
+        <span>입점</span>상품
       </h2>
       <div className="product-grid">
         {products.map((item, index) => {
           return (
-            <div key={index} className="product-grid-item">
-              <Link
-              to={`/pddetails`}
-              state={{
-               code: item.productCode,
-               name: item.productName,
-               sellerId: item.sellerId,
-               detail: item.productDetail,
-               seller: item.sellerPayment,
-               imageNum: item.productFileList,
-              }}
-              >
-                <div className="product-image-placeholder">
-                  {item.productFileList && item.productFileSysname.length > 0 && 
-                   item.productFileList[0]?.productFileSysname ? (
-                    <img
-                      src={`upload/${item.productFileTblList[0].productFileSysname}`}
-                      alt={`상품 이미지 ${item.productCode}`}
-                      className="product-image"
-                    />
-                  ) : (
-                    <div>이미지를 불러올 수 없습니다.</div>
-                  )}
-                </div>  
-
-                <h3 className="product-title">{item.productName}</h3>
-              </Link>
-              <div className="product-price">{item.sellerPayment} 원</div>
+            <div key={index} className="product-card">
+              <div className="product-image-placeholder">
+                <img
+                  src={`upload/${item.productFileSysname}`}
+                  alt={`상품 이미지 ${item.productCode}`}
+                  className="product-image"
+                />
+              </div>
+              <h3 className="product-title">상품명 : {item.productName} </h3>
+              <div className="product-price">
+                <strong>가격: </strong>
+                {item.sellerPayment}₩
+              </div>
               <div className="product-quantity">
                 <strong>제품내용: </strong>
                 {item.productDetail}
