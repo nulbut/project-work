@@ -67,6 +67,35 @@ const ProductDetails = () => {
     navigate("/widgetcheckout", { state: { data: newProductData } });
   };
 
+  const cartList = (ud, quantity) => {
+    console.log(ud)
+    const nid = sessionStorage.getItem("nid");
+    let conf = window.confirm("장바구니에 추가할까요?");
+    if (!conf) {
+      return;
+    }
+    axios
+      .get("/setusedcart", {
+        params: { cnid: nid, usedCode: ud, quantity },
+      })
+      .then((res) => {  
+        console.log(res);
+        if (res.data === "ok") {
+          alert("장바구니에 추가되었습니다.");
+        } else if (res.data === "상품 수량이 부족합니다.") {
+          alert("수량이 재고를 초과합니다.");
+        } else if (res.data === "이미 장바구니에 해당 상품이 있습니다.") {
+          alert("이미 장바구니에 있습니다.");
+        } else {
+          alert("장바구니에 추가 실패: " + res.data);
+        }
+      })
+      .catch((err) => {
+        alert("돌아가거라");
+        console.log(err);
+      });
+  };
+
   const handleAddToCart = () => {
     alert("장바구니에 추가되었습니다.");
     // 장바구니 추가 구현
@@ -128,7 +157,7 @@ const ProductDetails = () => {
               신고하기
             </button>
           </div>
-        </div>
+        </div> 
       </div>
 
       {/* 탭 관련 내용 */}
@@ -145,6 +174,12 @@ const ProductDetails = () => {
             onClick={() => handleTabClick("reviews")}
           >
             후기
+          </div>
+          <div
+            className={`tab-item ${activeTab === "information"? "active" : ""}`}
+            onClick={() => handleTabClick("information")}
+          >
+            상품구매안내
           </div>
           <div
             className={`tab-item ${activeTab === "questions" ? "active" : ""}`}
@@ -172,6 +207,11 @@ const ProductDetails = () => {
             className={`tab-pane ${activeTab === "reviews" ? "active" : ""}`}
           >
             <p>후기 내용이 여기 들어갑니다.</p>
+          </div>
+          <div
+            className={`tab-pane ${activeTab === "information" ? "active" : ""}`}
+          >
+            <p>구매안내 내용이 여기 들어갑니다.</p>
           </div>
           <div
             className={`tab-pane ${activeTab === "questions" ? "active" : ""}`}

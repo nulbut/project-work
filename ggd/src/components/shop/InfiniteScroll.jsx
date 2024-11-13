@@ -31,7 +31,7 @@ const InfiniteScroll = () => {
     setLoading(true);
     try {
       axios
-        .get("productList", { params: { pageNum: inpage.pageNum } })
+        .get("bpdList", { params: { pageNum: inpage.pageNum } })
         .then((res) => {
           const { bList, totalPage, pageNum } = res.data;
           setPage({ totalPage: totalPage, pageNum: pageNum });
@@ -114,26 +114,26 @@ const InfiniteScroll = () => {
   return (
     <div className="product-list">
       <h2 className="section-title">
-        [굿즈]<span>추천</span>상품
+        [굿즈]<span>입점</span>상품
       </h2>
       <div className="product-grid">
         {products.map((item, index) => (
           <div key={index} className="product-card">
             <div className="product-image-placeholder">
               <img
-                src={`upload/${item.productFileSysname}`}
+                src={`productupload/${item.bpproductFileSysnameM}`}
                 alt={`상품 이미지 ${item.productCode}`}
                 className="product-image"
               />
             </div>
-            <h3 className="product-title">상품명 : {item.productName + 1} </h3>
-            <p className="product-price">₩{item.sellerPayment}</p>
-            <p className="product-body">{item.productDetail}</p>
+            <h3 className="product-title">상품명 : {item.bpName} </h3>
+            <p className="product-price">₩{item.bpprice}</p>
+            <p className="product-body">{item.bpexplanation}</p>
           </div>
-        ))}
+        ) )}
       </div>
 
-      <h2 className="section-title">
+      {/* <h2 className="section-title">
         [굿즈]<span>최신</span>상품
       </h2>
       <div className="product-grid">
@@ -156,7 +156,7 @@ const InfiniteScroll = () => {
         <div ref={observerRef} className="loading-indicator">
           더 많은 상품 불러오는 중...
         </div>
-      )}
+      )} */}
     </div>
   );
 };

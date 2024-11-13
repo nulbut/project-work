@@ -14,7 +14,7 @@ const Mypage = (props) => {
     },
     {
       name: "등록한 상품",
-      path: "productRegistered",
+      path: "usedRegistered",
     },
     {
       name: "주문내역/배송조회",
