@@ -3,8 +3,10 @@ import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import moment from "moment";
 import "./scss/ProductDetails.scss";
+import { data } from "jquery";
 
 const UsedProductDetails = () => {
+  const [activeTab, setActiveTab] = useState("content");
   const location = useLocation();
   const navigate = useNavigate();
   const [usedProductData, setUsedProductData] = useState(null); // 중고상품 데이터 상태
@@ -57,6 +59,7 @@ const UsedProductDetails = () => {
   if (!usedProductData) {
     return <div>상품 정보를 찾을 수 없습니다.</div>;
   }
+
   const {
     usedName,
     usedFileSysname,
@@ -81,6 +84,9 @@ const UsedProductDetails = () => {
   const handleReport = () => {
     alert("신고 페이지로 이동합니다.");
     navigate("/report"); // 신고 페이지로 이동
+  };
+  const handleTabClick = (tab) => {
+    setActiveTab(tab); // 클릭한 탭을 활성화
   };
   console.log(usedProductData);
   return (
@@ -140,17 +146,61 @@ const UsedProductDetails = () => {
           </div>
         </div>
       </div>
-
-      {/* 탭 관련 내용 추가 가능 */}
+      {/* 탭 관련 내용 */}
       <div className="product-detail-tabs">
-        {/* 탭 UI 예시 */}
         <div className="tab-header">
-          <div className="tab-item">내용</div>
-          <div className="tab-item">후기</div>
-          <div className="tab-item">문의사항</div>
-          <div className="tab-item">제품규격</div>
+          <div
+            className={`tab-item ${activeTab === "content" ? "active" : ""}`}
+            onClick={() => handleTabClick("content")}
+          >
+            내용
+          </div>
+          <div
+            className={`tab-item ${activeTab === "reviews" ? "active" : ""}`}
+            onClick={() => handleTabClick("reviews")}
+          >
+            후기
+          </div>
+          <div
+            className={`tab-item ${activeTab === "questions" ? "active" : ""}`}
+            onClick={() => handleTabClick("questions")}
+          >
+            문의사항
+          </div>
+          <div
+            className={`tab-item ${
+              activeTab === "specifications" ? "active" : ""
+            }`}
+            onClick={() => handleTabClick("specifications")}
+          >
+            제품규격
+          </div>
         </div>
-        <div className="tab-content">{/* 각 탭에 맞는 내용을 추가 */}</div>
+
+        <div className="tab-content">
+          <div
+            className={`tab-pane ${activeTab === "content" ? "active" : ""}`}
+          >
+            <p>{usedProductData?.usedDetail}</p>
+          </div>
+          <div
+            className={`tab-pane ${activeTab === "reviews" ? "active" : ""}`}
+          >
+            <p>후기 내용이 여기 들어갑니다.</p>
+          </div>
+          <div
+            className={`tab-pane ${activeTab === "questions" ? "active" : ""}`}
+          >
+            <p>문의사항 내용이 여기 들어갑니다.</p>
+          </div>
+          <div
+            className={`tab-pane ${
+              activeTab === "specifications" ? "active" : ""
+            }`}
+          >
+            <p>제품 규격 내용이 여기 들어갑니다.</p>
+          </div>
+        </div>
       </div>
     </div>
   );

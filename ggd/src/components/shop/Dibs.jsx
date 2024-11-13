@@ -35,6 +35,7 @@ const Dibs = () => {
         setPage({ totalPage: totalPage, pageNum: pageNum });
         setDitem(Dlist);
         sessionStorage.setItem("pageNum", pageNum); // sessionStorage에 pageNum 저장
+        console.log(res.data);
       })
       .catch((err) => console.log(err));
   };
@@ -101,8 +102,9 @@ const Dibs = () => {
   };
 
   // 장바구니에 상품을 추가하는 함수
-  const cartList = (ud, quantity) => {
+  const cartList = (ud, quantity, bp) => {
     console.log(ud);
+    console.log(bp);
     const nid = sessionStorage.getItem("nid");
     let conf = window.confirm("장바구니에 추가할까요?");
     if (!conf) {
@@ -111,14 +113,14 @@ const Dibs = () => {
 
     axios
       .get("/setusedcart", {
-        params: { cnid: nid, usedCode: ud, quantity },
+        params: { cnid: nid, usedCode: ud, quantity, bpnum: bp, quantity },
       })
       .then((res) => {
         console.log(res);
         if (res.data === "ok") {
           alert("추가되었습니다.");
         } else {
-          alert("수량을 초과 하였습니다.");
+          alert("이미 장바구니에 있습니다.");
         }
       })
       .catch((err) => {
@@ -146,7 +148,7 @@ const Dibs = () => {
           />
         </TableColumn>
         <TableColumn wd="10">
-          {item.productinfo ? (
+          {item.bproductinfo ? (
             <div>신상품</div>
           ) : item.usedinfo ? (
             <div>중고상품</div>
@@ -155,11 +157,11 @@ const Dibs = () => {
           )}
         </TableColumn>
         <TableColumn wd="w-25">
-          <div onClick={() => getDibs(item.productCode)}>
+          <div onClick={() => getDibs(item.bpnum)}>
             {/* 신상품이 있는 경우 */}
-            {item.productinfo ? (
+            {item.bproductinfo ? (
               <div>
-                <div>{item.productinfo.productName}</div>
+                <div>{item.bproductinfo.bpname}</div>
               </div>
             ) : // 중고상품이 있는 경우
             item.usedinfo ? (
@@ -172,9 +174,9 @@ const Dibs = () => {
           </div>
         </TableColumn>
         <TableColumn wd="w-20">
-          {item.productinfo || item.usedinfo
-            ? item.productinfo
-              ? item.productinfo.sellerPayment + "₩"
+          {item.bproductinfo || item.usedinfo
+            ? item.bproductinfo
+              ? item.bproductinfo.bpprice + "₩"
               : item.usedinfo.usedSeller + "₩"
             : "가격 정보 없음"}
         </TableColumn>
@@ -184,7 +186,13 @@ const Dibs = () => {
             wsize="s-50"
             onClick={() => {
               const quantity = 1; // 예시로 1개를 기본 수량으로 설정
-              cartList(item.usedCode, quantity); // 클릭 시 수량 전달
+              if (item.bproductinfo) {
+                // 신상품일 경우
+                cartList(null, quantity, item.bpnum, "new");
+              } else if (item.usedinfo) {
+                // 중고상품일 경우
+                cartList(item.usedinfo.usedCode, quantity, item.bpnum, "used");
+              }
             }}
           >
             <FontAwesomeIcon

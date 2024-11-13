@@ -73,6 +73,8 @@ import UsedProductDetails from "./components/shop/UsedProductDetails";
 import IdealcupStatics from "./components/idealcup/IdealcupStatics";
 import StoreProducts from "./components/shop/StoreProducts";
 import StoreDetail from "./components/shop/StoreDetail";
+import NotificationView from "./components/shop/NotificationView";
+
 function App() {
   const nav = useNavigate();
 
@@ -159,6 +161,10 @@ function App() {
           <Route path="/storeProduct" element={<StoreProducts />} />
           <Route path="/usedProduct" element={<UsedProduct />} />
           <Route path="/notification" element={<Notification />} />
+          <Route
+            path="/notification/noticeView"
+            element={<NotificationView />}
+          />
           <Route path="/cart" element={<Cart />} />
           <Route path="/login" element={<Login sucLogin={sucLogin} />} />
           <Route path="/idpwdfind" element={<IdPasswordFind />} />
@@ -170,11 +176,6 @@ function App() {
 
           <Route path="/mypage" element={<Mypage onLogout={onLogout} />}>
             <Route path="orderDelivery" element={<OrderDelivery />} />
-            {/* <Route
-              path="nmemberpasswordcheck"
-              element={<NmemberPasswordCheck />}
-            /> */}
-
             <Route path="productRegistered" element={<ProductRegistered />} />
             <Route path="productWrite" element={<ProductWrite />} />
             <Route path="dibs" element={<Dibs />} />

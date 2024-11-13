@@ -22,6 +22,9 @@ public class DibsTbl {
     private long productCode; // 상품고유 번호
 
     @Column(nullable = false)
+    private long bpnum;
+
+    @Column(nullable = false)
     private long usedCode;
 
     @CreationTimestamp
@@ -34,4 +37,6 @@ public class DibsTbl {
     @Transient
     private UsedProductTbl usedinfo;
 
+    @Transient
+    private BproductTbl bproductinfo;
 }
