@@ -110,7 +110,12 @@ public class BproductController {
         return ResponseEntity.ok(outOfStockCount);
     }
 
-
+    //주문건수 세기
+    @GetMapping("countorder")
+    public ResponseEntity<Long> countorder(@PathVariable("code") long code) {
+        long count = bpServ.getcountorder(code);
+        return ResponseEntity.ok(count);
+    }
 
 }
 

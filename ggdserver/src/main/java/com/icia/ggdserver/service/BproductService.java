@@ -3,10 +3,9 @@ package com.icia.ggdserver.service;
 
 import com.icia.ggdserver.entity.BproductFileTbl;
 import com.icia.ggdserver.entity.BproductTbl;
+import com.icia.ggdserver.entity.OrderTbl;
 import com.icia.ggdserver.entity.ProductTbl;
-import com.icia.ggdserver.repository.BproductFileRepository;
-import com.icia.ggdserver.repository.BproductRepository;
-import com.icia.ggdserver.repository.ProductRegistrationRepository;
+import com.icia.ggdserver.repository.*;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +34,9 @@ public class BproductService {
     @Autowired
     private BproductFileRepository bpfRepo;
     //상품 이미지 레포지터리
+
+    @Autowired
+    private OrderDetailRepository odrRepo;
 
 
     //상품 작성
@@ -304,6 +306,13 @@ public class BproductService {
     public long countOutOfStockProducts() {
         // '품절' 상태인 상품 개수 계산
         return bpdRepo.countByBcondition("품절");
+    }
+
+    //같은 상품 번호인 경우 개수를 셈 그걸 주문건수로 count
+
+
+    public long getcountorder (long code) {
+        return odrRepo.totalcnt(code);
     }
 
 

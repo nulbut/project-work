@@ -8,4 +8,5 @@ import com.icia.ggdserver.entity.PaymentTbl;
 @Repository
 public interface PaymentRepository extends JpaRepository<PaymentTbl, Long> {
 
+
 }

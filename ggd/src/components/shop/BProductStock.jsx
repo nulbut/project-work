@@ -9,6 +9,7 @@ import TableRow from "./TableRow";
 import TableColumn from "./TableColumn";
 import "./scss/BProductStock.scss";
 import Paging from "./Paging";
+import OderBnumCount from "./OderBnumCount";
 
 const bn = (Number) => Number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
@@ -126,7 +127,9 @@ const BProductStock = () => {
           </div>
         </TableColumn>
         <TableColumn wd={"w-10"}>{bn(item.bpwarestock)}</TableColumn>
-        <TableColumn wd={"w-10"}>{}</TableColumn>
+        <TableColumn wd={"w-10"}>
+          <OderBnumCount />
+        </TableColumn>
         <TableColumn wd={"w-30"}>{item.bcondition}</TableColumn>
       </TableRow>
     ));

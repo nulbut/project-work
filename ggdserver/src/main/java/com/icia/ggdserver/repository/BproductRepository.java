@@ -25,4 +25,6 @@ public interface BproductRepository extends CrudRepository<BproductTbl,Long> {
     //품절개수 세기
     long countByBcondition(String bcondition);
 
+
+
 }
