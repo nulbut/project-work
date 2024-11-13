@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../images/logo.svg";
+import logo from "../images/logo2.svg";
 import "./scss/IdealcupHeader.scss";
 import { Link } from "react-router-dom";
 

@@ -14,24 +14,27 @@
     left: 0;
     background-color: rgb(237, 253, 144);
     transition: all 1.5s ease;
+    color: palevioletred;
   }
 
   .left-content {
     text-decoration: none;
-    color: wheat;
+
     position: fixed;
     width: 50%;
     height: 100%;
     left: 0;
     z-index: 99;
+
     &:hover ~ .left-container {
       width: 80%;
       background-color: rgb(252, 182, 240);
       background-image: url("./images/logo2.svg");
       background-repeat: no-repeat;
       background-position: center;
-      background-size: 50% 50%;
+      background-size: 60%;
     }
+
     &:hover ~ .right-container {
       width: 20%;
     }
@@ -39,6 +42,12 @@
     &:hover ~ .logo {
       opacity: 0;
     }
+    &:hover ~ .logotextleft {
+      opacity: 1;
+    }
+  }
+  .logotextleft {
+    opacity: 0;
   }
   .logo {
     width: 30%;
