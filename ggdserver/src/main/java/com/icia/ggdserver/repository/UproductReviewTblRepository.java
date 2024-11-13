@@ -16,4 +16,7 @@ public interface UproductReviewTblRepository extends CrudRepository<UproductRevi
     //후기 목록 가져오기
     @Query("select urt from UproductReviewTbl urt where urt.uCode = :ucode order by urt.uNum")
     List<UproductReviewTbl> findByUCode(@Param("ucode") Long ucode);
+
+    @Query("select urt from UproductReviewTbl urt where urt.uCode = :ucode order by urt.uNum")
+    Page<UproductReviewTbl> findByUCode(@Param("ucode") Long ucode, Pageable pageable);
 }

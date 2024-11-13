@@ -141,4 +141,12 @@ public class AdminController {
         log.info("getComment()");
         return aServ.getComment(directmsg);
     }
+
+    @GetMapping("/getpreview")
+    public Map<String, Object> getrvList(@RequestParam Integer pageNum){
+        log.info("getrvList()");
+
+        Map<String, Object> res = aServ.getrvList(pageNum);
+        return res;
+    }
 }

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./scss/Adminstyles.scss";
 import UserList from "./UserList";
-import Review from "./Review";
+import Preview from "./Preview";
 import Category from "./Category";
 import AdminDashboard from "./AdminDashboard";
 
@@ -122,7 +122,7 @@ const AdminEx = ({ data }) => {
         setViewName(<ManageUserGrade />);
         break;
       case "후기 관리":
-        setViewName(<Review />);
+        setViewName(<Preview />);
         break;
       case "관리자 1 : 1 문의":
         setViewName(<DirectMessage />);

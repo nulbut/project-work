@@ -46,6 +46,9 @@ public class AdminService {
     @Autowired
     private DmFileRepository dfRepo;
 
+    @Autowired
+    private UproductReviewTblRepository rvRepo;
+
 
 
     @Autowired
@@ -469,10 +472,30 @@ public class AdminService {
         return result;
     }
 
+    public Map<String, Object> getrvList(Integer pageNum) {
+        log.info("getrvList");
+
+        if (pageNum == null){
+            pageNum = 1;
+        }
+        int listCnt = 10;
+
+        Pageable pb = PageRequest.of((pageNum - 1), listCnt, Sort.Direction.DESC, "uNum");
+
+        Page<UproductReviewTbl> result = rvRepo.findByUCode(0L,pb);
+
+        List<UproductReviewTbl> rvList = result.getContent();
+
+        int totalPage = result.getTotalPages();
+
+        Map<String, Object> res = new HashMap<>();
+        res.put("rvList", rvList);
+        res.put("totalPage", totalPage);
+        res.put("pageNum", pageNum);
+
+        return res;
+    }
 }
-
-
-
 
 
 
