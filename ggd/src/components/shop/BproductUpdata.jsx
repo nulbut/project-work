@@ -36,7 +36,6 @@ const BproductUpdata = () => {
     bpprice: "",
     bpprestriction: "",
     bpwarestock: "",
-    bpwarestocklimt: "",
     bpexplanation: "",
     bpdate: "",
     bpsize: "",
@@ -59,7 +58,6 @@ const BproductUpdata = () => {
     bpsize,
     bpprestriction,
     bpwarestock,
-    bpwarestocklimt,
     bpexplanation,
     bpdate,
     bpmaterial,
@@ -300,7 +298,7 @@ const BproductUpdata = () => {
             autoFocus
             required
           />
-          <p>통보재고</p>
+          {/* <p>통보재고</p>
           <input
             className="Input"
             name="bpwarestocklimt"
@@ -309,7 +307,7 @@ const BproductUpdata = () => {
             onChange={bonch}
             autoFocus
             required
-          />
+          /> */}
           <p>출시일</p>
           <input
             type="date"
