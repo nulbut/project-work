@@ -11,8 +11,9 @@ import TableColumn from "./TableColumn";
 import BproductStockCheck from "./BproductStockCheck";
 import BUserNoticeListView from "./BUserNoticeListView";
 import BOderHistory from "./BOderHistory";
+import { get } from "jquery";
 
-const BMypageView = (props) => {
+const BMypageView = ({ onLogout,paymentStatus }) => {
   const nav = useNavigate();
   // console.log(props.onLogout);
   //...님에 상호 불러오게 하기
@@ -72,32 +73,43 @@ const BMypageView = (props) => {
   //   };
 
   //합계건수들 불러오기 
-  const [orders, setOrders] = useState([]);
-  const [totalQuantity, setTotalQuantity] = useState(0);
-  const [totalAmounts, setTotalAmounts] = useState(0);
+  // API 호출하여 데이터 가져오기
+  const [totalAmount, setTotalAmount] = useState(0);
+  const [orderCount, setOrderCount] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const paramData = {
-      bid: sessionStorage.getItem("bid"),
+    // Axios로 API 호출하여 데이터 가져오기
+    const fetchPaymentStatusSummary = async () => {
+      try {
+        const response = await 
+        axios
+        .get("/payment-status-summary", {
+          params: { paymentStatus }, // 쿼리 파라미터로 paymentStatus 전달
+        });
+
+        // 응답 데이터 처리
+        const data = response.data;
+        setTotalAmount(data.totalAmount);
+        setOrderCount(data.orderCount);
+      } catch (err) {
+        setError('API 요청에 실패했습니다: ' + err.message);
+      } finally {
+        setLoading(false);
+      }
     };
-    axios
-      .get("/getStoreOrders", { params: paramData })
-      .then((res) => {
-        setOrders(res.data);
 
-        const orderData = [setOrders];
+    fetchPaymentStatusSummary();
+  }, [paymentStatus]); // paymentStatus가 변경될 때마다 데이터 갱신
 
-        // 합계 계산
-        const totalQuantity = orderData.reduce((sum, order) => sum + order.quantity, 0);
-        const totalAmounts = orderData.reduce((sum, order) => sum + order.totalAmount, 0);
+  if (loading) {
+    return <div>로딩 중...</div>;
+  }
 
-        setTotalQuantity(totalQuantity); // 총 주문 수량
-        setTotalAmounts(totalAmounts); // 총 매출 금액
-      })
-      .catch((error) => {
-        console.error("Error fetching orders:", error);
-      });
-  }, []);
+  if (error) {
+    return <div>오류가 발생했습니다: {error}</div>;
+  }
 
   
 
@@ -122,7 +134,7 @@ const BMypageView = (props) => {
             );
           })}
           <div className="btn">
-            <Button size="large" color="black" onClick={props.onLogout}>
+            <Button size="large" color="black" onClick={onLogout}>
               로그아웃
             </Button>
           </div>
@@ -132,7 +144,7 @@ const BMypageView = (props) => {
         <div className="oder">
           <Button className="button">주문완료</Button>
           <div onClick={odergo} className="count">
-            {totalQuantity}건
+            {orderCount}건
           </div>
         </div>
         <div className="delivery">
@@ -153,7 +165,7 @@ const BMypageView = (props) => {
         </div>
         <div className="revenue">
           <Button className="button">오늘 매출액</Button>
-          <div className="count">{totalAmounts}건</div>
+          <div className="count">{totalAmount}건</div>
         </div>
         <div className="inquiry">
           <img onClick={inquirygo} src={inquiryiconnone} alt="" />

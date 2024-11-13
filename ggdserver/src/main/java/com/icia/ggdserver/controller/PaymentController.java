@@ -150,4 +150,16 @@ public class PaymentController {
 
         return res;
     }
+
+    @GetMapping("/payment-status-summary")
+    public String getPaymentStatusSummary(@RequestParam String paymentStatus) {
+        int totalAmount = payServ.getTotalAmountByPaymentStatus(paymentStatus);
+        long orderCount = payServ.getOrderCountByPaymentStatus(paymentStatus);
+
+        return  paymentStatus + "\n" +
+                totalAmount + "\n" +
+                orderCount;
+    }
+
+
 }

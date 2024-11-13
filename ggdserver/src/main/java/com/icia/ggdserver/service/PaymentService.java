@@ -151,5 +151,14 @@ public class PaymentService {
 
 
     }
+
+
+    public int getTotalAmountByPaymentStatus(String paymentStatus) {
+        return orderRepo.sumTotalAmountByPaymentStatus(paymentStatus);
+    }
+
+    public long getOrderCountByPaymentStatus(String paymentStatus) {
+        return orderRepo.countOrdersByPaymentStatus(paymentStatus);
+    }
 }
 
