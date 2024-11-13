@@ -139,12 +139,17 @@
 
   .announcement {
     /* 공지사항 */
-
     position: absolute;
     width: 670.52px;
-    height: 359px;
+    height: auto;
     left: 1005.48px;
     top: 500px;
     border: 1px solid #3d3d3d;
+
+    .userNoticeListView {
+      position: relative;
+      width: 100%;
+      height: auto;
+    }
   }
 }
