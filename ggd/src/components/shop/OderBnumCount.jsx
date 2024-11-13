@@ -28,7 +28,7 @@ const OderBnumCount = ({ code }) => {
   };
 
   if (loading) return <p>로딩중...</p>;
-  if (error) return <p>에러발생 : {error.messge}</p>;
+  if (error) return <p>{error.messge}</p>;
 
   return (
     <div>
