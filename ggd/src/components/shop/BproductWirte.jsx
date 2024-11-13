@@ -7,7 +7,7 @@ import Button from "./Button";
 import "./scss/Input.scss";
 import "./scss/Textarea.scss";
 import "./scss/FileInput.scss";
-import "./scss/Write.scss";
+import "./scss/BproductWirte.scss";
 
 const BproductWirte = () => {
   //토글용 state (on,off)
@@ -131,7 +131,7 @@ const BproductWirte = () => {
         <h3>상품등록</h3>
         <hr />
         <input type="hidden" value={bprobid} />
-        <input type="hidden" value={bcondition} />
+        {/* <input type="hidden" value={bcondition} /> */}
         <div>
           <p className="title">카테고리</p>
           <p>대분류</p>
@@ -196,7 +196,8 @@ const BproductWirte = () => {
           </div>
         </div>
         <div>
-          <p className="title">상품정보</p>
+          <h4 className="title">상품정보</h4>
+          <hr />
           {/*판매자 정보 자동으로 들어가게 설정*/}
           <input
             className="Input"
@@ -250,11 +251,14 @@ const BproductWirte = () => {
             required
           />
           <p>통보재고</p>
+          <p className="guide">
+            통보재고수보다 가재고수가 더 적을 경우 통보띄워줌
+          </p>
           <input
             className="Input"
             name="bpwarestocklimt"
             value={bpwarestocklimt}
-            placeholder="입력한 재고수 이하 떨어질경우 재입고안내"
+            placeholder="통보재고 수"
             onChange={bonch}
             autoFocus
             required
@@ -284,8 +288,9 @@ const BproductWirte = () => {
             required
           ></textarea>
         </div>
-        <div>
-          <p className="title">옵션사용</p>
+        {/* <div>
+          <h4 className="title">옵션사용</h4>
+          <hr />
           <p>상품 옵션</p>
           <div className="onoff">
             {isOpen ? (
@@ -294,9 +299,10 @@ const BproductWirte = () => {
               <img src={toggleoff} onClick={toggleHandler} />
             )}
           </div>
-        </div>
+        </div> */}
         <div>
-          <p className="title">사양</p>
+          <h4 className="title">사양</h4>
+          <hr />
           <p>사이즈</p>
           <input
             className="Input"
@@ -318,7 +324,8 @@ const BproductWirte = () => {
             required
           />
         </div>
-        <p>상품 이미지</p>
+        <h4 className="title">상품 이미지</h4>
+        <hr />
         <div className="FileInput">
           <div className="FileUpload">
             <input
@@ -335,7 +342,7 @@ const BproductWirte = () => {
           </div>
           {/* <p>미리보기</p> */}
         </div>
-        <div>
+        <div className="button-group">
           <Button type="submit">등록</Button>
           <Button onClick={() => nav("/bmypage/bp1")}>뒤로가기</Button>
         </div>

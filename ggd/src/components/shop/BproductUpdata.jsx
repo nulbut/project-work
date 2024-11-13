@@ -335,7 +335,7 @@ const BproductUpdata = () => {
             required
           ></textarea>
         </div>
-        <div>
+        {/* <div>
           <p className="title">옵션사용</p>
           <p>상품 옵션</p>
           <div className="onoff">
@@ -345,7 +345,7 @@ const BproductUpdata = () => {
               <img src={toggleoff} onClick={toggleHandler} />
             )}
           </div>
-        </div>
+        </div> */}
         <div>
           <p className="title">사양</p>
           <p>사이즈</p>

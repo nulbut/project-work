@@ -3,35 +3,97 @@ import {
   ANONYMOUS,
   PaymentWidgetInstance,
 } from "@tosspayments/tosspayments-sdk";
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import "./WidgetCheckout.scss";
 
 const clientKey = "test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm";
 const customerKey = generateRandomString();
-const sampeid = generateRandomString();
-console.log(sampeid);
+
 export function WidgetCheckoutPage() {
   const navigate = useNavigate();
   const location = useLocation();
-  const productData = location.state?.data;
+  const [productData, setProductData] = useState([]);
+  //카트에서 여러개의 리스트로 넘어올 경우
+  const [buyData, setBuyData] = useState([
+    {
+      //초기화
+      img: "",
+      name: "기본 값",
+      price: 1,
+      quantity: 1,
+      where: "중고",
+      product_code: "",
+    },
+  ]);
+  console.log(productData);
 
+  console.log(buyData);
+  const [totalPrice, setTotalPrice] = useState(0);
   const [amount, setAmount] = useState({
     currency: "KRW",
-    value: productData.usedSeller,
+    value: 0,
   });
+
   const [ready, setReady] = useState(false);
   const [widgets, setWidgets] = useState(null);
-  console.log(widgets);
-  // 결제 데이터 가져오기 및 상태 설정
-  const [paymentData, setPaymentData] = useState({
-    porderId: generateRandomString(),
-    pcustomerkey: generateRandomString(),
-    pcustomeremail: "customer123@gmail.com",
-    pcustomername: "김토스",
-    pcustomerphonenum: "01012341234",
-    successUrl: `${window.location.origin}/widsuccess`,
-    failUrl: `${window.location.origin}/fail`,
-  });
+  useEffect(() => {
+    // location.state?.data와 location.state?.datas가 각각 어떤 데이터 구조인지 확인하고 처리
+    if (location.state?.data) {
+      console.log("data가 있음", location.state.data);
+      const data = location.state.data;
+      if (
+        data.usedproductFileTblList &&
+        data.usedproductFileTblList.length > 0
+      ) {
+        setBuyData([
+          {
+            img: data.usedproductFileTblList[0].usedFileSysname,
+            name: data.usedName,
+            price: data.usedSeller,
+            quantity: 1,
+            product_where: "중고",
+            product_code: data.usedCode,
+          },
+        ]);
+        calculateTotalPrice([
+          {
+            img: data.usedproductFileTblList[0].usedFileSysname,
+            name: data.usedName,
+            price: data.usedSeller,
+            quantity: 1,
+            product_where: "중고",
+            product_code: data.usedCode,
+          },
+        ]);
+      }
+    }
+
+    if (location.state?.datas) {
+      console.log("datas가 있음", location.state.datas);
+      const datas = location.state.datas;
+      // datas가 배열이라면 배열을 순회하며 buyData에 값을 넣는 코드 작성
+      const updatedBuyData = location.state.datas.map((item) => {
+        const usedIn = item.usedin;
+
+        // usedproductFileTblList가 null일 경우, img와 관련된 데이터는 기본값 설정
+        const img = usedIn.usedproductFileTblList
+          ? usedIn.usedproductFileTblList[0]?.usedFileSysname
+          : "default_image.jpg";
+        return {
+          img,
+          name: usedIn.usedName,
+          price: usedIn.usedSeller,
+          quantity: item.quantity, // 원래 전달받은 quantity 값 사용
+          product_where: "중고",
+          product_code: usedIn.usedCode,
+        };
+      });
+      setBuyData(updatedBuyData);
+      calculateTotalPrice(updatedBuyData);
+    }
+  }, [location.state]);
 
   useEffect(() => {
     async function fetchPaymentWidgets() {
@@ -78,10 +140,118 @@ export function WidgetCheckoutPage() {
     }
 
     renderPaymentWidgets();
-  }, [widgets]);
+  }, [widgets, amount]);
 
+  // 총 금액 계산
+  const calculateTotalPrice = (items) => {
+    const total = items.reduce(
+      (sum, item) => sum + item.price * item.quantity,
+      0
+    );
+    setTotalPrice(total);
+
+    setAmount({
+      currency: "KRW",
+      value: total,
+    });
+  };
+
+  // 수량 변경 핸들러
+  const handleQuantityChange = (idx, newQuantity) => {
+    const updatedItems = buyData.map((item, index) =>
+      index === idx ? { ...item, quantity: newQuantity } : item
+    );
+    console.log(updatedItems);
+    setBuyData(updatedItems);
+    // setProductData(updatedItems);
+    calculateTotalPrice(updatedItems);
+  };
+
+  const saveOrderToServer = async (sampeid) => {
+    const orderInfo = [];
+    try {
+      // 결제 요청 전에 orderId와 amount를 서버에 저장하세요.
+      // 결제 과정에서 악의적으로 결제 금액이 변경되는 것을 방지하는 용도로 사용됩니다.
+      await axios
+        .post("/saveorder")
+        .then((res) => {})
+        .catch((err) => console.log(err));
+    } catch (error) {
+      // 에러 처리하기
+      console.error("결제 내역 저장 중 오류 발생:", error);
+    }
+  };
+  const handleSubmitPay = async () => {
+    const sampeid = generateRandomString();
+    console.log(sampeid);
+    // saveOrderToServer(sampeid);
+    console.log(sessionStorage.getItem("nid"));
+    try {
+      // 결제 요청 전에 orderId와 amount를 서버에 저장하세요.
+      // 결제 과정에서 악의적으로 결제 금액이 변경되는 것을 방지하는 용도로 사용됩니다.
+      await widgets.requestPayment({
+        orderId: sampeid, // 고유 주문 번호
+        orderName: "토스 티셔츠 외 2건", // 주문 상품명
+        successUrl: window.location.origin + "/widsuccess", // 결제 성공 시 리다이렉트될 URL
+        failUrl: window.location.origin + "/fail", // 결제 실패 시 리다이렉트될 URL
+        customerEmail: "customer123@gmail.com", // 고객 이메일
+        customerName: sessionStorage.getItem("nnickname"), // 고객 이름
+        customerMobilePhone: "01012341234", // 고객 전화번호
+      });
+    } catch (error) {
+      // 에러 처리하기
+      console.error("결제 요청 중 오류 발생:", error);
+    }
+  };
+  console.log(amount);
   return (
     <div className="wrapper">
+      <div className="purchase-list">
+        <h1>구매 예정 목록</h1>
+
+        <table className="purchase-table">
+          <thead>
+            <tr>
+              <th>상품 이미지</th>
+              <th>상품명</th>
+              <th>가격</th>
+              <th>수량</th>
+              <th>합계</th>
+            </tr>
+          </thead>
+          <tbody>
+            {buyData.map((item, index) => (
+              <tr key={index}>
+                <td>
+                  <img
+                    src={`usupload/${item.img}`}
+                    alt={item.name}
+                    width="100"
+                  />
+                </td>
+                <td>{item.name}</td>
+                <td>{item.price} 원</td>
+                <td>
+                  <input
+                    type="number"
+                    value={item.quantity}
+                    min="1"
+                    onChange={(e) =>
+                      handleQuantityChange(index, parseInt(e.target.value))
+                    }
+                  />
+                </td>
+                <td>{item.price * item.quantity} 원</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
+        <div className="total-price">
+          <h2>총 금액: {totalPrice} 원</h2>
+        </div>
+      </div>
+
       <div className="box_section">
         <div id="payment-method" />
         <div id="agreement" />
@@ -114,23 +284,9 @@ export function WidgetCheckoutPage() {
           className="button"
           style={{ marginTop: "30px" }}
           disabled={!ready}
-          onClick={async () => {
-            try {
-              // 결제 데이터를 사용하여 백엔드할 주문 데이터 저장
-
-              await widgets.requestPayment({
-                orderId: sampeid, // 고유 주문 번호
-                orderName: "토스 티셔츠 외 2건",
-                successUrl: paymentData.successUrl,
-                failUrl: paymentData.failUrl,
-                customerEmail: paymentData.pcustomeremail,
-                customerName: paymentData.pcustomername,
-                customerMobilePhone: paymentData.pcustomerphonenum,
-              });
-            } catch (error) {
-              console.error(error);
-            }
-          }}
+          // ------ '결제하기' 버튼 누르면 결제창 띄우기 ------
+          // @docs https://docs.tosspayments.com/sdk/v2/js#widgetsrequestpayment
+          onClick={handleSubmitPay}
         >
           결제하기
         </button>

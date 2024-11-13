@@ -3,7 +3,9 @@ package com.icia.ggdserver.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.DialectOverride;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -38,7 +40,8 @@ public class BproductTbl { // 사업자 상품 테이블
     @Column(length = 100)
     private int bpwarestocklimt; //통보재고
 
-    @Column(nullable = false, length = 4)
+    @Column
+    @ColumnDefault("'판매중'")
     private String bcondition; // 상품 상태 (기본값 "정상", 창고재고 0일 경우 "품절")
 
     @Column(length = 100)
@@ -57,14 +60,14 @@ public class BproductTbl { // 사업자 상품 테이블
 //    @Column(nullable = false, length = 50)
 //    private String bpdsysname; //상품 상세 이미지
 
-    @Column(length = 1)
-    private int bpoption; //옵션 사용 여부
-
-    @Column(length = 50)
-    private String bpoptionname; //옵션명
-
-    @Column(length = 100)
-    private String bpoptionstock; //옵션 재고 수
+//    @Column(length = 1)
+//    private int bpoption; //옵션 사용 여부
+//
+//    @Column(length = 50)
+//    private String bpoptionname; //옵션명
+//
+//    @Column(length = 100)
+//    private String bpoptionstock; //옵션 재고 수
 
     @Column(length = 50)
     private String bpsize; //사이즈

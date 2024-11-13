@@ -3,6 +3,7 @@ import Button from "./Button";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import "./scss/IdPasswordFind.scss";
 
 let mailck = false; // 이메일 인증 확인 여부
 

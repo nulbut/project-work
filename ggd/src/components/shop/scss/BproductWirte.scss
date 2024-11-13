@@ -1,0 +1,140 @@
+.Write {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+
+  h3 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #343a40;
+    margin-bottom: 1rem;
+    margin-top: 2rem;
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid #e9ecef;
+    margin: 1rem 0;
+  }
+
+  .Content {
+    display: flex;
+    flex-direction: column;
+
+    .title {
+      font-size: 1.2rem;
+      color: #495057;
+      font-weight: bold;
+      margin: 1.5rem 0 0.5rem;
+    }
+
+    .Input {
+      width: 100%;
+      padding: 0.75rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ced4da;
+      border-radius: 5px;
+      font-size: 1rem;
+      color: #495057;
+      outline: none;
+      transition: border-color 0.3s;
+
+      &:focus {
+        border-color: #80bdff;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.25);
+      }
+    }
+
+    textarea.Input {
+      min-height: 120px;
+      width: 30rem;
+      height: 20rem;
+      resize: vertical;
+    }
+
+    .guide {
+      font-size: 0.9rem;
+      color: #818181;
+      margin: -0.75rem 0 1rem;
+    }
+
+    .FileInput {
+      display: flex;
+      flex-direction: column;
+      margin-top: 1.5rem;
+
+      .FileUpload {
+        display: flex;
+        align-items: center;
+        margin-bottom: 2rem;
+
+        input[type="file"] {
+          display: none;
+        }
+
+        .FileLabel {
+          background-color: #007bff;
+          color: #fff;
+          padding: 0.5rem 1rem;
+          width: 7rem;
+          border-radius: 5px;
+          cursor: pointer;
+          transition: background-color 0.3s;
+
+          &:hover {
+            background-color: #0056b3;
+          }
+        }
+
+        .FileSpan {
+          font-size: 0.9rem;
+          color: #495057;
+        }
+      }
+    }
+
+    .onoff {
+      display: inline-flex;
+      margin-top: 0.5rem;
+
+      img {
+        width: 60px;
+        height: 40px;
+        cursor: pointer;
+      }
+    }
+  }
+  .button-group {
+    display: flex;
+    justify-content: flex-end; // 버튼을 오른쪽 정렬
+    gap: 1rem;
+    margin-top: 2rem;
+
+    button {
+      width: 100px;
+      padding: 0.6rem 0.8rem;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      border: none;
+      background-color: #007bff;
+      color: #fff;
+      transition: background-color 0.3s;
+
+      &:hover {
+        background-color: #0056b3;
+      }
+
+      &:last-child {
+        background-color: #6c757d;
+
+        &:hover {
+          background-color: #5a6268;
+        }
+      }
+    }
+  }
+}
