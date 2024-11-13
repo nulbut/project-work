@@ -59,6 +59,7 @@ export function WidgetCheckoutPage() {
               quantity: 1,
               product_where: "입점",
               product_code: data.bpnum,
+              seller_id: data.bprobid,
             },
           ]);
           calculateTotalPrice([
@@ -85,6 +86,7 @@ export function WidgetCheckoutPage() {
               quantity: 1,
               product_where: "중고",
               product_code: data.usedCode,
+              seller_id: data.usedsellerId,
             },
           ]);
           calculateTotalPrice([

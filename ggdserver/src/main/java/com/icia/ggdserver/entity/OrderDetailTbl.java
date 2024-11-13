@@ -14,6 +14,8 @@ public class OrderDetailTbl {
     @Column
     private long orderId;
     @Column
+    private String seller_id;
+    @Column
     private String product_where;//'중고","입점"
     @Column
     private long product_code;

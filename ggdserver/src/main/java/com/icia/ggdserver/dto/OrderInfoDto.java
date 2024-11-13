@@ -13,4 +13,5 @@ public class OrderInfoDto {
     private int price;
     private long product_code;
     private int quantity;
+    private String seller_id;
 }

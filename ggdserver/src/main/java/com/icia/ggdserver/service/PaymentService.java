@@ -115,6 +115,7 @@ public class PaymentService {
             OrderDetailTbl orderDetail = new OrderDetailTbl();
 
             orderDetail.setOrderId(orderRecord.getOrderId());
+            orderDetail.setSeller_id(oinfo.getSeller_id());
             orderDetail.setProduct_where(oinfo.getProduct_where()); // 상품 위치 (매장명 등)
             orderDetail.setProduct_code(oinfo.getProduct_code());   // 상품 코드
             orderDetail.setProduct_name(oinfo.getName());                 // 상품명
@@ -134,7 +135,8 @@ public class PaymentService {
         order = orderRepo.findByTransactionId(transactionId);
         order.setPaymentMethod(method);
         order.setProvider(provider);
-        order.setStatus("completed");
+        order.setPaymentStatus("completed");
+        order.setStatus("입금완료");
 
         orderRepo.save(order);
     }

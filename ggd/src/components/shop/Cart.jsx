@@ -182,6 +182,11 @@ const Cart = () => {
         : item.usedin
         ? item.usedCode
         : 0,
+      seller_id: item.bproductin
+        ? item.bproductin.bprobid
+        : item.usedin
+        ? item.usedin.usedsellerId
+        : "",
     }));
 
     console.log(purchaseItems);
