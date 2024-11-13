@@ -47,30 +47,56 @@ export function WidgetCheckoutPage() {
     if (location.state?.data) {
       console.log("data가 있음", location.state.data);
       const data = location.state.data;
-      if (
-        data.usedproductFileTblList &&
-        data.usedproductFileTblList.length > 0
-      ) {
-        setBuyData([
-          {
-            img: data.usedproductFileTblList[0].usedFileSysname,
-            name: data.usedName,
-            price: data.usedSeller,
-            quantity: 1,
-            product_where: "중고",
-            product_code: data.usedCode,
-          },
-        ]);
-        calculateTotalPrice([
-          {
-            img: data.usedproductFileTblList[0].usedFileSysname,
-            name: data.usedName,
-            price: data.usedSeller,
-            quantity: 1,
-            product_where: "중고",
-            product_code: data.usedCode,
-          },
-        ]);
+      if ("bpnum" in data) {
+        console.log("하이요");
+        if (data.bproductFileTblList && data.bproductFileTblList.length > 0) {
+          setBuyData([
+            {
+              img: `productupload/${data.bproductFileTblList[0].bproductfilesysname}`,
+              name: data.bpname,
+              price: data.bpprice,
+              quantity: 1,
+              product_where: "입점상품",
+              product_code: data.bpnum,
+            },
+          ]);
+          calculateTotalPrice([
+            {
+              img: `productupload/${data.bproductFileTblList[0].bproductfilesysname}`,
+              name: data.bpname,
+              price: data.bpprice,
+              quantity: 1,
+              product_where: "입점상품",
+              product_code: data.bpnum,
+            },
+          ]);
+        }
+      } else {
+        if (
+          data.usedproductFileTblList &&
+          data.usedproductFileTblList.length > 0
+        ) {
+          setBuyData([
+            {
+              img: `usupload/${data.usedproductFileTblList[0]?.usedFileSysname}`,
+              name: data.usedName,
+              price: data.usedSeller,
+              quantity: 1,
+              product_where: "중고",
+              product_code: data.usedCode,
+            },
+          ]);
+          calculateTotalPrice([
+            {
+              img: `usupload/${data.usedproductFileTblList[0]?.usedFileSysname}`,
+              name: data.usedName,
+              price: data.usedSeller,
+              quantity: 1,
+              product_where: "중고",
+              product_code: data.usedCode,
+            },
+          ]);
+        }
       }
     }
 
@@ -83,7 +109,7 @@ export function WidgetCheckoutPage() {
 
         // usedproductFileTblList가 null일 경우, img와 관련된 데이터는 기본값 설정
         const img = usedIn.usedproductFileTblList
-          ? usedIn.usedproductFileTblList[0]?.usedFileSysname
+          ? `usupload/${usedIn.usedproductFileTblList[0]?.usedFileSysname}`
           : "default_image.jpg";
         return {
           img,
@@ -238,11 +264,7 @@ export function WidgetCheckoutPage() {
             {buyData.map((item, index) => (
               <tr key={index}>
                 <td>
-                  <img
-                    src={`usupload/${item.img}`}
-                    alt={item.name}
-                    width="100"
-                  />
+                  <img src={item.img} alt={item.name} width="100" />
                 </td>
                 <td>{item.name}</td>
                 <td>{item.price} 원</td>

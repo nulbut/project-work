@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import logo from "../images/logo.svg";
+import logo from "../images/logo3.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faList,
@@ -42,8 +42,8 @@ const Header = ({ lstate, onLogout }) => {
       sub: 1,
     },
     {
-      name: "신상품",
-      path: "/NewProduct",
+      name: "입점상품",
+      path: "/storeProduct",
       sub: 1,
     },
     {

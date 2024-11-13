@@ -10,13 +10,14 @@ const Home = () => {
       <Link className="left-content" to="/idlecup">
         {/* <div className="select-logo">
           <img src={game} />
-          <div>이상형월드컵</div>
+          
         </div> */}
+        <div className="logotextleft">이상형월드컵</div>
       </Link>
       <div className="left-container"></div>
 
       <Link className="right-content" to="/ShoppingMall">
-        {/* 쇼핑몰 */}
+        <div className="logotextright">쇼핑몰</div>
       </Link>
       <div className="right-container"></div>
 

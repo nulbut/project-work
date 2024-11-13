@@ -24,6 +24,7 @@ public class BproductController {
     @Autowired
     private BproductService bpServ;
 
+
     //상품 등록
     @PostMapping("bpdwriteProc")
     public String bpdwriteProc (@RequestPart(value = "data", required = true) BproductTbl bproductTbl,
@@ -93,6 +94,14 @@ public class BproductController {
         Map<String, Object> res = bpServ.getBproductList(pageNum, bsellerId);
         return res;
     }
+
+//    @GetMapping("BproductListNormal")
+//    public Map<String, Object> getBproductListNormal(@RequestParam Integer pageNum
+//                                               ){
+//        log.info("BproductListnormal() - {}", pageNum);
+//        Map<String, Object> res = bpServ.getBproductListNormal(pageNum);
+//        return res;
+//    }
 
     //품절개수 세기
     @GetMapping("out-of-stock-count")
