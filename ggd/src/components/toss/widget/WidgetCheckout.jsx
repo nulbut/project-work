@@ -95,6 +95,7 @@ export function WidgetCheckoutPage() {
         };
       });
       setBuyData(updatedBuyData);
+
       calculateTotalPrice(updatedBuyData);
     }
   }, [location.state]);

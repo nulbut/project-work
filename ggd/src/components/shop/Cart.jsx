@@ -268,7 +268,7 @@ const Cart = () => {
   }
 
   const getCart = (cnid) => {
-    nav("", { state: { dc: cnid } });
+    // nav("", { state: { dc: cnid } });
   };
 
   return (
