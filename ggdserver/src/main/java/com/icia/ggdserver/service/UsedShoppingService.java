@@ -38,10 +38,6 @@ public class UsedShoppingService {
     @Autowired
     private UproductReviewTblRepository urRepo;
 
-
-
-
-
     public String insertUsed(UsedProductTbl upt,
                              List<MultipartFile> files,
                              HttpSession session) {
@@ -171,6 +167,9 @@ public class UsedShoppingService {
 
         usedproductTbl.setUsedproductFileTblList(ufList);
 
+        List<UproductReviewTbl> urList = urRepo.findByUCode(usedFileNum);
+        usedproductTbl.setUsedReviewTblList(urList);
+
         return usedproductTbl;
 
     }
@@ -228,20 +227,20 @@ public class UsedShoppingService {
         }
         int totalPage = result.getTotalPages();// 전체 페이지
 
-            Map<String, Object> res = new HashMap<>();
-            res.put("uList", uList);
-            res.put("totalPage", totalPage);
-            res.put("pageNum", pageNum);
+        Map<String, Object> res = new HashMap<>();
+        res.put("uList", uList);
+        res.put("totalPage", totalPage);
+        res.put("pageNum", pageNum);
 
-            return res;
-        }
+        return res;
+    }
 
+    //후기 작성 메소드
     public String insertupreview(UproductReviewTbl upreview) {
         log.info("insertupreview()");
         String result = null;
 
         try{
-            upreview.setUPreivew("작성완료");
             urRepo.save(upreview);
 
             result = "ok";

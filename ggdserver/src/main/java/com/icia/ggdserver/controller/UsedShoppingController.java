@@ -73,8 +73,9 @@ public class UsedShoppingController {
         return uptServ.usedDelete(usedCode, session);
     }
 
+    //후기 작성
     @PostMapping("uproduct")
-    public String UproductReview(@RequestBody UproductReviewTbl upreview){
+    public String UproductReview(UproductReviewTbl upreview){
         log.info("UproductReview()");
         String result = uptServ.insertupreview(upreview);
         return result;

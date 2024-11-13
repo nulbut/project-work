@@ -2,26 +2,27 @@ import React, { useCallback, useState } from "react";
 import Button from "./Button";
 import axios from "axios";
 
-const UproductReview = ({ reviewCode, nid, uProduct }) => {
+const UproductReview = ({ reviewCode, nid, uProduct, getReviewList }) => {
   const [ureview, setUreview] = useState("");
 
-  const reviewWrite = () => {
+  const reviewWrite = async () => {
     //e.preventDefault();
 
     const sendObj = {
-      uCode: reviewCode,
       uId: nid,
       uProduct: uProduct,
+      uCode: reviewCode,
       uPreivew: ureview,
     };
 
     console.log(sendObj);
 
-    axios
-      .post("/uproduct", sendObj)
+    await axios
+      .post("/uproduct", null, { params: sendObj })
       .then((res) => {
         console.log(res.data);
         alert(res.data);
+        getReviewList();
       })
       .catch((err) => console.log(err));
   };
