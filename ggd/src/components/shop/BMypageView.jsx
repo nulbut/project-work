@@ -9,6 +9,7 @@ import axios from "axios";
 import TableRow from "./TableRow";
 import TableColumn from "./TableColumn";
 import BproductStockCheck from "./BproductStockCheck";
+import BmypageNoticeListView from "../admin/BmypageNoticeListView";
 
 const BMypageView = (props) => {
   const nav = useNavigate();
@@ -133,6 +134,7 @@ const BMypageView = (props) => {
           <BproductStockCheck />
         </div>
         <div className="announcement">공지사항</div>
+        <BmypageNoticeListView />
 
         <Outlet />
       </div>
