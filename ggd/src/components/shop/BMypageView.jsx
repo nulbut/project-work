@@ -70,6 +70,25 @@ const BMypageView = (props) => {
   //     clickTab(index);
   //   };
 
+  // 주문 목록 가져오기 (예시 API 호출)
+
+  const [orders, setOrders] = useState([]);
+
+  useEffect(() => {
+    const paramData = {
+      // sortBy: sortBy,
+      bid: sessionStorage.getItem("bid"),
+    };
+    axios
+      .get("/getStoreOrders", { params: paramData })
+      .then((res) => {
+        setOrders(res.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching orders:", error);
+      });
+  }, []);
+
   return (
     <div className="mypage-ex">
       <div className="sideber">

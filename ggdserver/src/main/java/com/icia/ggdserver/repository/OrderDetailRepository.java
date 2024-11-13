@@ -3,6 +3,7 @@ package com.icia.ggdserver.repository;
 import com.icia.ggdserver.entity.BproductTbl;
 import org.hibernate.annotations.processing.SQL;
 import org.springframework.data.domain.Page;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -11,6 +12,8 @@ import com.icia.ggdserver.entity.OrderDetailTbl;
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+
+import java.util.List;
 
 public interface OrderDetailRepository extends CrudRepository<OrderDetailTbl, Long> {
 
@@ -31,8 +34,9 @@ public interface OrderDetailRepository extends CrudRepository<OrderDetailTbl, Lo
 //            nativeQuery = true)
 //    long totalcnt(@PathVariable("code") long code);
 
-    @Query("select count (od) from OrderDetailTbl od join BproductTbl bp on od.product_code = bp.bpnum where bp.bpnum = :code")
-    Long countByProductOrderCode(@Param("code") long code);
+    //주문건수 만큼 창고재고 차감
+    public interface OrderDetailTblRepository extends JpaRepository<OrderDetailTbl, Long> {
+        List<OrderDetailTbl> findByProductCode(long productCode);}
 }
 
 

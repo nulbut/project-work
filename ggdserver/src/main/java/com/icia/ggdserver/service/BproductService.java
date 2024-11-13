@@ -1,10 +1,7 @@
 
 package com.icia.ggdserver.service;
 
-import com.icia.ggdserver.entity.BproductFileTbl;
-import com.icia.ggdserver.entity.BproductTbl;
-import com.icia.ggdserver.entity.OrderTbl;
-import com.icia.ggdserver.entity.ProductTbl;
+import com.icia.ggdserver.entity.*;
 import com.icia.ggdserver.repository.*;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
@@ -306,6 +303,33 @@ public class BproductService {
     public long countOutOfStockProducts() {
         // '품절' 상태인 상품 개수 계산
         return bpdRepo.countByBcondition("품절");
+    }
+
+    //주문건수 만큼 창고재고 수 줄이기
+    @Transactional
+    public void deductStock() {
+        // 주문 내역 가져오기
+        List<OrderDetailTbl> orderDetails = (List<OrderDetailTbl>) odrRepo.findAll();
+
+        for (OrderDetailTbl order : orderDetails) {
+            long productCode = order.getProduct_code();
+            int quantity = order.getQuantity();
+
+            // 상품 테이블에서 product_code와 일치하는 상품 찾기
+            BproductTbl product = bpdRepo.findByBpnum(productCode);
+
+            if (product != null) {
+                // 재고를 quantity만큼 차감
+                int currentStock = product.getBpwarestock();
+                if (currentStock >= quantity) {
+                    product.setBpwarestock(currentStock - quantity);
+                    bpdRepo.save(product); // 변경된 상품 재고 저장
+                } else {
+                    // 재고 부족 처리 로직 추가 (예: 예외 발생)
+                    throw new IllegalStateException("재고가 부족합니다. 상품 ID: " + productCode);
+                }
+            }
+        }
     }
 
 

@@ -20,7 +20,6 @@ import java.util.Map;
 
 @RestController
 @Slf4j
-@RequestMapping("/api/products")
 public class BproductController {
     @Autowired
     private BproductService bpServ;
@@ -120,6 +119,9 @@ public class BproductController {
 //            return ResponseEntity.ok(null); //주문건수 없을 경우 null로 표기
 //        }
 //    }
+
+
+
 
 }
 
