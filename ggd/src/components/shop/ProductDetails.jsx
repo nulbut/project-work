@@ -128,9 +128,9 @@ const ProductDetails = () => {
 
       <div className="product-detail-content">
         <div className="product-detail-image">
-          {newProductData?.image ? (
+          {newProductData?.productFileList[0].productFileSysname ? (
             <img
-              src={`upload/${newProductData.image}`}
+              src={`upload/${newProductData.productFileList[0].productFileSysname}`}
               alt={`상품 이미지 ${newProductData.productName}`}
               className="product-image"
             />

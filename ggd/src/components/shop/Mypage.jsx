@@ -1,7 +1,7 @@
 import { Link, Outlet } from "react-router-dom";
 import "./scss/Mypage.scss";
-import Button from "../idealcup/Button";
-import logo from "../images/logo.svg";
+import Button from "../shop/Button";
+import logo from "../images/logo3.svg";
 
 const Mypage = (props) => {
   //...님에 상호 불러오게 하기

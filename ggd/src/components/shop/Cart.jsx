@@ -44,6 +44,7 @@ const Cart = () => {
 
         setCitem(reCart); // 장바구니 항목 업데이트
         sessionStorage.setItem("pageNum", pageNum);
+        console.log(res.data);
       })
       .catch((err) => console.log(err));
   };
@@ -158,28 +159,38 @@ const Cart = () => {
     );
 
     const purchaseItems = selectedCartItems.map((item) => ({
+      img: item.bproductin
+        ? `productupload/${item.bproductin.bproductFileSysnameM}`
+        : item.usedin
+        ? `usupload/${item.usedin.usedproductFileTblList[0]?.usedFileSysname}`
+        : "상품 없음",
       cartCode: item.cartCode,
-      productName: item.productin
-        ? item.productin.productName
+      name: item.bproductin
+        ? item.bproductin.bpname
         : item.usedin
         ? item.usedin.usedName
         : "상품 없음",
       quantity: item.quantity,
-      price: item.productin
-        ? item.productin.sellerPayment
+      price: item.bproductin
+        ? item.bproductin.bpprice
         : item.usedin
         ? item.usedin.usedSeller
         : 0,
-      totalPrice:
-        (item.productin
-          ? item.productin.sellerPayment
-          : item.usedin
-          ? item.usedin.usedSeller
-          : 0) * item.quantity,
+      product_where: item.bproductin ? "입점" : item.usedin ? "중고" : null,
+      product_code: item.bproductin
+        ? item.bpnum
+        : item.usedin
+        ? item.usedCode
+        : 0,
+      seller_id: item.bproductin
+        ? item.bproductin.bprobid
+        : item.usedin
+        ? item.usedin.usedsellerId
+        : "",
     }));
 
     console.log(purchaseItems);
-    nav("/widgetcheckout", { state: { datas: selectedCartItems } });
+    nav("/widgetcheckout", { state: { datas: purchaseItems } });
   };
 
   // 수량 초기화 요청 함수
@@ -210,8 +221,8 @@ const Cart = () => {
     );
   } else {
     cartList = citem.map((item, index) => {
-      const price = item.productin
-        ? item.productin.sellerPayment
+      const price = item.bproductin
+        ? item.bproductin.bpprice
         : item.usedin
         ? item.usedin.usedSeller
         : 0;
@@ -225,19 +236,19 @@ const Cart = () => {
               checked={selectedItems.includes(item.cartCode)} // 선택 여부에 따른 체크 상태
             />
           </TableColumn>
-          <TableColumn wd="w-10">
-            {item.productin ? (
-              <div>신상품</div>
+          <TableColumn wd="w-15">
+            {item.bproductin ? (
+              <div>입점상품</div>
             ) : item.usedin ? (
               <div>중고상품</div>
             ) : (
               ""
             )}
           </TableColumn>
-          <TableColumn wd="w-25">
-            <div onClick={() => getCart(item.productCode)}>
-              {item.productin ? (
-                <div>{item.productin.productName}</div>
+          <TableColumn wd="w-30">
+            <div onClick={() => getCart(item.bpnum)}>
+              {item.bproductin ? (
+                <div>{item.bproductin.bpname}</div>
               ) : item.usedin ? (
                 <div>{item.usedin.usedName}</div>
               ) : (
@@ -257,18 +268,18 @@ const Cart = () => {
           </TableColumn>
           <TableColumn wd="w-20">{totalPrice}₩</TableColumn>
           <TableColumn wd="w-20">{df(item.cartDate)}</TableColumn>
-          <TableColumn wd="w-10">
+          {/* <TableColumn wd="w-10">
             <Button wsize="s-40" onClick={handlePurchase}>
               구매
             </Button>
-          </TableColumn>
+          </TableColumn> */}
         </TableRow>
       );
     });
   }
 
   const getCart = (cnid) => {
-    nav("", { state: { dc: cnid } });
+    // nav("", { state: { dc: cnid } });
   };
 
   return (
@@ -287,20 +298,20 @@ const Cart = () => {
             "수량",
             "가격",
             "등록일",
-            "여부",
           ]}
         >
           {cartList}
         </CartBoard>
+        <Button wsize="s-40" onClick={handlePurchase}>
+          일괄구매
+        </Button>
         <Button size="large" wsize="s-30" onClick={deleteSelectedItems}>
           선택된 항목 삭제
         </Button>
         <Button size="large" wsize="s-30" onClick={resetCartQuantity}>
           수량 초기화
         </Button>
-        <Button wsize="s-40" onClick={handlePurchase}>
-          일괄구매
-        </Button>
+
         <Paging page={page} getList={getCartList} />
         <button className="Buttons" onClick={() => nav("/shoppingMall")}>
           홈으로

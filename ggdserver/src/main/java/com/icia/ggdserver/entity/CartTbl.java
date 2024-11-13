@@ -22,6 +22,9 @@ public class CartTbl {
     private long productCode; //상품 코드번호
 
     @Column(nullable = false)
+    private long bpnum;
+
+    @Column(nullable = false)
     private long usedCode; //중고상품 코드 번호
 
     @Column(nullable = false, length = 10)
@@ -42,6 +45,9 @@ public class CartTbl {
 
     @Transient
     private UsedProductTbl usedin;
+
+    @Transient
+    private BproductTbl Bproductin;
 
 
 

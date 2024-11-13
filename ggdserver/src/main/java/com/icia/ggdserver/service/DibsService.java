@@ -1,9 +1,7 @@
 package com.icia.ggdserver.service;
 
-import com.icia.ggdserver.entity.CartTbl;
-import com.icia.ggdserver.entity.DibsTbl;
-import com.icia.ggdserver.entity.ProductTbl;
-import com.icia.ggdserver.entity.UsedProductTbl;
+import com.icia.ggdserver.entity.*;
+import com.icia.ggdserver.repository.BproductRepository;
 import com.icia.ggdserver.repository.DibsRepository;
 import com.icia.ggdserver.repository.ProductTblRepository;
 import com.icia.ggdserver.repository.UsedTblRepository;
@@ -34,7 +32,7 @@ public class DibsService {
     private UsedTblRepository udRepo;
 
     @Autowired
-    private ProductTblRepository pdRepo;
+    private BproductRepository bpdRepo;
 
     // 찜 한 데이터
     public Map<String, Object> getDibsList(Integer pageNum, String dnid) {
@@ -61,10 +59,10 @@ public class DibsService {
                     }
                 }
                 // 중고 상품 코드가 없고, 상품 코드가 있을 경우
-                else if (dibsItem.getProductCode() != 0) {
-                    ProductTbl product = pdRepo.findById(dibsItem.getProductCode()).orElse(null);
-                    if (product != null) {
-                        dibsItem.setProductinfo(product); // 상품 데이터 세팅
+                else if (dibsItem.getBpnum() != 0) {
+                    BproductTbl bproduct = bpdRepo.findById(dibsItem.getBpnum()).orElse(null);
+                    if (bproduct != null) {
+                        dibsItem.setBproductinfo(bproduct); // 상품 데이터 세팅
                     }
                 }
             }
@@ -80,33 +78,31 @@ public class DibsService {
         return res;
     }
     // 상품 찜 하기
-    public String getDibs(String dnid, Long productCode) {
+    public String getDibs(String dnid, Long bpnum) {
         try {
-            if (productCode == null || dnid == null) {
+            if (bpnum == null || dnid == null) {
                 return "상품이나 아이디가 없습니다."; // 필수 파라미터가 없는 경우
             }
 
             // 상품에 대한 찜 중복 처리
-            DibsTbl existingDibs = dRepo.findByDnidAndProductCode(dnid, productCode);
+            DibsTbl existingDibs = dRepo.findByDnidAndBpnum(dnid, bpnum);
             if (existingDibs != null) {
                 return "이미 찜한 상품입니다."; // 이미 찜한 중고 상품
             }
 
             DibsTbl dibsItem = new DibsTbl();
             dibsItem.setDnid(dnid);
-            dibsItem.setProductCode(productCode); // 중고 상품 코드 설정
+            dibsItem.setBpnum(bpnum); // 중고 상품 코드 설정
             dRepo.save(dibsItem);
             return "ok"; // 중고 상품 찜 성공
         } catch (Exception e) {
-            log.error("Error while adding dibs for dnid {} and productCode {}: {}", dnid, productCode, e.getMessage());
+            log.error("Error while adding dibs for dnid {} and productCode {}: {}", dnid, bpnum, e.getMessage());
             return "error: 찜하기가 안됬습니다.";
         }
     }
 
 
-
-
-    public String   getUsedDibs(String dnid, Long usedCode) {
+    public String getUsedDibs(String dnid, Long usedCode) {
         try {
             if (usedCode == null || dnid == null) {
                 return "error: 상품이나 아이디가 없습니다."; // 필수 파라미터가 없는 경우

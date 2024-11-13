@@ -218,6 +218,10 @@ public class ShoppingMallService {
         //page 객체를 list로 변환 후 전송.
         List<ProductTbl> bList = result.getContent();//page에서 게시글목록을 꺼내와서
         //bList에 저장.
+        for(ProductTbl pt : bList) {
+            log.info("돌아가는중");
+            pt.setProductFileList(pdrRepo.findByproductFileNum(pt.getProductCode()));
+        }
         int totalPage = result.getTotalPages();//전체 페이지 개수
 
 

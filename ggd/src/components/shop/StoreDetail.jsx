@@ -1,25 +1,27 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
-import moment from "moment";
 import "./scss/ProductDetails.scss";
-import { data } from "jquery";
 
-const UsedProductDetails = () => {
+const ProductDetails = () => {
   const [activeTab, setActiveTab] = useState("content");
   const location = useLocation();
   const navigate = useNavigate();
-  const [usedProductData, setUsedProductData] = useState(null); // 중고상품 데이터 상태
-  const [loading, setLoading] = useState(true); // 로딩 상태
-  const [error, setError] = useState(null); // 에러 상태
+  const [newProductData, setNewProductData] = useState(null); // 신상품 데이터 상태
+  const [loading, setLoading] = useState(true); // 로딩 상태를 관리
+  const [error, setError] = useState(null); // 에러 상태를 관리
 
-  const { code } = location.state || {}; // 중고상품 코드
+  // location.state에서 전달된 값들
+  const { code } = location.state || {}; // type은 더 이상 사용하지 않음
 
-  const usedCode = code;
+  // 신상품 코드
+  const productCode = code;
+  console.log(location.state);
+  console.log(newProductData);
 
   useEffect(() => {
-    const fetchUsedProductDetails = async () => {
-      if (!usedCode) {
+    const fetchProductDetails = async () => {
+      if (!productCode) {
         setError("상품 코드가 없습니다.");
         setLoading(false);
         return;
@@ -29,21 +31,23 @@ const UsedProductDetails = () => {
       setError(null); // 에러 초기화
 
       try {
-        // 중고상품 데이터 요청
-        const response = await axios.get("/getusedproduct", {
-          params: { usedCode },
+        // 신상품 데이터 요청
+        const productResponse = await axios.get("/getBproduct", {
+          params: { bpnum: productCode },
         });
-        setUsedProductData(response.data); // 중고상품 데이터를 상태에 저장
+
+        // 신상품 데이터를 상태에 저장
+        setNewProductData(productResponse.data);
       } catch (error) {
         console.error("데이터 로딩 실패", error);
-        setError("상품 정보를 불러오는 데 실패했습니다.");
+        setError("상품 정보를 불러오는 데 실패했습니다."); // 에러 메시지 설정
       } finally {
         setLoading(false); // 로딩 완료
       }
     };
 
-    fetchUsedProductDetails();
-  }, [usedCode]);
+    fetchProductDetails();
+  }, [productCode]);
 
   // 로딩 중일 때
   if (loading) {
@@ -55,25 +59,14 @@ const UsedProductDetails = () => {
     return <div>{error}</div>;
   }
 
-  // 중고상품 데이터가 없을 경우
-  if (!usedProductData) {
+  // 신상품 데이터가 없을 경우
+  if (!newProductData) {
     return <div>상품 정보를 찾을 수 없습니다.</div>;
   }
 
-  const {
-    usedName,
-    usedFileSysname,
-    usedsellerId,
-    usedDate,
-    usedcategoryCode,
-    usedSeller,
-    usedDetail,
-    usedproductFileTblList,
-  } = usedProductData;
-
   const handlePurchase = () => {
     alert("구매 페이지로 이동합니다.");
-    navigate("/widgetcheckout", { state: { data: usedProductData } }); // 중고상품 코드 전달
+    navigate("/widgetcheckout", { state: { data: newProductData } });
   };
 
   const handleAddToCart = () => {
@@ -83,22 +76,23 @@ const UsedProductDetails = () => {
 
   const handleReport = () => {
     alert("신고 페이지로 이동합니다.");
-    navigate("/report"); // 신고 페이지로 이동
+    navigate("/report");
   };
+
   const handleTabClick = (tab) => {
     setActiveTab(tab); // 클릭한 탭을 활성화
   };
-  console.log(usedProductData);
+
   return (
     <div className="product-detail">
-      <h2 className="product-detail-title">{usedProductData?.usedName}</h2>
+      <h2 className="product-detail-title">{newProductData?.productName}</h2>
 
       <div className="product-detail-content">
         <div className="product-detail-image">
-          {usedProductData?.usedproductFileTblList[0].usedFileSysname ? (
+          {newProductData?.bproductFileTblList ? (
             <img
-              src={`usupload/${usedProductData.usedproductFileTblList[0].usedFileSysname}`}
-              alt={`상품 이미지 ${usedProductData.usedName}`}
+              src={`productupload/${newProductData.bproductFileTblList[0].bproductfilesysname}`}
+              alt={`상품 이미지 ${newProductData.productName}`}
               className="product-image"
             />
           ) : (
@@ -110,26 +104,19 @@ const UsedProductDetails = () => {
           <div>
             <p>
               <strong>상품명 : </strong>
-              {usedProductData?.usedName}
+              {newProductData?.bpname}
+            </p>
+            <p>
+              <strong>가격 : </strong>
+              {newProductData?.bpprice} <strong>원</strong>
             </p>
             <p>
               <strong>판매자 : </strong>
-              {usedProductData?.usedsellerId}
+              {newProductData?.bsellerId}
             </p>
             <p>
-              <strong>등록일 : </strong>
-              {moment(usedProductData?.usedDate).format("YYYY-MM-DD")}
-            </p>
-            <p>
-              <strong>종류 : </strong>
-              {usedProductData?.usedcategoryCode}
-            </p>
-            <p>
-              <strong>가격 : </strong>₩{usedProductData?.usedSeller}
-            </p>
-            <p>
-              <strong>제품 상세 설명 :</strong>
-              {usedProductData?.usedDetail}
+              <strong>상세 설명 : </strong>
+              {newProductData?.bpexplanation}
             </p>
           </div>
 
@@ -146,6 +133,7 @@ const UsedProductDetails = () => {
           </div>
         </div>
       </div>
+
       {/* 탭 관련 내용 */}
       <div className="product-detail-tabs">
         <div className="tab-header">
@@ -181,7 +169,7 @@ const UsedProductDetails = () => {
           <div
             className={`tab-pane ${activeTab === "content" ? "active" : ""}`}
           >
-            <p>{usedProductData?.usedDetail}</p>
+            <p>{newProductData?.productDetail}</p>
           </div>
           <div
             className={`tab-pane ${activeTab === "reviews" ? "active" : ""}`}
@@ -206,4 +194,4 @@ const UsedProductDetails = () => {
   );
 };
 
-export default UsedProductDetails;
+export default ProductDetails;
