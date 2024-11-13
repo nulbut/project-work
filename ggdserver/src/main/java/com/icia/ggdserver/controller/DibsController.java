@@ -31,11 +31,11 @@ public class DibsController {
     public String setDibs(@RequestParam String dnid,
                           @RequestParam(required = false) Long bpnum) {
         try {
-            log.info("setDibs 호출: dnid = {}, productCode = {}", dnid, bpnum);
+            log.info("setDibs 호출: dnid = {}, bpnum = {}", dnid, bpnum);
 
             // 파라미터가 없으면 에러 처리
             if (bpnum == null) {
-                return "error:(productCode)"; // 필수 파라미터가 없을 경우 에러 메시지 반환
+                return "error:(bpnum)"; // 필수 파라미터가 없을 경우 에러 메시지 반환
             }
 
             // 찜에 상품 추가 처리
