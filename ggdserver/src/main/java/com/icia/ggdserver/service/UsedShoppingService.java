@@ -251,8 +251,8 @@ public class UsedShoppingService {
         }
         return result;
     }
-}
-        }
+
+
 
     // 모든 상품 목록을 가져오는 메소드
     public List<UsedProductTbl> getAllUsedProducts() {

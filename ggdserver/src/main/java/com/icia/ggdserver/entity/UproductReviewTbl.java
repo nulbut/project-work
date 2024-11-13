@@ -19,8 +19,7 @@ public class UproductReviewTbl {
     private String uId; //작성자 아이디
 
     @Column
-    @ColumnDefault("'중고 상품'")
-    private String uProduct; //= "중고 상품"; // 상품 구분
+    private String uProduct; // 상품 구분
 
     @Column
     private String uCode; // 상품 코드
