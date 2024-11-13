@@ -11,9 +11,10 @@ public class OrderDetailTbl {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long orderDetailId;
-
     @Column
-    private String product_where;//'중고상품","입점상품"
+    private long orderId;
+    @Column
+    private String product_where;//'중고","입점"
     @Column
     private long product_code;
     @Column

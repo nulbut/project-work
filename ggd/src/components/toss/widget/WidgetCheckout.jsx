@@ -56,7 +56,7 @@ export function WidgetCheckoutPage() {
               name: data.bpname,
               price: data.bpprice,
               quantity: 1,
-              product_where: "입점상품",
+              product_where: "입점",
               product_code: data.bpnum,
             },
           ]);
@@ -66,7 +66,7 @@ export function WidgetCheckoutPage() {
               name: data.bpname,
               price: data.bpprice,
               quantity: 1,
-              product_where: "입점상품",
+              product_where: "입점",
               product_code: data.bpnum,
             },
           ]);
@@ -209,12 +209,19 @@ export function WidgetCheckoutPage() {
   };
 
   const saveOrderToServer = async (sampeid) => {
-    const orderInfo = [];
+    const requestInfo = {
+      buyData: buyData, // buyData 배열
+      sampeid: sampeid, // sampeid 문자열
+      userName: sessionStorage.getItem("nnickname"),
+      userId: sessionStorage.getItem("nid"),
+      totalAmount: amount.value,
+      status: "pending",
+    };
     try {
       // 결제 요청 전에 orderId와 amount를 서버에 저장하세요.
       // 결제 과정에서 악의적으로 결제 금액이 변경되는 것을 방지하는 용도로 사용됩니다.
       await axios
-        .post("/saveorder")
+        .post("/saveorder", requestInfo)
         .then((res) => {})
         .catch((err) => console.log(err));
     } catch (error) {
@@ -225,7 +232,7 @@ export function WidgetCheckoutPage() {
   const handleSubmitPay = async () => {
     const sampeid = generateRandomString();
     console.log(sampeid);
-    // saveOrderToServer(sampeid);
+    await saveOrderToServer(sampeid);
     console.log(sessionStorage.getItem("nid"));
     try {
       // 결제 요청 전에 orderId와 amount를 서버에 저장하세요.

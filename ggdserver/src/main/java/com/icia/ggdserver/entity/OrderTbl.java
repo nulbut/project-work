@@ -35,6 +35,8 @@ public class OrderTbl {
     @Column
     private String paymentMethod;
     @Column
+    private String provider;
+    @Column
     private String paymentStatus;
     @Column
     private String transactionId;

@@ -1,6 +1,9 @@
 package com.icia.ggdserver.controller;
 
+import com.icia.ggdserver.dto.OrderInfoDto;
+import com.icia.ggdserver.dto.OrderRequestDto;
 import com.icia.ggdserver.entity.IwcTbl;
+import com.icia.ggdserver.service.PaymentService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
@@ -9,6 +12,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +29,8 @@ import java.util.List;
 @RestController
 @Slf4j
 public class PaymentController {
+    @Autowired
+    private PaymentService payServ;
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     @RequestMapping(value = "/confirm")
@@ -99,9 +105,33 @@ public class PaymentController {
     }
 
     @PostMapping("saveorder")
-    public String writeProc(@RequestBody IwcTbl iwc,
+    public String saveOrder(@RequestBody OrderRequestDto order,
                             HttpSession session){
-        log.info("writeProc()");
+        for(OrderInfoDto orderInfoDto : order.getBuyData()){
+            log.info(orderInfoDto.toString());
+        }
+        log.info(order.getSampeid());
+        log.info(order.getUserName());
+        log.info(order.getUserId());
+        log.info(order.getTotalAmount()+"");
+        log.info(order.getStatus());
+        payServ.saveOrderProc(order);
+
+
+        return "esult";
+    }
+
+    @GetMapping("updateorder")
+    public String updateOrder(@RequestParam String transactionId,
+
+                              @RequestParam String method,
+                              @RequestParam String provider){
+
+            log.info(transactionId);
+
+
+        payServ.updateOrderProc(transactionId,method,provider);
+
 
         return "esult";
     }

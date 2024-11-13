@@ -1,4 +1,11 @@
 package com.icia.ggdserver.repository;
 
-public interface OrderRepository {
+
+import com.icia.ggdserver.entity.OrderTbl;
+import org.springframework.data.repository.CrudRepository;
+
+public interface OrderRepository extends CrudRepository<OrderTbl, Long> {
+    OrderTbl findByTransactionId(String sampid);
+
+
 }
