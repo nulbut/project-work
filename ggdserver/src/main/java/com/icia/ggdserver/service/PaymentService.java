@@ -2,6 +2,7 @@ package com.icia.ggdserver.service;
 
 import com.icia.ggdserver.dto.OrderInfoDto;
 import com.icia.ggdserver.dto.OrderRequestDto;
+import com.icia.ggdserver.dto.OrderWithDetailsDto;
 import com.icia.ggdserver.entity.OrderDetailTbl;
 import com.icia.ggdserver.entity.OrderTbl;
 import com.icia.ggdserver.repository.OrderDetailRepository;
@@ -139,6 +140,14 @@ public class PaymentService {
         order.setStatus("입금완료");
 
         orderRepo.save(order);
+    }
+
+    public List<OrderWithDetailsDto> getStoreOrdersProc(Integer pageNum, String searchKeyword, String timeRange, String paymentMethod, String bid) {
+        log.info("getBoardList()");
+
+        List<OrderWithDetailsDto> res = orderRepo.findBySellerId(bid);
+
+        return res;
     }
 }
 

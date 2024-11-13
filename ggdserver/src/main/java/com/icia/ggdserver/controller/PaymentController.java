@@ -2,6 +2,7 @@ package com.icia.ggdserver.controller;
 
 import com.icia.ggdserver.dto.OrderInfoDto;
 import com.icia.ggdserver.dto.OrderRequestDto;
+import com.icia.ggdserver.dto.OrderWithDetailsDto;
 import com.icia.ggdserver.entity.IwcTbl;
 import com.icia.ggdserver.service.PaymentService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,6 +26,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @Slf4j
@@ -136,4 +138,16 @@ public class PaymentController {
         return "esult";
     }
 
+    @GetMapping("getStoreOrders")
+    public List<OrderWithDetailsDto> getStoreOrders(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
+                                                    @RequestParam(value = "searchKeyword", defaultValue = "") String searchKeyword,
+                                                    @RequestParam(value = "timeRange", defaultValue = "") String timeRange,
+                                                    @RequestParam(value = "payment", defaultValue = "") String paymentMethod,
+                                                    @RequestParam(value = "bid", defaultValue = "") String bid){
+        log.info("{} {} {} {} {}",pageNum,searchKeyword,timeRange,paymentMethod,bid);
+
+        List<OrderWithDetailsDto> res = payServ.getStoreOrdersProc(pageNum,searchKeyword,timeRange,paymentMethod,bid);
+
+        return res;
+    }
 }
