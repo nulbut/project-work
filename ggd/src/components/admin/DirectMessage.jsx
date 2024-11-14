@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { AdminPageContextStore } from "./AdminPageStatus";
 import DmList from "./DmList";
+import "./scss/Admin.scss";
 
 const Directmessage = () => {
   const nav = useNavigate();
@@ -22,7 +23,7 @@ const Directmessage = () => {
     pageSt.setViewPage(<DmList />);
   };
 
-  return <div className="Main">{pageSt.viewPage}</div>;
+  return <div className="Main_a">{pageSt.viewPage}</div>;
 };
 
 export default Directmessage;

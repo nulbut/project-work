@@ -121,7 +121,7 @@ const InfiniteScroll = () => {
           <div key={index} className="product-card">
             <div className="product-image-placeholder">
               <img
-                src={`productupload/${item.bpproductFileSysname}`}
+                src={`productupload/${item.bpproductFileSysnameM}`}
                 alt={`상품 이미지 ${item.productCode}`}
                 className="product-image"
               />

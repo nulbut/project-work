@@ -80,6 +80,4 @@ public class UsedShoppingController {
         String result = uptServ.insertupreview(upreview);
         return result;
     }
-
-
 }

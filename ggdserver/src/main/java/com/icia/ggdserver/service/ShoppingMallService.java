@@ -58,12 +58,12 @@ public class ShoppingMallService {
             result = "fail";
         }
 
-    return result;
-}
-private void uploadFile(List<MultipartFile> files,
-                        HttpSession session,
-                        long productFileNum) throws Exception{
-    log.info("UploadFile");
+        return result;
+    }
+    private void uploadFile(List<MultipartFile> files,
+                            HttpSession session,
+                            long productFileNum) throws Exception{
+        log.info("UploadFile");
 
         String realPath = session.getServletContext().getRealPath("/");
 
@@ -78,9 +78,9 @@ private void uploadFile(List<MultipartFile> files,
         for (MultipartFile mf : files) {
             String oriname = mf.getOriginalFilename();
 
-        ProductFileTbl bf = new ProductFileTbl();
-        bf.setProductFileOriname(oriname);
-        bf.setProductFileNum(productFileNum);
+            ProductFileTbl bf = new ProductFileTbl();
+            bf.setProductFileOriname(oriname);
+            bf.setProductFileNum(productFileNum);
 
             String sysname = System.currentTimeMillis()
                     + oriname.substring(oriname.lastIndexOf("."));
@@ -119,17 +119,17 @@ private void uploadFile(List<MultipartFile> files,
         return res;
     }
 
-public ProductTbl getProduct(long productFileNum){
-    log.info("getBoard()");
-    //상품 가져오기
-    ProductTbl productTbl = pdtRepo.findById(productFileNum).get();
-    //첨부파일 목록 가져와서 담기
-    List<ProductFileTbl> pfList = pdrRepo.findByproductFileNum(productFileNum);
+    public ProductTbl getProduct(long productFileNum){
+        log.info("getBoard() - {}", productFileNum);
+        //상품 가져오기
+        ProductTbl productTbl = pdtRepo.findById(productFileNum).get();
+        //첨부파일 목록 가져와서 담기
+        List<ProductFileTbl> pfList = pdrRepo.findByproductFileNum(productFileNum);
 
-    productTbl.setProductFileList(pfList);
+        productTbl.setProductFileList(pfList);
 
-    return productTbl;
-}
+        return productTbl;
+    }
 
     @Transactional
     public Map<String, String> boardDelete(long productCode,

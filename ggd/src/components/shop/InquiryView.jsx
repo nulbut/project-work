@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Button from "./Button";
@@ -10,31 +10,12 @@ const InquiryView = () => {
   // 게시글 번호 받기
   const { state } = useLocation();
   const { bc } = state; // 게시글 번호를 꺼냈다.
-  // sessionStorage에서 productCode, usedCode 가져오기
-  const productCode = sessionStorage.getItem("productCode");
-  console.log(productCode);
-  const usedCode = sessionStorage.getItem("usedCode");
-  console.log(usedCode);
-  const nid = sessionStorage.getItem("nid");
-  console.log(nid);
-  const [inquiry, setInquiry] = useState({}); // 게시글 데이터
-  console.log(inquiry);
-  const [flist, setFlist] = useState([
-    // 파일 목록 데이터
-    {
-      boardFileId: 0,
-      boardFileNum: 0,
-      boardFileSysname: "",
-      boardFileOriname: "Nothing",
-      image: "",
-    },
-  ]);
 
-  // 상품과 중고 상품 이름을 위한 상태
-  const [productName, setProductName] = useState(""); // 상품명
-  console.log(productName);
-  const [usedName, setUsedName] = useState(""); // 중고 상품명
-  console.log(usedName);
+  const nid = sessionStorage.getItem("nid"); // 세션에서 사용자 ID 가져오기
+  const [paidOrders, setPaidOrders] = useState([]); // 결제된 상품 목록 상태
+  const [inquiry, setInquiry] = useState({}); // 게시글 데이터
+  const [flist, setFlist] = useState([]); // 파일 목록 데이터
+  const [productDetails, setProductDetails] = useState(null); // 선택된 상품 정보
 
   // 서버로부터 문의 게시글 내용을 받아오기
   useEffect(() => {
@@ -43,56 +24,55 @@ const InquiryView = () => {
       .then((res) => {
         setInquiry(res.data); // inquiry 데이터 설정
 
-        const bfList = res.data.boardFileTblList; // 파일 목록 처리
+        // 파일 목록 처리
+        const bfList = res.data.boardFileTblList || [];
         if (bfList.length > 0) {
-          let newFileList = [];
-          for (let i = 0; i < bfList.length; i++) {
-            const newFile = {
-              ...bfList[i],
-              image: "../../update/" + bfList[i].boardFileSysname,
-            };
-            newFileList.push(newFile);
-          }
+          let newFileList = bfList.map((file) => ({
+            ...file,
+            image: "../../update/" + file.boardFileSysname,
+          }));
           setFlist(newFileList); // 파일 목록 상태 설정
         }
 
-        // productCode와 usedCode를 사용해 상품 이름 및 중고 상품 이름 가져오기
-        const { selectedProduct, selectedUsedProduct } = res.data;
-        if (selectedProduct) {
+        // 게시글에 선택된 상품 정보가 있을 경우, 해당 상품 정보 가져오기
+        const selectedProductId = res.data.selectedProductId;
+        if (selectedProductId) {
+          // 해당 상품 ID로 상품 정보를 가져오기
           axios
-            .get(`/getProductName/${selectedProduct}`) // 상품 정보를 조회하는 API 호출
-            .then((response) => {
-              setProductName(response.data.productName);
-              console.log(response.data.productName);
+            .get("/getproduct", { params: { productId: selectedProductId } })
+            .then((productRes) => {
+              setProductDetails(productRes.data); // 선택된 상품 정보 상태 설정
             })
-            .catch((err) => console.error("상품 정보 가져오기 실패", err));
-        }
-
-        if (selectedUsedProduct) {
-          axios
-            .get(`/getUsedProductName/${selectedUsedProduct}`) // 중고 상품 정보를 조회하는 API 호출
-            .then((response) => {
-              setUsedName(response.data.usedName);
-              console.log(setUsedName);
-            })
-            .catch((err) => console.error("중고 상품 정보 가져오기 실패", err));
+            .catch((error) => {
+              console.error("상품 정보 조회 오류:", error);
+            });
         }
       })
       .catch((err) => console.log(err));
   }, [bc]);
 
+  // 결제된 상품 목록 가져오기
+  useEffect(() => {
+    axios
+      .get("/order") // 결제된 상품만 가져오는 API 엔드포인트
+      .then((res) => {
+        setPaidOrders(res.data); // 결제된 상품 목록 상태에 저장
+      })
+      .catch((error) => {
+        console.error("결제된 상품 불러오기 오류:", error);
+      });
+  }, []);
+
   // 파일 목록 출력
-  const viewFlist = flist.map((v) => {
-    return (
-      <div className="Down" key={v.boardFileId}>
-        {v.image && <img src={v.image} alt="preview-img" />}
-        {v.boardFileOriname}
-      </div>
-    );
-  });
+  const viewFlist = flist.map((v) => (
+    <div className="Down" key={v.boardFileId}>
+      {v.image && <img src={v.image} alt="preview-img" />}
+      {v.boardFileOriname}
+    </div>
+  ));
 
   // 삭제 함수
-  const deleteInquiry = useCallback(() => {
+  const deleteInquiry = () => {
     let conf = window.confirm("삭제하시겠습니까?");
     if (!conf) return;
 
@@ -107,7 +87,7 @@ const InquiryView = () => {
         }
       })
       .catch((err) => console.log(err));
-  }, [bc, nav]);
+  };
 
   // 수정 함수
   const updateInquiry = () => {
@@ -128,16 +108,21 @@ const InquiryView = () => {
             <div className="Data">{inquiry.boardType}</div>
           </div>
 
-          <div className="Box">
-            <div className="Title">상품명 / 중고 상품명</div>
-            <div className="Data">
-              {productCode
-                ? productName
-                : usedCode
-                ? usedName
-                : "상품 또는 중고 상품 정보 없음"}
+          {/* 상품 내역 출력 */}
+          {productDetails ? (
+            <div className="Box">
+              <div className="Title">상품내역</div>
+              <div className="Data">
+                ({productDetails.product_where}) - {productDetails.product_name}{" "}
+                - {productDetails.total_price} 원
+              </div>
             </div>
-          </div>
+          ) : (
+            <div className="Box">
+              <div className="Title">상품내역</div>
+              <div className="Data">상품 정보가 없습니다.</div>
+            </div>
+          )}
 
           <div className="Box">
             <div className="Title">작성자</div>
@@ -170,10 +155,10 @@ const InquiryView = () => {
           </Button>
           {nid === inquiry.bnid && (
             <>
-              <Button wsize="s-10" color="red" onClick={updateInquiry}>
+              <Button wsize="s-20" color="red" onClick={updateInquiry}>
                 수정
               </Button>
-              <Button wsize="s-10" color="red" onClick={deleteInquiry}>
+              <Button wsize="s-20" color="red" onClick={deleteInquiry}>
                 삭제
               </Button>
             </>

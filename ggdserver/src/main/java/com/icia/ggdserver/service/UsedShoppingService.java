@@ -39,7 +39,6 @@ public class UsedShoppingService {
     @Autowired
     private UproductReviewTblRepository urRepo;
 
-
     public String insertUsed(UsedProductTbl upt,
                              List<MultipartFile> files,
                              HttpSession session) {
@@ -169,6 +168,9 @@ public class UsedShoppingService {
 
         usedproductTbl.setUsedproductFileTblList(ufList);
 
+        List<UproductReviewTbl> urList = urRepo.findByUCode(usedFileNum);
+        usedproductTbl.setUsedReviewTblList(urList);
+
         return usedproductTbl;
 
     }
@@ -233,6 +235,24 @@ public class UsedShoppingService {
 
         return res;
     }
+
+    //후기 작성 메소드
+    public String insertupreview(UproductReviewTbl upreview) {
+        log.info("insertupreview()");
+        String result = null;
+
+        try{
+            urRepo.save(upreview);
+
+            result = "ok";
+        } catch (Exception e) {
+            e.printStackTrace();
+            result = "fail";
+        }
+        return result;
+    }
+
+
 
     // 모든 상품 목록을 가져오는 메소드
     public List<UsedProductTbl> getAllUsedProducts() {

@@ -6,6 +6,7 @@ import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
 @Table(name = "uproductreview_tbl")
@@ -30,5 +31,8 @@ public class UproductReviewTbl {
     @CreationTimestamp
     @Column
     private Timestamp uRdate; // 작성 날짜
+
+    @Transient
+    private List<UproductReviewTbl> rvList;
 
 }

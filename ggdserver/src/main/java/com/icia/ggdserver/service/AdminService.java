@@ -46,6 +46,9 @@ public class AdminService {
     @Autowired
     private DmFileRepository dfRepo;
 
+    @Autowired
+    private UproductReviewTblRepository rvRepo;
+
 
 
     @Autowired
@@ -356,30 +359,7 @@ public class AdminService {
     }
 
     public Map<String, Object> getReportList(Integer pageNum) {
-
-        log.info("getReportList()");
-
-        if (pageNum == null) {
-            pageNum = 1;
-        }
-
-        int listCnt = 10;
-
-        Pageable pb = PageRequest.of((pageNum -1), listCnt, Sort.Direction.DESC, "rNum");
-
-        Page<ReportTbl> result = rRepo.findByrNumGreaterThan(0L, pb);
-
-        List<ReportTbl> rList = result.getContent();
-
-        int totalPage = result.getTotalPages();
-
-        Map<String, Object> res = new HashMap<>();
-        res.put("rList", rList);
-        res.put("totalPage", totalPage);
-        res.put("pageNum",pageNum);
-
-        return res;
-
+        return null;
     }
 
     public ReportTbl getReport(long rNum) {
@@ -469,10 +449,32 @@ public class AdminService {
         return result;
     }
 
+    public List<UproductReviewTbl> getrvList() {
+        log.info("getrvList()");
+
+        // 게시글 가져와서 담기
+        List<UproductReviewTbl> rv = (List<UproductReviewTbl>) rvRepo.findAll();
+
+
+        return rv;
+
+    }
+
+    @Transactional
+    public Map<String, String> deletereview(long uNum) {
+        log.info("deletereview()");
+        Map<String, String> rsMap = new HashMap<>();
+
+        try {
+            rvRepo.deleteById(uNum);
+            rsMap.put("res", "ok");
+        } catch (Exception e){
+            e.printStackTrace();
+            rsMap.put("res", "fail");
+        }
+        return rsMap;
+    }
 }
-
-
-
 
 
 

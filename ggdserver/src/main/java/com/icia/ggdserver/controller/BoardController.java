@@ -1,9 +1,6 @@
 package com.icia.ggdserver.controller;
 
-import com.icia.ggdserver.entity.BoardTbl;
-import com.icia.ggdserver.entity.ProductTbl;
-import com.icia.ggdserver.entity.UsedProductTbl;
-import com.icia.ggdserver.repository.ProductTblRepository;
+import com.icia.ggdserver.entity.*;
 import com.icia.ggdserver.service.BoardService;
 import com.icia.ggdserver.service.ShoppingMallService;
 import com.icia.ggdserver.service.UsedShoppingService;
@@ -28,6 +25,11 @@ public class BoardController {
 
    @Autowired
    private UsedShoppingService uServ;
+
+
+
+
+
     //문의 게시글 목록
     @GetMapping("boardlist")
     public Map<String, Object> getboardlist(@RequestParam Integer pageNum,
@@ -59,23 +61,22 @@ public class BoardController {
     public List<UsedProductTbl> getUsedProducts() {
         return uServ.getAllUsedProducts();  // 중고 상품 목록을 반환
     }
-    //문의게시글 받기
-    @GetMapping("getinquiry")
-    public BoardTbl getinquiry(@RequestParam long boardCode){
-        log.info("getinquiry()");
-        return bServ.getBoard(boardCode);
+
+    @GetMapping("order")
+    public List<OrderDetailTbl> getOrderDetails(){
+        return bServ.getAllOrderDetailId();
     }
-    // 상품명 조회 API
-    @GetMapping("getProductName")
-    public String getProductName(@RequestParam long productCode) {
-        return bServ.getProductName(productCode);
+    @GetMapping("getinquiry")
+    public BoardTbl getinquiry(@RequestParam long boardCode) {
+        log.info("getinquiry()");
+
+        // 게시글 정보를 가져옴
+        BoardTbl board = bServ.getBoard(boardCode);
+
+        return board;  // BoardTbl 객체 반환
     }
 
-    // 중고 상품명 조회 API
-    @GetMapping("getUsedProductName")
-    public String getUsedProductName(@RequestParam long usedCode) {
-        return bServ.getUsedProductName(usedCode);
-    }
+
     //문의게시글 삭제
     @PostMapping("deleteInquiry")
     public Map<String, String> deleteInquiry(@RequestParam long boardCode,
@@ -83,5 +84,7 @@ public class BoardController {
         log.info("deleteInquiry()");
         return bServ.deleteBoard(boardCode,session);
     }
+
+
 
 }
