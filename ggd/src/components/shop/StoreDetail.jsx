@@ -292,7 +292,11 @@ const ProductDetails = () => {
               activeTab === "specifications" ? "active" : ""
             }`}
           >
-            <p>제품 규격 내용이 여기 들어갑니다.</p>
+            {/* <p>제품 규격 내용이 여기 들어갑니다.</p> */}
+            <p>사이즈</p>
+            <div>{newProductData.bpsize}</div>
+            <p>재질</p>
+            <div>{newProductData.bpmaterial}</div>
           </div>
         </div>
       </div>

@@ -6,12 +6,12 @@ import Table from "../admin/Table";
 import TableColumn from "../admin/TableColumn";
 import TableRow from "../admin/TableRow";
 import Paging from "../admin/Paging";
-import NotificationView from "./NotificationView";
+// import NotieView from "/NoticeView";
 import { useNavigate } from "react-router-dom";
 
 const df = (date) => moment(date).format("YYYY-MM-DD");
 
-const Notification = () => {
+const BUserNoticeListView = () => {
   const nav = useNavigate();
   const pnum = sessionStorage.getItem("pageNum");
   const [mitem, setMitem] = useState({});
@@ -20,7 +20,7 @@ const Notification = () => {
     pageNum: 1,
   });
 
-  // const pageSt = useContext(AdminPageContextStore);
+  const pageSt = useContext(AdminPageContextStore);
 
   const getNlist = (pnum) => {
     axios
@@ -69,9 +69,13 @@ const Notification = () => {
     pnum !== null ? getNlist(pnum) : getNlist(1);
   }, []);
 
+  //공지사항 메뉴로 이동
+  const NotificationGo = () => {
+    nav("/Notification");
+  };
   return (
-    <div className="Content">
-      <h1>공지사항</h1>
+    <div className="bnserNoticeListView">
+      <h1 onClick={NotificationGo}>공지사항</h1>
       <Table hName={["제목", "날짜"]}>{list}</Table>
 
       <Paging page={page} getList={getNlist} />
@@ -79,4 +83,4 @@ const Notification = () => {
   );
 };
 
-export default Notification;
+export default BUserNoticeListView;

@@ -149,6 +149,15 @@ function App() {
     setLoginState(newState);
   }, []);
 
+  //Bmypage 화면으로 전송하기
+  const [totalQuantity, setTotalQuantity] = useState(0);
+  const [totalAmounts, setTotalAmounts] = useState(0);
+
+  const handleOrderData = (quantity, amounts) => {
+    setTotalQuantity(quantity);
+    setTotalAmounts(amounts);
+  };
+
   return (
     <div className="App">
       <Routes>

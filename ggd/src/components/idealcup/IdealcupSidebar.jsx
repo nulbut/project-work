@@ -22,11 +22,11 @@ const IdealcupSidebar = () => {
         path: "/idlecup",
         icon: <FontAwesomeIcon icon={faTrophy} />,
       },
-      {
-        name: "통계",
-        path: "/cupstatics",
-        icon: <FontAwesomeIcon icon={faChartSimple} />,
-      },
+      // {
+      //   name: "통계",
+      //   path: "/cupstatics",
+      //   icon: <FontAwesomeIcon icon={faChartSimple} />,
+      // },
       {
         name: "굿즈샵",
         path: "/ShoppingMall",
@@ -67,21 +67,21 @@ const IdealcupSidebar = () => {
       //   icon: <FontAwesomeIcon icon={faFlagCheckered} />,
       // },
 
-      {
-        name: "통계",
-        path: "/cupstatics",
-        icon: <FontAwesomeIcon icon={faChartSimple} />,
-      },
+      // {
+      //   name: "통계",
+      //   path: "/cupstatics",
+      //   icon: <FontAwesomeIcon icon={faChartSimple} />,
+      // },
       {
         name: "굿즈샵",
         path: "/ShoppingMall",
         icon: <FontAwesomeIcon icon={faShop} />,
       },
-      {
-        name: "문의",
-        path: "/idleinquiry",
-        icon: <FontAwesomeIcon icon={faCommentDots} />,
-      },
+      // {
+      //   name: "문의",
+      //   path: "/idleinquiry",
+      //   icon: <FontAwesomeIcon icon={faCommentDots} />,
+      // },
     ];
   }
   return (

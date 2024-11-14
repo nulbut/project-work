@@ -65,6 +65,7 @@ const BOderHistory = () => {
     searchQuery,
     orders
   );
+
   // 주문 목록 가져오기 (예시 API 호출)
 
   useEffect(() => {
@@ -298,7 +299,7 @@ const BOderHistory = () => {
           </div>
         </div>
       </div>
-      <table border="1">
+      <table className="qwer" border="1">
         <thead>
           <tr>
             <th rowspan="4">1</th>

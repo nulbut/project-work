@@ -234,6 +234,21 @@ public class ShoppingMallService {
 
         return res;
     }
+    //후기 작성 메소드
+    public String insertupreview(UproductReviewTbl upreview) {
+        log.info("insertupreview()");
+        String result = null;
+
+        try{
+            urRepo.save(upreview);
+
+            result = "ok";
+        } catch (Exception e) {
+            e.printStackTrace();
+            result = "fail";
+        }
+        return result;
+    }
 
     // 모든 상품 목록을 가져오는 메소드
     public List<ProductTbl> getAllProducts() {

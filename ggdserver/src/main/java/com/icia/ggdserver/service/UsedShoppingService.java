@@ -16,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -259,4 +260,6 @@ public class UsedShoppingService {
         return StreamSupport.stream(ustRepo.findAll().spliterator(), false)
                 .collect(Collectors.toList());  // Stream을 List로 변환
     }
+
+
 }
