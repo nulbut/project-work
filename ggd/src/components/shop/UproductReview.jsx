@@ -36,7 +36,6 @@ const UproductReview = ({ reviewCode, nid, uProduct, getReviewList }) => {
 
   return (
     <div className="Review">
-      <h3>후기</h3>
       <textarea
         className="Textarea"
         name="ureview"
