@@ -181,7 +181,7 @@ const StoreProducts = () => {
                 <strong>판매자: {item.bsellerId}</strong>
               </div>
               <div className="spbtn-set">
-                <Link to={`/usedproductbuy/${item.usedCode}`}>
+                <Link to={`/widgetcheckout`}>
                   <Button wsize="s-25">구매하기</Button>
                 </Link>
                 <Link

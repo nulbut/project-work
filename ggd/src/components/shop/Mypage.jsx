@@ -9,10 +9,6 @@ const Mypage = (props) => {
 
   const menuArr = [
     {
-      name: "포인트",
-      path: "mypage",
-    },
-    {
       name: "등록한 상품",
       path: "usedRegistered",
     },
