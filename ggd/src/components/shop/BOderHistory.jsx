@@ -87,10 +87,6 @@ const BOderHistory = () => {
       });
   }, []);
 
-
-  
-
-
   // 필터가 변경될 때마다 다시 필터링
   useEffect(() => {
     filterOrders();
@@ -303,7 +299,7 @@ const BOderHistory = () => {
           </div>
         </div>
       </div>
-      <table border="1">
+      <table className="qwer" border="1">
         <thead>
           <tr>
             <th rowspan="4">1</th>

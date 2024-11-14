@@ -31,16 +31,16 @@ const Header = ({ lstate, onLogout }) => {
       sub: 0,
     },
 
-    {
-      name: "인기상품",
-      path: "/HotProduct",
-      sub: 1,
-    },
-    {
-      name: "최신상품",
-      path: "/LatestProduct",
-      sub: 1,
-    },
+    // {
+    //   name: "인기상품",
+    //   path: "/HotProduct",
+    //   sub: 1,
+    // },
+    // {
+    //   name: "최신상품",
+    //   path: "/LatestProduct",
+    //   sub: 1,
+    // },
     {
       name: "입점상품",
       path: "/storeProduct",
@@ -199,7 +199,7 @@ const Header = ({ lstate, onLogout }) => {
         {menus.map((menu, index) => {
           return menu.sub == 0 ? (
             <Link className="Content" to={menu.path} key={index}>
-              <div className="Icon">{menu.icon}</div>
+              {menu.icon}
               {menu.name}
             </Link>
           ) : menu.sub == 2 ? (
@@ -235,10 +235,8 @@ const Header = ({ lstate, onLogout }) => {
         <div className="input">
           {/* <input 
           type="text" placeholder="검색"/> */}
-          <div className="button-header-icon" >
-            <i>
-              {/* <FontAwesomeIcon icon={faMagnifyingGlass} /> */}
-            </i>
+          <div className="button-header-icon">
+            <i>{/* <FontAwesomeIcon icon={faMagnifyingGlass} /> */}</i>
           </div>
         </div>
 

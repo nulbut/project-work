@@ -49,7 +49,7 @@ import { WidgetCheckoutPage } from "./components/toss/widget/WidgetCheckout";
 import { WidgetSuccessPage } from "./components/toss/widget/WidgetSuccess";
 import { PaymentCheckoutPage } from "./components/toss/payment/PaymentCheckout";
 import { PaymentSuccessPage } from "./components/toss/payment/PaymentSuccess";
-import { FailPage } from "./components/toss/Fail";
+import { FailPage } from "./components/toss/fail";
 import { BrandpayCheckoutPage } from "./components/toss/brandpay/BrandpayCheckout";
 import { BrandpaySuccessPage } from "./components/toss/brandpay/BrandpaySuccess";
 // import { PaymentBillingPage } from "./components/toss/payment/PaymentBilling";
