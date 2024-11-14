@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink, Link } from "react-router-dom";
 import "./scss/ShopSideber.scss";
-import logo from "../images/logo.svg";
+import logo from "../images/logo2.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBullhorn,

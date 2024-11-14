@@ -155,10 +155,10 @@ const InquiryView = () => {
           </Button>
           {nid === inquiry.bnid && (
             <>
-              <Button wsize="s-10" color="red" onClick={updateInquiry}>
+              <Button wsize="s-20" color="red" onClick={updateInquiry}>
                 수정
               </Button>
-              <Button wsize="s-10" color="red" onClick={deleteInquiry}>
+              <Button wsize="s-20" color="red" onClick={deleteInquiry}>
                 삭제
               </Button>
             </>
