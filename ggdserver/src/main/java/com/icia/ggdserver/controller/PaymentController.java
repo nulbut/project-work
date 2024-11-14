@@ -2,6 +2,7 @@ package com.icia.ggdserver.controller;
 
 import com.icia.ggdserver.dto.OrderInfoDto;
 import com.icia.ggdserver.dto.OrderRequestDto;
+import com.icia.ggdserver.dto.OrderWithDetailsDto;
 import com.icia.ggdserver.entity.IwcTbl;
 import com.icia.ggdserver.service.PaymentService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,6 +26,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @Slf4j
