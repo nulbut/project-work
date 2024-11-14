@@ -49,7 +49,7 @@ import { WidgetCheckoutPage } from "./components/toss/widget/WidgetCheckout";
 import { WidgetSuccessPage } from "./components/toss/widget/WidgetSuccess";
 import { PaymentCheckoutPage } from "./components/toss/payment/PaymentCheckout";
 import { PaymentSuccessPage } from "./components/toss/payment/PaymentSuccess";
-import { FailPage } from "./components/toss/fail";
+import { FailPage } from "./components/toss/Fail";
 import { BrandpayCheckoutPage } from "./components/toss/brandpay/BrandpayCheckout";
 import { BrandpaySuccessPage } from "./components/toss/brandpay/BrandpaySuccess";
 // import { PaymentBillingPage } from "./components/toss/payment/PaymentBilling";
@@ -176,6 +176,11 @@ function App() {
 
           <Route path="/mypage" element={<Mypage onLogout={onLogout} />}>
             <Route path="orderDelivery" element={<OrderDelivery />} />
+            {/* <Route
+              path="nmemberpasswordcheck"
+              element={<NmemberPasswordCheck />}
+            /> */}
+
             <Route path="productRegistered" element={<ProductRegistered />} />
             <Route path="productWrite" element={<ProductWrite />} />
             <Route path="dibs" element={<Dibs />} />

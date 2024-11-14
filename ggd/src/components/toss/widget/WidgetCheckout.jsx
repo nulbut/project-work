@@ -328,7 +328,7 @@ export function WidgetCheckoutPage() {
 
         {/* 결제하기 버튼 */}
         <button
-          className="button"
+          className="wcbutton"
           style={{ marginTop: "30px" }}
           disabled={!ready}
           // ------ '결제하기' 버튼 누르면 결제창 띄우기 ------
@@ -347,7 +347,7 @@ export function WidgetCheckoutPage() {
         }}
       >
         <button
-          className="button"
+          className="wcbutton"
           style={{ marginTop: "30px" }}
           onClick={() => {
             navigate("/brandpay/checkout");
@@ -356,7 +356,7 @@ export function WidgetCheckoutPage() {
           위젯 없이 브랜드페이만 연동하기
         </button>
         <button
-          className="button"
+          className="wcbutton"
           style={{ marginTop: "30px" }}
           onClick={() => {
             navigate("/payment/checkout");

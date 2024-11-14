@@ -233,10 +233,11 @@ const Header = ({ lstate, onLogout }) => {
       </div>
       <div className="rightHeader">
         <div className="input">
-          <input type="text" placeholder="검색" />
-          <div className="button-header-icon">
+          {/* <input 
+          type="text" placeholder="검색"/> */}
+          <div className="button-header-icon" >
             <i>
-              <FontAwesomeIcon icon={faMagnifyingGlass} />
+              {/* <FontAwesomeIcon icon={faMagnifyingGlass} /> */}
             </i>
           </div>
         </div>

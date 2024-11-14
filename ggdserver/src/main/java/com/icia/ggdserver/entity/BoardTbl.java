@@ -19,10 +19,7 @@ public class BoardTbl {
     private String bnid; // 회원 ID
 
     @Column(nullable = false)
-    private long ProductCode;//상품고유번호
-
-    @Column(nullable = false)
-    private long usedCode;
+    private long productcode;//상품고유번호
 
     @Column(nullable = false, length = 20)
     private String bnphonenum; // 회원 전화번호
@@ -40,11 +37,6 @@ public class BoardTbl {
     @Column
     private Timestamp boardDate;//문의 게시글 등록일
 
-    @Transient
-    private String productName;
-
-    @Transient
-    private String usedName;
 
     @Transient
     private List<BoardFileTbl> boardFileTblList;// 첨부파일

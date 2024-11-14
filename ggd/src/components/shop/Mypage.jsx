@@ -8,13 +8,13 @@ const Mypage = (props) => {
   const nickname = sessionStorage.getItem("nnickname");
 
   const menuArr = [
-    {
-      name: "포인트",
-      path: "mypage",
-    },
+    // {
+    //   name: "포인트",
+    //   path: "mypage",
+    // },
     {
       name: "등록한 상품",
-      path: "productRegistered",
+      path: "usedRegistered",
     },
     {
       name: "주문내역/배송조회",
@@ -49,7 +49,7 @@ const Mypage = (props) => {
           </p>
         </div>
         <div className="border-ber">
-          {nickname}님<div>등급:</div>
+          <strong>{nickname}님</strong>
           {menuArr.map((butn, idx) => {
             return (
               <Link className="sideber-menu" to={butn.path} key={idx}>
