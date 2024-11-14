@@ -81,6 +81,7 @@ const BproductView = () => {
       .catch((err) => console.log(err));
   };
 
+  //전체 이미지
   const viewFilst = filst.map((v) => {
     return (
       <div className="Down">

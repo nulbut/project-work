@@ -65,6 +65,7 @@ const BOderHistory = () => {
     searchQuery,
     orders
   );
+
   // 주문 목록 가져오기 (예시 API 호출)
 
   useEffect(() => {
@@ -85,6 +86,10 @@ const BOderHistory = () => {
         console.error("Error fetching orders:", error);
       });
   }, []);
+
+
+  
+
 
   // 필터가 변경될 때마다 다시 필터링
   useEffect(() => {

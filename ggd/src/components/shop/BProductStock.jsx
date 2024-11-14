@@ -9,6 +9,7 @@ import TableRow from "./TableRow";
 import TableColumn from "./TableColumn";
 import "./scss/BProductStock.scss";
 import Paging from "./Paging";
+import OderBnumCount from "./OderBnumCount";
 
 const bn = (Number) => Number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
@@ -18,64 +19,69 @@ const BProductStock = () => {
   const id = sessionStorage.getItem("bid");
   const bsellerId = sessionStorage.getItem("nnickname");
   const pageNum = sessionStorage.getItem("pageNum");
+  const [isStockDeducted, setIsStockDeducted] = useState(null);
 
-  //임시 테스트용
-  let testnum = 245;
 
   const [bbitem, setBbitem] = useState([]);
-
-  // 검색 필터링된 아이템
   const [filteredItems, setFilteredItems] = useState([]);
-
-  // 검색 상태 추가
+  const [orders, setOrders] = useState([]);
   const [searchCategory, setSearchCategory] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
+  const [page, setPage] = useState({ totalPage: 0, pageNum: 1 });
 
-  const [stockdata, setStockdata] = useState({
-    bprobid: id,
-    bsellerId: bsellerId,
-    bpwarestock: "",
-    bpwarestocklimt: "",
-  });
-
-  const [page, setPage] = useState({
-    //페이징 관련 정보 저장
-    totalPage: 0,
-    pageNum: 1,
-  });
-
-  //서버로부터 등록한 상품 불러오는 함수
+  // 상품 데이터를 가져오는 함수
   const getBproduct = (pnum) => {
     axios
       .get("/BproductList", {
         params: { pageNum: pnum, bsellerId: bsellerId },
       })
       .then((res) => {
-        console.log(res.data);
-
         const { bList, totalPage, pageNum } = res.data;
-        // console.log(totalPage);
         setPage({ totalPage: totalPage, pageNum: pageNum });
-        // console.log(page);
-        let newBlist = [];
-        for (let bItem of bList) {
-          newBlist.push({ ...bItem });
-        }
-        setBbitem(newBlist);
-        // 초기 필터링 상태는 전체 리스트
-        setFilteredItems(newBlist);
-        sessionStorage.getItem("pageNum", pageNum);
+        setBbitem(bList);
+
+        // 상품 데이터를 가져온 후 주문 데이터와 매핑
+        fetchOrdersAndMapItems(bList);
       })
       .catch((err) => console.log(err));
   };
 
-  // 검색 핸들러
-  const handleSearch = () => {
-    console.log("검색 기준:", searchCategory);
-    console.log("검색어:", searchTerm);
+  // 주문 데이터를 가져와 상품 데이터와 매핑하는 함수
+  const fetchOrdersAndMapItems = (bList) => {
+    const bid = sessionStorage.getItem("bid");
+    axios
+      .get("/getStoreOrders", { params: { bid } })
+      .then((res) => {
+        const ordersData = res.data;
+        setOrders(ordersData);
+  
+        // 주문 데이터에서 bpnum별 주문 수량을 계산
+        const orderMap = {};
+        ordersData.forEach((order) => {
+          // 만약 product_code와 bpnum이 같은 타입이 아닌 경우, 타입 변환 추가
+          const key = order.product_code.toString(); // 또는 parseInt(order.product_code, 10) 필요 시
+          if (orderMap[key]) {
+            orderMap[key] += order.quantity;
+          } else {
+            orderMap[key] = order.quantity;
+          }
+        });
+  
+        // bList를 업데이트하여 각 아이템에 주문 대기 수량 추가
+        const updatedItems = bList.map((item) => ({
+          ...item,
+          quantity: orderMap[item.bpnum] || 0, // item.bpnum이 orderMap 키와 일치하는지 확인
+        }));
+        setFilteredItems(updatedItems);
+      })
+      .catch((error) => console.error("Error fetching orders:", error));
+  };
+  
+  
 
+  // 검색 기능
+  const handleSearch = () => {
     if (!searchCategory || !searchTerm) {
-      // 검색 기준이나 검색어가 없을 경우 원래의 리스트를 보여줌
       setFilteredItems(bbitem);
       return;
     }
@@ -90,53 +96,45 @@ const BProductStock = () => {
       }
       return false;
     });
-    console.log("필터링 된 리스트 :", filteredList);
     setFilteredItems(filteredList);
   };
 
-  //BProductStock 컴포넌트가 화면에 보일때 서버로 부터 등록상품 목록을 가져오기
   useEffect(() => {
-    // console.log(id);
-    if (id === null) {
+    if (!id) {
       nav("/", { replace: true });
       return;
     }
     pageNum !== null ? getBproduct(pageNum) : getBproduct(1);
   }, []);
 
-  console.log(bbitem);
-
-  //등록 상품 목록 작성
-  let BproductList = null;
-  if (filteredItems.length === 0) {
-    BproductList = (
+  // 등록 상품 목록 작성
+  let BproductList = filteredItems.length
+    ? filteredItems.map((item) => (
+        <TableRow key={item.bpnum}>
+          <TableColumn wd={"w-30"}>{item.bpnum}</TableColumn>
+          <TableColumn wd={"w-20"}>
+            <div>
+              <img
+                onClick={() => nav("/bproductview", { state: { bpnum: item.bpnum } })}
+                className="img"
+                src={`../productupload/${item.bproductFileSysnameM}`}
+                alt="product"
+              />
+              <div onClick={() => nav("/bproductview", { state: { bpnum: item.bpnum } })}>
+                {item.bpname}
+              </div>
+            </div>
+          </TableColumn>
+          <TableColumn wd={"w-10"}>{item.bpwarestock}</TableColumn>
+          <TableColumn wd={"w-10"}>{item.quantity}</TableColumn>
+          <TableColumn wd={"w-30"}>{item.bcondition}</TableColumn>
+        </TableRow>
+      ))
+    : (
       <TableRow key={0}>
         <TableColumn span={4}>등록된 상품이 없습니다.</TableColumn>
       </TableRow>
     );
-  } else {
-    BproductList = Object.values(filteredItems).map((item) => (
-      <TableRow key={item.bpnum}>
-        <TableColumn wd={"w-30"}>{item.bpnum}</TableColumn>
-        <TableColumn wd={"w-20"}>
-          <div>
-            <img
-              onClick={() => getBboard(item.bpnum)}
-              className="img"
-              src={"../productupload/" + item.bproductFileSysnameM}
-            />
-            <div onClick={() => getBboard(item.bpnum)}>{item.bpname}</div>
-          </div>
-        </TableColumn>
-        <TableColumn wd={"w-10"}>{bn(item.bpwarestock)}</TableColumn>
-        <TableColumn wd={"w-10"}>{testnum}</TableColumn>
-        <TableColumn wd={"w-30"}>{item.bcondition}</TableColumn>
-      </TableRow>
-    ));
-  }
-  const getBboard = (bpnum) => {
-    nav("/bproductview", { state: { bpnum: bpnum } });
-  };
 
   return (
     <div className="bproductstock" style={{ width: "90%" }}>
@@ -144,62 +142,38 @@ const BProductStock = () => {
         <h2>상품 재고관리</h2>
         <hr />
       </div>
-
       <div className="input-group">
         <select
           className="form-control"
           value={searchCategory}
           onChange={(e) => setSearchCategory(e.target.value)}
-          name="search"
         >
           <option value="">전체</option>
-          <option value="상품명" name="상품명">
-            상품명
-          </option>
-          <option value="상품코드" name="상품코드">
-            상품코드
-          </option>
-          <option value="상태" name="상태">
-            상태
-          </option>
+          <option value="상품명">상품명</option>
+          <option value="상품코드">상품코드</option>
+          <option value="상태">상태</option>
         </select>
         <input
           className="form-control"
           type="text"
           placeholder="Search for..."
-          aria-label="Search for..."
-          aria-describedby="btnNavbarSearch"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
         <button
           className="btn btn-primary"
-          id="btnNavbarSearch"
           type="button"
           onClick={handleSearch}
         >
           <FontAwesomeIcon icon={faMagnifyingGlass} />
         </button>
-        {/* <Button className="button">상품 옵션 관리</Button> */}
       </div>
       <div className="Table">
         <BproductStockTable
-          hname={[
-            "상품코드",
-            "상품명",
-            "창고재고",
-            "주문대기",
-            // "가재고",
-            // "통보수량",
-            // "재입고 알림",
-            "상태",
-          ]}
+          hname={["상품코드", "상품명", "창고재고", "주문대기", "상태"]}
         >
           {BproductList}
         </BproductStockTable>
-      </div>
-      <div>
-        <p>{}</p>
       </div>
       <Paging className="page" page={page} getList={getBproduct} />
     </div>

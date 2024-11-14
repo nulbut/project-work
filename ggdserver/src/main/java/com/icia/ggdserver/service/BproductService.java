@@ -1,12 +1,8 @@
 
 package com.icia.ggdserver.service;
 
-import com.icia.ggdserver.entity.BproductFileTbl;
-import com.icia.ggdserver.entity.BproductTbl;
-import com.icia.ggdserver.entity.ProductTbl;
-import com.icia.ggdserver.repository.BproductFileRepository;
-import com.icia.ggdserver.repository.BproductRepository;
-import com.icia.ggdserver.repository.ProductRegistrationRepository;
+import com.icia.ggdserver.entity.*;
+import com.icia.ggdserver.repository.*;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +12,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.Mapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -35,6 +30,9 @@ public class BproductService {
     @Autowired
     private BproductFileRepository bpfRepo;
     //상품 이미지 레포지터리
+
+    @Autowired
+    private OrderDetailRepository odrRepo;
 
 
     //상품 작성
@@ -307,29 +305,10 @@ public class BproductService {
     }
 
 
-//    public Map<String, Object> getBproductListNormal(Integer pageNum) {
-//        log.info("getBproductList() bsellerId : {}", bsellerId);
-//
-//        if (pageNum == null){
-//            pageNum = 1;
-//        }
-//        int listCnt  = 8;
-//
-//        Pageable pb = PageRequest.of((pageNum - 1), listCnt,
-//                Sort.Direction.DESC, "bpnum");
-//
-//        Page<BproductTbl> result =bpdRepo.findByBpnumGreaterThanAndBsellerId(0L, bsellerId, pb);
-//        //page 객체를 list로 변환 후 전송
-//        List<BproductTbl> bList = result.getContent();
-//        //blist에 저장
-//        int totalPage = result.getTotalPages();
-//
-//        Map<String, Object> res = new HashMap<>();
-//        res.put("bList", bList);
-//        res.put("totalPage",totalPage);
-//        res.put("pageNum",pageNum);
-//
-//
-//        return res;
-//    }
+
+
+
+
+
+
 }//class end

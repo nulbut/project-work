@@ -189,7 +189,7 @@ const BproductRegisterd = () => {
           <div onClick={() => getBboard(item.bpnum)}>{item.bpname}</div>
         </TableColumn>
         <TableColumn wd={"w-10"}>{bn(item.bpprice)}</TableColumn>
-        <TableColumn wd={"w-10"}>{bn(item.bpwarestock)}</TableColumn>
+        <TableColumn wd={"w-10"}>{item.bpwarestock}</TableColumn>
         <TableColumn wd={"w-10"}>{bn(item.bcondition)}</TableColumn>
         <TableColumn wd={"w-20"}>{bf(item.bpsigndt)}</TableColumn>
       </TableRow>

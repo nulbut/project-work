@@ -60,6 +60,25 @@ export function WidgetSuccessPage() {
     }
   };
 
+  //주문건수 추가하는 함수
+
+  const OrderConfirmation = () => {
+    // 주문 완료 시 localStorage의 카운트를 증가시키는 함수
+    const countOrderCompletion = () => {
+      // 기존 카운트를 가져오거나 초기값 설정
+      let orderCount = localStorage.getItem("orderCount") || 0;
+      //숫자로 변환하고 1 증가
+      orderCount = Number(orderCount) + 1;
+      //증가된 카운트를 localStorage에 저장
+      localStorage.setItem("orderCount", orderCount);
+    };
+
+    //컴포넌트가 처음 로드될때 주문완료 시 카운트 증가
+    useEffect(() => {
+      countOrderCompletion();
+    }, []);
+  };
+
   useEffect(() => {
     if (responseData) {
       updateOrder(); // responseData가 변경될 때마다 updateOrder 함수 호출
