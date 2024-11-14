@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
 import "./scss/Main.scss";
@@ -16,8 +16,9 @@ const Inquiry = () => {
   const nav = useNavigate();
   const bnid = sessionStorage.getItem("nid");
   const pnum = sessionStorage.getItem("pageNum");
+  const [paidOrders, setPaidOrders] = useState([]); // 결제된 상품 목록 상태
+  console.log(paidOrders);
   const [iitem, setIitem] = useState([]); // 게시글 목록
-  console.log(iitem);
   const [page, setPage] = useState({
     totalPage: 0,
     pageNum: 1,
@@ -35,6 +36,18 @@ const Inquiry = () => {
       })
       .catch((err) => console.log(err));
   };
+
+  // 결제된 상품 목록 가져오기
+  useEffect(() => {
+    axios
+      .get("/order") // 결제된 상품만 가져오는 API 엔드포인트
+      .then((res) => {
+        setPaidOrders(res.data); // 결제된 상품 목록 상태에 저장
+      })
+      .catch((error) => {
+        console.error("결제된 상품 불러오기 오류:", error);
+      });
+  }, []);
 
   // 컴포넌트가 렌더링될 때 게시글 목록 가져오기
   useEffect(() => {
@@ -54,21 +67,12 @@ const Inquiry = () => {
       </TableRow>
     ) : (
       iitem.map((column, index) => {
-        const {
-          boardCode,
-          boardTitle,
-          bnid,
-          boardDate,
-          productCode,
-          usedCode,
-        } = column;
+        const { boardCode, boardTitle, bnid, boardDate } = column;
         return (
           <TableRow key={boardCode}>
             <TableColumn wd="w-10">{index + 1}</TableColumn>
             <TableColumn wd="w-40">
-              <div onClick={() => getBoard(boardCode, productCode, usedCode)}>
-                {boardTitle}
-              </div>
+              <div onClick={() => getBoard(boardCode)}>{boardTitle}</div>
             </TableColumn>
             <TableColumn wd="w-20">{bnid}</TableColumn>
             <TableColumn wd="w-30">{df(boardDate)}</TableColumn>
@@ -79,8 +83,8 @@ const Inquiry = () => {
     );
 
   // 상세보기 화면으로 이동
-  const getBoard = (boardCode, productCode, usedCode) => {
-    nav("inView", { state: { bc: boardCode, productCode, usedCode } });
+  const getBoard = (boardCode) => {
+    nav("inView", { state: { bc: boardCode } });
   };
 
   return (

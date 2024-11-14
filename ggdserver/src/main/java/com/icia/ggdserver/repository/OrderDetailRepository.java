@@ -8,6 +8,7 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface OrderDetailRepository extends CrudRepository<OrderDetailTbl, Long> {
 
+
 //    @Query(value = "SELECT *\n" +
 //            "FROM order_detail_tbl\n" +
 //            "WHERE 1 = 1\n" +
