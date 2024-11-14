@@ -10,7 +10,7 @@ const NMemberView = () => {
 
   const [nmemberInfo, setNmemberInfo] = useState({
     nid: id,
-    npw : "",
+    npw: "",
     nname: "",
     nbday: "",
     nphonenum: "",
@@ -41,7 +41,7 @@ const NMemberView = () => {
       </div>
       <div className="Titlesvr">
         <p>아이디 {id}</p>
-        <p className="button">
+        <p className="buttons">
           회원정보 변경 <Button onClick={updatego}>변경</Button>
         </p>
       </div>

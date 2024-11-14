@@ -28,16 +28,16 @@
 }
 
 .Titlesvr {
-  display: flex;
+  // display: flex;
   justify-content: space-between;
   align-items: center;
   p {
     font-size: 1rem;
     color: #555;
   }
-  .button {
+  .buttons {
     button {
-      background-color: #4a90e2;
+      background-color: #527194;
       color: #fff;
       border: none;
       border-radius: 5px;
