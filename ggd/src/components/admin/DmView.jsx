@@ -4,7 +4,8 @@ import { AdminPageContextStore } from "./AdminPageStatus";
 import axios from "axios";
 import DmList from "./DmList";
 import Button from "../idealcup/Button";
-import "./scss/DmView.scss";
+// import "./scss/DmView.scss";
+import "./scss/Admin.scss";
 
 const df = (date) => moment(date).format("YYYY-MM-DD");
 
@@ -96,10 +97,10 @@ const DmView = ({ dnum }) => {
         value={drcomment}
       ></textarea>
       <div className="Buttons">
-        <Button wsize="s-10" onClick={viewChange}>
+        <Button wsize="s-40" onClick={viewChange}>
           뒤로가기
         </Button>
-        <Button type="submit" size="small" wsize="s-20">
+        <Button type="submit" wsize="s-40">
           답변 등록
         </Button>
       </div>

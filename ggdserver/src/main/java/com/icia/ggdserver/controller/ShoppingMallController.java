@@ -1,6 +1,7 @@
 package com.icia.ggdserver.controller;
 
 import com.icia.ggdserver.entity.ProductTbl;
+import com.icia.ggdserver.entity.UproductReviewTbl;
 import com.icia.ggdserver.service.ShoppingMallService;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
@@ -77,6 +78,13 @@ public class ShoppingMallController {
                                              HttpSession session){
         log.info("deleteProduct()");
         return spmServ.boardDelete(productCode, session);
+    }
+
+    //후기 목록 가져오기
+    @GetMapping("getreview")
+    public List<UproductReviewTbl> getReview(@RequestParam long productCode){
+        log.info("getReview()");
+        return spmServ.getReview(productCode);
     }
 }
 

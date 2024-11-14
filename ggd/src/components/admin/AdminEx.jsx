@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./scss/Adminstyles.scss";
 import UserList from "./UserList";
-import Review from "./Review";
+import Preview from "./Preview";
 import Category from "./Category";
 import AdminDashboard from "./AdminDashboard";
 
@@ -19,6 +19,7 @@ import ManageAllPoint from "./manageuser/ManageAllPoint";
 import ManageCupList from "./manageidealcup/ManageCupList";
 import Notice from "./Notice";
 import Report from "./Report";
+import DirectMessage from "./DirectMessage";
 
 const AdminEx = ({ data }) => {
   const [dashview, setDashview] = useState("대시보드");
@@ -121,7 +122,10 @@ const AdminEx = ({ data }) => {
         setViewName(<ManageUserGrade />);
         break;
       case "후기 관리":
-        setViewName(<Review />);
+        setViewName(<Preview />);
+        break;
+      case "관리자 1 : 1 문의":
+        setViewName(<DirectMessage />);
         break;
       case "카테고리":
         setViewName(<Category />);

@@ -25,7 +25,7 @@ const Report = () => {
     pageSt.setViewPage(<ReportList />);
   };
 
-  return <div className="Main_Report">{pageSt.viewPage}</div>;
+  return <div className="Main_a">{pageSt.viewPage}</div>;
 };
 
 export default Report;
