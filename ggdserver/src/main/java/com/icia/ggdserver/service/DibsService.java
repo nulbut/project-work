@@ -85,7 +85,7 @@ public class DibsService {
             }
 
             // 상품에 대한 찜 중복 처리
-            DibsTbl existingDibs = dRepo.findByDnidAndProductCode(dnid, bpnum);
+            DibsTbl existingDibs = dRepo.findByDnidAndBpnum(dnid, bpnum);
             if (existingDibs != null) {
                 return "이미 찜한 상품입니다."; // 이미 찜한 중고 상품
             }

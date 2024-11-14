@@ -33,18 +33,19 @@ const UsedProductDetails = () => {
         const response = await axios.get("/getusedproduct", {
           params: { usedCode },
         });
-        setUsedProductData(response.data); // 중고상품 데이터를 상태에 저장
-      } catch (error) {
+        setUsedProductData({
+          ...response.data,
+        });
+      } catch(error) {
         console.error("데이터 로딩 실패", error);
-        setError("상품 정보를 불러오는 데 실패했습니다.");
+        setError("상품 정보를 불러오는데 실패했습니다.");
       } finally {
-        setLoading(false); // 로딩 완료
+        setLoading(false);
       }
-    };
-
+    }
     fetchUsedProductDetails();
   }, [usedCode]);
-
+      
   // 로딩 중일 때
   if (loading) {
     return <div>상품 정보를 불러오는 중입니다...</div>;
@@ -73,20 +74,44 @@ const UsedProductDetails = () => {
 
   const handlePurchase = () => {
     alert("구매 페이지로 이동합니다.");
-    navigate("/widgetcheckout", { state: { data: usedProductData } }); // 중고상품 코드 전달
+    navigate("/widgetcheckout", { state: { data:usedProductData } }); // 중고상품 코드 전달
   };
 
-  const handleAddToCart = () => {
-    alert("장바구니에 추가되었습니다.");
+  //const handleAddToCart = () => {
+    //alert("장바구니에 추가되었습니다.");
     // 장바구니 추가 구현
+  //};
+
+  // 장바구니에 상품을 추가하는 함수
+  const cartList = (ud, quantity) => {
+    console.log(ud);
+    const nid = sessionStorage.getItem("nid");
+    let conf = window.confirm("장바구니에 추가할까요?");
+    if (!conf) {
+      return;
+    }
+
+    axios
+      .get("/setusedcart", {
+        params: { cnid: nid, usedCode: ud, quantity },
+      })
+      .then((res) => {
+        console.log(res);
+        if (res.data === "ok") {
+          alert("추가되었습니다.");
+        } else {
+          alert("수량을 초과 하였습니다.");
+        }
+      })
+      .catch((err) => {
+        alert("돌아가");
+        console.log(err);
+      });
   };
 
   const handleReport = () => {
     alert("신고 페이지로 이동합니다.");
     navigate("/report"); // 신고 페이지로 이동
-  };
-  const handleTabClick = (tab) => {
-    setActiveTab(tab); // 클릭한 탭을 활성화
   };
   console.log(usedProductData);
   return (
@@ -137,69 +162,30 @@ const UsedProductDetails = () => {
             <button className="purchase-button" onClick={handlePurchase}>
               구매하기
             </button>
-            <button className="cart-button" onClick={handleAddToCart}>
-              장바구니
-            </button>
+            <button
+            className="cart-button"
+            wsize="s-50"
+            onClick={() => {
+              const quantity = 1; // 예시로 1개를 기본 수량으로 설정
+              cartList(usedProductData.usedCode, quantity); // 클릭 시 수량 전달
+            }}
+          >
+            장바구니
+          </button>
             <button className="report-button" onClick={handleReport}>
               신고하기
             </button>
           </div>
         </div>
       </div>
-      {/* 탭 관련 내용 */}
+
+      {/* 탭 관련 내용 추가 가능 */}
       <div className="product-detail-tabs">
         <div className="tab-header">
-          <div
-            className={`tab-item ${activeTab === "content" ? "active" : ""}`}
-            onClick={() => handleTabClick("content")}
-          >
-            내용
-          </div>
-          <div
-            className={`tab-item ${activeTab === "reviews" ? "active" : ""}`}
-            onClick={() => handleTabClick("reviews")}
-          >
-            후기
-          </div>
-          <div
-            className={`tab-item ${activeTab === "questions" ? "active" : ""}`}
-            onClick={() => handleTabClick("questions")}
-          >
-            문의사항
-          </div>
-          <div
-            className={`tab-item ${
-              activeTab === "specifications" ? "active" : ""
-            }`}
-            onClick={() => handleTabClick("specifications")}
-          >
-            제품규격
-          </div>
-        </div>
-
-        <div className="tab-content">
-          <div
-            className={`tab-pane ${activeTab === "content" ? "active" : ""}`}
-          >
-            <p>{usedProductData?.usedDetail}</p>
-          </div>
-          <div
-            className={`tab-pane ${activeTab === "reviews" ? "active" : ""}`}
-          >
-            <p>후기 내용이 여기 들어갑니다.</p>
-          </div>
-          <div
-            className={`tab-pane ${activeTab === "questions" ? "active" : ""}`}
-          >
-            <p>문의사항 내용이 여기 들어갑니다.</p>
-          </div>
-          <div
-            className={`tab-pane ${
-              activeTab === "specifications" ? "active" : ""
-            }`}
-          >
-            <p>제품 규격 내용이 여기 들어갑니다.</p>
-          </div>
+          <div className="tab-item">내용</div>
+          <div className="tab-item">후기</div>
+          <div className="tab-item">문의사항</div>
+          <div className="tab-item">제품규격</div>
         </div>
       </div>
     </div>

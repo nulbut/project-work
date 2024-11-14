@@ -87,7 +87,8 @@ const BProductStock = () => {
         return item.bpnum.toString().includes(searchTerm);
       } else if (searchCategory === "상태") {
         return item.bcondition.includes(searchTerm);
-      }return false;
+      }
+      return false;
     });
     console.log("필터링 된 리스트 :", filteredList);
     setFilteredItems(filteredList);
@@ -116,8 +117,8 @@ const BProductStock = () => {
   } else {
     BproductList = Object.values(filteredItems).map((item) => (
       <TableRow key={item.bpnum}>
-        <TableColumn wd={"w-10"}>{item.bpnum}</TableColumn>
-        <TableColumn wd={"w-30"}>
+        <TableColumn wd={"w-30"}>{item.bpnum}</TableColumn>
+        <TableColumn wd={"w-20"}>
           <div>
             <img
               onClick={() => getBboard(item.bpnum)}
@@ -129,10 +130,7 @@ const BProductStock = () => {
         </TableColumn>
         <TableColumn wd={"w-10"}>{bn(item.bpwarestock)}</TableColumn>
         <TableColumn wd={"w-10"}>{testnum}</TableColumn>
-        {/* <TableColumn wd={"w-10"}>{item.bfackstock}</TableColumn> */}
-        {/* <TableColumn wd={"w-10"}>{item.bpwarestocklimt}</TableColumn> */}
-        {/* <TableColumn wd={"w-10"}>{item.brestock}</TableColumn> */}
-        <TableColumn wd={"w-10"}>{item.bcondition}</TableColumn>
+        <TableColumn wd={"w-30"}>{item.bcondition}</TableColumn>
       </TableRow>
     ));
   }

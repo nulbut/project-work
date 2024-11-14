@@ -6,13 +6,17 @@ import moment from "moment";
 import Button from "./Button";
 import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBagShopping, faHeart } from "@fortawesome/free-solid-svg-icons";
+import { faBagShopping, faHeart, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 const df = (date) => moment(date).format("YYYY-MM-DD");
 
 const UsedProduct = () => {
   const [useds, setUsed] = useState([]);
+  //검색 필터링된 상품
+  const [filteredUseds, setFilteredUseds] = useState([]);
+
   const [page, setPage] = useState({
+    //페이징 관련 정보 저장
     totalPage: 0,
     pageNum: 1,
   });
@@ -21,23 +25,29 @@ const UsedProduct = () => {
   const [pageParams, setPageParams] = useState([]);
   const observerRef = useRef();
 
-  const usedsellerId = "usedsellerId"; // Placeholder for seller ID
+  //검색 상태 추가
+  const [searchCategory, setSearchCategory] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
+
   const nav = useNavigate();
+
+  const usedsellerId = "usedsellerId"; // Placeholder for seller ID
 
   console.log("페이지", page);
   console.log("중고상품", useds);
 
-  // Fetch used products from API
+  // 서버로부터 등록한 상품을 불러오는 함수
   const fetchUseds = async (inpage) => {
-    if (pageParams.includes(inpage.pageNum)) return; // Prevent duplicate API calls
+    if(pageParams.includes(inpage.pageNum)) return;
     setLoading(true);
-    try {
+    try{
       const res = await axios.get("usedList", {
         params: { pageNum: inpage.pageNum },
       });
       const { uList, totalPage, pageNum } = res.data;
       setPage({ totalPage, pageNum });
       setUsed((prevUsed) => [...prevUsed, ...uList]);
+      setFilteredUseds((prevUsed) => [...prevUsed, ...uList]);
       setHasNextPage(pageNum < totalPage);
       setPageParams((prev) => [...prev, inpage.pageNum]);
       setLoading(false);
@@ -46,31 +56,45 @@ const UsedProduct = () => {
       setLoading(false);
     }
   };
-
+  
   useEffect(() => {
     fetchUseds(page);
   }, [page]);
 
   useEffect(() => {
-    if (usedsellerId === null) {
-      nav("/", { replace: true });
-      return;
-    }
-
     const observer = new IntersectionObserver((entries) => {
       const firstEntry = entries[0];
-      if (firstEntry.isIntersecting) {
-        setPage((prev) => ({ ...prev, pageNum: prev.pageNum + 1 }));
-        console.log("옵저버", page);
+      if (firstEntry.isIntersecting){
+        setPage((prev) => ({ ...prev, pageNum:prev.pageNum + 1 }));
       }
     });
-
     if (observerRef.current) observer.observe(observerRef.current);
     return () => {
       if (observerRef.current) observer.unobserve(observerRef.current);
     };
   }, []);
 
+  // 검색 핸들러
+  const handleSearch = () => {
+    if (!searchCategory || !searchTerm) {
+      setFilteredUseds(useds);
+      return;
+    }
+
+    const filteredUseds = useds.filter((item) => {
+      if (searchCategory === "상품코드") {
+        return item.usedCode.toString().includes(searchTerm);
+      } else if (searchCategory === "상품명") {
+        return item.usedName.includes(searchTerm);
+      } else if (searchCategory === "가격") {
+        return item.usedSeller.toString().includes(searchTerm);
+      }
+      return false;
+    });
+
+    setFilteredUseds(filteredUseds);
+  };
+  
   // 장바구니에 상품을 추가하는 함수
   const cartList = (uc, quantity) => {
     console.log(uc);
@@ -134,15 +158,39 @@ const UsedProduct = () => {
       });
   };
 
+  const handleClick = () => {
+    alert("구매페이지로 이동합니다")
+    nav("/widgetcheckout");//, { state: { data:usedProductData } }
+  };
+
+  
   return (
     <div className="usedproduct-list">
-      <h2 className="section-title">
+      <h2 className="upsection-title">
         <span>중고</span>상품
       </h2>
-      <div className="product-grid">
+      <div className="upproduct-grid">
+          {/* <input
+          className="upform-control"
+          type="text"
+          placeholder="Search for..."
+          aria-label="Search for..."
+          aria-describedby="btnNavbarSearch"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          name="upsearch"
+          />
+          <button
+          className="btn upbtn-primary"
+          id="upbtnNavbarSearch"
+          onClick={handleSearch}
+          >
+          <FontAwesomeIcon icon={faMagnifyingGlass} />
+          </button> */}
+
         {useds.map((item, index) => {
           return (
-            <div key={index} className="product-grid-item">
+            <div key={index} className="upproduct-grid-item">
               <Link
                 to={`/usedpddetails`}
                 state={{
@@ -154,32 +202,34 @@ const UsedProduct = () => {
                   imageNum: item.usedFileSysname,
                 }}
               >
-                <div className="product-image-placeholder">
+                <div className="upproduct-image-placeholder">
                   {item.usedproductFileTblList[0]?.usedFileSysname ? (
                     <img
                       src={`usupload/${item.usedproductFileTblList[0].usedFileSysname}`}
                       alt={`상품 이미지 ${item.usedCode}`}
-                      className="product-image"
+                      className="upproduct-image"
                     />
                   ) : (
                     <div>이미지를 불러올 수 없습니다.</div>
                   )}
                 </div>
 
-                <h3 className="product-title">{item.usedName}</h3>
+                <h3 className="upproduct-title">{item.usedName}</h3>
               </Link>
-              <div className="product-price">{item.usedSeller} 원</div>
-              <div className="product-quantity">
+              <div className="upproduct-price">{item.usedSeller} 원</div>
+              <div className="upproduct-quantity">
                 <strong>제품내용 : {item.usedDetail}</strong>
               </div>
-              <div className="product-quantity">
-                <strong>제고 : {item.usedStock || "N/A"}</strong>
+              <div className="upproduct-quantity">
+                <strong>재고 : {item.usedStock || "N/A"}</strong>
               </div>
-              <div className="product-quantity">
+              <div className="upproduct-quantity">
                 <strong>등록일 : {df(item.usedDate)}</strong>
               </div>
-              <div className="btn-set">
-                <Link to={`/usedproductbuy/${item.usedCode}`}>구매하기</Link>
+              <div className="upbtn-set">
+                <Link to={`/widgetcheckout`} onClick={handleClick}>
+                  구매하기
+                </Link>
                 <Link
                   to={`/usedpddetails`}
                   state={{
@@ -217,7 +267,7 @@ const UsedProduct = () => {
         })}
       </div>
       {hasNextPage && (
-        <div ref={observerRef} className="loading-indicator">
+        <div ref={observerRef} className="uploading-indicator">
           더 많은 상품 불러오는 중...
         </div>
       )}
