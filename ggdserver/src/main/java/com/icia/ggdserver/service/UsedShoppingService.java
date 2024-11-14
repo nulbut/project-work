@@ -261,19 +261,5 @@ public class UsedShoppingService {
                 .collect(Collectors.toList());  // Stream을 List로 변환
     }
 
-    //후기 작성 메소드
-    public String insertupreview(UproductReviewTbl upreview) {
-        log.info("insertupreview()");
-        String result = null;
 
-        try{
-            urRepo.save(upreview);
-
-            result = "ok";
-        } catch (Exception e) {
-            e.printStackTrace();
-            result = "fail";
-        }
-        return result;
-    }
 }
