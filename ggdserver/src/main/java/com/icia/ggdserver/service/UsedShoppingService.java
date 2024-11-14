@@ -181,7 +181,7 @@ public class UsedShoppingService {
         if (pageNum == null) {
             pageNum = 1;
         }
-        int listCnt = 10;
+        int listCnt = 4;
 
         Pageable pb = PageRequest.of((pageNum - 1), listCnt,
                 Sort.Direction.DESC, "usedCode");
@@ -210,7 +210,7 @@ public class UsedShoppingService {
         }
 
         //페이지 당 보여질 중고상품 수
-        int listCnt = 15;
+        int listCnt = 4;
 
         //페이징 조건 처리 객체 생성
         Pageable pb = PageRequest.of((pageNum - 1), listCnt,
