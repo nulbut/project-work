@@ -11,11 +11,11 @@ import "./scss/Admin.scss";
 import Button from "../idealcup/Button";
 import logo from "../images/logo.svg";
 import UserList from "./UserList";
-import Review from "./Review";
 import Paging from "./Paging";
 import Notice from "./Notice";
 import Report from "./Report";
 import Directmessage from "./DirectMessage";
+import Preview from "./Preview";
 
 // function Admin() {
 //   const history = useHistory();
@@ -76,7 +76,7 @@ const Admin = () => {
         setViewName(<UserList />);
         break;
       case "후기 관리":
-        setViewName(<Review />);
+        setViewName(<Preview />);
         break;
       case "신고함":
         setViewName(<Report />);

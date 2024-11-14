@@ -7,6 +7,7 @@ import moment from "moment";
 import Table from "./Table";
 import Paging from "./Paging";
 import ReportView from "./ReportView";
+import "./scss/Admin.scss";
 
 const df = (date) => moment(date).format("YYYY-MM-DD");
 

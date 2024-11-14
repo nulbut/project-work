@@ -111,8 +111,9 @@ $success-color: #28a745;
     }
 
     .join-address {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
+      display: flex;
+      flex-direction: column; 
+      align-items: center; 
       gap: 15px;
       margin: 0;
 
@@ -122,6 +123,7 @@ $success-color: #28a745;
         font-size: 1rem;
         border: $input-border;
         border-radius: 4px;
+        text-align: center;
         
       }
 

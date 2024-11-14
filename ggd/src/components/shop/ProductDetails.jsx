@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import "./scss/ProductDetails.scss";
+import UrevList from "./UrevList";
+import UproductReview from "./UproductReview";
 
 const ProductDetails = () => {
   const [activeTab, setActiveTab] = useState("content");
@@ -10,12 +12,33 @@ const ProductDetails = () => {
   const [newProductData, setNewProductData] = useState(null); // 신상품 데이터 상태
   const [loading, setLoading] = useState(true); // 로딩 상태를 관리
   const [error, setError] = useState(null); // 에러 상태를 관리
-
+  const nid = sessionStorage.getItem("nid");
   // location.state에서 전달된 값들
   const { code } = location.state || {}; // type은 더 이상 사용하지 않음
 
   // 신상품 코드
   const productCode = code;
+  const usedCode = code || null; // `usedCode`가 존재하지 않으면 `null`
+  const uProduct = productCode;
+  // !== null ? "신상품" : "중고 상품"; - 중고상품 후기 빠짐, 신상품 후기만 작성 가능
+  const reviewCode = productCode !== null ? productCode : usedCode;
+
+  const [reviewList, setReviewList] = useState(null);
+
+  //후기 목록 가져오는 함수
+  const getReviewList = async () => {
+    console.log("getReviewList()");
+
+    await axios
+      .get("/getreview", { params: { productCode } })
+      .then((res) => {
+        console.log(res);
+        setReviewList(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   useEffect(() => {
     const fetchProductDetails = async () => {
@@ -36,6 +59,8 @@ const ProductDetails = () => {
 
         // 신상품 데이터를 상태에 저장
         setNewProductData(productResponse.data);
+
+        getReviewList(); //후기 목록 불러오기 함수 실행
       } catch (error) {
         console.error("데이터 로딩 실패", error);
         setError("상품 정보를 불러오는 데 실패했습니다."); // 에러 메시지 설정
@@ -109,6 +134,22 @@ const ProductDetails = () => {
   const handleTabClick = (tab) => {
     setActiveTab(tab); // 클릭한 탭을 활성화
   };
+
+  //후기 목록 작성
+  const rvList =
+    reviewList !== null ? (
+      reviewList.map((r, i) => {
+        return (
+          <div key={i}>
+            {r.unum} : {r.upreivew}
+          </div>
+        );
+      })
+    ) : (
+      <div>후기가 없습니다.</div>
+    );
+
+  console.log(rvList);
 
   return (
     <div className="product-detail">
@@ -206,7 +247,23 @@ const ProductDetails = () => {
           <div
             className={`tab-pane ${activeTab === "reviews" ? "active" : ""}`}
           >
-            <p>후기 내용이 여기 들어갑니다.</p>
+            <div className="Reviews">
+              {/* 후기 작성하는 부분 */}
+              {nid !== null ? (
+                <div className="ReviewWirte">
+                  <UproductReview
+                    reviewCode={reviewCode}
+                    nid={nid}
+                    uProduct={uProduct}
+                    getReviewList={getReviewList}
+                  />
+                </div>
+              ) : (
+                <></>
+              )}
+              {/* 후기 목록 보이는 부분 */}
+              <div className="ReviewList">{rvList}</div>
+            </div>
           </div>
           <div
             className={`tab-pane ${activeTab === "information" ? "active" : ""}`}

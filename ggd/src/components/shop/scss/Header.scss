@@ -10,20 +10,22 @@
   text-align: center;
 
   img {
-    height: 60px;
+    height: 40px;
   }
   .logo {
-    h2 {
-      display: flex;
-    }
+    // margin-top: 0;
+    // h2 {
+    //   // display: flex;
+    // }
   }
 
   .Content {
+    margin-left: 20px;
     text-decoration: none;
     color: wheat;
     float: left;
     // width: 300px;
-    overflow: hidden;
+    // overflow: hidden;
 
     // background-color: rgb(255, 255, 255);
     // border: 1px solid black;

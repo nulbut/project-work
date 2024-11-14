@@ -1,8 +1,10 @@
 package com.icia.ggdserver.service;
 
 import com.icia.ggdserver.entity.ProductTbl;
+import com.icia.ggdserver.entity.UproductReviewTbl;
 import com.icia.ggdserver.entity.UsedProductTbl;
 import com.icia.ggdserver.entity.UsedproductFileTbl;
+import com.icia.ggdserver.repository.UproductReviewTblRepository;
 import com.icia.ggdserver.repository.UsedFileRepository;
 import com.icia.ggdserver.repository.UsedTblRepository;
 import jakarta.servlet.http.HttpSession;
@@ -14,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -33,6 +36,8 @@ public class UsedShoppingService {
     @Autowired
     private UsedFileRepository usfRepo; // 중고 상품 이미지 레포지터리
 
+    @Autowired
+    private UproductReviewTblRepository urRepo;
 
     public String insertUsed(UsedProductTbl upt,
                              List<MultipartFile> files,
@@ -163,6 +168,9 @@ public class UsedShoppingService {
 
         usedproductTbl.setUsedproductFileTblList(ufList);
 
+        List<UproductReviewTbl> urList = urRepo.findByUCode(usedFileNum);
+        usedproductTbl.setUsedReviewTblList(urList);
+
         return usedproductTbl;
 
     }
@@ -173,7 +181,7 @@ public class UsedShoppingService {
         if (pageNum == null) {
             pageNum = 1;
         }
-        int listCnt = 10;
+        int listCnt = 4;
 
         Pageable pb = PageRequest.of((pageNum - 1), listCnt,
                 Sort.Direction.DESC, "usedCode");
@@ -202,7 +210,7 @@ public class UsedShoppingService {
         }
 
         //페이지 당 보여질 중고상품 수
-        int listCnt = 15;
+        int listCnt = 4;
 
         //페이징 조건 처리 객체 생성
         Pageable pb = PageRequest.of((pageNum - 1), listCnt,
@@ -228,10 +236,30 @@ public class UsedShoppingService {
         return res;
     }
 
+    //후기 작성 메소드
+    public String insertupreview(UproductReviewTbl upreview) {
+        log.info("insertupreview()");
+        String result = null;
+
+        try{
+            urRepo.save(upreview);
+
+            result = "ok";
+        } catch (Exception e) {
+            e.printStackTrace();
+            result = "fail";
+        }
+        return result;
+    }
+
+
+
     // 모든 상품 목록을 가져오는 메소드
     public List<UsedProductTbl> getAllUsedProducts() {
         // pdtRepo.findAll()은 Iterable<ProductTbl>을 반환하므로, 이를 List로 변환
         return StreamSupport.stream(ustRepo.findAll().spliterator(), false)
                 .collect(Collectors.toList());  // Stream을 List로 변환
     }
+
+
 }

@@ -1,6 +1,7 @@
 package com.icia.ggdserver.repository;
 
 import com.icia.ggdserver.entity.BproductTbl;
+import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Modifying;
@@ -20,9 +21,22 @@ public interface BproductRepository extends CrudRepository<BproductTbl,Long> {
     @Query(value = "delete from BproductTbl b where b.bpnum in :ids")
     void deleteAllByIds(@Param("ids") List<Long> ids);
 
+    BproductTbl findByBpnum(long productCode);
+
+
 
 
     //품절개수 세기
     long countByBcondition(String bcondition);
+
+
+    //주문건수를 bpwarstockdeduct에 담기
+    @Modifying
+    @Transactional
+    @Query("UPDATE BproductTbl b SET b.bpwarstockdeduct = :newValue WHERE b.bpnum = :bpnum")
+    void updateNewColumnFromAnotherTable(@Param("bpnum") Long bpnum, @Param("newValue") int newValue);
+
+
+
 
 }

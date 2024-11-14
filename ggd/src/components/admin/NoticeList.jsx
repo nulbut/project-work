@@ -9,6 +9,7 @@ import Button from "../idealcup/Button";
 import Nwrite from "./Nwrite";
 import { AdminPageContextStore } from "./AdminPageStatus";
 import NotieView from "./NoticeView";
+import "./scss/Admin.scss";
 
 const df = (date) => moment(date).format("YYYY-MM-DD");
 
@@ -81,11 +82,10 @@ const NoticeList = () => {
   return (
     <div className="Content">
       <h1>공지사항</h1>
-      <Button size="small" wsize="s-50" onClick={moveMenu}>
+      <Table hName={["제목", "날짜"]}>{list}</Table>
+      <Button wsize="s-40" onClick={moveMenu}>
         등록
       </Button>
-      <Table hName={["제목", "날짜"]}>{list}</Table>
-
       <Paging page={page} getList={getnList} />
     </div>
   );

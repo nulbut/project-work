@@ -4,6 +4,7 @@ import { AdminPageContextStore } from "./AdminPageStatus";
 import axios from "axios";
 import ReportList from "./ReportList";
 import Button from "../idealcup/Button";
+import "./scss/Admin.scss";
 
 const df = (date) => moment(date).format("YYYY-MM-DD");
 const ReportView = ({ rnum }) => {
@@ -65,26 +66,26 @@ const ReportView = ({ rnum }) => {
   };
 
   return (
-    <div className="Main">
-      <div className="Content">
-        <h1>신고함</h1>
 
-        {/* <div className="Data">{report.rnum}</div> */}
+      <div className="Content">
+
+        <div className="Report">
         <div className="Title">{report.rtitle}</div>
         <div className="Text">{df(report.rdate)}</div>
         <div className="ID">{report.ruid}</div>
+        </div>
         <div className="Text">{report.rcontent}</div>
 
         <div className="Buttons">
-          <Button wsize="s-10" onClick={viewChange}>
+          <Button wsize="s-50" onClick={viewChange}>
             뒤로가기
           </Button>
-          <Button wsize="s-10" color="red" onClick={updateReport}>
+          <Button wsize="s-50" color="red" onClick={updateReport}>
             처리완료
           </Button>
         </div>
       </div>
-    </div>
+
   );
 };
 

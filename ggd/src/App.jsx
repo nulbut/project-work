@@ -49,7 +49,7 @@ import { WidgetCheckoutPage } from "./components/toss/widget/WidgetCheckout";
 import { WidgetSuccessPage } from "./components/toss/widget/WidgetSuccess";
 import { PaymentCheckoutPage } from "./components/toss/payment/PaymentCheckout";
 import { PaymentSuccessPage } from "./components/toss/payment/PaymentSuccess";
-import { FailPage } from "./components/toss/Fail";
+import { FailPage } from "./components/toss/fail";
 import { BrandpayCheckoutPage } from "./components/toss/brandpay/BrandpayCheckout";
 import { BrandpaySuccessPage } from "./components/toss/brandpay/BrandpaySuccess";
 // import { PaymentBillingPage } from "./components/toss/payment/PaymentBilling";
@@ -64,9 +64,9 @@ import BProductStock from "./components/shop/BProductStock";
 import BInquiry from "./components/shop/BInquiry";
 import BOderHistory from "./components/shop/BOderHistory";
 import ResultPage from "./components/idealcup/ResultPage";
-import NmemberUpdate from "./components/shop/NmemberUpdate";
 import NmemberPasswordCheck from "./components/shop/NmemberPasswordCheck";
 import NMemberView from "./components/shop/NMemberView";
+import NmemberUpdate from "./components/shop/NmemberUpdate";
 import MemberSecession from "./components/shop/MemberSecession";
 import NMemberSecession from "./components/shop/NMemberSecession";
 import UsedProductDetails from "./components/shop/UsedProductDetails";
@@ -148,6 +148,15 @@ function App() {
     };
     setLoginState(newState);
   }, []);
+
+  //Bmypage 화면으로 전송하기
+  const [totalQuantity, setTotalQuantity] = useState(0);
+  const [totalAmounts, setTotalAmounts] = useState(0);
+
+  const handleOrderData = (quantity, amounts) => {
+    setTotalQuantity(quantity);
+    setTotalAmounts(amounts);
+  };
 
   return (
     <div className="App">

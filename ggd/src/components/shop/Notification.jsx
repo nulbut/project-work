@@ -62,7 +62,7 @@ const Notification = () => {
   }
   console.log(mitem);
   const getNotice = useCallback((nnum) => {
-    nav("NoticeView", { state: { nnum: nnum } });
+    nav("/Notification/NoticeView", { state: { nnum: nnum } });
   });
 
   useEffect(() => {

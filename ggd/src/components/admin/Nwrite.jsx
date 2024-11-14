@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "../idealcup/Button";
 import { AdminPageContextStore } from "./AdminPageStatus";
 import NoticeList from "./NoticeList";
+import "./scss/Admin.scss";
 
 const Nwrite = (props) => {
   //const nav = useNavigate();

@@ -7,6 +7,7 @@ import DmView from "./DmView";
 import moment from "moment";
 import Paging from "./Paging";
 import Table from "./Table";
+import "./scss/Admin.scss";
 
 const df = (date) => moment(date).format("YYYY-MM-DD");
 
@@ -66,7 +67,7 @@ const DmList = () => {
   }, []);
 
   return (
-    <div>
+    <div className="Content">
       <h1>1 : 1 문의함</h1>
       <Table hName={["번호", "제목", "ID", "날짜", "답변여부"]}>{list}</Table>
       <Paging page={page} getList={getdList} />

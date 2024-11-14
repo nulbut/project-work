@@ -141,5 +141,24 @@ public class PaymentService {
 
         orderRepo.save(order);
     }
+
+    public List<OrderWithDetailsDto> getStoreOrdersProc(Integer pageNum, String searchKeyword, String timeRange, String paymentMethod, String bid) {
+        log.info("getBoardList()");
+
+        List<OrderWithDetailsDto> res = orderRepo.findBySellerId(bid);
+
+        return res;
+
+
+    }
+
+
+    public int getTotalAmountByPaymentStatus(String paymentStatus) {
+        return orderRepo.sumTotalAmountByPaymentStatus(paymentStatus);
+    }
+
+    public long getOrderCountByPaymentStatus(String paymentStatus) {
+        return orderRepo.countOrdersByPaymentStatus(paymentStatus);
+    }
 }
 

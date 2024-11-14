@@ -24,5 +24,13 @@ public interface OrderRepository extends JpaRepository<OrderTbl, Long> {
             "WHERE od.seller_id = :sellerId")
     List<OrderWithDetailsDto> findBySellerId(@Param("sellerId") String sellerId);
 
+    // 결제 상태별로 총 결제 금액 합계 구하기
+    @Query("SELECT SUM(o.totalAmount) FROM OrderTbl o WHERE o.paymentStatus = :paymentStatus")
+    int sumTotalAmountByPaymentStatus(@Param("paymentStatus") String paymentStatus);
+
+    // 결제 상태별로 결제된 횟수 구하기
+    @Query("SELECT COUNT(o) FROM OrderTbl o WHERE o.paymentStatus = :paymentStatus")
+    long countOrdersByPaymentStatus(@Param("paymentStatus") String paymentStatus);
+
 
 }
