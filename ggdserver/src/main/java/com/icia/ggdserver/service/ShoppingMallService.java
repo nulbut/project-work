@@ -176,7 +176,7 @@ public class ShoppingMallService {
         if (pNum == null) {
             pNum = 1;
         }
-        int listCnt = 10;
+        int listCnt = 4;
 
         Pageable pb = PageRequest.of((pNum - 1), listCnt,
                 Sort.Direction.DESC, "bpnum");
@@ -204,7 +204,7 @@ public class ShoppingMallService {
         }
 
         //페이지 당 보여질 게시글 개수
-        int listCnt = 15;
+        int listCnt = 8;
 
         //페이징 조건 처리 객체 생성(Pageable)
         Pageable pb = PageRequest.of((pageNum - 1), listCnt,
