@@ -1,20 +1,25 @@
-import React from 'react';
-import classnames from "classnames";
+import React from "react";
+import classNames from "classnames";
+import "./scss/Button.scss";
 
 const Button = (props) => {
+  const {
+    children,
+    size = "medium",
+    color = "blue",
+    wsize = "basic",
+    outline,
+    ...rest
+  } = props;
 
-    const {
-        children,
-        ...rest
-    } = props;
-    return (
-        <button
-        classname={classnames("Button")}
-        {...rest}
-        >
-            {children}
-        </button>
-    );
+  return (
+    <button
+      className={classNames("Button", size, color, wsize, { outline })}
+      {...rest}
+    >
+      {children}
+    </button>
+  );
 };
 
 export default Button;

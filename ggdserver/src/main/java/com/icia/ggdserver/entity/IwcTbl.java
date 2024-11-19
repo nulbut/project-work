@@ -3,8 +3,10 @@ package com.icia.ggdserver.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
 @Table(name = "iwc_tbl")
@@ -42,5 +44,22 @@ public class IwcTbl {
     @Column(length = 1)
     private Integer iwcPublic;
 
+    @Column(length = 50)
+    private String iwcFirstImage;
 
+    @Column(length = 50)
+    private String iwcSecondImage;
+
+    @Column(length = 50)
+    private String iwcFirstName;
+
+    @Column(length = 50)
+    private String iwcSecondName;
+
+
+    @Transient
+    private List<IwcContentsTbl> bfList;
+
+    @Transient
+    private boolean liked;
 }

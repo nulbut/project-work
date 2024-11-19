@@ -5,12 +5,12 @@ import IdealcupHeader from "./IdealcupHeader";
 import IdealcupFooter from "./IdealcupFooter";
 import IdealcupSidebar from "./IdealcupSidebar";
 
-const IdealcupLayout = () => {
+const IdealcupLayout = (props) => {
   return (
     <div>
-      <IdealcupHeader />
+      <IdealcupHeader lstate={props.lstate} onLogout={props.onLogout} />
       <IdealcupSidebar />
-      <div className="body">
+      <div className="idealbody">
         <Outlet />
       </div>
       <IdealcupFooter />
