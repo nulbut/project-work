@@ -1,0 +1,166 @@
+// join.scss
+
+$input-padding: 10px;
+$input-border: 1px solid #ccc;
+$input-focus-border: #0066cc;
+$btn-hover-color: #f1f8ff;
+$primary-color: #007bff;
+$error-color: #e74c3c;
+$success-color: #28a745;
+
+.join-n-form {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+  h1 {
+    text-align: center;
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 20px;
+  }
+
+  .join-n-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    .join-input {
+      padding: $input-padding;
+      font-size: 1rem;
+      border: $input-border;
+      border-radius: 4px;
+      margin-bottom: 10px;
+      width: 100%;
+      box-sizing: border-box;
+
+      &:focus {
+        border-color: $input-focus-border;
+        outline: none;
+      }
+    }
+
+    .join-error {
+      color: $error-color;
+      font-size: 0.875rem;
+      margin-top: 5px;
+    }
+
+    .join-id,
+    .join-nickname,
+    .join-name,
+    .join-phonenumber,
+    .join-birthday {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .join-password {
+      display: flex;
+      flex-direction: column;
+
+      p {
+        margin: 5px 0;
+      }
+    }
+
+    .join-gender,
+    .join-email {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .join-gender {
+      flex-direction: row;
+      align-items: center;
+      gap: 15px;
+
+      input[type="radio"] {
+        margin-right: 8px;
+      }
+    }
+
+    .join-submit {
+      display: flex;
+      justify-content: center;
+
+      button {
+        padding: 12px 30px;
+        background-color: $primary-color;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 1.1rem;
+        cursor: pointer;
+
+        &:hover {
+          background-color: darken($primary-color, 10%);
+        }
+      }
+    }
+
+    // 버튼과 입력필드에서 공통 스타일 적용
+    button,
+    .join-input {
+      &:hover {
+        background-color: $btn-hover-color;
+      }
+    }
+
+    .join-address {
+      display: flex;
+      flex-direction: column; 
+      align-items: center; 
+      gap: 15px;
+      margin: 0;
+
+      .AddressInput {
+        width: 100%;
+        padding: $input-padding;
+        font-size: 1rem;
+        border: $input-border;
+        border-radius: 4px;
+        text-align: center;
+        
+      }
+
+      .join-address button {
+        width: auto;
+        padding: 8px 15px;
+        background-color: $primary-color;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+
+        &:hover {
+          background-color: darken($primary-color, 10%);
+        }
+      }
+    }
+
+    // 이메일 입력 필드
+    .join-email input {
+      width: 100%;
+    }
+
+    .join-email button {
+      margin-top: 10px;
+    }
+
+    // 이메일 인증 입력
+    .join-email input {
+      width: 70%;
+    }
+
+    .join-email .join-email-verify {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+  }
+}

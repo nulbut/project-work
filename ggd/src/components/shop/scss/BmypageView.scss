@@ -1,0 +1,163 @@
+.desc {
+  text-align: center;
+  .oder {
+    /* 주문현황 */
+
+    position: absolute;
+    width: 459px;
+    height: 118px;
+    left: 500px;
+    top: 231px;
+    border: 1px solid #3d3d3d;
+    .count {
+      margin-top: 0.1rem;
+    }
+  }
+  .delivery {
+    /* 배송현황 */
+
+    position: absolute;
+    width: 459px;
+    height: 118px;
+    left: 500px;
+    top: 381px;
+    // border: 1px solid #3d3d3d;
+    .count {
+      border: 1px solid #3d3d3d;
+    }
+  }
+  .cancellation {
+    /* 취소현황 */
+
+    position: absolute;
+    width: 459px;
+    height: 118px;
+    left: 500px;
+    top: 531px;
+    border: 1px solid #3d3d3d;
+    margin-top: 2rem;
+    .count {
+      margin-top: 0.1rem;
+    }
+  }
+  .revenue {
+    /* 정산금액 */
+
+    position: absolute;
+    width: 459px;
+    height: 118px;
+    left: 500px;
+    top: 741px;
+    border: 1px solid #3d3d3d;
+    .count {
+      margin-top: 0.1rem;
+    }
+  }
+  .inquiry {
+    /* 상품문의사항 */
+
+    position: absolute;
+    width: 120px;
+    height: 160px;
+    left: 1050px;
+    top: 228px;
+    img {
+      width: 150px;
+      left: 20px;
+
+      &:hover {
+        background-color: #42a5f5; // 호버 시 색상 변화
+      }
+    }
+  }
+  .stockstatus {
+    position: absolute;
+    width: 286px;
+    height: 218px;
+    left: 1300px;
+    top: 231px;
+    border: 1px solid #3d3d3d;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+    }
+
+    tr.tr {
+      // background-color: #4a90e2;
+      // color: #fff;
+      text-align: center;
+      font-size: 1.2rem;
+      // font-weight: bold;
+      height: 50px;
+    }
+
+    td {
+      padding: 1rem;
+      // border: 1px solid #ddd;
+      text-align: center;
+    }
+
+    .p1,
+    .p2 {
+      font-size: 1rem;
+      color: #333;
+      position: relative;
+    }
+
+    .p1 p,
+    .p2 p {
+      margin: 0 0 0.5rem;
+    }
+
+    .p1 div,
+    .p2 div {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .p1 div {
+      // background-color: #e74c3c;
+    }
+
+    .p2 div {
+      // background-color: #f39c12;
+    }
+
+    .p1 div:hover,
+    .p2 div:hover {
+      // background-color: #c0392b;
+    }
+  }
+
+  .announcement {
+    /* 공지사항 */
+    position: absolute;
+    width: 670.52px;
+    height: auto;
+    left: 1005.48px;
+    top: 500px;
+    border: 1px solid #3d3d3d;
+
+    .bnserNoticeListView {
+      position: relative;
+      width: 100%;
+      height: auto;
+      margin-top: 20px;
+
+      h1 {
+        display: inline-block;
+        &:hover {
+          background-color: #42a5f5;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,101 @@
+// 전체 페이지 스타일
+.success-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #f5f7fa;
+    font-family: Arial, sans-serif;
+  }
+  
+  // 결과 박스 섹션 스타일
+  .wcbox_section {
+    width: 100%;
+    max-width: 600px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    margin: 20px 0;
+    text-align: center;
+  
+    img {
+      margin-bottom: 20px;
+    }
+  
+    h2 {
+      font-size: 1.8rem;
+      color: #333333;
+      margin-bottom: 20px;
+    }
+  }
+  
+  // 결제 정보 그리드 스타일
+  .p-grid {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+  
+    .p-grid-col {
+      font-size: 1rem;
+      color: #555555;
+      padding: 8px 0;
+  
+      b {
+        font-weight: 600;
+      }
+    }
+  
+    .text--right {
+      font-weight: bold;
+      color: #0074e0;
+      text-align: right;
+    }
+  }
+  
+  // 버튼 스타일
+  .button {
+    width: 100%;
+    padding: 12px 0;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #0074e0;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+  
+    &:hover {
+      background-color: #005bb5;
+    }
+  
+    &.secondary {
+      background-color: #e8f3ff;
+      color: #1b64da;
+  
+      &:hover {
+        background-color: #cce4ff;
+      }
+    }
+  }
+  
+  // 응답 데이터 스타일
+  .response-data {
+    background-color: #f7f9fc;
+    padding: 20px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    color: #333333;
+    margin-top: 20px;
+    text-align: left;
+    overflow: auto;
+  
+    pre {
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+  }

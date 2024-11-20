@@ -1,0 +1,26 @@
+.FileData {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 10px 0;
+  margin-left: 1rem;
+  margin-right: 2rem;
+
+  .Down {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f8f8f8;
+    margin-left: 1rem;
+
+    img {
+      width: 50rem; // 원본 가로 크기 유지
+      height: auto; // 원본 세로 크기 유지
+      max-width: 100%; // 부모 요소를 넘지 않도록
+      max-height: 100%; // 부모 요소를 넘지 않도록
+    }
+  }
+}

@@ -1,4 +1,4 @@
-.container {
+.containerHome {
   font-size: 4em;
   position: fixed;
   display: flex;
@@ -13,27 +13,27 @@
     height: 100%;
     left: 0;
     background-color: rgb(237, 253, 144);
-    transition-property: all;
-    transition-duration: 1.5s;
-    transition-timing-function: ease;
+    transition: all 1.5s ease;
   }
 
   .left-content {
     text-decoration: none;
-    color: wheat;
+    transition: all 2s ease;
     position: fixed;
     width: 50%;
     height: 100%;
     left: 0;
     z-index: 99;
+    opacity: 0;
     &:hover ~ .left-container {
       width: 80%;
       background-color: rgb(252, 182, 240);
-      background-image: url("./images/game.svg");
+      background-image: url("./images/logo2.svg");
       background-repeat: no-repeat;
       background-position: center;
-      background-size: 50% 50%;
+      background-size: 60%;
     }
+
     &:hover ~ .right-container {
       width: 20%;
     }
@@ -41,6 +41,21 @@
     &:hover ~ .logo {
       opacity: 0;
     }
+    &:hover ~ .logotextleft {
+      display: block;
+    }
+    &:hover {
+      opacity: 1;
+    }
+  }
+  .logotextleft {
+    // display: none; /* 기본적으로 숨김 */
+    color: black;
+    position: absolute; /* 위치 조정 */
+    top: 90%;
+    left: 50%;
+
+    transform: translate(-50%, -50%); /* 가운데 정렬 */
   }
   .logo {
     width: 30%;
@@ -61,6 +76,7 @@
   }
 
   .right-content {
+    transition: all 2s ease;
     text-decoration: none;
     color: wheat;
     position: fixed;
@@ -68,10 +84,12 @@
     height: 100%;
     right: 0;
     z-index: 99;
+    opacity: 0;
+
     &:hover ~ .right-container {
       width: 80%;
       background-color: rgb(252, 182, 240);
-      background-image: url("./images/shop.svg");
+      background-image: url("./images/logo3.svg");
       background-repeat: no-repeat;
       background-position: center;
       background-size: 70% 70%;
@@ -79,5 +97,17 @@
     &:hover ~ .logo {
       opacity: 0;
     }
+    &:hover {
+      opacity: 1;
+    }
+  }
+  .logotextright {
+    // display: none; /* 기본적으로 숨김 */
+    color: black;
+    position: absolute; /* 위치 조정 */
+    top: 0%;
+    left: 50%;
+
+    transform: translate(-50%, 0%); /* 가운데 정렬 */
   }
 }

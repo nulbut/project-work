@@ -1,23 +1,26 @@
 .sidebar {
-  display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
   position: fixed;
-
   font-size: 0.8em;
-  background-color: #fef7ff;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  padding-top: 3%;
-  color: #202020;
-  height: 100%;
-  z-index: 99;
   width: 5%;
   white-space: pre-wrap;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: fixed;
+  top: 81px;
+  left: 0;
+  bottom: 0;
+  height: 92vh;
+  background-color: #fef7ff;
+  padding-top: 20px;
+  color: #202020;
+  z-index: 50;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  transition: 0.3s ease;
 }
-
 
 .sidebar-menu {
   width: 80%;

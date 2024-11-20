@@ -1,0 +1,188 @@
+.main-boderhistory {
+  box-sizing: content-box;
+  padding: 20px;
+  width: 100%;
+  font-family: Arial, sans-serif;
+
+  .title {
+    margin-bottom: 20px;
+    h4 {
+      font-size: 24px;
+      font-weight: bold;
+      color: #333;
+    }
+  }
+
+  .oderhistorysearch {
+    margin-top: 20px;
+
+    .oderhistorysearchtitle {
+      p {
+        font-size: 18px;
+        font-weight: bold;
+        color: #555;
+        margin-bottom: 10px;
+      }
+    }
+
+    .searchbox {
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+      label {
+        display: flex;
+        p {
+          width: 100px;
+          font-size: 14px;
+          font-weight: bold;
+          color: #777;
+        }
+
+        .time-filters,
+        .sort-filters {
+          margin: 0 10px;
+          .active {
+            background-color: #007bff;
+            color: white;
+          }
+          button {
+            padding: 10px 20px;
+            width: 90px;
+            margin: 0px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            color: black;
+            cursor: pointer;
+            background-color: #f5f5f5;
+            transition: background-color 0.3s ease, color 0.3s ease;
+          }
+          button:hover {
+            background-color: #dcdcdc;
+          }
+        }
+        div {
+          display: flex;
+          input[type="date"] {
+            padding: 5px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+          }
+        }
+      }
+    }
+  }
+}
+
+.selectsearch {
+  width: 80%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+
+  select {
+    width: 30%;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+  }
+
+  .input-group {
+    display: flex;
+
+    align-items: center;
+    gap: 5px;
+    flex-grow: 1;
+
+    .form-control {
+      font-size: 14px;
+      border: 1px solid #ddd;
+      flex-grow: 1;
+    }
+
+    .btn {
+      background-color: #28a745;
+      color: white;
+      padding: 6px 12px;
+
+      &:hover {
+        background-color: #218838;
+      }
+    }
+  }
+}
+.radio-group {
+  display: flex;
+  gap: 10px;
+
+  .radio-item {
+    display: flex;
+    align-items: center;
+    // gap: 10px;
+    margin-bottom: 10px;
+
+    input[type="radio"] {
+      margin-right: 8px;
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+    }
+
+    label {
+      font-size: 14px;
+      color: #333;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    input[type="radio"]:checked + label {
+      font-weight: bold;
+      color: #007bff;
+    }
+  }
+}
+.selectsearch {
+  width: 80%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+
+  select {
+    width: 30%;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+  }
+
+  .input-group {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    flex-grow: 1;
+
+    .form-control {
+      font-size: 14px;
+      border: 1px solid #ddd;
+      flex-grow: 1;
+    }
+
+    .btn {
+      background-color: #28a745;
+      color: white;
+      padding: 6px 12px;
+
+      &:hover {
+        background-color: #218838;
+      }
+    }
+  }
+}
+
+.qwer {
+  font-size: 0.8em;
+  table,
+  td,
+  th {
+    border: 1px solid black;
+    font-size: 0.9em;
+  }
+}

@@ -1,0 +1,308 @@
+.gameWrite {
+  flex: 1;
+  min-height: 250px;
+
+  width: 100%;
+  tr {
+    td {
+      width: auto;
+
+      .Input {
+        width: 100%;
+        height: 2.5rem;
+        font-size: 1.25rem;
+        line-height: 2.5rem;
+        border: none;
+        border-radius: 1.25rem;
+        background: rgb(230, 230, 230);
+        text-align: center;
+
+        &::placeholder {
+          color: rgb(85, 84, 84);
+        }
+
+        & + &,
+        & + .Button,
+        .Button + & {
+          margin-top: 1rem;
+        }
+      }
+
+      .FileInput {
+        text-align: center;
+        input {
+          width: 0;
+        }
+        .FileLabel {
+          width: 300px;
+          display: flex;
+        }
+      }
+    }
+    .radio-box {
+      text-align: left;
+    }
+    .radio {
+      width: auto;
+    }
+    .radio-ex {
+      color: rgb(85, 84, 84);
+    }
+    :first-child {
+    }
+    .cols {
+      width: 100%;
+    }
+  }
+  .Content-iw {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    background: white;
+    margin: 1.5rem auto;
+    border-radius: 5px;
+    padding-bottom: 2rem;
+    box-sizing: border-box;
+
+    .Textarea {
+      width: 100%;
+      height: 20rem;
+      font-size: 1.25rem;
+      line-height: 2.5rem;
+      border: none;
+      border-radius: 1.25rem;
+      background: rgb(230, 230, 230);
+      resize: none;
+      margin: 1rem auto;
+      padding: 10px 20px;
+      box-sizing: border-box;
+    }
+
+    .DataArea {
+      width: 80%;
+      background: rgb(247, 244, 244);
+      border-radius: 10px;
+      padding: 10px;
+      box-sizing: border-box;
+      display: flex;
+      flex-wrap: wrap;
+      flex-flow: column;
+
+      .Box {
+        width: 100%;
+        display: flex;
+        margin-bottom: 0.5rem;
+
+        .Title {
+          box-sizing: border-box;
+          text-align: center;
+          background: white;
+          border-radius: 5px;
+          padding: 5px 10px;
+          height: 3rem;
+          font-size: 1.25rem;
+          line-height: 2;
+          width: 20%;
+        }
+        .Data {
+          box-sizing: border-box;
+          text-align: center;
+          background: white;
+          border-radius: 5px;
+          padding: 5px 10px;
+          height: 3rem;
+          font-size: 1.25rem;
+          line-height: 2;
+          width: 20%;
+          flex: 1;
+          margin-left: 0.5rem;
+        }
+        .FileTitle {
+          box-sizing: border-box;
+          text-align: center;
+          background: white;
+          border-radius: 5px;
+          padding: 5px 10px;
+          height: 5rem;
+          font-size: 1.25rem;
+          line-height: 3.5;
+          width: 20%;
+        }
+        .FileData {
+          box-sizing: border-box;
+          text-align: center;
+          background: white;
+          border-radius: 5px;
+          padding: 5px 10px;
+          height: 5rem;
+          font-size: 1.25rem;
+          line-height: 3.5;
+          flex: 1;
+          margin-left: 0.5rem;
+          display: flex;
+          flex-direction: column;
+          overflow: auto;
+        }
+        .Down {
+          width: fit-content;
+          img {
+            vertical-align: middle;
+            margin-right: 0.5rem;
+            height: 50px;
+          }
+        }
+        .Down:hover {
+          cursor: pointer;
+          color: blue;
+        }
+      }
+
+      .Cont {
+        width: 100%;
+        height: 15rem;
+        box-sizing: border-box;
+        background: white;
+        border-radius: 5px;
+        padding: 5px 10px;
+        font-size: 1.25rem;
+        overflow: auto;
+      }
+    }
+  }
+
+  .Buttons {
+    width: 80%;
+    display: flex;
+    justify-content: center;
+
+    div + & {
+      margin-top: 2rem;
+    }
+
+    input + & {
+      margin-top: 2rem;
+    }
+  }
+}
+/* 전체 카드 스타일 */
+
+/* 테이블 스타일 */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-size: 1.3em;
+
+  /* 테이블 행 스타일 */
+  tr {
+    border-bottom: 1px solid #ddd;
+  }
+
+  /* 테이블 셀 스타일 */
+  td {
+    padding: 12px;
+    text-align: center;
+
+    /* 이미지 */
+    img {
+      width: 130px;
+      height: 130px;
+      object-fit: cover;
+      border-radius: 6px;
+    }
+
+    /* 입력 필드 */
+    input {
+      padding: 8px;
+      font-size: 1em;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    /* 삭제 버튼 */
+    button {
+      background-color: #ff4d4d;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      font-size: 1em;
+      cursor: pointer;
+      border-radius: 6px;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: #e60000;
+      }
+    }
+
+    /* 프로그레스바 */
+    progress {
+      width: 100%;
+      height: 10px;
+      border-radius: 5px;
+      background-color: #f1f1f1;
+
+      &[value] {
+        appearance: none;
+        height: 10px;
+        border-radius: 5px;
+
+        &::-webkit-progress-bar {
+          background-color: #f1f1f1;
+        }
+
+        &::-webkit-progress-value {
+          background-color: #007bff;
+        }
+
+        &::-moz-progress-bar {
+          background-color: #007bff;
+        }
+      }
+    }
+  }
+}
+
+/* 제출 버튼 스타일 */
+button {
+  background-color: #007bff;
+  color: white;
+  padding: 12px 20px;
+  font-size: 1em;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #0056b3;
+  }
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  table {
+    font-size: 0.9em;
+  }
+
+  td {
+    padding: 10px;
+  }
+
+  td img {
+    width: 40px;
+    height: 40px;
+  }
+
+  td input {
+    padding: 6px;
+  }
+
+  button {
+    width: 100%;
+    padding: 14px;
+  }
+}

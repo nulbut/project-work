@@ -1,0 +1,27 @@
+.DmInput {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-around;
+
+  .Input {
+    height: 2.5rem;
+    font-size: 1.25rem;
+    line-height: 2.5rem;
+    border: none;
+    border-radius: 1.25rem;
+    background: rgb(230, 230, 230);
+    text-align: center;
+    font-family: "Noto Serif KR", serif;
+    font-weight: weight;
+    font-style: normal;
+    margin: 1rem;
+
+    &:nth-child(1) {
+      width: 200%;
+    }
+
+    &::placeholder {
+      color: rgb(85, 84, 84);
+    }
+  }
+}
