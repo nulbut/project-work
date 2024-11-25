@@ -12,24 +12,19 @@ GooseGoodsDuck's(월드컵 & 굿즈샵)
 
 
 ## 기술 스택
- **프론트엔드**: React, HTML5, CSS3, SCSS
-- **백엔드**: Node.js, Express
-- **데이터베이스**: MySQL
-- **버전 관리**: Git, GitHub
-- **API**: 공공데이터 API, Google Charts, Daum Postcode API
-- **기타 라이브러리**: Axios, jQuery, Nivo
+
 -**개발산출문서** - Figma, GitHub
--**DB 관련** - MySql, DBeaver, JDBC Driver
--**IDE 도구** - IntelliJ, VS Code
--**웹 서버** - spring-boot-devtools, tomcat
--**언어** - JAVA , JavaScript, JSX, SCSS
--**주요 라이브러리** – jQuery, Gson(JSON), Axios, React Crypto-JS
+- **DB 관련** - MySql, DBeaver, JDBC Driver
+- **IDE 도구** - IntelliJ, VS Code
+- **웹 서버** - spring-boot-devtools, tomcat
+- **언어** - JAVA , JavaScript, JSX, SCSS
+- **주요 라이브러리** – jQuery, Gson(JSON), Axios, React Crypto-JS
 Font- Awesome, Nivo, moment, Classnames, SLF4J, Lombok
 react-daum-postcode
--**프레임워크** - Spring-boot, Bootstrap(reactstrap), Hibernate
--**API** - Toss Payments , JPA 
--**패키지 관리 도구** - Yarn 
--**버전 관리 도구** -Git
+- **프레임워크** - Spring-boot, Bootstrap(reactstrap), Hibernate
+- **API** - Toss Payments , JPA 
+- **패키지 관리 도구** - Yarn 
+- **버전 관리 도구** -Git
 
 
 ## 프로젝트 목표
