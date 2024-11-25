@@ -12,6 +12,12 @@ GooseGoodsDuck's(월드컵 & 굿즈샵)
 
 
 ## 기술 스택
+ **프론트엔드**: React, HTML5, CSS3, SCSS
+- **백엔드**: Node.js, Express
+- **데이터베이스**: MySQL
+- **버전 관리**: Git, GitHub
+- **API**: 공공데이터 API, Google Charts, Daum Postcode API
+- **기타 라이브러리**: Axios, jQuery, Nivo
 -**개발산출문서** - Figma, GitHub
 -**DB 관련** - MySql, DBeaver, JDBC Driver
 -**IDE 도구** - IntelliJ, VS Code
