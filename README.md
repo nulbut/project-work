@@ -38,8 +38,12 @@ react-daum-postcode
 
 3. 서버를 실행합니다:
    ``` bash
-npm start
+   npm start
 
-   ``` bash
-   npm install
+## 주의 사항
+Entity를 사용하여 테이블은 자동 생성되지만, 데이터베이스와 연결은 해주셔야 합니다.
+서버 측 application.properties 에서 spring.datasource.url 측 설정을 해결해주시면 됩니다.(username, password)포함
+메일이나 여러 API들은 직접 연결해주셔야 합니다.
+여러 팀원들이 작업하였기에 코드작성의 방식이 다소 다른점이 많습니다.
+
    
