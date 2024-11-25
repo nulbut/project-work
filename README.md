@@ -45,5 +45,6 @@ react-daum-postcode
 - 서버 측 application.properties 에서 spring.datasource.url 측 설정을 해결해주시면 됩니다.(username, password)포함
 - 메일이나 여러 API들은 직접 연결해주셔야 합니다.
 - 여러 팀원들이 작업하였기에 코드작성의 방식이 다소 다른점이 많습니다.
+- 서버측과 클라이언트측이 분리되어 CORS 에러가 발생할 수 있습니다. 본 프로젝트는 프록시를 사용하여 해결하였으나, 다른 문제가 발생할 수도 있습니다.
 
    
