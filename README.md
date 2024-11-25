@@ -13,7 +13,7 @@ GooseGoodsDuck's(월드컵 & 굿즈샵)
 
 ## 기술 스택
 
--**개발산출문서** - Figma, GitHub
+- **개발산출문서** - Figma, GitHub
 - **DB 관련** - MySql, DBeaver, JDBC Driver
 - **IDE 도구** - IntelliJ, VS Code
 - **웹 서버** - spring-boot-devtools, tomcat
